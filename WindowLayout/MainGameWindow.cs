@@ -205,16 +205,26 @@ namespace WindowLayout
                 background = Color.Crimson;
             else
                 background = Color.DarkBlue;
-            //sbírám sama sebe
-            if ((selected) && (CurrentMoving.BackColor != Color.Crimson))
+
+            int xpic = GetX(picture);
+            int ypic = GetY(picture);
+
+            if (Board.board[xpic, ypic] != null)
             {
-                int xpic = GetX(picture);
-                int ypic = GetY(picture);
+                if ((Board.board[xpic, ypic].isWhite != GameCourse.WhitePlays) && (picBoxes[xpic, ypic].BackColor == Color.Transparent))
+                    return;
+            }
+
+            //sbírám sama sebe
+            if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (picBoxes[xpic, ypic].BackColor != Color.Transparent))
+            {
+                
                 int x = GetX(CurrentMoving);
                 int y = GetY(CurrentMoving);
                 Pieces pic = GetPiece(CurrentMoving);
-
-                Board.board[xpic, ypic] = pic;
+                
+               
+                    Board.board[xpic, ypic] = pic;
                 Board.board[x, y] = null;
                 piecesPictures[x, y] = null;
                 if (piecesPictures[xpic, ypic] != null)
