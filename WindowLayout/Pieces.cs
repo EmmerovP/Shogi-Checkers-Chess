@@ -39,9 +39,9 @@ namespace WindowLayout
         {0,28,0,28,0,28,0,28},
         {0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0},
-        {0,7,0,7,0,7,0,7},
         {7,0,7,0,7,0,7,0},
         {0,7,0,7,0,7,0,7},
+        {7,0,7,0,7,0,7,0},
         };
           
     }
@@ -372,14 +372,6 @@ namespace WindowLayout
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.CheckersTake(x, y, chessboard);
-            Moves.Forward(x, y, chessboard);
-            Moves.ForwardLeft(x, y, chessboard);
-            Moves.ForwardRight(x, y, chessboard);
-            Moves.Left(x, y, chessboard);
-            Moves.Right(x, y, chessboard);
-            Moves.Back(x, y, chessboard);
-            Moves.BackLeft(x, y, chessboard);
-            Moves.BackRight(x, y, chessboard);
         }
 
     }

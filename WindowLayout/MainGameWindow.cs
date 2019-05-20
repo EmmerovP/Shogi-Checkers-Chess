@@ -216,6 +216,12 @@ namespace WindowLayout
 
                 Board.board[xpic, ypic] = pic;
                 Board.board[x, y] = null;
+                piecesPictures[x, y] = null;
+                if (piecesPictures[xpic, ypic] != null)
+                    piecesPictures[xpic, ypic].Dispose();
+                piecesPictures[xpic, ypic] = CurrentMoving;
+
+                GameCourse.WhitePlays = !GameCourse.WhitePlays;
 
 
                 CurrentMoving.BackColor = Color.Transparent;

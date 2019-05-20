@@ -45,6 +45,8 @@ namespace WindowLayout
         public static bool ValidMove(int x, int y, Pieces[,] chessboard)
         {
             int height = chessboard.GetLength(0);
+            if (enemyMet == true)
+                return false;
             int width = chessboard.GetLength(1);
             if ((x < 0) || (y < 0))
                 return false;
@@ -92,7 +94,7 @@ namespace WindowLayout
                 start_y.Add(y_starting_pos);
                 x--;
             }
-
+            enemyMet = false;
         }
 
 
@@ -110,6 +112,7 @@ namespace WindowLayout
                 start_y.Add(y_starting_pos);
                 y--;
             }
+            enemyMet = false;
         }
 
         public static void RightInfinity(int x, int y, Pieces[,] chessboard)
@@ -126,6 +129,7 @@ namespace WindowLayout
                 start_y.Add(y_starting_pos);
                 y++;
             }
+            enemyMet = false;
         }
 
         public static void BackInfinity(int x, int y, Pieces[,] chessboard)
@@ -142,6 +146,7 @@ namespace WindowLayout
                 start_y.Add(y_starting_pos);
                 x++;
             }
+            enemyMet = false;
         }
 
         public static void ForwardLeftInfinity(int x, int y, Pieces[,] chessboard)
@@ -160,6 +165,7 @@ namespace WindowLayout
                 x--;
                 y--;
             }
+            enemyMet = false;
         }
 
         public static void BackLeftInfinity(int x, int y, Pieces[,] chessboard)
@@ -178,6 +184,7 @@ namespace WindowLayout
                 x++;
                 y--;
             }
+            enemyMet = false;
         }
 
         public static void ForwardRightInfinity(int x, int y, Pieces[,] chessboard)
@@ -196,6 +203,7 @@ namespace WindowLayout
                 x--;
                 y++;
             }
+            enemyMet = false;
         }
 
         public static void BackRightInfinity(int x, int y, Pieces[,] chessboard)
@@ -214,6 +222,7 @@ namespace WindowLayout
                 x++;
                 y++;
             }
+            enemyMet = false;
         }
 
 
@@ -230,6 +239,7 @@ namespace WindowLayout
                 final_x.Add(x);
                 final_y.Add(y);
             }
+            enemyMet = false;
         }
 
         public static void Left(int x, int y, Pieces[,] chessboard)
@@ -244,6 +254,7 @@ namespace WindowLayout
                 final_x.Add(x);
                 final_y.Add(y);
             }
+            enemyMet = false;
         }
 
         public static void Right(int x, int y, Pieces[,] chessboard)
@@ -258,6 +269,7 @@ namespace WindowLayout
                 final_x.Add(x);
                 final_y.Add(y);
             }
+            enemyMet = false;
         }
 
         public static void Back(int x, int y, Pieces[,] chessboard)
@@ -272,6 +284,7 @@ namespace WindowLayout
                 final_x.Add(x);
                 final_y.Add(y);
             }
+            enemyMet = false;
         }
 
         public static void ForwardLeft(int x, int y, Pieces[,] chessboard)
@@ -288,6 +301,7 @@ namespace WindowLayout
                 final_x.Add(x);
                 final_y.Add(y);
             }
+            enemyMet = false;
         }
 
         public static void BackLeft(int x, int y, Pieces[,] chessboard)
@@ -304,6 +318,7 @@ namespace WindowLayout
                 final_x.Add(x);
                 final_y.Add(y);
             }
+            enemyMet = false;
         }
 
         public static void ForwardRight(int x, int y, Pieces[,] chessboard)
@@ -320,6 +335,7 @@ namespace WindowLayout
                 final_x.Add(x);
                 final_y.Add(y);
             }
+            enemyMet = false;
         }
 
         public static void BackRight(int x, int y, Pieces[,] chessboard)
@@ -336,6 +352,7 @@ namespace WindowLayout
                 final_x.Add(x);
                 final_y.Add(y);
             }
+            enemyMet = false;
         }
 
 
@@ -353,6 +370,7 @@ namespace WindowLayout
                 final_x.Add(x - 2);
                 final_y.Add(y + 1);
             }
+            enemyMet = false;
 
             if (ValidMove(x - 2, y - 1, chessboard))
             {
@@ -362,6 +380,7 @@ namespace WindowLayout
                 final_x.Add(x - 2);
                 final_y.Add(y - 1);
             }
+            enemyMet = false;
         }
 
         public static void HorseBackward(int x, int y, Pieces[,] chessboard)
@@ -377,6 +396,7 @@ namespace WindowLayout
                 final_x.Add(x + 2);
                 final_y.Add(y + 1);
             }
+            enemyMet = false;
 
             if (ValidMove(x + 2, y - 1, chessboard))
             {
@@ -386,6 +406,7 @@ namespace WindowLayout
                 final_x.Add(x + 2);
                 final_y.Add(y - 1);
             }
+            enemyMet = false;
         }
         //zbytek tahů pro šachy
 
@@ -402,6 +423,7 @@ namespace WindowLayout
                 final_x.Add(x + 1);
                 final_y.Add(y - 2);
             }
+            enemyMet = false;
 
             if (ValidMove(x - 1, y - 2, chessboard))
             {
@@ -411,6 +433,7 @@ namespace WindowLayout
                 final_x.Add(x - 1);
                 final_y.Add(y - 2);
             }
+            enemyMet = false;
 
             if (ValidMove(x - 1, y + 2, chessboard))
             {
@@ -420,6 +443,7 @@ namespace WindowLayout
                 final_x.Add(x - 1);
                 final_y.Add(y + 2);
             }
+            enemyMet = false;
 
             if (ValidMove(x + 1, y + 2, chessboard))
             {
@@ -429,6 +453,7 @@ namespace WindowLayout
                 final_x.Add(x + 1);
                 final_y.Add(y + 2);
             }
+            enemyMet = false;
 
             if (ValidMove(x + 2, y + 1, chessboard))
             {
@@ -438,6 +463,7 @@ namespace WindowLayout
                 final_x.Add(x + 2);
                 final_y.Add(y + 1);
             }
+            enemyMet = false;
 
             if (ValidMove(x + 2, y - 1, chessboard))
             {
@@ -447,6 +473,7 @@ namespace WindowLayout
                 final_x.Add(x + 2);
                 final_y.Add(y - 1);
             }
+            enemyMet = false;
         }
 
         //tady budou tahy, co se provádějí speciálně při vyhození figurky
@@ -454,43 +481,67 @@ namespace WindowLayout
 
         public static void CheckersTake(int x, int y, Pieces[,] chessboard)
         {
+            //tady jdou mimo šachovnici
+
             int x_starting_pos = x;
             int y_starting_pos = y;
 
-            if ((chessboard[x + 1, y + 1] != null) && (ValidMove(x + 2, y + 2, chessboard)))
+            bool enemy = false;
+
+            if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] != null) && (Board.board[x + 1, y + 1].isWhite == !GameCourse.WhitePlays) && (ValidMove(x + 2, y + 2, chessboard)))
             {
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
 
                 final_x.Add(x + 2);
                 final_y.Add(y + 2);
-            }
 
-            if ((chessboard[x + 1, y - 1] != null) && (ValidMove(x + 2, y - 2, chessboard)))
+                enemy = true;
+            }
+            enemyMet = false;
+
+            if ((ValidMove(x + 1, y - 1, chessboard)) && (Board.board[x + 1, y - 1] != null) &&(Board.board[x + 1, y - 1].isWhite == !GameCourse.WhitePlays) && (ValidMove(x + 2, y - 2, chessboard)))
             {
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
 
                 final_x.Add(x + 2);
                 final_y.Add(y - 2);
-            }
 
-            if ((chessboard[x - 1, y + 1] != null) && (ValidMove(x - 2, y + 2, chessboard)))
+                enemy = true;
+            }
+            enemyMet = false;
+
+            if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] != null) && (Board.board[x - 1, y + 1].isWhite == !GameCourse.WhitePlays) && (ValidMove(x - 2, y + 2, chessboard)))
             {
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
 
                 final_x.Add(x - 2);
                 final_y.Add(y + 2);
-            }
 
-            if ((chessboard[x - 1, y - 1] != null) && (ValidMove(x - 2, y - 2, chessboard)))
+                enemy = true;
+            }
+            enemyMet = false;
+
+            if ((ValidMove(x - 1, y - 1, chessboard)) && (Board.board[x - 1, y - 1] != null) && (Board.board[x - 1, y - 1].isWhite == !GameCourse.WhitePlays) && (ValidMove(x - 2, y - 2, chessboard)))
             {
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
 
                 final_x.Add(x - 2);
                 final_y.Add(y - 2);
+
+                enemy = true;
+            }
+            enemyMet = false;
+
+            if (!enemy)
+            {
+                BackLeft(x, y, chessboard);
+                BackRight(x, y, chessboard);
+                ForwardLeft(x, y, chessboard);
+                ForwardRight(x, y, chessboard);
             }
         }
 
@@ -511,6 +562,7 @@ namespace WindowLayout
                     final_y.Add(y - 1);
                 }
             }
+            enemyMet = false;
 
             if (ValidMove(x-1, y+1, chessboard))
             {
@@ -523,6 +575,7 @@ namespace WindowLayout
                     final_y.Add(y + 1);
                 }
             }
+            enemyMet = false;
 
         }
 
@@ -543,6 +596,7 @@ namespace WindowLayout
                     final_y.Add(y + 1);
                 }
             }
+            enemyMet = false;
 
             if (ValidMove(x+1, y-1, chessboard))
             {
@@ -555,6 +609,7 @@ namespace WindowLayout
                     final_y.Add(y - 1);
                 }
             }
+            enemyMet = false;
         }
 
         // o dvě pole dopředu - pro první pozici pěšců
@@ -564,25 +619,28 @@ namespace WindowLayout
             int y_starting_pos = y;
 
             x--;
-            if (ValidMove(x, y, chessboard))
+            
+            if ((ValidMove(x, y, chessboard))&&(Board.board[x,y]==null))
             {
                 final_x.Add(x);
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
             }
+            enemyMet = false;
 
             if (x != (chessboard.GetLength(0) - 3))
                 return;
 
             x--;
-            if (ValidMove(x, y, chessboard))
+            if ((ValidMove(x, y, chessboard))&& (Board.board[x, y] == null))
             {
                 final_x.Add(x);
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
             }
+            enemyMet = false;
         }
 
         public static void TwoBackward(int x, int y, Pieces[,] chessboard)
@@ -591,25 +649,27 @@ namespace WindowLayout
             int y_starting_pos = y;
 
             x++;
-            if (ValidMove(x, y, chessboard))
+            if ((ValidMove(x, y, chessboard)) && (Board.board[x, y] == null))
             {
                 final_x.Add(x);
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
             }
+            enemyMet = false;
 
             if (x != 2)
                 return;
 
             x++;
-            if (ValidMove(x, y, chessboard))
+            if ((ValidMove(x, y, chessboard)) && (Board.board[x, y] == null))
             {
                 final_x.Add(x);
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
             }
+            enemyMet = false;
         }
     }
 }
