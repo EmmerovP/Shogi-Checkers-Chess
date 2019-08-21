@@ -195,6 +195,7 @@ namespace WindowLayout
                 }
             }
         }
+
         //souřadnice z location
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
         {

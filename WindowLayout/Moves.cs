@@ -488,54 +488,72 @@ namespace WindowLayout
 
             bool enemy = false;
 
-            if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] != null) && (Board.board[x + 1, y + 1].isWhite == !GameCourse.WhitePlays) && (ValidMove(x + 2, y + 2, chessboard)))
+            //funkční model, vypadá to
+            if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] != null))
             {
-                start_x.Add(x_starting_pos);
-                start_y.Add(y_starting_pos);
+                enemyMet = false;
+                if ((ValidMove(x + 2, y + 2, chessboard))&&(Board.board[x + 2, y + 2] == null))
+                {
+                    start_x.Add(x_starting_pos);
+                    start_y.Add(y_starting_pos);
 
-                final_x.Add(x + 2);
-                final_y.Add(y + 2);
+                    final_x.Add(x + 2);
+                    final_y.Add(y + 2);
 
-                enemy = true;
+                    enemy = true;
+                    enemyMet = false;
+                }
             }
-            enemyMet = false;
 
-            if ((ValidMove(x + 1, y - 1, chessboard)) && (Board.board[x + 1, y - 1] != null) &&(Board.board[x + 1, y - 1].isWhite == !GameCourse.WhitePlays) && (ValidMove(x + 2, y - 2, chessboard)))
+            if ((ValidMove(x + 1, y - 1, chessboard)) && (Board.board[x + 1, y - 1] != null))
             {
-                start_x.Add(x_starting_pos);
-                start_y.Add(y_starting_pos);
+                enemyMet = false;
+                if ((ValidMove(x + 2, y - 2, chessboard)) && (Board.board[x + 2, y - 2] == null))
+                {
+                    start_x.Add(x_starting_pos);
+                    start_y.Add(y_starting_pos);
 
-                final_x.Add(x + 2);
-                final_y.Add(y - 2);
+                    final_x.Add(x + 2);
+                    final_y.Add(y - 2);
 
-                enemy = true;
+                    enemy = true;
+                    enemyMet = false;
+                }
             }
-            enemyMet = false;
 
-            if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] != null) && (Board.board[x - 1, y + 1].isWhite == !GameCourse.WhitePlays) && (ValidMove(x - 2, y + 2, chessboard)))
+            if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] != null))
             {
-                start_x.Add(x_starting_pos);
-                start_y.Add(y_starting_pos);
+                enemyMet = false;
+                if ((ValidMove(x - 2, y + 2, chessboard)) && (Board.board[x - 2, y + 2] == null))
+                {
+                    start_x.Add(x_starting_pos);
+                    start_y.Add(y_starting_pos);
 
-                final_x.Add(x - 2);
-                final_y.Add(y + 2);
+                    final_x.Add(x - 2);
+                    final_y.Add(y + 2);
 
-                enemy = true;
+                    enemy = true;
+                    enemyMet = false;
+                }
             }
-            enemyMet = false;
 
-            if ((ValidMove(x - 1, y - 1, chessboard)) && (Board.board[x - 1, y - 1] != null) && (Board.board[x - 1, y - 1].isWhite == !GameCourse.WhitePlays) && (ValidMove(x - 2, y - 2, chessboard)))
+            if ((ValidMove(x - 1, y - 1, chessboard)) && (Board.board[x - 1, y - 1] != null))
             {
-                start_x.Add(x_starting_pos);
-                start_y.Add(y_starting_pos);
+                enemyMet = false;
+                if ((ValidMove(x - 2, y - 2, chessboard)) && (Board.board[x - 2, y - 2] == null))
+                {
+                    start_x.Add(x_starting_pos);
+                    start_y.Add(y_starting_pos);
 
-                final_x.Add(x - 2);
-                final_y.Add(y - 2);
+                    final_x.Add(x - 2);
+                    final_y.Add(y - 2);
 
-                enemy = true;
+                    enemy = true;
+                    enemyMet = false;
+                }
             }
-            enemyMet = false;
 
+            //snaží se vyhodit figurky! Přepsat
             if (!enemy)
             {
                 BackLeft(x, y, chessboard);
