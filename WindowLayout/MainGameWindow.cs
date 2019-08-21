@@ -210,13 +210,14 @@ namespace WindowLayout
             int xpic = GetX(picture);
             int ypic = GetY(picture);
 
+            //???
             if (Board.board[xpic, ypic] != null)
             {
                 if ((Board.board[xpic, ypic].isWhite != GameCourse.WhitePlays) && (picBoxes[xpic, ypic].BackColor == Color.Transparent))
                     return;
             }
 
-            //sbírám sama sebe
+            //přesun figurky
             if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (picBoxes[xpic, ypic].BackColor != Color.Transparent))
             {
                 
@@ -224,8 +225,37 @@ namespace WindowLayout
                 int y = GetY(CurrentMoving);
                 Pieces pic = GetPiece(CurrentMoving);
                 
+                //vyhazování při dámě
+                
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+                {
+                    if (Math.Abs(xpic - x) == 2)
+                    {
+                        int xpiece, ypiece;
+                        if (xpic > x)
+                        {
+                            xpiece = x + 1;
+                        }
+                        else
+                        {
+                            xpiece = xpic + 1;
+                        }
+
+                        if (ypic > y)
+                        {
+                            ypiece = y + 1;
+                        }
+                        else
+                        {
+                            ypiece = ypic + 1;
+                        }
+                        Board.board[xpiece, ypiece] = null;
+                        piecesPictures[xpiece, ypiece].Dispose();
+                    }
+                }
+                
                
-                    Board.board[xpic, ypic] = pic;
+                Board.board[xpic, ypic] = pic;
                 Board.board[x, y] = null;
                 piecesPictures[x, y] = null;
                 if (piecesPictures[xpic, ypic] != null)
@@ -242,12 +272,16 @@ namespace WindowLayout
                 DeleteHighlight();
 
             }
+
+            //pokud je nějaké políčko selected, ale vybrané políčko není správný cíl vybrané figurky, stane se toto 
             else if (selected)
             {
                 DeleteHighlight();
                 CurrentMoving.BackColor = Color.Transparent;
                 selected = false;
             }
+
+            //uživatel klikne na políčko s figurkou, kdy není nic vybráno
             else if (!selected)
             {
                 DeleteHighlight();

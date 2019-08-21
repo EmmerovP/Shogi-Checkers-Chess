@@ -499,10 +499,10 @@ namespace WindowLayout
 
                     final_x.Add(x + 2);
                     final_y.Add(y + 2);
-
                     enemy = true;
-                    enemyMet = false;
                 }
+                
+                enemyMet = false;
             }
 
             if ((ValidMove(x + 1, y - 1, chessboard)) && (Board.board[x + 1, y - 1] != null))
@@ -517,8 +517,10 @@ namespace WindowLayout
                     final_y.Add(y - 2);
 
                     enemy = true;
-                    enemyMet = false;
+                   
                 }
+                enemyMet = false;
+
             }
 
             if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] != null))
@@ -533,8 +535,10 @@ namespace WindowLayout
                     final_y.Add(y + 2);
 
                     enemy = true;
-                    enemyMet = false;
+
                 }
+                enemyMet = false;
+
             }
 
             if ((ValidMove(x - 1, y - 1, chessboard)) && (Board.board[x - 1, y - 1] != null))
@@ -549,18 +553,60 @@ namespace WindowLayout
                     final_y.Add(y - 2);
 
                     enemy = true;
-                    enemyMet = false;
+
                 }
             }
 
-            //snaží se vyhodit figurky! Přepsat
+            enemyMet = false;
+
+
             if (!enemy)
             {
-                BackLeft(x, y, chessboard);
-                BackRight(x, y, chessboard);
-                ForwardLeft(x, y, chessboard);
-                ForwardRight(x, y, chessboard);
+                if ((ValidMove(x - 1, y - 1, chessboard)) && (Board.board[x - 1, y - 1] == null))
+                {
+                    start_x.Add(x_starting_pos);
+                    start_y.Add(y_starting_pos);
+
+                    final_x.Add(x - 1);
+                    final_y.Add(y - 1);
+                }
+                enemyMet = false;
+
+                if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] == null))
+                {
+                    start_x.Add(x_starting_pos);
+                    start_y.Add(y_starting_pos);
+
+                    final_x.Add(x + 1);
+                    final_y.Add(y + 1);
+                }
+                enemyMet = false;
+
+
+                if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] == null))
+                {
+                    start_x.Add(x_starting_pos);
+                    start_y.Add(y_starting_pos);
+
+                    final_x.Add(x - 1);
+                    final_y.Add(y + 1);
+                }
+                enemyMet = false;
+
+
+                if ((ValidMove(x + 1, y - 1, chessboard)) && (Board.board[x + 1, y - 1] == null))
+                {
+                    start_x.Add(x_starting_pos);
+                    start_y.Add(y_starting_pos);
+
+                    final_x.Add(x + 1);
+                    final_y.Add(y - 1);
+                }
+                enemyMet = false;
+
             }
+
+
         }
 
         //vyhazování dolních pěšců
