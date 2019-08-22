@@ -178,8 +178,8 @@ namespace WindowLayout
             for (int i = 0; i < Moves.final_x.Count; i++)
             {
                 picBoxes[Moves.final_x[i], Moves.final_y[i]].BackColor = Color.Yellow;
-                if (piecesPictures[Moves.final_x[i], Moves.final_y[i]]!=null)
-                piecesPictures[Moves.final_x[i], Moves.final_y[i]].BackColor = Color.Yellow;
+                if (piecesPictures[Moves.final_x[i], Moves.final_y[i]] != null)
+                    piecesPictures[Moves.final_x[i], Moves.final_y[i]].BackColor = Color.Yellow;
             }
         }
 
@@ -190,8 +190,8 @@ namespace WindowLayout
                 for (int j = 0; j < picBoxes.GetLength(1); j++)
                 {
                     picBoxes[i, j].BackColor = Color.Transparent;
-                    if (piecesPictures[i,j]!=null)
-                    piecesPictures[i,j].BackColor = Color.Transparent;
+                    if (piecesPictures[i, j] != null)
+                        piecesPictures[i, j].BackColor = Color.Transparent;
                 }
             }
         }
@@ -210,6 +210,14 @@ namespace WindowLayout
             int xpic = GetX(picture);
             int ypic = GetY(picture);
 
+            bool musttake = false;
+
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+            {
+                musttake = Gameclass.CurrentGame.MustTake();
+            }
+
+
             //???
             if (Board.board[xpic, ypic] != null)
             {
@@ -220,46 +228,58 @@ namespace WindowLayout
             //přesun figurky
             if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (picBoxes[xpic, ypic].BackColor != Color.Transparent))
             {
-                
+
                 int x = GetX(CurrentMoving);
                 int y = GetY(CurrentMoving);
                 Pieces pic = GetPiece(CurrentMoving);
-                
+
                 //vyhazování při dámě
-                
+
                 if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
                 {
-                    if (Math.Abs(xpic - x) == 2)
+                    if (musttake)
                     {
-                        int xpiece, ypiece;
-                        if (xpic > x)
+                        if (Math.Abs(xpic - x) == 2)
                         {
-                            xpiece = x + 1;
-                        }
-                        else
-                        {
-                            xpiece = xpic + 1;
-                        }
+                            int xpiece, ypiece;
+                            if (xpic > x)
+                            {
+                                xpiece = x + 1;
+                            }
+                            else
+                            {
+                                xpiece = xpic + 1;
+                            }
 
-                        if (ypic > y)
-                        {
-                            ypiece = y + 1;
+                            if (ypic > y)
+                            {
+                                ypiece = y + 1;
+                            }
+                            else
+                            {
+                                ypiece = ypic + 1;
+                            }
+                            Board.board[xpiece, ypiece] = null;
+                            piecesPictures[xpiece, ypiece].Dispose();
                         }
                         else
                         {
-                            ypiece = ypic + 1;
+                            DeleteHighlight();
+                            CurrentMoving.BackColor = Color.Transparent;
+                            selected = false;
+                            return;
                         }
-                        Board.board[xpiece, ypiece] = null;
-                        piecesPictures[xpiece, ypiece].Dispose();
                     }
                 }
-                
-               
+
+
                 Board.board[xpic, ypic] = pic;
                 Board.board[x, y] = null;
                 piecesPictures[x, y] = null;
                 if (piecesPictures[xpic, ypic] != null)
+                {
                     piecesPictures[xpic, ypic].Dispose();
+                }
                 piecesPictures[xpic, ypic] = CurrentMoving;
 
                 GameCourse.WhitePlays = !GameCourse.WhitePlays;

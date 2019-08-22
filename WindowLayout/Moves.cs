@@ -30,6 +30,16 @@ namespace WindowLayout
         public static List<int> start_x = new List<int>();
         public static List<int> start_y = new List<int>();
 
+        public class CoordinatesCopy
+        {
+            public List<int> final_x = new List<int>();
+            public List<int> final_y = new List<int>();
+
+            public List<int> start_x = new List<int>();
+            public List<int> start_y = new List<int>();
+
+        }
+
 
         public static void EmptyCoordinates()
         {
@@ -38,6 +48,30 @@ namespace WindowLayout
 
             start_x.Clear();
             start_y.Clear();
+        }
+
+        public static void CoordinatesReturn(CoordinatesCopy cp)
+        {
+            final_x.AddRange(cp.final_x);
+            final_y.AddRange(cp.final_y);
+
+            start_x.AddRange(cp.start_x);
+            start_y.AddRange(cp.start_y);
+        }
+
+        public static CoordinatesCopy MakeCopyEmpty()
+        {
+            CoordinatesCopy cp = new CoordinatesCopy();
+
+            cp.final_x.AddRange(final_x);
+            cp.final_y.AddRange(final_y);
+
+            cp.start_x.AddRange(start_x);
+            cp.start_y.AddRange(start_y);
+
+            EmptyCoordinates();
+
+            return cp;
         }
 
         public static bool enemyMet = false;
@@ -479,7 +513,7 @@ namespace WindowLayout
         //tady budou tahy, co se provádějí speciálně při vyhození figurky
         //dáma - o dvě políčka šikmo, pěšec šikmo... Nojo, ale nedaly by se použít tahy běžné? Již napsané výše?
 
-        public static void CheckersTake(int x, int y, Pieces[,] chessboard)
+        public static bool CheckersTake(int x, int y, Pieces[,] chessboard)
         {
             //tady jdou mimo šachovnici
 
@@ -606,6 +640,7 @@ namespace WindowLayout
 
             }
 
+            return enemy;
 
         }
 
