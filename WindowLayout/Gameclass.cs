@@ -59,8 +59,8 @@ namespace WindowLayout
                 return true;
             }
 
-            //whiteCheck - zda je šach na bílou či ne
-            public static bool KingCheck(bool whiteCheck)
+            //na konci tahu řekne zda šach či ne
+            public static bool KingCheck()
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
@@ -70,7 +70,7 @@ namespace WindowLayout
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i,j] != null)&&(Board.board[i, j].isWhite != whiteCheck))
+                        if ((Board.board[i,j] != null)&&(Board.board[i, j].isWhite == GameCourse.WhitePlays))
                         {
                             GameCourse.Generate(Board.board[i, j], false, i, j);
                         }
@@ -80,7 +80,7 @@ namespace WindowLayout
                 for (int i = 0; i < Moves.final_x.Count; i++)
                 {
                     Pieces piece = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                    if ((piece != null)&&(piece.GetNumber() == 0) && (piece.isWhite == whiteCheck))
+                    if ((piece != null)&&(piece.GetNumber() == 0)&&(GameCourse.WhitePlays != piece.isWhite))
                     {
                         Moves.EmptyCoordinates();
                         Moves.CoordinatesReturn(cp);

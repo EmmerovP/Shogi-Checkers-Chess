@@ -228,6 +228,7 @@ namespace WindowLayout
             //přesun figurky
             if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (picBoxes[xpic, ypic].BackColor != Color.Transparent))
             {
+                label2.Visible = false;
 
                 int x = GetX(CurrentMoving);
                 int y = GetY(CurrentMoving);
@@ -282,6 +283,15 @@ namespace WindowLayout
                 }
                 piecesPictures[xpic, ypic] = CurrentMoving;
 
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+                {
+                    if (Gameclass.CurrentGame.KingCheck())
+                    {
+                        label2.Text = "Šach!";
+                        label2.Visible = true;
+                    }
+                }
+
                 GameCourse.WhitePlays = !GameCourse.WhitePlays;
 
 
@@ -295,9 +305,12 @@ namespace WindowLayout
                 {
                     if (Gameclass.CurrentGame.CheckersEnd())
                     {
+                        label2.Text = "Konec hry.";
                         label2.Visible = true;
                     }
                 }
+
+
 
             }
 
@@ -319,10 +332,10 @@ namespace WindowLayout
                 if (background == Color.DarkBlue)
                 {
                     GameCourse.Generate(GetPiece(picture), true, GetX(picture), GetY(picture));
-                    Gameclass.CurrentGame.KingCheck(GameCourse.WhitePlays);
+
                     Highlight();
                 }
-            }
+            }             
         }
 
         //animac
