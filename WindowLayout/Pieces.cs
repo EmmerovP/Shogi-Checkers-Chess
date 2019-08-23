@@ -43,7 +43,8 @@ namespace WindowLayout
         {0,7,0,7,0,7,0,7},
         {7,0,7,0,7,0,7,0},
         };
-          
+
+
     }
 
 
@@ -163,6 +164,11 @@ namespace WindowLayout
     //ještě shogi... Ještě dáma...
     class ShogiKing : Pieces
     {
+        public override int GetNumber()
+        {
+            return 0;
+        }
+
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.Forward(x, y, chessboard);

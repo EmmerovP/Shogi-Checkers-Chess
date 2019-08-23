@@ -21,6 +21,9 @@ namespace WindowLayout
             if (delete)
                 Moves.EmptyCoordinates();
             piece.GenerateMoves(x, y, Board.board);
+
+            
+
         }
     }
 

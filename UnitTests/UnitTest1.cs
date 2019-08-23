@@ -4,7 +4,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GameAppTests
 {
-
     [TestClass]
     public class UnitTest1
     {

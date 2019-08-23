@@ -291,6 +291,14 @@ namespace WindowLayout
                 CurrentMoving.BringToFront();
                 DeleteHighlight();
 
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+                {
+                    if (Gameclass.CurrentGame.CheckersEnd())
+                    {
+                        label2.Visible = true;
+                    }
+                }
+
             }
 
             //pokud je nějaké políčko selected, ale vybrané políčko není správný cíl vybrané figurky, stane se toto 
@@ -311,6 +319,7 @@ namespace WindowLayout
                 if (background == Color.DarkBlue)
                 {
                     GameCourse.Generate(GetPiece(picture), true, GetX(picture), GetY(picture));
+                    Gameclass.CurrentGame.KingCheck(GameCourse.WhitePlays);
                     Highlight();
                 }
             }

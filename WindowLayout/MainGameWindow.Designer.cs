@@ -42,12 +42,13 @@
             this.SelectLocMulti = new System.Windows.Forms.Button();
             this.SelectWebMulti = new System.Windows.Forms.Button();
             this.GamePieces = new System.Windows.Forms.ImageList(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SelectChess
             // 
             this.SelectChess.Location = new System.Drawing.Point(136, 145);
-            this.SelectChess.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectChess.Margin = new System.Windows.Forms.Padding(2);
             this.SelectChess.Name = "SelectChess";
             this.SelectChess.Size = new System.Drawing.Size(76, 44);
             this.SelectChess.TabIndex = 0;
@@ -58,7 +59,7 @@
             // SelectCheckers
             // 
             this.SelectCheckers.Location = new System.Drawing.Point(250, 145);
-            this.SelectCheckers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectCheckers.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCheckers.Name = "SelectCheckers";
             this.SelectCheckers.Size = new System.Drawing.Size(79, 44);
             this.SelectCheckers.TabIndex = 1;
@@ -79,7 +80,7 @@
             // SelectShogi
             // 
             this.SelectShogi.Location = new System.Drawing.Point(368, 145);
-            this.SelectShogi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectShogi.Margin = new System.Windows.Forms.Padding(2);
             this.SelectShogi.Name = "SelectShogi";
             this.SelectShogi.Size = new System.Drawing.Size(79, 44);
             this.SelectShogi.TabIndex = 3;
@@ -90,7 +91,7 @@
             // SelectCustomGame
             // 
             this.SelectCustomGame.Location = new System.Drawing.Point(249, 203);
-            this.SelectCustomGame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectCustomGame.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCustomGame.Name = "SelectCustomGame";
             this.SelectCustomGame.Size = new System.Drawing.Size(79, 49);
             this.SelectCustomGame.TabIndex = 4;
@@ -101,7 +102,7 @@
             // AboutGame
             // 
             this.AboutGame.Location = new System.Drawing.Point(249, 339);
-            this.AboutGame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AboutGame.Margin = new System.Windows.Forms.Padding(2);
             this.AboutGame.Name = "AboutGame";
             this.AboutGame.Size = new System.Drawing.Size(79, 43);
             this.AboutGame.TabIndex = 5;
@@ -112,7 +113,7 @@
             // AboutAuthor
             // 
             this.AboutAuthor.Location = new System.Drawing.Point(250, 404);
-            this.AboutAuthor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AboutAuthor.Margin = new System.Windows.Forms.Padding(2);
             this.AboutAuthor.Name = "AboutAuthor";
             this.AboutAuthor.Size = new System.Drawing.Size(79, 43);
             this.AboutAuthor.TabIndex = 6;
@@ -123,7 +124,7 @@
             // Credits
             // 
             this.Credits.Location = new System.Drawing.Point(250, 468);
-            this.Credits.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Credits.Margin = new System.Windows.Forms.Padding(2);
             this.Credits.Name = "Credits";
             this.Credits.Size = new System.Drawing.Size(79, 43);
             this.Credits.TabIndex = 7;
@@ -134,7 +135,7 @@
             // SelectSingleplayer
             // 
             this.SelectSingleplayer.Location = new System.Drawing.Point(136, 273);
-            this.SelectSingleplayer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectSingleplayer.Margin = new System.Windows.Forms.Padding(2);
             this.SelectSingleplayer.Name = "SelectSingleplayer";
             this.SelectSingleplayer.Size = new System.Drawing.Size(76, 46);
             this.SelectSingleplayer.TabIndex = 8;
@@ -146,7 +147,7 @@
             // SelectLocMulti
             // 
             this.SelectLocMulti.Location = new System.Drawing.Point(249, 273);
-            this.SelectLocMulti.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectLocMulti.Margin = new System.Windows.Forms.Padding(2);
             this.SelectLocMulti.Name = "SelectLocMulti";
             this.SelectLocMulti.Size = new System.Drawing.Size(80, 46);
             this.SelectLocMulti.TabIndex = 9;
@@ -158,7 +159,7 @@
             // SelectWebMulti
             // 
             this.SelectWebMulti.Location = new System.Drawing.Point(370, 273);
-            this.SelectWebMulti.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectWebMulti.Margin = new System.Windows.Forms.Padding(2);
             this.SelectWebMulti.Name = "SelectWebMulti";
             this.SelectWebMulti.Size = new System.Drawing.Size(76, 46);
             this.SelectWebMulti.TabIndex = 10;
@@ -214,11 +215,22 @@
             this.GamePieces.Images.SetKeyName(40, "41.gif");
             this.GamePieces.Images.SetKeyName(41, "42.gif");
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(533, 498);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Konec hry.";
+            this.label2.Visible = false;
+            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(604, 538);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.SelectWebMulti);
             this.Controls.Add(this.SelectLocMulti);
             this.Controls.Add(this.SelectSingleplayer);
@@ -230,10 +242,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SelectCheckers);
             this.Controls.Add(this.SelectChess);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainGameWindow";
             this.Text = "Šachy, shogi, dáma";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -251,6 +264,7 @@
         private System.Windows.Forms.Button SelectLocMulti;
         private System.Windows.Forms.Button SelectWebMulti;
         private System.Windows.Forms.ImageList GamePieces;
+        private System.Windows.Forms.Label label2;
     }
 }
 
