@@ -50,6 +50,42 @@ namespace WindowLayout
             start_y.Clear();
         }
 
+        public static void RemoveAt(int i)
+        {
+            final_x.RemoveAt(i);
+            final_y.RemoveAt(i);
+
+            start_x.RemoveAt(i);
+            start_y.RemoveAt(i);
+        }
+
+        public static void ReplaceAt(int i)
+        {
+            final_x[i] = -1;
+            final_y[i] = -1;
+
+            start_x[i] = -1;
+            start_y[i] = -1;
+        }
+
+        public static bool Equals(int i)
+        {
+            if (i == -1)
+                return true;
+            else
+                return false;
+        }
+
+        public static void Delete()
+        {
+            final_x.RemoveAll(Equals);
+            final_y.RemoveAll(Equals);
+
+            start_x.RemoveAll(Equals);
+            start_y.RemoveAll(Equals);
+
+        }
+
         public static void CoordinatesReturn(CoordinatesCopy cp)
         {
             final_x.AddRange(cp.final_x);

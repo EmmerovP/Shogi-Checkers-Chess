@@ -59,7 +59,7 @@ namespace WindowLayout
                 return true;
             }
 
-            //na konci tahu řekne zda šach či ne
+            //na konci tahu řekne zda šach či ne - funguje
             public static bool KingCheck()
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
@@ -72,7 +72,7 @@ namespace WindowLayout
                     {
                         if ((Board.board[i,j] != null)&&(Board.board[i, j].isWhite == GameCourse.WhitePlays))
                         {
-                            GameCourse.Generate(Board.board[i, j], false, i, j);
+                            GameCourse.GenerateMoves(Board.board[i, j], false, i, j);
                         }
                     }
                 }
@@ -95,28 +95,19 @@ namespace WindowLayout
             }
 
 
-            //zda je král v matu
-            /*
-            public static bool KingCheckmate()
-            {
-                //musí se projít celá šachovnice, všechny tahy, zda nezmění šach...
-                for (int i = 0; i < Board.board.GetLength(0); i++)
-                {
-                    for (int j = 0; j < Board.board.GetLength(1); j++)
-                    {
-                        if ((Board.board[i, j] != null) && (GameCourse.WhitePlays == Board.board[i, j].isWhite))
-                        {
-                            GameCourse.Generate(Board.board[i, j], true, i, j);
+            //potřebujeme kontrolu tahů - zda tam, kam táhneme, můžeme vůbec táhnout
 
-                            foreach (int element in Moves.final_x)
-                            {
-                                Board.board.[final_x, final_y] = Board.board.
-                            }
-                        }
-                    }
-                }
-            }
-            */
+
+
+
+
+
+
+
+
+
+
+
 
             //zda je král vůbec na šachovnici - pro shogi
             public static bool KingOut()
