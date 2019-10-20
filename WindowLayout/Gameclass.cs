@@ -13,6 +13,7 @@ namespace WindowLayout
             public static GameType gameType;
             public static PlayerType playerType;
 
+            //pro dámu, zda musí vzít určitou figurku
             public static bool MustTake()
             {
                 for (int i = 0; i < Board.board.GetLength(0); i++)

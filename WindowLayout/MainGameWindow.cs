@@ -228,11 +228,64 @@ namespace WindowLayout
             //přesun figurky
             if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (picBoxes[xpic, ypic].BackColor != Color.Transparent))
             {
-                label2.Visible = false;
-
                 int x = GetX(CurrentMoving);
                 int y = GetY(CurrentMoving);
                 Pieces pic = GetPiece(CurrentMoving);
+
+                label2.Visible = false;
+
+                //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+                {
+                    var taken = Board.board[xpic, ypic];
+                    Board.board[xpic, ypic] = pic;
+                    Board.board[x, y] = null;
+                    GameCourse.WhitePlays = !GameCourse.WhitePlays;
+
+                    //prohodí se strany, zkontroluje se šach
+                    if (Gameclass.CurrentGame.KingCheck())
+                    {
+                        GameCourse.WhitePlays = !GameCourse.WhitePlays;
+                        label2.Text = "Nelze!";
+                        label2.Visible = true;
+                        Board.board[xpic, ypic] = taken;
+                        Board.board[x, y] = pic;
+                        return;
+                    }
+                    //šach není, tah se může provést
+                    else
+                    {
+                        piecesPictures[x, y] = null;
+                        if (piecesPictures[xpic, ypic] != null)
+                        {
+                            piecesPictures[xpic, ypic].Dispose();
+                        }
+                        piecesPictures[xpic, ypic] = CurrentMoving;
+
+                        GameCourse.WhitePlays = !GameCourse.WhitePlays;
+
+                        //zkontrolujeme, zda nepříteli nedáváme šach
+                        if (Gameclass.CurrentGame.KingCheck())
+                        {
+                            label2.Text = "Šach!";
+                            label2.Visible = true;
+                        }
+
+                        CurrentMoving.BackColor = Color.Transparent;
+                        selected = false;
+                        CurrentMoving.Location = picture.Location;
+                        CurrentMoving.BringToFront();
+                        DeleteHighlight();
+
+                        GameCourse.WhitePlays = !GameCourse.WhitePlays;
+
+                        return;
+
+                    }
+
+                }
+
+
 
                 //vyhazování při dámě
 
