@@ -269,6 +269,10 @@ namespace WindowLayout
                         {
                             label2.Text = "Šach!";
                             label2.Visible = true;
+                            if (Gameclass.CurrentGame.CheckMate())
+                            {
+                                label2.Text = "Šach mat! Konec!";
+                            }
                         }
 
                         CurrentMoving.BackColor = Color.Transparent;
@@ -336,14 +340,22 @@ namespace WindowLayout
                 }
                 piecesPictures[xpic, ypic] = CurrentMoving;
 
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+
+                //nejsem si jistá, zda to sem někdy dojde...?
+
+
+                /*if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
                 {
                     if (Gameclass.CurrentGame.KingCheck())
                     {
                         label2.Text = "Šach!";
                         label2.Visible = true;
+                        Gameclass.CurrentGame.CheckMate();
                     }
+                                        
                 }
+
+    */
 
                 GameCourse.WhitePlays = !GameCourse.WhitePlays;
 
@@ -416,11 +428,6 @@ namespace WindowLayout
                         int b = j - border;
 
                         location[a, b] = new Point(j * boxsize, i * boxsize);
-
-
-
-
-
 
                         int piece = chessboard[a, b];
                         if (piece != 0)

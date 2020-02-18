@@ -95,20 +95,38 @@ namespace WindowLayout
                 return false;
             }
 
+            //kontrola šachu matu?
+            //provádí se jen v případě, že je šach
+            //zkusím využít té featury programu, že se vygenerují pouze tahy, které jsou možné udělat
+            //takže pokud se nám nepodaří vygenerovat žádný tah pro žádnou figurku, je to šach mat
+            public static bool CheckMate()
+            {
+                Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
-            //potřebujeme kontrolu tahů - zda tam, kam táhneme, můžeme vůbec táhnout
+                GameCourse.WhitePlays = !GameCourse.WhitePlays;
 
+                //teď musíme pohnout každou (naší) figurkou... a zjišťovat zda se změní šach mat...   
+                for (int i = 0; i < Board.board.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    {
+                        if ((Board.board[i, j] != null) && (GameCourse.WhitePlays == Board.board[i, j].isWhite))
+                        {
+                            GameCourse.Generate(Board.board[i,j], true, i,j);
 
+                            if (Moves.final_x.Count != 0)
+                            {
+                                GameCourse.WhitePlays = !GameCourse.WhitePlays;
+                                return false;
+                            }
 
+                        }
+                    }
+                }
 
-
-
-
-
-
-
-
-
+                //žádný způsob jak se vynout šachu jsme nezjistili, končíme hru
+                return true;
+            }
 
             //zda je král vůbec na šachovnici - pro shogi
             public static bool KingOut()

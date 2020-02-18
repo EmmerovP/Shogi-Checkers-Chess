@@ -10,7 +10,8 @@ namespace WindowLayout
     {
         //Musí se odečíst jednička
         //soubor    
-        
+
+        //základní rozestavení šachových figurek
         public static int[,] chess = new int[,] {
         {24,25,26,22,23,26,25,24},
         {27,27,27,27,27,27,27,27},
@@ -21,9 +22,19 @@ namespace WindowLayout
         {6,6,6,6,6,6,6,6},
         {3,4,5,1,2,5,4,3}
         };
-        
 
-
+        /*//šach mat - ukázková šachovnice
+        public static int[,] chess = new int[,] {
+        {24,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,27,0,0,0,0,0},
+        {2,0,0,0,0,0,0,0},
+        {0,2,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,22},
+        }; */
+                     
         public static int[,] shogi = new int[,] {
         {39,37,35,34,29,34,35,37,39},
         {0,30,0,0,0,0,0,32,0},

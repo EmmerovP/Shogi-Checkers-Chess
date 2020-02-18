@@ -76,13 +76,13 @@ namespace WindowLayout
                 return false;
         }
 
-        public static void Delete()
+        public static void Delete(int i)
         {
-            final_x.RemoveAll(Equals);
-            final_y.RemoveAll(Equals);
+            final_x.RemoveAll(item => item == i);
+            final_y.RemoveAll(item => item == i);
 
-            start_x.RemoveAll(Equals);
-            start_y.RemoveAll(Equals);
+            start_x.RemoveAll(item => item == i);
+            start_y.RemoveAll(item => item == i);
 
         }
 
@@ -114,9 +114,11 @@ namespace WindowLayout
         //okej, pokud bych pracovala s polem objektů, stačí poslední nulu asi přepsat na null
         public static bool ValidMove(int x, int y, Pieces[,] chessboard)
         {
-            int height = chessboard.GetLength(0);
+            //především pro "nekonečné" tahy figurek, co se zastaví, když potkají nepřátelskou figurku
             if (enemyMet == true)
                 return false;
+
+            int height = chessboard.GetLength(0);
             int width = chessboard.GetLength(1);
             if ((x < 0) || (y < 0))
                 return false;
@@ -686,6 +688,9 @@ namespace WindowLayout
             int x_starting_pos = x;
             int y_starting_pos = y;
 
+            //somehow they don't add one side of skew, this might help?
+            enemyMet = false;
+
             if (ValidMove(x-1, y-1, chessboard))
             {
                 if (chessboard[x - 1, y - 1] != null)
@@ -719,6 +724,9 @@ namespace WindowLayout
         {
             int x_starting_pos = x;
             int y_starting_pos = y;
+
+            //somehow they don't add one side of skew, this might help?
+            enemyMet = false;
 
             if (ValidMove(x+1, y+1, chessboard))
             {
@@ -762,6 +770,10 @@ namespace WindowLayout
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
             }
+            else
+            {
+                return;
+            }
             enemyMet = false;
 
             if (x != (chessboard.GetLength(0) - 3))
@@ -778,6 +790,7 @@ namespace WindowLayout
             enemyMet = false;
         }
 
+        // o dvě pole dopředu - pro první pozici pěšců (druhá strana)
         public static void TwoBackward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
@@ -790,6 +803,10 @@ namespace WindowLayout
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
+            }
+            else
+            {
+                return;
             }
             enemyMet = false;
 

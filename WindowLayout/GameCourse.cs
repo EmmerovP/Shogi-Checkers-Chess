@@ -15,6 +15,8 @@ namespace WindowLayout
 
         }
 
+        //vnitřní funkce, která jen vygeneruje tahy 
+
         public static void GenerateMoves(Pieces piece, bool delete, int x, int y)
         {
             //nejprve si smaže seznam tahů
@@ -24,6 +26,7 @@ namespace WindowLayout
             piece.GenerateMoves(x, y, Board.board);
         }
 
+        //main generating function
         public static void Generate(Pieces piece, bool delete, int x, int y)
         {
             GenerateMoves(piece, delete, x, y);
@@ -38,6 +41,7 @@ namespace WindowLayout
                 Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];
                 Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
 
+                //kontrola šachu - do seznamu remove dá ty tahy, jež mají šach
                 if (Gameclass.CurrentGame.KingCheck())
                 {
                     remove.Add(i);
@@ -47,9 +51,14 @@ namespace WindowLayout
                 Board.board[Moves.final_x[i], Moves.final_y[i]] = takenpiece;
             }
 
+            for (int i = 0; i < remove.Count; i++)
+            {
+                Moves.ReplaceAt(remove[i]);
+            }
+
+            Moves.Delete(-1);          
 
             WhitePlays = !WhitePlays;
-
         }
 
     }
