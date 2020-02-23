@@ -375,7 +375,14 @@ namespace WindowLayout
                     }
                 }
 
-
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+                {
+                    if (Gameclass.CurrentGame.KingOut())
+                    {
+                        label2.Text = "Konec hry.";
+                        label2.Visible = true;
+                    }
+                }
 
             }
 

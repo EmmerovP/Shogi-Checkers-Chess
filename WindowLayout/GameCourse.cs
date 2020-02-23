@@ -31,34 +31,38 @@ namespace WindowLayout
         {
             GenerateMoves(piece, delete, x, y);
 
-            WhitePlays = !WhitePlays;
-
-            List<int> remove = new List<int>();
-
-            for (int i = 0; i < Moves.final_x.Count; i++)
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
             {
-                Pieces takenpiece = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];
-                Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
+                WhitePlays = !WhitePlays;
 
-                //kontrola šachu - do seznamu remove dá ty tahy, jež mají šach
-                if (Gameclass.CurrentGame.KingCheck())
+                List<int> remove = new List<int>();
+
+                for (int i = 0; i < Moves.final_x.Count; i++)
                 {
-                    remove.Add(i);
+                    Pieces takenpiece = Board.board[Moves.final_x[i], Moves.final_y[i]];
+                    Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];
+                    Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
+
+                    //kontrola šachu - do seznamu remove dá ty tahy, jež mají šach
+                    if (Gameclass.CurrentGame.KingCheck())
+                    {
+                        remove.Add(i);
+                    }
+
+                    Board.board[Moves.start_x[i], Moves.start_y[i]] = Board.board[Moves.final_x[i], Moves.final_y[i]];
+                    Board.board[Moves.final_x[i], Moves.final_y[i]] = takenpiece;
                 }
 
-                Board.board[Moves.start_x[i], Moves.start_y[i]] = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                Board.board[Moves.final_x[i], Moves.final_y[i]] = takenpiece;
+                for (int i = 0; i < remove.Count; i++)
+                {
+                    Moves.ReplaceAt(remove[i]);
+                }
+
+                Moves.Delete(-1);
+
+                WhitePlays = !WhitePlays;
             }
 
-            for (int i = 0; i < remove.Count; i++)
-            {
-                Moves.ReplaceAt(remove[i]);
-            }
-
-            Moves.Delete(-1);          
-
-            WhitePlays = !WhitePlays;
         }
 
     }
