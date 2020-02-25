@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowLayout
+namespace ShogiCheckersChess
 {
     public static class GameStarts
     {
         //Musí se odečíst jednička
         //soubor    
 
-        //základní rozestavení šachových figurek
+        /*//základní rozestavení šachových figurek
         public static int[,] chess = new int[,] {
         {23,24,25,21,22,25,24,23},
         {26,26,26,26,26,26,26,26},
@@ -21,22 +21,22 @@ namespace WindowLayout
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {5,5,5,5,5,5,5,5},
         {2,3,4,0,1,4,3,2}
-        };
+        };*/
 
-        /*//šach mat - ukázková šachovnice
+        //šach mat - ukázková šachovnice
         public static int[,] chess = new int[,] {
         {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,5,-1,-1,-1},
+        {-1,5,5,5,5,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {1,-1,-1,-1,-1,-1,-1,-1},
-        {1,-1,-1,-1,26,-1,-1,-1},
+        {1,-1,-1,26,26,26,26,-1},
         {-1,-1,-1,-1,-1,-1,-1,21},
-        };*/
+        };
 
          
-        //základní rozestavení figurek shogi
+        /*//základní rozestavení figurek shogi
         public static int[,] shogi = new int[,] {
         {38,36,34,33,28,33,34,36,38},
         {-1,29,-1,-1,-1,-1,-1,31,-1},
@@ -47,6 +47,19 @@ namespace WindowLayout
         {19,19,19,19,19,19,19,19,19},
         {-1,10,-1,-1,-1,-1,-1,8,-1},
         {17,15,13,12,7,12,13,15,17}
+        };*/
+
+        //testovací rozestavění figurek shogi
+        public static int[,] shogi = new int[,] {
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,19,8,-1,13,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,38,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,40,-1,31,29,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
         };
 
         /*//základní rozestavení figurek dámy

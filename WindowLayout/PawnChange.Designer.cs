@@ -1,4 +1,4 @@
-﻿namespace WindowLayout
+﻿namespace ShogiCheckersChess
 {
     partial class PawnChange
     {
@@ -72,6 +72,7 @@
             this.pictureBox2.Size = new System.Drawing.Size(70, 70);
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click_1);
             // 
             // pictureBox3
             // 
@@ -83,6 +84,7 @@
             this.pictureBox3.Size = new System.Drawing.Size(70, 70);
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click_1);
             // 
             // pictureBox4
             // 
@@ -94,10 +96,10 @@
             this.pictureBox4.Size = new System.Drawing.Size(70, 70);
             this.pictureBox4.TabIndex = 4;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click_1);
             // 
             // button1
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Location = new System.Drawing.Point(192, 143);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -119,7 +121,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Name = "PawnChange";
-            this.Text = "PawnChange";
+            this.Text = "Změna pěšce";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

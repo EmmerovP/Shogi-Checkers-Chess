@@ -1,4 +1,4 @@
-﻿namespace WindowLayout
+﻿namespace ShogiCheckersChess
 {
     partial class MainGameWindow
     {

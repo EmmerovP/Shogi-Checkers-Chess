@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowLayout
+namespace ShogiCheckersChess
 {
     class Gameclass
     {
@@ -137,7 +137,7 @@ namespace WindowLayout
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (Board.board[i, j].GetNumber() == 0) && (Generating.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board.board[i, j] != null) && ((Board.board[i, j].GetNumber() == 7)||(Board.board[i, j].GetNumber() == 28)) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
                             return false;
                         }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowLayout
+namespace ShogiCheckersChess
 {
     public partial class PawnChange : Form
     {
@@ -17,75 +17,51 @@ namespace WindowLayout
             InitializeComponent();
         }
 
-        public enum Piece
-        {
-            Queen,
-            Rook,
-            Bishop,
-            Horse,
-            None
-        }
-
-        public static Piece Chosen = Piece.None;
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             pictureBox1.BackColor = Color.AliceBlue;
             pictureBox2.BackColor = Color.Transparent;
             pictureBox3.BackColor = Color.Transparent;
             pictureBox4.BackColor = Color.Transparent;
-            Chosen = Piece.Queen;
             button1.Visible = true;
+            button1.DialogResult = DialogResult.OK;
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void pictureBox2_Click_1(object sender, EventArgs e)
         {
             pictureBox1.BackColor = Color.Transparent;
             pictureBox2.BackColor = Color.AliceBlue;
             pictureBox3.BackColor = Color.Transparent;
             pictureBox4.BackColor = Color.Transparent;
-            Chosen = Piece.Rook;
             button1.Visible = true;
+            button1.DialogResult = DialogResult.Cancel;
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void pictureBox3_Click_1(object sender, EventArgs e)
         {
             pictureBox1.BackColor = Color.Transparent;
             pictureBox2.BackColor = Color.Transparent;
             pictureBox3.BackColor = Color.AliceBlue;
             pictureBox4.BackColor = Color.Transparent;
-            Chosen = Piece.Horse;
             button1.Visible = true;
+            button1.DialogResult = DialogResult.Retry;
         }
 
-        private void pictureBox4_Click(object sender, EventArgs e)
+        private void pictureBox4_Click_1(object sender, EventArgs e)
         {
             pictureBox1.BackColor = Color.Transparent;
             pictureBox2.BackColor = Color.Transparent;
             pictureBox3.BackColor = Color.Transparent;
             pictureBox4.BackColor = Color.AliceBlue;
-            Chosen = Piece.Bishop;
             button1.Visible = true;
+            button1.DialogResult = DialogResult.Abort;
         }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //ok, cancel, abort, retry
-            switch (Chosen)
-            {
-                case Piece.Queen:
-                    button1.DialogResult = DialogResult.OK;
-                    break;
-                case Piece.Rook:
-                    button1.DialogResult = DialogResult.Cancel;
-                    break;
-                case Piece.Bishop:
-                    button1.DialogResult = DialogResult.Abort;
-                    break;
-                case Piece.Horse:
-                    button1.DialogResult = DialogResult.Retry;
-                    break;
-            }
         }
+
     }
 }

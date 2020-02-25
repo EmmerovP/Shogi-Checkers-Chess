@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace ShogiCheckersChess
 {
-    public partial class Credits : Form
+    public partial class Propagation : Form
     {
-        public Credits()
+        public Propagation()
         {
             InitializeComponent();
-        }
-
-        private void CreditsOk_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
