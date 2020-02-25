@@ -13,6 +13,7 @@ namespace WindowLayout
             public static GameType gameType;
             public static PlayerType playerType;
 
+
             //pro dámu, zda musí vzít určitou figurku
             public static bool MustTake()
             {
@@ -20,7 +21,7 @@ namespace WindowLayout
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (GameCourse.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
                             Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
@@ -46,9 +47,9 @@ namespace WindowLayout
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (GameCourse.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
-                            GameCourse.Generate(Board.board[i, j], true, i, j);
+                            Generating.Generate(Board.board[i, j], true, i, j);
                             if (Moves.final_x.Count != 0)
                             {
                                 return false;
@@ -71,9 +72,9 @@ namespace WindowLayout
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i,j] != null)&&(Board.board[i, j].isWhite == GameCourse.WhitePlays))
+                        if ((Board.board[i,j] != null)&&(Board.board[i, j].isWhite == Generating.WhitePlays))
                         {
-                            GameCourse.GenerateMoves(Board.board[i, j], false, i, j);
+                            Generating.GenerateMoves(Board.board[i, j], false, i, j);
                         }
                     }
                 }
@@ -81,7 +82,7 @@ namespace WindowLayout
                 for (int i = 0; i < Moves.final_x.Count; i++)
                 {
                     Pieces piece = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                    if ((piece != null)&&(piece.GetNumber() == 0)&&(GameCourse.WhitePlays != piece.isWhite))
+                    if ((piece != null)&&(piece.GetNumber() == 0)&&(Generating.WhitePlays != piece.isWhite))
                     {
                         Moves.EmptyCoordinates();
                         Moves.CoordinatesReturn(cp);
@@ -103,20 +104,20 @@ namespace WindowLayout
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
-                GameCourse.WhitePlays = !GameCourse.WhitePlays;
+                Generating.WhitePlays = !Generating.WhitePlays;
 
                 //teď musíme pohnout každou (naší) figurkou... a zjišťovat zda se změní šach mat...   
                 for (int i = 0; i < Board.board.GetLength(0); i++)
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (GameCourse.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
-                            GameCourse.Generate(Board.board[i,j], true, i,j);
+                            Generating.Generate(Board.board[i,j], true, i,j);
 
                             if (Moves.final_x.Count != 0)
                             {
-                                GameCourse.WhitePlays = !GameCourse.WhitePlays;
+                                Generating.WhitePlays = !Generating.WhitePlays;
                                 return false;
                             }
 
@@ -135,7 +136,7 @@ namespace WindowLayout
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (Board.board[i, j].GetNumber() == 0) && (GameCourse.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board.board[i, j] != null) && (Board.board[i, j].GetNumber() == 0) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
                             return false;
                         }

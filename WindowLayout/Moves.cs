@@ -128,7 +128,7 @@ namespace WindowLayout
             {
                 if (enemyMet == false)
                 {
-                    if (chessboard[x, y].isWhite == !GameCourse.WhitePlays)
+                    if (chessboard[x, y].isWhite == !Generating.WhitePlays)
                     {
                         enemyMet = true;
                         return true;
@@ -553,7 +553,6 @@ namespace WindowLayout
 
         public static bool CheckersTake(int x, int y, Pieces[,] chessboard)
         {
-            //tady jdou mimo šachovnici
 
             int x_starting_pos = x;
             int y_starting_pos = y;

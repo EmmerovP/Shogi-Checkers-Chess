@@ -62,7 +62,7 @@ namespace WindowLayout
         };
 
         //základní rozestavení figurek dámy
-        /* public static int[,] checkers = new int[,] {
+        public static int[,] checkers = new int[,] {
         {0,28,0,28,0,28,0,28},
         {28,0,28,0,28,0,28,0},
         {0,28,0,28,0,28,0,28},
@@ -71,9 +71,9 @@ namespace WindowLayout
         {7,0,7,0,7,0,7,0},
         {0,7,0,7,0,7,0,7},
         {7,0,7,0,7,0,7,0},
-        }; */
+        };
 
-        //speciální rozestavení - test konce
+        /*//speciální rozestavení - test konce
         public static int[,] checkers = new int[,] {
         {0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0},
@@ -83,7 +83,7 @@ namespace WindowLayout
         {0,0,0,0,0,7,0,0},
         {0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0},
-        };
+        };*/
 
     }
 

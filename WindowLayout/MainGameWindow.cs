@@ -210,18 +210,10 @@ namespace WindowLayout
             int xpic = GetX(picture);
             int ypic = GetY(picture);
 
-            bool musttake = false;
-
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
-            {
-                musttake = Gameclass.CurrentGame.MustTake();
-            }
-
-
             //???
             if (Board.board[xpic, ypic] != null)
             {
-                if ((Board.board[xpic, ypic].isWhite != GameCourse.WhitePlays) && (picBoxes[xpic, ypic].BackColor == Color.Transparent))
+                if ((Board.board[xpic, ypic].isWhite != Generating.WhitePlays) && (picBoxes[xpic, ypic].BackColor == Color.Transparent))
                     return;
             }
 
@@ -234,100 +226,32 @@ namespace WindowLayout
 
                 label2.Visible = false;
 
-                //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
-                {
-                    var taken = Board.board[xpic, ypic];
-                    Board.board[xpic, ypic] = pic;
-                    Board.board[x, y] = null;
-                    GameCourse.WhitePlays = !GameCourse.WhitePlays;
-
-                    //prohodí se strany, zkontroluje se šach
-                    if (Gameclass.CurrentGame.KingCheck())
-                    {
-                        GameCourse.WhitePlays = !GameCourse.WhitePlays;
-                        label2.Text = "Nelze!";
-                        label2.Visible = true;
-                        Board.board[xpic, ypic] = taken;
-                        Board.board[x, y] = pic;
-                        return;
-                    }
-                    //šach není, tah se může provést
-                    else
-                    {
-                        piecesPictures[x, y] = null;
-                        if (piecesPictures[xpic, ypic] != null)
-                        {
-                            piecesPictures[xpic, ypic].Dispose();
-                        }
-                        piecesPictures[xpic, ypic] = CurrentMoving;
-
-                        GameCourse.WhitePlays = !GameCourse.WhitePlays;
-
-                        //zkontrolujeme, zda nepříteli nedáváme šach
-                        if (Gameclass.CurrentGame.KingCheck())
-                        {
-                            label2.Text = "Šach!";
-                            label2.Visible = true;
-                            if (Gameclass.CurrentGame.CheckMate())
-                            {
-                                label2.Text = "Šach mat! Konec!";
-                            }
-                        }
-
-                        CurrentMoving.BackColor = Color.Transparent;
-                        selected = false;
-                        CurrentMoving.Location = picture.Location;
-                        CurrentMoving.BringToFront();
-                        DeleteHighlight();
-
-                        GameCourse.WhitePlays = !GameCourse.WhitePlays;
-
-                        return;
-
-                    }
-
-                }
 
 
 
                 //vyhazování při dámě
-
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+                if (Generating.CheckersTake)
                 {
-                    if (musttake)
+                    int xpiece, ypiece;
+                    if (xpic > x)
                     {
-                        if (Math.Abs(xpic - x) == 2)
-                        {
-                            int xpiece, ypiece;
-                            if (xpic > x)
-                            {
-                                xpiece = x + 1;
-                            }
-                            else
-                            {
-                                xpiece = xpic + 1;
-                            }
-
-                            if (ypic > y)
-                            {
-                                ypiece = y + 1;
-                            }
-                            else
-                            {
-                                ypiece = ypic + 1;
-                            }
-                            Board.board[xpiece, ypiece] = null;
-                            piecesPictures[xpiece, ypiece].Dispose();
-                        }
-                        else
-                        {
-                            DeleteHighlight();
-                            CurrentMoving.BackColor = Color.Transparent;
-                            selected = false;
-                            return;
-                        }
+                        xpiece = x + 1;
                     }
+                    else
+                    {
+                        xpiece = xpic + 1;
+                    }
+
+                    if (ypic > y)
+                    {
+                        ypiece = y + 1;
+                    }
+                    else
+                    {
+                        ypiece = ypic + 1;
+                    }
+                    Board.board[xpiece, ypiece] = null;
+                    piecesPictures[xpiece, ypiece].Dispose();
                 }
 
 
@@ -340,24 +264,7 @@ namespace WindowLayout
                 }
                 piecesPictures[xpic, ypic] = CurrentMoving;
 
-
-                //nejsem si jistá, zda to sem někdy dojde...?
-
-
-                /*if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
-                {
-                    if (Gameclass.CurrentGame.KingCheck())
-                    {
-                        label2.Text = "Šach!";
-                        label2.Visible = true;
-                        Gameclass.CurrentGame.CheckMate();
-                    }
-                                        
-                }
-
-    */
-
-                GameCourse.WhitePlays = !GameCourse.WhitePlays;
+                Generating.WhitePlays = !Generating.WhitePlays;
 
 
                 CurrentMoving.BackColor = Color.Transparent;
@@ -366,6 +273,10 @@ namespace WindowLayout
                 CurrentMoving.BringToFront();
                 DeleteHighlight();
 
+                //hlídání konců her
+
+
+                //konec hry dáma
                 if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
                 {
                     if (Gameclass.CurrentGame.CheckersEnd())
@@ -375,6 +286,7 @@ namespace WindowLayout
                     }
                 }
 
+                //konec hry shogi
                 if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                 {
                     if (Gameclass.CurrentGame.KingOut())
@@ -383,6 +295,19 @@ namespace WindowLayout
                         label2.Visible = true;
                     }
                 }
+
+                //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
+                Generating.WhitePlays = !Generating.WhitePlays;
+                if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck()))
+                {
+                    label2.Text = "Šach!";
+                    label2.Visible = true;
+                    if (Gameclass.CurrentGame.CheckMate())
+                    {
+                        label2.Text = "Šach mat! Konec!";
+                    }
+                }
+                Generating.WhitePlays = !Generating.WhitePlays;
 
             }
 
@@ -403,11 +328,11 @@ namespace WindowLayout
                 selected = true;
                 if (background == Color.DarkBlue)
                 {
-                    GameCourse.Generate(GetPiece(picture), true, GetX(picture), GetY(picture));
+                    Generating.Generate(GetPiece(picture), true, GetX(picture), GetY(picture));
 
                     Highlight();
                 }
-            }             
+            }
         }
 
         //animac

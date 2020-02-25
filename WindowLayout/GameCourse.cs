@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace WindowLayout
 {
-    public static class GameCourse
+    public static class Generating
     {
         public static bool WhitePlays = true;
+
+        public static bool CheckersTake = false;
 
         public static void PlayGame()
         {
@@ -23,7 +25,32 @@ namespace WindowLayout
             if (delete)
                 Moves.EmptyCoordinates();
 
-            piece.GenerateMoves(x, y, Board.board);
+            CheckersTake = false;
+
+            //musíme-li vzít figurku v dámě, nemůžeme povolit žádný jiný tah
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+            {
+                if (Gameclass.CurrentGame.MustTake())
+                {
+                    if (!Moves.CheckersTake(x, y, Board.board))
+                    {
+                        Moves.EmptyCoordinates();
+                    }
+                    else
+                    {
+                        CheckersTake = true;
+                    }
+                }
+                else
+                {
+                    piece.GenerateMoves(x, y, Board.board);
+                }
+            }
+            else
+            {
+                piece.GenerateMoves(x, y, Board.board);
+            }
+
         }
 
         //main generating function
@@ -31,6 +58,7 @@ namespace WindowLayout
         {
             GenerateMoves(piece, delete, x, y);
 
+            //zamezíme tahům, které by nebyly validní, tzn. těm, co ohrozí vlastního krále
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
             {
                 WhitePlays = !WhitePlays;
@@ -62,6 +90,7 @@ namespace WindowLayout
 
                 WhitePlays = !WhitePlays;
             }
+
 
         }
 
