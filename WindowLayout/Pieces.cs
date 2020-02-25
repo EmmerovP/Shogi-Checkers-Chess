@@ -13,78 +13,53 @@ namespace WindowLayout
 
         //základní rozestavení šachových figurek
         public static int[,] chess = new int[,] {
-        {24,25,26,22,23,26,25,24},
-        {27,27,27,27,27,27,27,27},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {6,6,6,6,6,6,6,6},
-        {3,4,5,1,2,5,4,3}
+        {23,24,25,21,22,25,24,23},
+        {26,26,26,26,26,26,26,26},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {5,5,5,5,5,5,5,5},
+        {2,3,4,0,1,4,3,2}
         };
 
         /*//šach mat - ukázková šachovnice
         public static int[,] chess = new int[,] {
-        {24,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,27,0,0,0,0,0},
-        {2,0,0,0,0,0,0,0},
-        {0,2,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,22},
-        }; */
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,5,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {1,-1,-1,-1,-1,-1,-1,-1},
+        {1,-1,-1,-1,26,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,21},
+        };*/
 
-        /*    
+         
         //základní rozestavení figurek shogi
         public static int[,] shogi = new int[,] {
-        {39,37,35,34,29,34,35,37,39},
-        {0,30,0,0,0,0,0,32,0},
-        {41,41,41,41,41,41,41,41,41},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {20,20,20,20,20,20,20,20,20},
-        {0,11,0,0,0,0,0,9,0},
-        {18,16,14,13,8,13,14,16,18}
-        }; */
-
-        //speciální případ - konec hry
-        public static int[,] shogi = new int[,] {
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,29,0,0,0,0,0},
-        {0,0,0,41,0,0,0,0},
-        {0,0,0,8,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
+        {38,36,34,33,28,33,34,36,38},
+        {-1,29,-1,-1,-1,-1,-1,31,-1},
+        {40,40,40,40,40,40,40,40,40},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {19,19,19,19,19,19,19,19,19},
+        {-1,10,-1,-1,-1,-1,-1,8,-1},
+        {17,15,13,12,7,12,13,15,17}
         };
 
         //základní rozestavení figurek dámy
         public static int[,] checkers = new int[,] {
-        {0,28,0,28,0,28,0,28},
-        {28,0,28,0,28,0,28,0},
-        {0,28,0,28,0,28,0,28},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {7,0,7,0,7,0,7,0},
-        {0,7,0,7,0,7,0,7},
-        {7,0,7,0,7,0,7,0},
+        {-1,27,-1,27,-1,27,-1,27},
+        {27,-1,27,-1,27,-1,27,-1},
+        {-1,27,-1,27,-1,27,-1,27},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {6,-1,6,-1,6,-1,6,-1},
+        {-1,6,-1,6,-1,6,-1,6},
+        {6,-1,6,-1,6,-1,6,-1},
         };
-
-        /*//speciální rozestavení - test konce
-        public static int[,] checkers = new int[,] {
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,28,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,7,0,0},
-        {0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0},
-        };*/
-
     }
 
 
@@ -96,9 +71,15 @@ namespace WindowLayout
         }
         public bool moved;
         public bool isWhite;
-        public virtual int GetNumber()
+        int number;
+        public int GetNumber()
         {
-            return -1;
+            return number;
+        }
+
+        public void SetNumber(int value)
+        {
+            number = value;
         }
     }
 
@@ -107,10 +88,6 @@ namespace WindowLayout
     //nějaký public static na zjištění kdo je na tahu
     class Queen : Pieces
     {
-        public override int GetNumber()
-        {
-            return 1;
-        }
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.ForwardInfinity(x, y, chessboard);
@@ -126,11 +103,6 @@ namespace WindowLayout
 
     class King : Pieces
     {
-        public override int GetNumber()
-        {
-            return 0;
-        }
-
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.Forward(x, y, chessboard);
@@ -146,10 +118,6 @@ namespace WindowLayout
 
     class BottomPawn : Pieces
     {
-        public override int GetNumber()
-        {
-            return 5;
-        }
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.TwoForward(x, y, chessboard);
@@ -159,10 +127,6 @@ namespace WindowLayout
 
     class UpperPawn : Pieces
     {
-        public override int GetNumber()
-        {
-            return 26;
-        }
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.TwoBackward(x, y, chessboard);
@@ -204,10 +168,6 @@ namespace WindowLayout
     //ještě shogi... Ještě dáma...
     class ShogiKing : Pieces
     {
-        public override int GetNumber()
-        {
-            return 0;
-        }
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
@@ -222,7 +182,7 @@ namespace WindowLayout
         }
     }
 
-    class ShogiRook : Pieces
+    class UpperShogiRook : Pieces
     {
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
@@ -232,6 +192,18 @@ namespace WindowLayout
             Moves.RightInfinity(x, y, chessboard);
         }
     }
+
+    class BottomShogiRook : Pieces
+    {
+        public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
+        {
+            Moves.ForwardInfinity(x, y, chessboard);
+            Moves.BackInfinity(x, y, chessboard);
+            Moves.LeftInfinity(x, y, chessboard);
+            Moves.RightInfinity(x, y, chessboard);
+        }
+    }
+
 
     class ShogiBishop : Pieces
     {
@@ -413,7 +385,16 @@ namespace WindowLayout
 
     }
 
-    class CheckersPiece : Pieces
+    class WhiteCheckersPiece : Pieces
+    {
+        public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
+        {
+            Moves.CheckersTake(x, y, chessboard);
+        }
+
+    }
+
+    class BlackCheckersPiece : Pieces
     {
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {

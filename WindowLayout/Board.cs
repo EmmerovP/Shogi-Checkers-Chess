@@ -55,7 +55,7 @@ namespace WindowLayout
                     };
                     break;
                 case 6:
-                    piece = new CheckersPiece
+                    piece = new WhiteCheckersPiece
                     {
                         isWhite = true
                     };
@@ -67,7 +67,7 @@ namespace WindowLayout
                     };
                     break;
                 case 8:
-                    piece = new ShogiRook
+                    piece = new BottomShogiRook
                     {
                         isWhite = true
                     };
@@ -182,7 +182,7 @@ namespace WindowLayout
                     };
                     break;
                 case 27:
-                    piece = new CheckersPiece
+                    piece = new BlackCheckersPiece
                     {
                         isWhite = false
                     };
@@ -194,7 +194,7 @@ namespace WindowLayout
                     };
                     break;
                 case 29:
-                    piece = new ShogiRook
+                    piece = new UpperShogiRook
                     {
                         isWhite = false
                     };
@@ -275,6 +275,7 @@ namespace WindowLayout
             }
 
             board[x, y] = piece;
+            piece.SetNumber(value);
         }
     }
 

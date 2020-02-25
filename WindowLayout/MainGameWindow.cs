@@ -259,7 +259,13 @@ namespace WindowLayout
                 {
                     piecesPictures[xpic, ypic].Dispose();
                 }
+
+                bool changed = Generating.ChangePiece(xpic, ypic, pic);
+                
                 piecesPictures[xpic, ypic] = CurrentMoving;
+
+                if (changed)
+                    CurrentMoving.Image = GamePieces.Images[Board.board[xpic, ypic].GetNumber()];
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 
@@ -365,10 +371,8 @@ namespace WindowLayout
                         location[a, b] = new Point(j * boxsize, i * boxsize);
 
                         int piece = chessboard[a, b];
-                        if (piece != 0)
+                        if (piece != -1)
                         {
-                            piece--;
-
                             var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
                             {
                                 Name = Convert.ToString(piece),

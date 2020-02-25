@@ -56,9 +56,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowLayout\WindowLayout.csproj">
+    <ProjectReference Include="..\WindowLayout\Shogi-Checkers-Chess.csproj">
       <Project>{9cd0e195-adfb-4960-9b3d-619f63034afe}</Project>
-      <Name>WindowLayout</Name>
+      <Name>Shogi-Checkers-Chess</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

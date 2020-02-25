@@ -82,7 +82,7 @@ namespace WindowLayout
                 for (int i = 0; i < Moves.final_x.Count; i++)
                 {
                     Pieces piece = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                    if ((piece != null)&&(piece.GetNumber() == 0)&&(Generating.WhitePlays != piece.isWhite))
+                    if ((piece != null)&&((piece.GetNumber() == 0)|| (piece.GetNumber() == 21)) &&(Generating.WhitePlays != piece.isWhite))
                     {
                         Moves.EmptyCoordinates();
                         Moves.CoordinatesReturn(cp);
@@ -126,6 +126,7 @@ namespace WindowLayout
                 }
 
                 //žádný způsob jak se vynout šachu jsme nezjistili, končíme hru
+                Generating.WhitePlays = !Generating.WhitePlays;
                 return true;
             }
 
