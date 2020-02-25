@@ -226,9 +226,6 @@ namespace WindowLayout
 
                 label2.Visible = false;
 
-
-
-
                 //vyhazování při dámě
                 if (Generating.CheckersTake)
                 {
@@ -333,6 +330,12 @@ namespace WindowLayout
                     Highlight();
                 }
             }
+        }
+
+        //funkce co hromadně kontroluje, zda v nějakém typu hry není potřeba vyměnit figurku která se zrovna dostala na určité místo, provede komunikaci s uživatelem
+        public void PiecesChange()
+        {
+
         }
 
         //animac
