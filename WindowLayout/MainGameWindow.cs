@@ -66,13 +66,16 @@ namespace WindowLayout
 
         private void button5_Click(object sender, EventArgs e)
         {
-            AboutGame popup = new AboutGame();
+            /*AboutGame popup = new AboutGame();
             DialogResult dialogresult = popup.ShowDialog();
             if (dialogresult == DialogResult.Cancel)
             {
                 Console.WriteLine("You clicked either Cancel or X button in the top right corner");
             }
-            popup.Dispose();
+            popup.Dispose();*/
+
+            PawnChange popup = new PawnChange();
+            DialogResult dialogresult = popup.ShowDialog();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -260,7 +263,7 @@ namespace WindowLayout
                     piecesPictures[xpic, ypic].Dispose();
                 }
 
-                bool changed = Generating.ChangePiece(xpic, ypic, pic);
+                bool changed =ChangePiece(xpic, ypic, pic);
                 
                 piecesPictures[xpic, ypic] = CurrentMoving;
 
@@ -338,9 +341,118 @@ namespace WindowLayout
             }
         }
 
-        //funkce co hromadně kontroluje, zda v nějakém typu hry není potřeba vyměnit figurku která se zrovna dostala na určité místo, provede komunikaci s uživatelem
-        public void PiecesChange()
+        //měnění figurek - logika
+        public bool ChangePiece(int x, int y, Pieces piece)
         {
+
+            //bool ChangedPiece = false;
+            //upperpawn
+            if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(1) - 1))
+            {
+                //ChangePawn();
+                return true;
+            }
+
+            //bottompawn
+            if ((piece.GetNumber() == 5) && (x == 0))
+            {
+                //ChangePawn();
+                return true;
+            }
+
+            //checkers - upper piece
+            if ((piece.GetNumber() == 27) && (x == Board.board.GetLength(1) - 1))
+            {
+                Board.AddPiece(22, x, y);
+                return true;
+            }
+
+            //checkers - bottom piece
+            if ((piece.GetNumber() == 6) && (x == 0))
+            {
+                Board.AddPiece(1, x, y);
+                return true;
+            }
+
+            //upper shogi rooks
+            if ((piece.GetNumber() == 29) && (Generating.UpperShogiPromotion(x)))
+            {
+
+            }
+
+            //bottom shogi rook promotion
+            if ((piece.GetNumber() == 8) && (Generating.BottomShogiPromotion(x)))
+            {
+
+            }
+
+
+            //bishop promotion
+            //upper bishop 
+            if ((piece.GetNumber() == 31) && (Generating.UpperShogiPromotion(x)))
+            {
+
+            }
+
+            //bottom bishop
+            if ((piece.GetNumber() == 10) && (Generating.BottomShogiPromotion(x)))
+            {
+
+            }
+
+            //silver general promotion
+            //upper 
+            if ((piece.GetNumber() == 34) && (Generating.UpperShogiPromotion(x)))
+            {
+
+            }
+
+            //bottom
+            if ((piece.GetNumber() == 13) && (Generating.BottomShogiPromotion(x)))
+            {
+
+            }
+
+            //horse promotion
+            //upper
+            if ((piece.GetNumber() == 36) && (Generating.UpperShogiPromotion(x)))
+            {
+
+            }
+
+            //bottom
+            if ((piece.GetNumber() == 15) && (Generating.BottomShogiPromotion(x)))
+            {
+
+            }
+
+            //lance promotion
+            //upper
+            if ((piece.GetNumber() == 38) && (Generating.UpperShogiPromotion(x)))
+            {
+
+            }
+
+            //bottom
+            if ((piece.GetNumber() == 17) && (Generating.BottomShogiPromotion(x)))
+            {
+
+            }
+
+            //pawn promotion
+            //upper
+            if ((piece.GetNumber() == 40) && (Generating.UpperShogiPromotion(x)))
+            {
+
+            }
+
+            //bottom
+            if ((piece.GetNumber() == 19) && (Generating.BottomShogiPromotion(x)))
+            {
+
+            }
+
+            return false;
 
         }
 

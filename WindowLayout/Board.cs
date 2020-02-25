@@ -67,7 +67,7 @@ namespace WindowLayout
                     };
                     break;
                 case 8:
-                    piece = new BottomShogiRook
+                    piece = new ShogiRook
                     {
                         isWhite = true
                     };
@@ -194,7 +194,7 @@ namespace WindowLayout
                     };
                     break;
                 case 29:
-                    piece = new UpperShogiRook
+                    piece = new ShogiRook
                     {
                         isWhite = false
                     };

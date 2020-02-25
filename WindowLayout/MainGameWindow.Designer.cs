@@ -43,11 +43,6 @@
             this.SelectWebMulti = new System.Windows.Forms.Button();
             this.GamePieces = new System.Windows.Forms.ImageList(this.components);
             this.label2 = new System.Windows.Forms.Label();
-            this.ChangePieceLabel = new System.Windows.Forms.Label();
-            this.Choice1Button = new System.Windows.Forms.Button();
-            this.Choice2Button = new System.Windows.Forms.Button();
-            this.Choice3Button = new System.Windows.Forms.Button();
-            this.Choice4Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SelectChess
@@ -230,66 +225,11 @@
             this.label2.Text = "Konec hry.";
             this.label2.Visible = false;
             // 
-            // ChangePieceLabel
-            // 
-            this.ChangePieceLabel.AutoSize = true;
-            this.ChangePieceLabel.Location = new System.Drawing.Point(563, 36);
-            this.ChangePieceLabel.Name = "ChangePieceLabel";
-            this.ChangePieceLabel.Size = new System.Drawing.Size(106, 13);
-            this.ChangePieceLabel.TabIndex = 12;
-            this.ChangePieceLabel.Text = "Změnte si figurku na:";
-            this.ChangePieceLabel.Visible = false;
-            // 
-            // Choice1Button
-            // 
-            this.Choice1Button.Location = new System.Drawing.Point(577, 64);
-            this.Choice1Button.Name = "Choice1Button";
-            this.Choice1Button.Size = new System.Drawing.Size(75, 23);
-            this.Choice1Button.TabIndex = 13;
-            this.Choice1Button.Text = "button1";
-            this.Choice1Button.UseVisualStyleBackColor = true;
-            this.Choice1Button.Visible = false;
-            // 
-            // Choice2Button
-            // 
-            this.Choice2Button.Location = new System.Drawing.Point(577, 93);
-            this.Choice2Button.Name = "Choice2Button";
-            this.Choice2Button.Size = new System.Drawing.Size(75, 23);
-            this.Choice2Button.TabIndex = 14;
-            this.Choice2Button.Text = "button2";
-            this.Choice2Button.UseVisualStyleBackColor = true;
-            this.Choice2Button.Visible = false;
-            // 
-            // Choice3Button
-            // 
-            this.Choice3Button.Location = new System.Drawing.Point(577, 122);
-            this.Choice3Button.Name = "Choice3Button";
-            this.Choice3Button.Size = new System.Drawing.Size(75, 23);
-            this.Choice3Button.TabIndex = 15;
-            this.Choice3Button.Text = "button3";
-            this.Choice3Button.UseVisualStyleBackColor = true;
-            this.Choice3Button.Visible = false;
-            // 
-            // Choice4Button
-            // 
-            this.Choice4Button.Location = new System.Drawing.Point(577, 151);
-            this.Choice4Button.Name = "Choice4Button";
-            this.Choice4Button.Size = new System.Drawing.Size(75, 23);
-            this.Choice4Button.TabIndex = 16;
-            this.Choice4Button.Text = "button4";
-            this.Choice4Button.UseVisualStyleBackColor = true;
-            this.Choice4Button.Visible = false;
-            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 538);
-            this.Controls.Add(this.Choice4Button);
-            this.Controls.Add(this.Choice3Button);
-            this.Controls.Add(this.Choice2Button);
-            this.Controls.Add(this.Choice1Button);
-            this.Controls.Add(this.ChangePieceLabel);
+            this.ClientSize = new System.Drawing.Size(597, 538);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.SelectWebMulti);
             this.Controls.Add(this.SelectLocMulti);
@@ -325,11 +265,6 @@
         private System.Windows.Forms.Button SelectWebMulti;
         private System.Windows.Forms.ImageList GamePieces;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label ChangePieceLabel;
-        private System.Windows.Forms.Button Choice1Button;
-        private System.Windows.Forms.Button Choice2Button;
-        private System.Windows.Forms.Button Choice3Button;
-        private System.Windows.Forms.Button Choice4Button;
     }
 }
 

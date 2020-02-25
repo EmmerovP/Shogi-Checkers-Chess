@@ -108,63 +108,7 @@ namespace WindowLayout
             return false;
         }
 
-        //měnění figurek - logika
-        public static bool ChangePiece(int x, int y, Pieces piece)
-        {
-
-            //bool ChangedPiece = false;
-            //upperpawn
-            if ((piece.GetNumber() == 26)&&(x == Board.board.GetLength(1) - 1))
-            {
-                Board.AddPiece(22, x, y);
-                return true;
-            }
-
-            //bottompawn
-            if ((piece.GetNumber() == 5) && (x == 0))
-            {
-                Board.AddPiece(1, x, y);
-                return true;
-            }
-
-            //checkers - upper piece
-            if ((piece.GetNumber() == 28) && (x == Board.board.GetLength(1)))
-            {
-
-            }
-
-            //checkers - bottom piece
-            if ((piece.GetNumber() == 7) && (x == 0))
-            {
-
-            }
-
-            //upper shogi rooks
-            if ((piece.GetNumber() == 30) && (UpperShogiPromotion(x)))
-            {
-
-            }
-
-            //bottom shogi rook promotion
-            if ((piece.GetNumber() == 9) && (BottomShogiPromotion(x)))
-            {
-
-            }
-
-
-            //bishop promotion
-
-            //silver general promotion
-
-            //horse promotion
-
-            //lance promotion
-
-            //pawn promotion
-
-            return false;
-
-        }
+        
 
     }
 

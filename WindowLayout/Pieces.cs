@@ -49,7 +49,7 @@ namespace WindowLayout
         {17,15,13,12,7,12,13,15,17}
         };
 
-        //základní rozestavení figurek dámy
+        /*//základní rozestavení figurek dámy
         public static int[,] checkers = new int[,] {
         {-1,27,-1,27,-1,27,-1,27},
         {27,-1,27,-1,27,-1,27,-1},
@@ -59,6 +59,19 @@ namespace WindowLayout
         {6,-1,6,-1,6,-1,6,-1},
         {-1,6,-1,6,-1,6,-1,6},
         {6,-1,6,-1,6,-1,6,-1},
+        };*/
+
+
+        //testové rozestavení figurek dámy
+        public static int[,] checkers = new int[,] {
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,6,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,27,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
         };
     }
 
@@ -182,18 +195,7 @@ namespace WindowLayout
         }
     }
 
-    class UpperShogiRook : Pieces
-    {
-        public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
-        {
-            Moves.ForwardInfinity(x, y, chessboard);
-            Moves.BackInfinity(x, y, chessboard);
-            Moves.LeftInfinity(x, y, chessboard);
-            Moves.RightInfinity(x, y, chessboard);
-        }
-    }
-
-    class BottomShogiRook : Pieces
+    class ShogiRook : Pieces
     {
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
