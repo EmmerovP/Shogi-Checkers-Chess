@@ -1,5 +1,5 @@
 ﻿using System;
-using WindowLayout;
+using ShogiCheckersChess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GameAppTests

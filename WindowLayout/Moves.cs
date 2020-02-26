@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 //tohle je vlastně už vnitřní záležitost, ne windowlayout
 
-namespace WindowLayout
+namespace ShogiCheckersChess
 {
     //reprezentace chessboard - 0 pokud na políčku nic není
     public static class Lists

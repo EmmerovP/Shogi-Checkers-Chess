@@ -8,10 +8,9 @@ namespace ShogiCheckersChess
 {
     public static class GameStarts
     {
-        //Musí se odečíst jednička
         //soubor    
 
-        /*//základní rozestavení šachových figurek
+        //základní rozestavení šachových figurek
         public static int[,] chess = new int[,] {
         {23,24,25,21,22,25,24,23},
         {26,26,26,26,26,26,26,26},
@@ -21,9 +20,9 @@ namespace ShogiCheckersChess
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {5,5,5,5,5,5,5,5},
         {2,3,4,0,1,4,3,2}
-        };*/
+        };
 
-        //šach mat - ukázková šachovnice
+        /*//šach mat - ukázková šachovnice
         public static int[,] chess = new int[,] {
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,5,5,5,5,-1,-1,-1},
@@ -33,7 +32,7 @@ namespace ShogiCheckersChess
         {1,-1,-1,-1,-1,-1,-1,-1},
         {1,-1,-1,26,26,26,26,-1},
         {-1,-1,-1,-1,-1,-1,-1,21},
-        };
+        };*/
 
          
         /*//základní rozestavení figurek shogi
@@ -62,7 +61,7 @@ namespace ShogiCheckersChess
         {-1,-1,-1,-1,-1,-1,-1,-1,-1},
         };
 
-        /*//základní rozestavení figurek dámy
+        //základní rozestavení figurek dámy
         public static int[,] checkers = new int[,] {
         {-1,27,-1,27,-1,27,-1,27},
         {27,-1,27,-1,27,-1,27,-1},
@@ -72,10 +71,10 @@ namespace ShogiCheckersChess
         {6,-1,6,-1,6,-1,6,-1},
         {-1,6,-1,6,-1,6,-1,6},
         {6,-1,6,-1,6,-1,6,-1},
-        };*/
+        };
 
 
-        //testové rozestavení figurek dámy
+        /*//testové rozestavení figurek dámy
         public static int[,] checkers = new int[,] {
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,6,-1,-1,-1,-1,-1},
@@ -85,7 +84,7 @@ namespace ShogiCheckersChess
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,27,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
-        };
+        }; */
     }
 
 

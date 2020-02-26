@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WindowLayout.Properties
+namespace ShogiCheckersChess.Properties
 {
 
 

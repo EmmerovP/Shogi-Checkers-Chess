@@ -313,13 +313,19 @@ namespace ShogiCheckersChess
                 Generating.WhitePlays = !Generating.WhitePlays;
 
 
-                Generating.WhitePlays = !Generating.WhitePlays;
-
                 //hraje AIčko
                 int move = RandomMoveGen.PickMove();
 
-                piecesPictures[Moves.final_x[move], Moves.final_y[move]] = piecesPictures[Moves.start_x[move], Moves.start_y[move]];
+                CurrentMoving = piecesPictures[Moves.start_x[move], Moves.start_y[move]];
                 piecesPictures[Moves.start_x[move], Moves.start_y[move]] = null;
+
+                if (piecesPictures[Moves.final_x[move], Moves.final_y[move]] != null)
+                {
+                    piecesPictures[Moves.final_x[move], Moves.final_y[move]].Dispose();
+                }
+                piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
+                CurrentMoving.Location = picBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
+                CurrentMoving.BringToFront();
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 

@@ -24,7 +24,7 @@ namespace ShogiCheckersChess
             Random rnd = new Random();
             pos = rnd.Next(Moves.start_x.Count);
 
-            Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[x[pos], y[pos]];
+            Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
             Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
 
             return pos;
@@ -36,12 +36,11 @@ namespace ShogiCheckersChess
             List<int> x = new List<int>();
             List<int> y = new List<int>();
 
-
             for (int i = 0; i < Board.board.GetLength(0); i++)
             {
                 for (int j = 0; j < Board.board.GetLength(0); j++)
                 {
-                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite = WhiteSide))
+                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == WhiteSide))
                     {
                         pieces.Add(Board.board[i, j]);
                         x.Add(i);
@@ -51,8 +50,7 @@ namespace ShogiCheckersChess
             }
 
             Random rnd = new Random();
-            int pos = rnd.Next(pieces.Count);
-            pos--;
+            int pos = rnd.Next(pieces.Count - 1);
 
             Generating.GenerateMoves(pieces[pos], true, x[pos], y[pos]);
             return pos;
