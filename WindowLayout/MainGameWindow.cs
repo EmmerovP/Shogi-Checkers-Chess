@@ -197,6 +197,7 @@ namespace ShogiCheckersChess
             }
         }
 
+
         //souřadnice z location
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
         {
@@ -227,41 +228,16 @@ namespace ShogiCheckersChess
 
                 label2.Visible = false;
 
-                //vyhazování při dámě
-                if (Generating.CheckersTake)
-                {
-                    int xpiece, ypiece;
-                    if (xpic > x)
-                    {
-                        xpiece = x + 1;
-                    }
-                    else
-                    {
-                        xpiece = xpic + 1;
-                    }
+                Generating.MovePiece(x, y, xpic, ypic, pic, label2);
 
-                    if (ypic > y)
-                    {
-                        ypiece = y + 1;
-                    }
-                    else
-                    {
-                        ypiece = ypic + 1;
-                    }
-                    Board.board[xpiece, ypiece] = null;
-                    piecesPictures[xpiece, ypiece].Dispose();
-                }
-
-
-                Board.board[xpic, ypic] = pic;
-                Board.board[x, y] = null;
                 piecesPictures[x, y] = null;
                 if (piecesPictures[xpic, ypic] != null)
                 {
                     piecesPictures[xpic, ypic].Dispose();
                 }
 
-                bool changed =ChangePiece(xpic, ypic, pic);
+                //změna figurky
+                bool changed = ChangePiece(xpic, ypic, pic);
                 
                 piecesPictures[xpic, ypic] = CurrentMoving;
 
@@ -277,58 +253,26 @@ namespace ShogiCheckersChess
                 CurrentMoving.BringToFront();
                 DeleteHighlight();
 
-                //hlídání konců her
-
-                //konec hry dáma
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
-                {
-                    if (Gameclass.CurrentGame.CheckersEnd())
-                    {
-                        label2.Text = "Konec hry.";
-                        label2.Visible = true;
-                    }
-                }
-
-                //konec hry shogi
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
-                {
-                    if (Gameclass.CurrentGame.KingOut())
-                    {
-                        label2.Text = "Konec hry.";
-                        label2.Visible = true;
-                    }
-                }
-
-                //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
-                Generating.WhitePlays = !Generating.WhitePlays;
-                if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck()))
-                {
-                    label2.Text = "Šach!";
-                    label2.Visible = true;
-                    if (Gameclass.CurrentGame.CheckMate())
-                    {
-                        label2.Text = "Šach mat! Konec!";
-                    }
-                }
-                Generating.WhitePlays = !Generating.WhitePlays;
+                
 
 
                 //hraje AIčko
-                int move = RandomMoveGen.PickMove();
-
-                CurrentMoving = piecesPictures[Moves.start_x[move], Moves.start_y[move]];
-                piecesPictures[Moves.start_x[move], Moves.start_y[move]] = null;
-
-                if (piecesPictures[Moves.final_x[move], Moves.final_y[move]] != null)
+                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.localmulti)
                 {
-                    piecesPictures[Moves.final_x[move], Moves.final_y[move]].Dispose();
+                    int move = RandomMoveGen.PickMove();
+
+                    CurrentMoving = piecesPictures[Moves.start_x[move], Moves.start_y[move]];
+                    piecesPictures[Moves.start_x[move], Moves.start_y[move]] = null;
+
+                    if (piecesPictures[Moves.final_x[move], Moves.final_y[move]] != null)
+                    {
+                        piecesPictures[Moves.final_x[move], Moves.final_y[move]].Dispose();
+                    }
+                    piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
+                    CurrentMoving.Location = picBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
+                    CurrentMoving.BringToFront();
+                    Generating.WhitePlays = !Generating.WhitePlays;
                 }
-                piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
-                CurrentMoving.Location = picBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
-                CurrentMoving.BringToFront();
-
-                Generating.WhitePlays = !Generating.WhitePlays;
-
 
             }
 
