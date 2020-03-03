@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shogi-Checkers-Chess", "Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{F3424665-FF67-409D-87E3-F0691E124DC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{8D12CE1C-6B45-4F1F-A062-CFC8EF2AA572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F3424665-FF67-409D-87E3-F0691E124DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3424665-FF67-409D-87E3-F0691E124DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3424665-FF67-409D-87E3-F0691E124DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D12CE1C-6B45-4F1F-A062-CFC8EF2AA572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D12CE1C-6B45-4F1F-A062-CFC8EF2AA572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D12CE1C-6B45-4F1F-A062-CFC8EF2AA572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D12CE1C-6B45-4F1F-A062-CFC8EF2AA572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
