@@ -65,7 +65,7 @@
     <Compile Include="Credits.Designer.cs">
       <DependentUpon>Credits.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameCourse.cs" />
+    <Compile Include="Generating.cs" />
     <Compile Include="MainGameWindow.cs">
       <SubType>Form</SubType>
     </Compile>

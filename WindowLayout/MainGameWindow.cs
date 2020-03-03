@@ -228,8 +228,6 @@ namespace ShogiCheckersChess
                 int y = GetY(CurrentMoving);
                 Pieces pic = GetPiece(CurrentMoving);
 
-                label2.Visible = false;
-
                 if (Generating.CheckersTake)
                 {
                     int xpiece, ypiece;
@@ -257,8 +255,6 @@ namespace ShogiCheckersChess
                 Board.board[xpic, ypic] = pic;
                 Board.board[x, y] = null;
 
-
-
                 piecesPictures[x, y] = null;
                 if (piecesPictures[xpic, ypic] != null)
                 {
@@ -267,7 +263,7 @@ namespace ShogiCheckersChess
 
                 //změna figurky
                 bool changed = ChangePiece(xpic, ypic, pic);
-                
+
                 piecesPictures[xpic, ypic] = CurrentMoving;
 
                 if (changed)
@@ -275,13 +271,11 @@ namespace ShogiCheckersChess
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 
-
                 CurrentMoving.BackColor = Color.Transparent;
                 selected = false;
                 CurrentMoving.Location = picture.Location;
                 CurrentMoving.BringToFront();
                 DeleteHighlight();
-
 
                 //hlídání konců her
                 EndGame();
@@ -302,10 +296,9 @@ namespace ShogiCheckersChess
                     piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
                     CurrentMoving.Location = picBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
                     CurrentMoving.BringToFront();
-                    EndGame();
                     Generating.WhitePlays = !Generating.WhitePlays;
+                    EndGame();
                 }
-
             }
 
             //pokud je nějaké políčko selected, ale vybrané políčko není správný cíl vybrané figurky, stane se toto 

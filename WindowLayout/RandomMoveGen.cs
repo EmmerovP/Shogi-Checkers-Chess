@@ -52,7 +52,7 @@ namespace ShogiCheckersChess
             Random rnd = new Random();
             int pos = rnd.Next(pieces.Count - 1);
 
-            Generating.GenerateMoves(pieces[pos], true, x[pos], y[pos]);
+            Generating.Generate(pieces[pos], true, x[pos], y[pos]);
             return pos;
         }
     }
