@@ -249,7 +249,7 @@ namespace ShogiCheckersChess
                         ypiece = ypic + 1;
                     }
                     Board.board[xpiece, ypiece] = null;
-                    //piecesPictures[xpiece, ypiece].Dispose();
+                    piecesPictures[xpiece, ypiece].Dispose();
                 }
 
                 Board.board[xpic, ypic] = pic;
@@ -284,10 +284,37 @@ namespace ShogiCheckersChess
                 //hraje AIčko
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
-                    int move = RandomMoveGen.PickMove();
-
+                    int move = RandomMoveGen.FindPiece();
+                    if (move == -1)
+                    {
+                        label2.Text = "Vyhráli jste!";
+                        return;
+                    }
                     CurrentMoving = piecesPictures[Moves.start_x[move], Moves.start_y[move]];
                     piecesPictures[Moves.start_x[move], Moves.start_y[move]] = null;
+                    if (Generating.CheckersTake)
+                    {
+                        int xpiece, ypiece;
+                        if (Moves.final_x[move] > Moves.start_x[move])
+                        {
+                            xpiece = Moves.start_x[move] + 1;
+                        }
+                        else
+                        {
+                            xpiece = Moves.final_x[move] + 1;
+                        }
+
+                        if (Moves.final_y[move] > Moves.start_y[move])
+                        {
+                            ypiece = Moves.start_y[move] + 1;
+                        }
+                        else
+                        {
+                            ypiece = Moves.final_y[move] + 1;
+                        }
+                        Board.board[xpiece, ypiece] = null;
+                        piecesPictures[xpiece, ypiece].Dispose();
+                    }
 
                     if (piecesPictures[Moves.final_x[move], Moves.final_y[move]] != null)
                     {

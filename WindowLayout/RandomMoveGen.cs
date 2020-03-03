@@ -42,18 +42,20 @@ namespace ShogiCheckersChess
                 {
                     if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == WhiteSide))
                     {
-                        pieces.Add(Board.board[i, j]);
-                        x.Add(i);
-                        y.Add(j);
+                        Generating.Generate(Board.board[i, j], true, i, j);
+                        if (Moves.final_x.Count != 0)
+                        {
+                            Random rnd = new Random();
+                            int pos = rnd.Next(Moves.final_x.Count);
+                            Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
+                            Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
+
+                            return pos;
+                        }
                     }
                 }
             }
-
-            Random rnd = new Random();
-            int pos = rnd.Next(pieces.Count - 1);
-
-            Generating.Generate(pieces[pos], true, x[pos], y[pos]);
-            return pos;
+            return -1;
         }
     }
 }
