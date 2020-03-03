@@ -123,7 +123,9 @@ namespace ShogiCheckersChess
         {
             Gameclass.CurrentGame.playerType = Gameclass.PlayerType.webmulti;
             TrueVoid();
-            draw_chess();
+            label2.Text = "Nepodporovaná možnost.";
+            label2.Visible = true;
+            //draw_chess();
         }
 
         //reprezentace figurek bude intem
@@ -212,7 +214,7 @@ namespace ShogiCheckersChess
             int xpic = GetX(picture);
             int ypic = GetY(picture);
 
-            //???
+            //klikli jsme někam náhodně, nic se neděje
             if (Board.board[xpic, ypic] != null)
             {
                 if ((Board.board[xpic, ypic].isWhite != Generating.WhitePlays) && (picBoxes[xpic, ypic].BackColor == Color.Transparent))
@@ -228,7 +230,34 @@ namespace ShogiCheckersChess
 
                 label2.Visible = false;
 
-                Generating.MovePiece(x, y, xpic, ypic, pic, label2);
+                if (Generating.CheckersTake)
+                {
+                    int xpiece, ypiece;
+                    if (xpic > x)
+                    {
+                        xpiece = x + 1;
+                    }
+                    else
+                    {
+                        xpiece = xpic + 1;
+                    }
+
+                    if (ypic > y)
+                    {
+                        ypiece = y + 1;
+                    }
+                    else
+                    {
+                        ypiece = ypic + 1;
+                    }
+                    Board.board[xpiece, ypiece] = null;
+                    //piecesPictures[xpiece, ypiece].Dispose();
+                }
+
+                Board.board[xpic, ypic] = pic;
+                Board.board[x, y] = null;
+
+
 
                 piecesPictures[x, y] = null;
                 if (piecesPictures[xpic, ypic] != null)
@@ -253,11 +282,13 @@ namespace ShogiCheckersChess
                 CurrentMoving.BringToFront();
                 DeleteHighlight();
 
-                
+
+                //hlídání konců her
+                EndGame();
 
 
                 //hraje AIčko
-                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.localmulti)
+                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
                     int move = RandomMoveGen.PickMove();
 
@@ -271,6 +302,7 @@ namespace ShogiCheckersChess
                     piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
                     CurrentMoving.Location = picBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
                     CurrentMoving.BringToFront();
+                    EndGame();
                     Generating.WhitePlays = !Generating.WhitePlays;
                 }
 
@@ -298,6 +330,43 @@ namespace ShogiCheckersChess
                     Highlight();
                 }
             }
+        }
+
+        public void EndGame()
+        {
+            label2.Visible = false;
+            //konec hry dáma
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+            {
+                if (Gameclass.CurrentGame.CheckersEnd())
+                {
+                    label2.Text = "Konec hry.";
+                    label2.Visible = true;
+                }
+            }
+
+            //konec hry shogi
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+            {
+                if (Gameclass.CurrentGame.KingOut())
+                {
+                    label2.Text = "Konec hry.";
+                    label2.Visible = true;
+                }
+            }
+
+            //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
+            Generating.WhitePlays = !Generating.WhitePlays;
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck()))
+            {
+                label2.Text = "Šach!";
+                label2.Visible = true;
+                if (Gameclass.CurrentGame.CheckMate())
+                {
+                    label2.Text = "Šach mat! Konec!";
+                }
+            }
+            Generating.WhitePlays = !Generating.WhitePlays;
         }
 
         //měnění figurek - logika

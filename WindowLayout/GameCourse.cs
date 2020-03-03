@@ -111,67 +111,7 @@ namespace ShogiCheckersChess
 
         public static void MovePiece(int x, int y, int xpic, int ypic, Pieces pic, Label label)
         {
-            if (Generating.CheckersTake)
-            {
-                int xpiece, ypiece;
-                if (xpic > x)
-                {
-                    xpiece = x + 1;
-                }
-                else
-                {
-                    xpiece = xpic + 1;
-                }
 
-                if (ypic > y)
-                {
-                    ypiece = y + 1;
-                }
-                else
-                {
-                    ypiece = ypic + 1;
-                }
-                Board.board[xpiece, ypiece] = null;
-                //piecesPictures[xpiece, ypiece].Dispose();
-            }
-
-            Board.board[xpic, ypic] = pic;
-            Board.board[x, y] = null;
-
-            //hlídání konců her
-
-            //konec hry dáma
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
-            {
-                if (Gameclass.CurrentGame.CheckersEnd())
-                {
-                    label.Text = "Konec hry.";
-                    label.Visible = true;
-                }
-            }
-
-            //konec hry shogi
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
-            {
-                if (Gameclass.CurrentGame.KingOut())
-                {
-                    label.Text = "Konec hry.";
-                    label.Visible = true;
-                }
-            }
-
-            //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
-            Generating.WhitePlays = !Generating.WhitePlays;
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck()))
-            {
-                label.Text = "Šach!";
-                label.Visible = true;
-                if (Gameclass.CurrentGame.CheckMate())
-                {
-                    label.Text = "Šach mat! Konec!";
-                }
-            }
-            Generating.WhitePlays = !Generating.WhitePlays;
 
         }
         
