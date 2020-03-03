@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShogiCheckersChess
 {
-    class RandomMoveGen
+    public class RandomMoveGen
     {
         public static bool WhiteSide = false;
 
@@ -32,10 +32,6 @@ namespace ShogiCheckersChess
 
         public static int FindPiece()
         {
-            List<Pieces> pieces = new List<Pieces>();
-            List<int> x = new List<int>();
-            List<int> y = new List<int>();
-
             for (int i = 0; i < Board.board.GetLength(0); i++)
             {
                 for (int j = 0; j < Board.board.GetLength(0); j++)

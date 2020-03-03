@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShogiCheckersChess
 {
-    class Gameclass
+    public class Gameclass
     {
         public static class CurrentGame
         {
