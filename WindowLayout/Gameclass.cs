@@ -13,6 +13,8 @@ namespace ShogiCheckersChess
             public static GameType gameType;
             public static PlayerType playerType;
 
+            public static bool GameEnded;
+
 
             //pro dámu, zda musí vzít určitou figurku
             public static bool MustTake()
@@ -72,7 +74,7 @@ namespace ShogiCheckersChess
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i,j] != null)&&(Board.board[i, j].isWhite == Generating.WhitePlays))
+                        if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
                         {
                             Generating.GenerateMoves(Board.board[i, j], false, i, j);
                         }
@@ -82,7 +84,7 @@ namespace ShogiCheckersChess
                 for (int i = 0; i < Moves.final_x.Count; i++)
                 {
                     Pieces piece = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                    if ((piece != null)&&((piece.GetNumber() == 0)|| (piece.GetNumber() == 21)) &&(Generating.WhitePlays != piece.isWhite))
+                    if ((piece != null) && ((piece.GetNumber() == 0) || (piece.GetNumber() == 21)) && (Generating.WhitePlays != piece.isWhite))
                     {
                         Moves.EmptyCoordinates();
                         Moves.CoordinatesReturn(cp);
@@ -113,7 +115,7 @@ namespace ShogiCheckersChess
                     {
                         if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
-                            Generating.Generate(Board.board[i,j], true, i,j);
+                            Generating.Generate(Board.board[i, j], true, i, j);
 
                             if (Moves.final_x.Count != 0)
                             {
@@ -133,20 +135,33 @@ namespace ShogiCheckersChess
             //zda je král vůbec na šachovnici - pro shogi
             public static bool KingOut()
             {
+                bool OneKing = false;
+                bool SecondKing = false;
                 for (int i = 0; i < Board.board.GetLength(0); i++)
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && ((Board.board[i, j].GetNumber() == 7)||(Board.board[i, j].GetNumber() == 28)) && (Generating.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board.board[i, j] != null) && (Board.board[i, j].GetNumber() == 7))
                         {
-                            return false;
+                            OneKing = true;
+                        }
+                        if ((Board.board[i, j] != null) && (Board.board[i, j].GetNumber() == 28))
+                        {
+                            SecondKing = true;
                         }
                     }
                 }
-                return true;
+                if ((!OneKing)||(!SecondKing))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
-            
+
         }
 
         public enum GameType

@@ -35,7 +35,7 @@ namespace ShogiCheckersChess
         };
 
          
-        /*//základní rozestavení figurek shogi
+        //základní rozestavení figurek shogi
         public static int[,] shogi = new int[,] {
         {38,36,34,33,28,33,34,36,38},
         {-1,29,-1,-1,-1,-1,-1,31,-1},
@@ -46,9 +46,9 @@ namespace ShogiCheckersChess
         {19,19,19,19,19,19,19,19,19},
         {-1,10,-1,-1,-1,-1,-1,8,-1},
         {17,15,13,12,7,12,13,15,17}
-        };*/
+        };
 
-        //testovací rozestavění figurek shogi
+        /*//testovací rozestavění figurek shogi
         public static int[,] shogi = new int[,] {
         {-1,-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1,-1},
@@ -60,7 +60,7 @@ namespace ShogiCheckersChess
         {-1,-1,-1,40,-1,31,29,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1,-1},
         };
-
+        */
         //základní rozestavení figurek dámy
         public static int[,] checkers = new int[,] {
         {-1,27,-1,27,-1,27,-1,27},

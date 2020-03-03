@@ -203,6 +203,9 @@ namespace ShogiCheckersChess
         //souřadnice z location
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
         {
+            if (Gameclass.CurrentGame.GameEnded)
+                return;
+
             //zvýraznit tahy nejdřív a podívat se, zda jsou všechny napsané správně
             PictureBox picture = (PictureBox)sender;
             Color background;
@@ -362,6 +365,7 @@ namespace ShogiCheckersChess
                 {
                     label2.Text = "Konec hry.";
                     label2.Visible = true;
+                    Gameclass.CurrentGame.GameEnded = true;
                 }
             }
 
@@ -372,6 +376,7 @@ namespace ShogiCheckersChess
                 {
                     label2.Text = "Konec hry.";
                     label2.Visible = true;
+                    Gameclass.CurrentGame.GameEnded = true;
                 }
             }
 
@@ -384,6 +389,7 @@ namespace ShogiCheckersChess
                 if (Gameclass.CurrentGame.CheckMate())
                 {
                     label2.Text = "Šach mat! Konec!";
+                    Gameclass.CurrentGame.GameEnded = true;
                 }
             }
             Generating.WhitePlays = !Generating.WhitePlays;
@@ -548,7 +554,7 @@ namespace ShogiCheckersChess
             DialogResult result = popup.ShowDialog();
             if (result == DialogResult.OK)
             {
-                Board.AddPiece(30, x, y);
+                Board.AddPiece(PieceNumber, x, y);
                 popup.Dispose();
                 return true;
             }
@@ -561,6 +567,8 @@ namespace ShogiCheckersChess
         //rozměr šachovnice - neměla by asi být fixní, každý má jinak velký monitor
         public void draw_chess()             //vykreslí na pozadí formuláře šachovnici
         {
+            Gameclass.CurrentGame.GameEnded = false;
+
             int boxsize = 50;
             int dimension = chessboard.GetLength(0);
             int border = 1;

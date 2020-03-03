@@ -97,7 +97,7 @@ namespace ShogiCheckersChess
 
         public static bool UpperShogiPromotion(int x)
         {
-            if ((x == Board.board.GetLength(1)) || (x == Board.board.GetLength(1) - 1) || (x == Board.board.GetLength(1) - 2))
+            if ((x == Board.board.GetLength(1) - 3) || (x == Board.board.GetLength(1) - 1) || (x == Board.board.GetLength(1) - 2))
                 return true;
             return false;
         }
