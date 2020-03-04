@@ -33,6 +33,8 @@ namespace ShogiCheckersChess
             {
                 if (Gameclass.CurrentGame.MustTake())
                 {
+                    Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
+
                     if (!Moves.CheckersTake(x, y, Board.board))
                     {
                         Moves.EmptyCoordinates();
@@ -41,6 +43,8 @@ namespace ShogiCheckersChess
                     {
                         CheckersTake = true;
                     }
+
+                    Moves.CoordinatesReturn(cp);
                 }
                 else
                 {

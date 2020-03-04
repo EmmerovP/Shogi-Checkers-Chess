@@ -48,6 +48,13 @@ namespace ConsoleApplication2
                     game.MakeMove();
                     steps++;
 
+                    if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+                    {
+                        if (Gameclass.CurrentGame.KingOut())
+                        {
+                            Gameclass.CurrentGame.GameEnded = true;
+                        }
+                    }
                 }
                 sw.Stop();
                 Console.WriteLine();
@@ -85,10 +92,7 @@ namespace ConsoleApplication2
 
             RandomMoveGen.WhiteSide = !RandomMoveGen.WhiteSide;
 
-            DrawBoard();
-
-
-            Console.ReadLine();
+            //DrawBoard();
         }
 
         public void DrawBoard()
@@ -103,7 +107,7 @@ namespace ConsoleApplication2
                     }
                     else
                     {
-                        Console.Write("|X|");
+                        Console.Write("|"+Board.board[i,j].GetNumber()+"|");
                     }
                 }
                 Console.WriteLine();
