@@ -20,15 +20,13 @@ namespace ShogiCheckersChess
         //problémy s pairy: C# moc pairy nemá... U každé souřadnice bych musela vytvářet nový objekt, což je něco, čemu jsem se chtěla vyhnout :(
         //a co začátek tahu? Asi bych zase tahy musela reprezentovat 
 
-        //public static Tuple<List<int>, List<int>> final = new Tuple<List<int>, List<int>>(new List<int>(), new List<int>());
-
-        //public static List<List<int>> start = new List<List<int>>();
-
         public static List<int> final_x = new List<int>();
         public static List<int> final_y = new List<int>();
 
         public static List<int> start_x = new List<int>();
         public static List<int> start_y = new List<int>();
+
+        public static List<int> value = new List<int>();
 
         public class CoordinatesCopy
         {
@@ -38,6 +36,7 @@ namespace ShogiCheckersChess
             public List<int> start_x = new List<int>();
             public List<int> start_y = new List<int>();
 
+            public List<int> value = new List<int>();
         }
 
 
@@ -48,6 +47,8 @@ namespace ShogiCheckersChess
 
             start_x.Clear();
             start_y.Clear();
+
+            value.Clear();
         }
 
         public static void RemoveAt(int i)
@@ -57,6 +58,8 @@ namespace ShogiCheckersChess
 
             start_x.RemoveAt(i);
             start_y.RemoveAt(i);
+
+            value.RemoveAt(i);
         }
 
         public static void ReplaceAt(int i)
@@ -66,6 +69,8 @@ namespace ShogiCheckersChess
 
             start_x[i] = -1;
             start_y[i] = -1;
+
+            value[i] = -1;
         }
 
         public static bool Equals(int i)
@@ -84,6 +89,7 @@ namespace ShogiCheckersChess
             start_x.RemoveAll(item => item == i);
             start_y.RemoveAll(item => item == i);
 
+            value.RemoveAll(item => item == i);
         }
 
         public static void CoordinatesReturn(CoordinatesCopy cp)
@@ -93,6 +99,8 @@ namespace ShogiCheckersChess
 
             start_x.AddRange(cp.start_x);
             start_y.AddRange(cp.start_y);
+
+            value.AddRange(cp.value);
         }
 
         public static CoordinatesCopy MakeCopyEmpty()
@@ -104,6 +112,8 @@ namespace ShogiCheckersChess
 
             cp.start_x.AddRange(start_x);
             cp.start_y.AddRange(start_y);
+
+            cp.value.AddRange(value);
 
             EmptyCoordinates();
 

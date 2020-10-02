@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ namespace ShogiCheckersChess
         }
 
         //radši přejmenuj tlačítka 
+
+        public static Stopwatch watch;
 
         public static int[,] chessboard;
 
@@ -642,5 +645,6 @@ namespace ShogiCheckersChess
             BackgroundImage = bm;
             BackgroundImageLayout = ImageLayout.None;
         }
+
     }
 }

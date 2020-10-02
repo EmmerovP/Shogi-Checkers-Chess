@@ -70,11 +70,22 @@ namespace ShogiCheckersChess
 
                 List<int> remove = new List<int>();
 
+                //pro Aičko by se to tady asi ani nemuselo brát od nuly...
                 for (int i = 0; i < Moves.final_x.Count; i++)
                 {
                     Pieces takenpiece = Board.board[Moves.final_x[i], Moves.final_y[i]];
                     Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];
                     Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
+
+
+                    int val = 0;
+                    //přidá se hodnota daného tahu - možná v případě hraní lidského hráče nemusí být?
+                    if (takenpiece != null)
+                    {
+                        val = takenpiece.Value;
+                    }
+
+                    Moves.value.Insert(i, val);
 
                     //kontrola šachu - do seznamu remove dá ty tahy, jež mají šach
                     if (Gameclass.CurrentGame.KingCheck())
@@ -82,10 +93,12 @@ namespace ShogiCheckersChess
                         remove.Add(i);
                     }
 
+
                     Board.board[Moves.start_x[i], Moves.start_y[i]] = Board.board[Moves.final_x[i], Moves.final_y[i]];
                     Board.board[Moves.final_x[i], Moves.final_y[i]] = takenpiece;
                 }
 
+                //removneme jak špatné tahy, tak jejich value pro aiščko
                 for (int i = 0; i < remove.Count; i++)
                 {
                     Moves.ReplaceAt(remove[i]);

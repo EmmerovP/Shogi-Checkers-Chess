@@ -17,16 +17,16 @@ namespace ConsoleApplication2
             Game game = new Game();
             while (true)
             {
+                //Console.WriteLine("Choose a type of game (chess, shogi, checkers): ");
 
-                Gameclass.CurrentGame.GameEnded = false;
 
-                string TypeOfGame = Console.ReadLine();
-                int[,] chessboard = new int[8, 8];
+
+                /*string TypeOfGame = Console.ReadLine();
+                
                 switch (TypeOfGame)
                 {
                     case "chess":
-                        chessboard = GameStarts.chess;
-                        Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
+                        
                         break;
                     case "checkers":
                         chessboard = GameStarts.checkers;
@@ -36,30 +36,41 @@ namespace ConsoleApplication2
                         chessboard = GameStarts.shogi;
                         Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
                         break;
-                }
-                game.CreateChessBoard(chessboard);
+                }*/
 
-                int steps = 0;
-                Stopwatch sw = new Stopwatch();
 
-                sw.Start();
-                while (!Gameclass.CurrentGame.GameEnded)
+                for (int i = 0; i < 100; i++)
                 {
-                    game.MakeMove();
-                    steps++;
+                    Gameclass.CurrentGame.GameEnded = false;
 
-                    if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+                    int[,] chessboard = new int[8, 8];
+                    chessboard = GameStarts.chess;
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
+                    game.CreateChessBoard(chessboard);
+
+                    int steps = 0;
+                    Stopwatch sw = new Stopwatch();
+
+                    sw.Start();
+                    while (!Gameclass.CurrentGame.GameEnded)
                     {
-                        if (Gameclass.CurrentGame.KingOut())
+                        game.MakeMove();
+                        steps++;
+
+                        if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                         {
-                            Gameclass.CurrentGame.GameEnded = true;
+                            if (Gameclass.CurrentGame.KingOut())
+                            {
+                                Gameclass.CurrentGame.GameEnded = true;
+                            }
                         }
                     }
+                    sw.Stop();
+                    //Console.WriteLine();
+                    //Console.WriteLine("Elapsed={0}", sw.Elapsed);
+                    //Console.WriteLine("Number of steps: " + steps);
+
                 }
-                sw.Stop();
-                Console.WriteLine();
-                Console.WriteLine("Elapsed={0}", sw.Elapsed);
-                Console.WriteLine("Number of steps: " + steps);
             }
 
         }

@@ -9,7 +9,7 @@ namespace ShogiCheckersChess
     public static class GameStarts
     {
         //soubor    
-        /*
+        
         //základní rozestavení šachových figurek
         public static int[,] chess = new int[,] {
         {23,24,25,21,22,25,24,23},
@@ -20,8 +20,9 @@ namespace ShogiCheckersChess
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {5,5,5,5,5,5,5,5},
         {2,3,4,0,1,4,3,2}
-        }; */
+        }; 
 
+        /*
         //šach mat - ukázková šachovnice
         public static int[,] chess = new int[,] {
         {-1,-1,-1,-1,-1,-1,-1,-1},
@@ -33,7 +34,7 @@ namespace ShogiCheckersChess
         {1,-1,-1,22,22,22,22,-1},
         {-1,-1,-1,-1,-1,-1,-1,21},
         };
-
+        */
          
         //základní rozestavení figurek shogi
         public static int[,] shogi = new int[,] {
@@ -94,8 +95,12 @@ namespace ShogiCheckersChess
         {
 
         }
+
         public bool moved;
         public bool isWhite;
+
+        public virtual int Value { get; protected set; } = 0;
+
         int number;
         public int GetNumber()
         {
@@ -113,6 +118,7 @@ namespace ShogiCheckersChess
     //nějaký public static na zjištění kdo je na tahu
     class Queen : Pieces
     {
+        public override int Value { get; protected set; } = 90;
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.ForwardInfinity(x, y, chessboard);
@@ -128,6 +134,7 @@ namespace ShogiCheckersChess
 
     class King : Pieces
     {
+        public override int Value { get; protected set; } = 900;
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.Forward(x, y, chessboard);
@@ -143,6 +150,8 @@ namespace ShogiCheckersChess
 
     class BottomPawn : Pieces
     {
+        public override int Value { get; protected set; } = 10;
+
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.TwoForward(x, y, chessboard);
@@ -152,6 +161,8 @@ namespace ShogiCheckersChess
 
     class UpperPawn : Pieces
     {
+        public override int Value { get; protected set; } = 10;
+
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.TwoBackward(x, y, chessboard);
@@ -161,6 +172,8 @@ namespace ShogiCheckersChess
 
     class Horse : Pieces
     {
+        public override int Value { get; protected set; } = 30;
+
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.Horse(x, y, chessboard);
@@ -170,6 +183,8 @@ namespace ShogiCheckersChess
 
     class Rook : Pieces
     {
+        public override int Value { get; protected set; } = 50;
+
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.ForwardInfinity(x, y, chessboard);
@@ -181,6 +196,8 @@ namespace ShogiCheckersChess
 
     class Bishop : Pieces
     {
+        public override int Value { get; protected set; } = 30;
+
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.ForwardLeftInfinity(x, y, chessboard);
