@@ -63,7 +63,7 @@ namespace ShogiCheckersChess
                 return true;
             }
 
-            //na konci tahu řekne zda šach či ne - funguje
+            //na konci tahu řekne zda šach či ne
             public static bool KingCheck()
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();

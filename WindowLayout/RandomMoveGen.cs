@@ -14,6 +14,54 @@ namespace ShogiCheckersChess
         //já nevím tohle jde asi líp...
         public static int CurrentHighest;
 
+        public static void Evaluate_moves()
+        {
+
+            Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
+            Generating.WhitePlays = !Generating.WhitePlays;
+
+            for (int k = 0; k < cp.final_x.Count; k++)
+            {
+
+                Moves.EmptyCoordinates();
+
+                var piece = Board.board[cp.start_x[k], cp.start_y[k]];
+                //snažil by se tě někdo při udělání tohoto tahu vyhodit?
+                var takenpiece = Board.board[cp.final_x[k], cp.final_y[k]];
+                Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
+                Board.board[cp.start_x[k], cp.start_y[k]] = null;
+                for (int i = 0; i < Board.board.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    {
+                        //potřebujeme enemáka
+                        if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
+                        {
+                            Generating.GenerateMoves(Board.board[i, j], false, i, j);
+                        }
+                    }
+                }
+
+                //pokud je figurku možno vyhodit, uber hodnotu a breakni
+                for (int i = 0; i < Moves.final_x.Count; i++)
+                {
+                    if ((Moves.final_x[i] == cp.final_x[k]) && (Moves.final_y[i] == cp.final_y[k]))
+                    {
+                        cp.value[k] = cp.value[k] - piece.Value;
+                        break; 
+                    }
+                }
+
+                Board.board[cp.start_x[k], cp.start_y[k]] = Board.board[cp.final_x[k], cp.final_y[k]];
+                Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
+            }
+
+            Generating.WhitePlays = !Generating.WhitePlays;
+
+            Moves.EmptyCoordinates();
+            Moves.CoordinatesReturn(cp);
+        }
+
         public static void HighestNumber()
         {
             int highest = 0;
@@ -75,6 +123,10 @@ namespace ShogiCheckersChess
             //pokud je nějaký tah možný, vyber nějaký s největší hodnotou a posuň tam figurku
             if (Moves.final_x.Count != 0)
             {
+                //Ohodnoď tahy z druhé strany
+                Evaluate_moves();
+
+
                 Random rnd = new Random();
                 HighestNumber();
                 var indexes = HighestIndexes();
