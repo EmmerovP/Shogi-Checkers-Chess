@@ -40,6 +40,20 @@ namespace ShogiCheckersChess
             }
         }
 
+        public static List<int> HighestIndexes()
+        {
+            List<int> indexes = new List<int>();
+            for (int i = 0; i < Moves.value.Count; i++)
+            {
+                if (Moves.value[i] == CurrentHighest)
+                {
+                    indexes.Add(i);
+                }
+            }
+
+            return indexes;
+        }
+
         public static int FindPiece()
         {
             Moves.EmptyCoordinates();
@@ -61,10 +75,12 @@ namespace ShogiCheckersChess
             //pokud je nějaký tah možný, vyber nějaký s největší hodnotou a posuň tam figurku
             if (Moves.final_x.Count != 0)
             {
-                //Random rnd = new Random();
+                Random rnd = new Random();
                 HighestNumber();
+                var indexes = HighestIndexes();
+                int move = rnd.Next(indexes.Count);
 
-                int pos = Moves.value.IndexOf(CurrentHighest);
+                int pos = indexes[move];
                 Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
                 Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
 

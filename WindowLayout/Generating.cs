@@ -78,14 +78,7 @@ namespace ShogiCheckersChess
                     Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
 
 
-                    int val = 0;
-                    //přidá se hodnota daného tahu - možná v případě hraní lidského hráče nemusí být?
-                    if (takenpiece != null)
-                    {
-                        val = takenpiece.Value;
-                    }
 
-                    Moves.value.Insert(i, val);
 
                     //kontrola šachu - do seznamu remove dá ty tahy, jež mají šach
                     if (Gameclass.CurrentGame.KingCheck())
