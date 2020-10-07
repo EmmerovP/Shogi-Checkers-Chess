@@ -286,7 +286,6 @@ namespace ShogiCheckersChess
                 //hlídání konců her
                 EndGame();
 
-
                 //hraje AIčko
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
@@ -326,6 +325,7 @@ namespace ShogiCheckersChess
                     {
                         piecesPictures[Moves.final_x[move], Moves.final_y[move]].Dispose();
                     }
+
                     piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
                     CurrentMoving.Location = picBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
                     CurrentMoving.BringToFront();

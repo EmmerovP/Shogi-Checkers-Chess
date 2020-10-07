@@ -13,11 +13,6 @@ namespace ShogiCheckersChess
 
         public static bool CheckersTake = false;
 
-        public static void PlayGame()
-        {
-
-        }
-
         //vnitřní funkce, která jen vygeneruje tahy 
 
         public static void GenerateMoves(Pieces piece, bool delete, int x, int y)

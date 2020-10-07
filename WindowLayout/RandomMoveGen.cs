@@ -104,27 +104,37 @@ namespace ShogiCheckersChess
 
         public static int FindPiece()
         {
+            Generating.CheckersTake = false;
             Moves.EmptyCoordinates();
 
-            //vygeneruj všechny možný tahy
-
-            for (int i = 0; i < Board.board.GetLength(0); i++)
+            //vygeneruj všechny možný tahy, pokud je dáma  amusí se vzít figurka tak jen ty
+            if (!((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeAI())))
             {
-                for (int j = 0; j < Board.board.GetLength(0); j++)
+                for (int i = 0; i < Board.board.GetLength(0); i++)
                 {
-                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == WhiteSide))
+                    for (int j = 0; j < Board.board.GetLength(0); j++)
                     {
-                        Generating.Generate(Board.board[i, j], false, i, j);
-
+                        if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == WhiteSide))
+                        {
+                            Generating.Generate(Board.board[i, j], false, i, j);
+                        }
                     }
                 }
             }
+            else
+            {
+                Generating.CheckersTake = true;
+            }
+
 
             //pokud je nějaký tah možný, vyber nějaký s největší hodnotou a posuň tam figurku
             if (Moves.final_x.Count != 0)
             {
                 //Ohodnoď tahy z druhé strany
-                Evaluate_moves();
+                if (!Generating.CheckersTake)
+                {
+                    Evaluate_moves();
+                }
 
 
                 Random rnd = new Random();

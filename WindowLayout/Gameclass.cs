@@ -19,27 +19,62 @@ namespace ShogiCheckersChess
             //pro dámu, zda musí vzít určitou figurku
             public static bool MustTake()
             {
+                Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
+
                 for (int i = 0; i < Board.board.GetLength(0); i++)
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
                         if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
-                            Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
+                            //okej, tohle jsem si mohla zakomentovat. Asi tady vytvořím seznam tahů? 
                             bool musttake = Moves.CheckersTake(i, j, Board.board);
-
                             Moves.EmptyCoordinates();
-                            Moves.CoordinatesReturn(cp);
 
                             if (musttake)
                             {
+
+                                Moves.CoordinatesReturn(cp);
                                 return true;
                             }
                         }
                     }
                 }
+
+                Moves.CoordinatesReturn(cp);
                 return false;
+            }
+
+            public static bool MustTakeAI()
+            {
+                bool take = false;
+                for (int i = 0; i < Board.board.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    {
+                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
+                        {
+
+                            Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
+                            bool musttake = Moves.CheckersTake(i, j, Board.board);
+
+                            if (!musttake)
+                            {
+
+                                Moves.EmptyCoordinates();
+                            }
+                            else
+                            {
+                                take = true;
+                            }
+                            Moves.CoordinatesReturn(cp);
+
+                        }
+                    }
+                }
+
+                return take;
             }
 
             //zda v dámě má hráč figurky či už se nemůže hýbat
