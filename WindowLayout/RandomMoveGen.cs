@@ -190,6 +190,8 @@ namespace ShogiCheckersChess
 
             Generating.CheckersTake = false;
             Moves.EmptyCoordinates();
+
+
             EvaluationTree tree = new EvaluationTree();
 
             //vygeneruj všechny možný tahy, pokud je dáma  amusí se vzít figurka tak jen ty
@@ -208,6 +210,11 @@ namespace ShogiCheckersChess
 
             Random rnd = new Random();
 
+            if (tree.coordinates_parent.value.Count == 0)
+            {
+                return -1;
+            }
+
             for (int i = 0; i < tree.coordinates_parent.value.Count; i++)
             {
                 if (tree.coordinates_children[i] != null)
@@ -220,12 +227,9 @@ namespace ShogiCheckersChess
             var indexes = HighestIndexes(highest, tree.coordinates_parent.value);
             int move = rnd.Next(indexes.Count);
 
-            Moves.CoordinatesReturn(tree.coordinates_parent);
+            Moves.EmptyCoordinates();
 
-            if (Moves.final_x.Count == 0)
-            {
-                return -1;
-            }
+            Moves.CoordinatesReturn(tree.coordinates_parent);
 
             int pos = indexes[move];
             Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
