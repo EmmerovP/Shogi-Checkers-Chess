@@ -8,14 +8,7 @@ using System.Windows.Forms;
 namespace ShogiCheckersChess
 {
 
-    public class EvaluationTree
-    {
-        int value;
 
-        public Moves.CoordinatesCopy coordinates_parent;
-
-        public List<EvaluationTree> coordinates_children;
-    }
 
     public class RandomMoveGen
     {
@@ -83,60 +76,14 @@ namespace ShogiCheckersChess
         }
 
 
-        public static int EvaluateMaxTree(EvaluationTree tree)
+   
+
+        public static int OneStepMax(int depth)
         {
-            int highest = Int32.MinValue;
 
-            //nejprve zjisti, jakou hodnotu má podstrom. Pokud už žádný není, je to 0
-            for (int i = 0; i < tree.coordinates_children.Count; i++)
-            {
-                if (tree.coordinates_children[i] != null)
-                {
-                    int value = EvaluateMinTree(tree.coordinates_children[i]) + tree.coordinates_parent.value[i]; 
-                    if (value > highest)
-                    {
-                        highest = value;
-                    }
-                }
-                else
-                {
-                    return Highest(tree.coordinates_parent.value);
-                }              
-            }
-
-            return highest;
-        }
-
-        public static int EvaluateMinTree(EvaluationTree tree)
-        {
-            int lowest = Int32.MaxValue;
-
-            //nejprve zjisti, jakou hodnotu má podstrom. Pokud už žádný není, je to 0
-            for (int i = 0; i < tree.coordinates_children.Count; i++)
-            {
-                if (tree.coordinates_children[i] != null)
-                {
-                    int value = EvaluateMaxTree(tree.coordinates_children[i]) - tree.coordinates_parent.value[i];
-                    if (value < lowest)
-                    {
-                        lowest = value;
-                    }
-                }
-                else
-                {
-                    return Lowest(tree.coordinates_parent.value) * (-1);
-                }
-            }
-
-            return lowest;
-        }
-
-
-        public static EvaluationTree OneStep(int depth)
-        {
             if (depth == 0)
             {
-                return null;
+                return 0;
             }
 
             //Vygenerujeme možné tahy na momentální šachovnici
@@ -153,11 +100,9 @@ namespace ShogiCheckersChess
 
             if (Moves.final_x.Count != 0)
             {
-                //vytvoříme nový evaluační strom, do parentu dáme tahy
-                EvaluationTree newTree = new EvaluationTree();
+                //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
-                newTree.coordinates_parent = cp;
-                newTree.coordinates_children = new List<EvaluationTree>();
+                List<int> Evaluation = new List<int>();
 
                 //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
@@ -169,7 +114,7 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
-                    newTree.coordinates_children.Add(OneStep(depth - 1));
+                    Evaluation.Add((OneStepMin(depth - 1)) + cp.value[k]);
 
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
@@ -177,10 +122,60 @@ namespace ShogiCheckersChess
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 
-                return newTree;
+                return Highest(Evaluation);
             }
 
-            return null;
+            return 0;
+
+        }
+
+        public static int OneStepMin(int depth)
+        {
+            if (depth == 0)
+            {
+                return 0;
+            }
+
+            //Vygenerujeme možné tahy na momentální šachovnici
+            for (int i = 0; i < Board.board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.board.GetLength(0); j++)
+                {
+                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
+                    {
+                        Generating.Generate(Board.board[i, j], false, i, j);
+                    }
+                }
+            }
+
+            if (Moves.final_x.Count != 0)
+            {
+                //vykopírujeme si tahy
+                var cp = Moves.MakeCopyEmpty();
+                List<int> Evaluation = new List<int>();
+
+                //prohodíme strany na další tah
+                Generating.WhitePlays = !Generating.WhitePlays;
+                //tvoříme děti jednotlivých tahů
+                for (int k = 0; k < cp.final_x.Count; k++)
+                {
+                    var piece = Board.board[cp.start_x[k], cp.start_y[k]];
+                    var takenpiece = Board.board[cp.final_x[k], cp.final_y[k]];
+                    Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
+                    Board.board[cp.start_x[k], cp.start_y[k]] = null;
+
+                    Evaluation.Add((OneStepMax(depth - 1)) - cp.value[k]);
+
+                    Board.board[cp.start_x[k], cp.start_y[k]] = piece;
+                    Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
+                }
+
+                Generating.WhitePlays = !Generating.WhitePlays;
+
+                return Lowest(Evaluation);
+            }
+
+            return 0;
 
         }
 
@@ -192,51 +187,71 @@ namespace ShogiCheckersChess
             Moves.EmptyCoordinates();
 
 
-            EvaluationTree tree = new EvaluationTree();
-
             //vygeneruj všechny možný tahy, pokud je dáma  amusí se vzít figurka tak jen ty
             if (!((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeAI())))
             {
-                tree = OneStep(depth);
+                //Vygenerujeme možné tahy na momentální šachovnici
+                for (int i = 0; i < Board.board.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Board.board.GetLength(0); j++)
+                    {
+                        if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
+                        {
+                            Generating.Generate(Board.board[i, j], false, i, j);
+                        }
+                    }
+                }
+
+                Generating.WhitePlays = !Generating.WhitePlays;
+
+                var moves = Moves.MakeCopyEmpty();
+                var Evaluations = new List<int>();
+
+                //skončili jsme
+                if (moves.final_x.Count == 0)
+                {
+                    return -1;
+                }
+
+                for (int i = 0; i < moves.final_x.Count; i++)
+                {
+                    var final_piece = Board.board[moves.final_x[i], moves.final_y[i]];
+                    Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
+                    Board.board[moves.start_x[i], moves.start_y[i]] = null;
+
+                    moves.value[i] = ((OneStepMin(2)) + moves.value[i]);
+
+                    Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
+                    Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;
+                }
+
+                Generating.WhitePlays = WhoPlays;
+
+                //pokud je nějaký tah možný, vyber nějaký s největší hodnotou a posuň tam figurku
+
+                Random rnd = new Random();
+                Moves.EmptyCoordinates();
+                Moves.CoordinatesReturn(moves);
+
+                int highest = Highest(moves.value);
+                var indexes = HighestIndexes(highest, moves.value);
+                int move = rnd.Next(indexes.Count);
+
+                int pos = indexes[move];
+                Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
+                Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
+
+                return pos;
+
             }
             else
             {
                 Generating.CheckersTake = true;
             }
 
-            Generating.WhitePlays = WhoPlays;
-
-            //pokud je nějaký tah možný, vyber nějaký s největší hodnotou a posuň tam figurku
-
-            Random rnd = new Random();
-
-            if (tree.coordinates_parent.value.Count == 0)
-            {
-                return -1;
-            }
-
-            for (int i = 0; i < tree.coordinates_parent.value.Count; i++)
-            {
-                if (tree.coordinates_children[i] != null)
-                {
-                    tree.coordinates_parent.value[i] = tree.coordinates_parent.value[i] + EvaluateMinTree(tree.coordinates_children[i]);
-                }
-            }
-
-            int highest = Highest(tree.coordinates_parent.value);
-            var indexes = HighestIndexes(highest, tree.coordinates_parent.value);
-            int move = rnd.Next(indexes.Count);
-
-            Moves.EmptyCoordinates();
-
-            Moves.CoordinatesReturn(tree.coordinates_parent);
-
-            int pos = indexes[move];
-            Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
-            Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
 
             //vrať nějaké číslo
-            return pos;
+            return 0;
 
         }
     }
