@@ -302,7 +302,7 @@ namespace ShogiCheckersChess
                         int xpiece, ypiece;
                         if (Moves.final_x[move] > Moves.start_x[move])
                         {
-                            xpiece = Moves.start_x[move] + 1;
+                              xpiece = Moves.start_x[move] + 1;
                         }
                         else
                         {

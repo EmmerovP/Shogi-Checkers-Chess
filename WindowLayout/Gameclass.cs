@@ -55,7 +55,6 @@ namespace ShogiCheckersChess
                     {
                         if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
-
                             Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
                             bool musttake = Moves.CheckersTake(i, j, Board.board);
 
@@ -73,7 +72,6 @@ namespace ShogiCheckersChess
                         }
                     }
                 }
-
                 return take;
             }
 

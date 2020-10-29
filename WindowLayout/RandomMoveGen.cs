@@ -7,7 +7,8 @@ using System.Windows.Forms;
 
 namespace ShogiCheckersChess
 {
-
+    //shogi-propagace
+    //šachy - změna pěčce při dojití na konec
 
 
     public class RandomMoveGen
@@ -247,6 +248,8 @@ namespace ShogiCheckersChess
             else
             {
                 Generating.CheckersTake = true;
+                Board.board[Moves.final_x[0], Moves.final_y[0]] = Board.board[Moves.start_x[0], Moves.start_y[0]];
+                Board.board[Moves.start_x[0], Moves.start_y[0]] = null;
             }
 
 
