@@ -13,15 +13,13 @@ namespace ShogiCheckersChess
 
     public class RandomMoveGen
     {
-        const int depth = 3;
-
         public static bool WhiteSide = false;
 
 
         //já nevím tohle jde asi líp...
         public static int CurrentHighest;
 
-        
+
 
         //není něco v knihovně na tohle?
         public static bool isEqual(int a)
@@ -77,9 +75,9 @@ namespace ShogiCheckersChess
         }
 
 
-   
 
-        public static int OneStepMax(int depth)
+
+        public static int OneStepMax(int depth, int alpha, int beta)
         {
 
             if (depth == 0)
@@ -88,7 +86,7 @@ namespace ShogiCheckersChess
             }
 
             //Vygenerujeme možné tahy na momentální šachovnici
-            for (int i = 0; i < Board.board.GetLength(0); i++)  
+            for (int i = 0; i < Board.board.GetLength(0); i++)
             {
                 for (int j = 0; j < Board.board.GetLength(0); j++)
                 {
@@ -115,10 +113,23 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
-                    Evaluation.Add((OneStepMin(depth - 1)) + cp.value[k]);
+                    int eval = OneStepMin(depth - 1, alpha, beta);
+
+                    Evaluation.Add(eval + cp.value[k]);
 
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
+
+
+                    //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
+                    // alpha = Math.Max(beta, Evaluation[k]);
+                    alpha = Math.Max(alpha, eval);
+
+                    if (beta <= alpha)
+                    {
+                        break;
+                    }
+
                 }
 
                 Generating.WhitePlays = !Generating.WhitePlays;
@@ -130,7 +141,7 @@ namespace ShogiCheckersChess
 
         }
 
-        public static int OneStepMin(int depth)
+        public static int OneStepMin(int depth, int alpha, int beta)
         {
             if (depth == 0)
             {
@@ -165,10 +176,23 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
-                    Evaluation.Add((OneStepMax(depth - 1)) - cp.value[k]);
+                    int eval = OneStepMax(depth - 1, alpha, beta);
+
+                    Evaluation.Add(eval + cp.value[k]);
 
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
+
+                    //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
+                    // beta = Math.Min(beta, Evaluation[k]);
+                    beta = Math.Min(beta, eval);
+
+                    if (beta <= alpha)
+                    {
+                        break;
+                    }
+
+                    
                 }
 
                 Generating.WhitePlays = !Generating.WhitePlays;
@@ -220,7 +244,7 @@ namespace ShogiCheckersChess
                     Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
                     Board.board[moves.start_x[i], moves.start_y[i]] = null;
 
-                    moves.value[i] = ((OneStepMin(2)) + moves.value[i]);
+                    moves.value[i] = ((OneStepMin(2, Int32.MinValue, Int32.MaxValue)) + moves.value[i]);
 
                     Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
                     Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;
@@ -242,6 +266,8 @@ namespace ShogiCheckersChess
                 Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
                 Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
 
+                //jakože... tohle by tady asi být nemělo? idk ale funguje to!
+                Generating.CheckersTake = false;
                 return pos;
 
             }
@@ -250,11 +276,8 @@ namespace ShogiCheckersChess
                 Generating.CheckersTake = true;
                 Board.board[Moves.final_x[0], Moves.final_y[0]] = Board.board[Moves.start_x[0], Moves.start_y[0]];
                 Board.board[Moves.start_x[0], Moves.start_y[0]] = null;
+                return 0;
             }
-
-
-            //vrať nějaké číslo
-            return 0;
 
         }
     }

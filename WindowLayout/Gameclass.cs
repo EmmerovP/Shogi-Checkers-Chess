@@ -108,7 +108,7 @@ namespace ShogiCheckersChess
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
                         if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
-                        {
+                        {               
                             Generating.GenerateMoves(Board.board[i, j], false, i, j);
                         }
                     }

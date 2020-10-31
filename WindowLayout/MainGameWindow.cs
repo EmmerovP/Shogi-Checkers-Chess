@@ -329,7 +329,11 @@ namespace ShogiCheckersChess
                     piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
                     CurrentMoving.Location = picBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
                     CurrentMoving.BringToFront();
+                    
+
                     Generating.WhitePlays = !Generating.WhitePlays;
+                    Moves.EmptyCoordinates();
+
                     EndGame();
                 }
             }
@@ -396,6 +400,27 @@ namespace ShogiCheckersChess
                 }
             }
             Generating.WhitePlays = !Generating.WhitePlays;
+
+            //může protějšek udělat tah?
+            Moves.EmptyCoordinates();
+            for (int i = 0; i < Board.board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.board.GetLength(1); j++)
+                {
+                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
+                    {
+                        Generating.Generate(Board.board[i, j], false, i, j);
+                    }
+                }
+            }
+
+            if (Moves.final_x.Count == 0)
+            {
+                label2.Text = "Nelze udělat tah, konec.";
+                label2.Visible = true;
+            }
+
+            Moves.EmptyCoordinates();
         }
 
         //měnění figurek - logika
