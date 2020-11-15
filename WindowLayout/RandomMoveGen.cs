@@ -102,7 +102,7 @@ namespace ShogiCheckersChess
                 //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
                 List<int> Evaluation = new List<int>();
-
+                int eval = 0;
                 //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
                 //tvoříme děti jednotlivých tahů
@@ -113,9 +113,16 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
-                    int eval = OneStepMin(depth - 1, alpha, beta);
+                    if (depth != 0)
+                    {
+                        eval = OneStepMax(depth - 1, alpha, beta);
+                    }
+                    else
+                    {
+                        eval = EvaluateChessboard();
+                    }
 
-                    Evaluation.Add(eval + cp.value[k]);
+                    Evaluation.Add(eval);
 
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
@@ -139,6 +146,29 @@ namespace ShogiCheckersChess
 
             return 0;
 
+        }
+
+        public static int EvaluateChessboard()
+        {
+            int eval = 0;
+            for (int i = 0; i < Board.board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.board.GetLength(0); j++)
+                {
+                    if (Board.board[i, j] != null)
+                    {
+                        if (Board.board[i,j].isWhite == Generating.WhitePlays)
+                        {
+                            eval += Board.board[i, j].Value;
+                        }
+                        else
+                        {
+                            eval -= Board.board[i, j].Value;
+                        }
+                    }
+                }
+            }
+            return eval;
         }
 
         public static int OneStepMin(int depth, int alpha, int beta)
@@ -165,7 +195,7 @@ namespace ShogiCheckersChess
                 //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
                 List<int> Evaluation = new List<int>();
-
+                int eval = 0;
                 //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
                 //tvoříme děti jednotlivých tahů
@@ -176,9 +206,17 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
-                    int eval = OneStepMax(depth - 1, alpha, beta);
+                    if (depth != 0)
+                    {
+                        eval = OneStepMax(depth - 1, alpha, beta);
+                    }
+                    else
+                    {
+                        eval = EvaluateChessboard();
+                    }
 
-                    Evaluation.Add(eval + cp.value[k]);
+
+                    Evaluation.Add(eval);
 
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
@@ -244,7 +282,7 @@ namespace ShogiCheckersChess
                     Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
                     Board.board[moves.start_x[i], moves.start_y[i]] = null;
 
-                    moves.value[i] = ((OneStepMin(2, Int32.MinValue, Int32.MaxValue)) + moves.value[i]);
+                    moves.value[i] = (OneStepMin(2, Int32.MinValue, Int32.MaxValue));
 
                     Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
                     Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;

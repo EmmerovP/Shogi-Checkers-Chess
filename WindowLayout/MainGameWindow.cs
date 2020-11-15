@@ -373,6 +373,7 @@ namespace ShogiCheckersChess
                     label2.Text = "Konec hry.";
                     label2.Visible = true;
                     Gameclass.CurrentGame.GameEnded = true;
+                    return;
                 }
             }
 
@@ -384,6 +385,7 @@ namespace ShogiCheckersChess
                     label2.Text = "Konec hry.";
                     label2.Visible = true;
                     Gameclass.CurrentGame.GameEnded = true;
+                    return;
                 }
             }
 
@@ -397,6 +399,7 @@ namespace ShogiCheckersChess
                 {
                     label2.Text = "Šach mat! Konec!";
                     Gameclass.CurrentGame.GameEnded = true;
+                    return;
                 }
             }
             Generating.WhitePlays = !Generating.WhitePlays;
