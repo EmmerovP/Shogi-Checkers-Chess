@@ -89,7 +89,7 @@
       <DependentUpon>propagation.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomMoveGen.cs" />
+    <Compile Include="ChooseAMove.cs" />
     <EmbeddedResource Include="AboutAuthor.resx">
       <DependentUpon>AboutAuthor.cs</DependentUpon>
     </EmbeddedResource>

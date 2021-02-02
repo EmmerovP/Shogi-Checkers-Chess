@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace ShogiCheckersChess
 {
     //shogi-propagace
-    //šachy - změna pěčce při dojití na konec
+    //šachy - změna pěšce při dojití na konec
 
 
     public class RandomMoveGen
@@ -82,7 +82,7 @@ namespace ShogiCheckersChess
 
             if (depth == 0)
             {
-                return 0;
+                return EvaluateChessboard();
             }
 
             //Vygenerujeme možné tahy na momentální šachovnici
@@ -113,14 +113,8 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
-                    if (depth != 0)
-                    {
-                        eval = OneStepMax(depth - 1, alpha, beta);
-                    }
-                    else
-                    {
-                        eval = EvaluateChessboard();
-                    }
+
+                    eval = OneStepMax(depth - 1, alpha, beta);
 
                     Evaluation.Add(eval);
 
@@ -150,6 +144,13 @@ namespace ShogiCheckersChess
 
         public static int EvaluateChessboard()
         {
+            if (Gameclass.CurrentGame.KingCheck())
+            {
+                if (Gameclass.CurrentGame.CheckMate())
+                {
+                    return Int32.MaxValue;
+                }
+            }
             int eval = 0;
             for (int i = 0; i < Board.board.GetLength(0); i++)
             {
@@ -159,11 +160,11 @@ namespace ShogiCheckersChess
                     {
                         if (Board.board[i,j].isWhite == Generating.WhitePlays)
                         {
-                            eval += Board.board[i, j].Value;
+                            eval -= Board.board[i, j].Value;
                         }
                         else
                         {
-                            eval -= Board.board[i, j].Value;
+                            eval += Board.board[i, j].Value;
                         }
                     }
                 }
@@ -175,7 +176,7 @@ namespace ShogiCheckersChess
         {
             if (depth == 0)
             {
-                return 0;
+                return EvaluateChessboard();
             }
 
             //Vygenerujeme možné tahy na momentální šachovnici
@@ -206,14 +207,8 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
-                    if (depth != 0)
-                    {
-                        eval = OneStepMax(depth - 1, alpha, beta);
-                    }
-                    else
-                    {
-                        eval = EvaluateChessboard();
-                    }
+                    eval = OneStepMax(depth - 1, alpha, beta);
+
 
 
                     Evaluation.Add(eval);

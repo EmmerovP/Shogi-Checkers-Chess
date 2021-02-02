@@ -30,42 +30,43 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainGameWindow));
-            this.SelectChess = new System.Windows.Forms.Button();
-            this.SelectCheckers = new System.Windows.Forms.Button();
+            this.SelectChessButton = new System.Windows.Forms.Button();
+            this.SelectCheckersButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.SelectShogi = new System.Windows.Forms.Button();
-            this.SelectCustomGame = new System.Windows.Forms.Button();
-            this.AboutGame = new System.Windows.Forms.Button();
-            this.AboutAuthor = new System.Windows.Forms.Button();
-            this.Credits = new System.Windows.Forms.Button();
-            this.SelectSingleplayer = new System.Windows.Forms.Button();
-            this.SelectLocMulti = new System.Windows.Forms.Button();
-            this.SelectWebMulti = new System.Windows.Forms.Button();
+            this.SelectShogiButton = new System.Windows.Forms.Button();
+            this.SelectCustomGameButton = new System.Windows.Forms.Button();
+            this.AboutGameButton = new System.Windows.Forms.Button();
+            this.AboutAuthorButton = new System.Windows.Forms.Button();
+            this.CreditsButton = new System.Windows.Forms.Button();
+            this.SelectSingleplayerButton = new System.Windows.Forms.Button();
+            this.SelectLocMultiButton = new System.Windows.Forms.Button();
+            this.SelectWebMultiButton = new System.Windows.Forms.Button();
             this.GamePieces = new System.Windows.Forms.ImageList(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.NewGameButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // SelectChess
+            // SelectChessButton
             // 
-            this.SelectChess.Location = new System.Drawing.Point(136, 145);
-            this.SelectChess.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectChess.Name = "SelectChess";
-            this.SelectChess.Size = new System.Drawing.Size(76, 44);
-            this.SelectChess.TabIndex = 0;
-            this.SelectChess.Text = "Šachy";
-            this.SelectChess.UseVisualStyleBackColor = true;
-            this.SelectChess.Click += new System.EventHandler(this.button1_Click);
+            this.SelectChessButton.Location = new System.Drawing.Point(136, 145);
+            this.SelectChessButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectChessButton.Name = "SelectChessButton";
+            this.SelectChessButton.Size = new System.Drawing.Size(76, 44);
+            this.SelectChessButton.TabIndex = 0;
+            this.SelectChessButton.Text = "Šachy";
+            this.SelectChessButton.UseVisualStyleBackColor = true;
+            this.SelectChessButton.Click += new System.EventHandler(this.SelectChessButton_Click);
             // 
-            // SelectCheckers
+            // SelectCheckersButton
             // 
-            this.SelectCheckers.Location = new System.Drawing.Point(250, 145);
-            this.SelectCheckers.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectCheckers.Name = "SelectCheckers";
-            this.SelectCheckers.Size = new System.Drawing.Size(79, 44);
-            this.SelectCheckers.TabIndex = 1;
-            this.SelectCheckers.Text = "Dáma";
-            this.SelectCheckers.UseVisualStyleBackColor = true;
-            this.SelectCheckers.Click += new System.EventHandler(this.button2_Click);
+            this.SelectCheckersButton.Location = new System.Drawing.Point(250, 145);
+            this.SelectCheckersButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectCheckersButton.Name = "SelectCheckersButton";
+            this.SelectCheckersButton.Size = new System.Drawing.Size(79, 44);
+            this.SelectCheckersButton.TabIndex = 1;
+            this.SelectCheckersButton.Text = "Dáma";
+            this.SelectCheckersButton.UseVisualStyleBackColor = true;
+            this.SelectCheckersButton.Click += new System.EventHandler(this.SelectCheckersButton_Click);
             // 
             // label1
             // 
@@ -77,96 +78,96 @@
             this.label1.Text = resources.GetString("label1.Text");
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SelectShogi
+            // SelectShogiButton
             // 
-            this.SelectShogi.Location = new System.Drawing.Point(368, 145);
-            this.SelectShogi.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectShogi.Name = "SelectShogi";
-            this.SelectShogi.Size = new System.Drawing.Size(79, 44);
-            this.SelectShogi.TabIndex = 3;
-            this.SelectShogi.Text = "Shogi";
-            this.SelectShogi.UseVisualStyleBackColor = true;
-            this.SelectShogi.Click += new System.EventHandler(this.button3_Click);
+            this.SelectShogiButton.Location = new System.Drawing.Point(368, 145);
+            this.SelectShogiButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectShogiButton.Name = "SelectShogiButton";
+            this.SelectShogiButton.Size = new System.Drawing.Size(79, 44);
+            this.SelectShogiButton.TabIndex = 3;
+            this.SelectShogiButton.Text = "Shogi";
+            this.SelectShogiButton.UseVisualStyleBackColor = true;
+            this.SelectShogiButton.Click += new System.EventHandler(this.SelectShogiButton_Click);
             // 
-            // SelectCustomGame
+            // SelectCustomGameButton
             // 
-            this.SelectCustomGame.Location = new System.Drawing.Point(249, 203);
-            this.SelectCustomGame.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectCustomGame.Name = "SelectCustomGame";
-            this.SelectCustomGame.Size = new System.Drawing.Size(79, 49);
-            this.SelectCustomGame.TabIndex = 4;
-            this.SelectCustomGame.Text = "Vlastní hra";
-            this.SelectCustomGame.UseVisualStyleBackColor = true;
-            this.SelectCustomGame.Click += new System.EventHandler(this.button4_Click);
+            this.SelectCustomGameButton.Location = new System.Drawing.Point(249, 203);
+            this.SelectCustomGameButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectCustomGameButton.Name = "SelectCustomGameButton";
+            this.SelectCustomGameButton.Size = new System.Drawing.Size(79, 49);
+            this.SelectCustomGameButton.TabIndex = 4;
+            this.SelectCustomGameButton.Text = "Vlastní hra";
+            this.SelectCustomGameButton.UseVisualStyleBackColor = true;
+            this.SelectCustomGameButton.Click += new System.EventHandler(this.SelectCustomGameButton_Click);
             // 
-            // AboutGame
+            // AboutGameButton
             // 
-            this.AboutGame.Location = new System.Drawing.Point(249, 339);
-            this.AboutGame.Margin = new System.Windows.Forms.Padding(2);
-            this.AboutGame.Name = "AboutGame";
-            this.AboutGame.Size = new System.Drawing.Size(79, 43);
-            this.AboutGame.TabIndex = 5;
-            this.AboutGame.Text = "O hře";
-            this.AboutGame.UseVisualStyleBackColor = true;
-            this.AboutGame.Click += new System.EventHandler(this.button5_Click);
+            this.AboutGameButton.Location = new System.Drawing.Point(249, 339);
+            this.AboutGameButton.Margin = new System.Windows.Forms.Padding(2);
+            this.AboutGameButton.Name = "AboutGameButton";
+            this.AboutGameButton.Size = new System.Drawing.Size(79, 43);
+            this.AboutGameButton.TabIndex = 5;
+            this.AboutGameButton.Text = "O hře";
+            this.AboutGameButton.UseVisualStyleBackColor = true;
+            this.AboutGameButton.Click += new System.EventHandler(this.AboutGameButton_Click);
             // 
-            // AboutAuthor
+            // AboutAuthorButton
             // 
-            this.AboutAuthor.Location = new System.Drawing.Point(250, 404);
-            this.AboutAuthor.Margin = new System.Windows.Forms.Padding(2);
-            this.AboutAuthor.Name = "AboutAuthor";
-            this.AboutAuthor.Size = new System.Drawing.Size(79, 43);
-            this.AboutAuthor.TabIndex = 6;
-            this.AboutAuthor.Text = "O autorce";
-            this.AboutAuthor.UseVisualStyleBackColor = true;
-            this.AboutAuthor.Click += new System.EventHandler(this.button6_Click);
+            this.AboutAuthorButton.Location = new System.Drawing.Point(250, 404);
+            this.AboutAuthorButton.Margin = new System.Windows.Forms.Padding(2);
+            this.AboutAuthorButton.Name = "AboutAuthorButton";
+            this.AboutAuthorButton.Size = new System.Drawing.Size(79, 43);
+            this.AboutAuthorButton.TabIndex = 6;
+            this.AboutAuthorButton.Text = "O autorce";
+            this.AboutAuthorButton.UseVisualStyleBackColor = true;
+            this.AboutAuthorButton.Click += new System.EventHandler(this.AboutAuthorButton_Click);
             // 
-            // Credits
+            // CreditsButton
             // 
-            this.Credits.Location = new System.Drawing.Point(250, 468);
-            this.Credits.Margin = new System.Windows.Forms.Padding(2);
-            this.Credits.Name = "Credits";
-            this.Credits.Size = new System.Drawing.Size(79, 43);
-            this.Credits.TabIndex = 7;
-            this.Credits.Text = "Credits";
-            this.Credits.UseVisualStyleBackColor = true;
-            this.Credits.Click += new System.EventHandler(this.button7_Click);
+            this.CreditsButton.Location = new System.Drawing.Point(250, 468);
+            this.CreditsButton.Margin = new System.Windows.Forms.Padding(2);
+            this.CreditsButton.Name = "CreditsButton";
+            this.CreditsButton.Size = new System.Drawing.Size(79, 43);
+            this.CreditsButton.TabIndex = 7;
+            this.CreditsButton.Text = "Credits";
+            this.CreditsButton.UseVisualStyleBackColor = true;
+            this.CreditsButton.Click += new System.EventHandler(this.CreditsButton_Click);
             // 
-            // SelectSingleplayer
+            // SelectSingleplayerButton
             // 
-            this.SelectSingleplayer.Location = new System.Drawing.Point(136, 273);
-            this.SelectSingleplayer.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectSingleplayer.Name = "SelectSingleplayer";
-            this.SelectSingleplayer.Size = new System.Drawing.Size(76, 46);
-            this.SelectSingleplayer.TabIndex = 8;
-            this.SelectSingleplayer.Text = "Singleplayer";
-            this.SelectSingleplayer.UseVisualStyleBackColor = true;
-            this.SelectSingleplayer.Visible = false;
-            this.SelectSingleplayer.Click += new System.EventHandler(this.button8_Click);
+            this.SelectSingleplayerButton.Location = new System.Drawing.Point(136, 273);
+            this.SelectSingleplayerButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectSingleplayerButton.Name = "SelectSingleplayerButton";
+            this.SelectSingleplayerButton.Size = new System.Drawing.Size(76, 46);
+            this.SelectSingleplayerButton.TabIndex = 8;
+            this.SelectSingleplayerButton.Text = "Singleplayer";
+            this.SelectSingleplayerButton.UseVisualStyleBackColor = true;
+            this.SelectSingleplayerButton.Visible = false;
+            this.SelectSingleplayerButton.Click += new System.EventHandler(this.SelectSingleplayerButton_Click);
             // 
-            // SelectLocMulti
+            // SelectLocMultiButton
             // 
-            this.SelectLocMulti.Location = new System.Drawing.Point(249, 273);
-            this.SelectLocMulti.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectLocMulti.Name = "SelectLocMulti";
-            this.SelectLocMulti.Size = new System.Drawing.Size(80, 46);
-            this.SelectLocMulti.TabIndex = 9;
-            this.SelectLocMulti.Text = "Lokální multiplayer";
-            this.SelectLocMulti.UseVisualStyleBackColor = true;
-            this.SelectLocMulti.Visible = false;
-            this.SelectLocMulti.Click += new System.EventHandler(this.button9_Click);
+            this.SelectLocMultiButton.Location = new System.Drawing.Point(249, 273);
+            this.SelectLocMultiButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectLocMultiButton.Name = "SelectLocMultiButton";
+            this.SelectLocMultiButton.Size = new System.Drawing.Size(80, 46);
+            this.SelectLocMultiButton.TabIndex = 9;
+            this.SelectLocMultiButton.Text = "Lokální multiplayer";
+            this.SelectLocMultiButton.UseVisualStyleBackColor = true;
+            this.SelectLocMultiButton.Visible = false;
+            this.SelectLocMultiButton.Click += new System.EventHandler(this.SelectLocMultiButton_Click);
             // 
-            // SelectWebMulti
+            // SelectWebMultiButton
             // 
-            this.SelectWebMulti.Location = new System.Drawing.Point(370, 273);
-            this.SelectWebMulti.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectWebMulti.Name = "SelectWebMulti";
-            this.SelectWebMulti.Size = new System.Drawing.Size(76, 46);
-            this.SelectWebMulti.TabIndex = 10;
-            this.SelectWebMulti.Text = "Multiplayer po síti";
-            this.SelectWebMulti.UseVisualStyleBackColor = true;
-            this.SelectWebMulti.Visible = false;
-            this.SelectWebMulti.Click += new System.EventHandler(this.button10_Click);
+            this.SelectWebMultiButton.Location = new System.Drawing.Point(370, 273);
+            this.SelectWebMultiButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectWebMultiButton.Name = "SelectWebMultiButton";
+            this.SelectWebMultiButton.Size = new System.Drawing.Size(76, 46);
+            this.SelectWebMultiButton.TabIndex = 10;
+            this.SelectWebMultiButton.Text = "Multiplayer po síti";
+            this.SelectWebMultiButton.UseVisualStyleBackColor = true;
+            this.SelectWebMultiButton.Visible = false;
+            this.SelectWebMultiButton.Click += new System.EventHandler(this.SelectWebMultiButton_Click);
             // 
             // GamePieces
             // 
@@ -218,30 +219,43 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(453, 516);
+            this.label2.Location = new System.Drawing.Point(449, 462);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 11;
             this.label2.Text = "Konec hry.";
             this.label2.Visible = false;
             // 
+            // NewGameButton
+            // 
+            this.NewGameButton.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.NewGameButton.Location = new System.Drawing.Point(452, 478);
+            this.NewGameButton.Name = "NewGameButton";
+            this.NewGameButton.Size = new System.Drawing.Size(99, 48);
+            this.NewGameButton.TabIndex = 12;
+            this.NewGameButton.Text = "Nová hra";
+            this.NewGameButton.UseVisualStyleBackColor = true;
+            this.NewGameButton.Visible = false;
+            this.NewGameButton.Click += new System.EventHandler(this.NewGameButton_Click);
+            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 538);
+            this.Controls.Add(this.NewGameButton);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.SelectWebMulti);
-            this.Controls.Add(this.SelectLocMulti);
-            this.Controls.Add(this.SelectSingleplayer);
-            this.Controls.Add(this.Credits);
-            this.Controls.Add(this.AboutAuthor);
-            this.Controls.Add(this.AboutGame);
-            this.Controls.Add(this.SelectCustomGame);
-            this.Controls.Add(this.SelectShogi);
+            this.Controls.Add(this.SelectWebMultiButton);
+            this.Controls.Add(this.SelectLocMultiButton);
+            this.Controls.Add(this.SelectSingleplayerButton);
+            this.Controls.Add(this.CreditsButton);
+            this.Controls.Add(this.AboutAuthorButton);
+            this.Controls.Add(this.AboutGameButton);
+            this.Controls.Add(this.SelectCustomGameButton);
+            this.Controls.Add(this.SelectShogiButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.SelectCheckers);
-            this.Controls.Add(this.SelectChess);
+            this.Controls.Add(this.SelectCheckersButton);
+            this.Controls.Add(this.SelectChessButton);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainGameWindow";
             this.Text = "Šachy, shogi, dáma";
@@ -252,19 +266,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Button SelectChess;
-        private System.Windows.Forms.Button SelectCheckers;
+        private System.Windows.Forms.Button SelectChessButton;
+        private System.Windows.Forms.Button SelectCheckersButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button SelectShogi;
-        private System.Windows.Forms.Button SelectCustomGame;
-        private System.Windows.Forms.Button AboutGame;
-        private System.Windows.Forms.Button AboutAuthor;
-        private System.Windows.Forms.Button Credits;
-        private System.Windows.Forms.Button SelectSingleplayer;
-        private System.Windows.Forms.Button SelectLocMulti;
-        private System.Windows.Forms.Button SelectWebMulti;
+        private System.Windows.Forms.Button SelectShogiButton;
+        private System.Windows.Forms.Button SelectCustomGameButton;
+        private System.Windows.Forms.Button AboutGameButton;
+        private System.Windows.Forms.Button AboutAuthorButton;
+        private System.Windows.Forms.Button CreditsButton;
+        private System.Windows.Forms.Button SelectSingleplayerButton;
+        private System.Windows.Forms.Button SelectLocMultiButton;
+        private System.Windows.Forms.Button SelectWebMultiButton;
         private System.Windows.Forms.ImageList GamePieces;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button NewGameButton;
     }
 }
 

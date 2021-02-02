@@ -24,50 +24,51 @@ namespace ShogiCheckersChess
 
         public static int[,] chessboard;
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SelectChessButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
             chessboard = GameStarts.chess;
-            ShowPlayer();
+            ChooseTypeOfGame();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void SelectCheckersButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
             chessboard = GameStarts.checkers;
-            ShowPlayer();
+            ChooseTypeOfGame();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void SelectShogiButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
             chessboard = GameStarts.shogi;
-            ShowPlayer();
+            ChooseTypeOfGame();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void SelectCustomGameButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.custom;
-            ShowPlayer();
+            label1.Text = "Zatím není implementováno";
+            label1.Visible = true;
         }
 
-        public void ShowPlayer()
+        public void ChooseTypeOfGame()
         {
-            SelectChess.Visible = false;
-            SelectCheckers.Visible = false;
-            SelectShogi.Visible = false;
-            SelectCustomGame.Visible = false;
-            AboutGame.Visible = false;
-            AboutAuthor.Visible = false;
-            Credits.Visible = false;
+            SelectChessButton.Visible = false;
+            SelectCheckersButton.Visible = false;
+            SelectShogiButton.Visible = false;
+            SelectCustomGameButton.Visible = false;
+            AboutGameButton.Visible = false;
+            AboutAuthorButton.Visible = false;
+            CreditsButton.Visible = false;
             label1.Visible = false;
 
-            SelectSingleplayer.Visible = true;
-            SelectLocMulti.Visible = true;
-            SelectWebMulti.Visible = true;
+            SelectSingleplayerButton.Visible = true;
+            SelectLocMultiButton.Visible = true;
+            SelectWebMultiButton.Visible = true;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void AboutGameButton_Click(object sender, EventArgs e)
         {
             AboutGame popup = new AboutGame();
             DialogResult dialogresult = popup.ShowDialog();
@@ -79,7 +80,7 @@ namespace ShogiCheckersChess
 
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void AboutAuthorButton_Click(object sender, EventArgs e)
         {
             AboutAuthor popup = new AboutAuthor();
             DialogResult dialogresult = popup.ShowDialog();
@@ -90,7 +91,7 @@ namespace ShogiCheckersChess
             popup.Dispose();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void CreditsButton_Click(object sender, EventArgs e)
         {
             Credits popup = new Credits();
             DialogResult dialogresult = popup.ShowDialog();
@@ -101,31 +102,31 @@ namespace ShogiCheckersChess
             popup.Dispose();
         }
 
-        public void TrueVoid()
+        public void HidePlayerTypeButtons()
         {
-            SelectSingleplayer.Visible = false;
-            SelectLocMulti.Visible = false;
-            SelectWebMulti.Visible = false;
+            SelectSingleplayerButton.Visible = false;
+            SelectLocMultiButton.Visible = false;
+            SelectWebMultiButton.Visible = false;
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void SelectSingleplayerButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.playerType = Gameclass.PlayerType.single;
-            TrueVoid();
-            draw_chess();
+            HidePlayerTypeButtons();
+            DrawChessboard();
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void SelectLocMultiButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.playerType = Gameclass.PlayerType.localmulti;
-            TrueVoid();
-            draw_chess();
+            HidePlayerTypeButtons();
+            DrawChessboard();
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void SelectWebMultiButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.playerType = Gameclass.PlayerType.webmulti;
-            TrueVoid();
+            HidePlayerTypeButtons();
             label2.Text = "Nepodporovaná možnost.";
             label2.Visible = true;
             //draw_chess();
@@ -135,7 +136,7 @@ namespace ShogiCheckersChess
         //public static List<PictureBox> piecesPictures = new List<PictureBox>();
         public static PictureBox[,] piecesPictures;
         public static Point[,] location;
-        public static PictureBox[,] picBoxes;
+        public static PictureBox[,] pictureBoxes;
 
         public static PictureBox CurrentMoving;
         public static bool selected = false;
@@ -183,7 +184,7 @@ namespace ShogiCheckersChess
         {
             for (int i = 0; i < Moves.final_x.Count; i++)
             {
-                picBoxes[Moves.final_x[i], Moves.final_y[i]].BackColor = Color.Yellow;
+                pictureBoxes[Moves.final_x[i], Moves.final_y[i]].BackColor = Color.Yellow;
                 if (piecesPictures[Moves.final_x[i], Moves.final_y[i]] != null)
                     piecesPictures[Moves.final_x[i], Moves.final_y[i]].BackColor = Color.Yellow;
             }
@@ -191,11 +192,11 @@ namespace ShogiCheckersChess
 
         public void DeleteHighlight()
         {
-            for (int i = 0; i < picBoxes.GetLength(0); i++)
+            for (int i = 0; i < pictureBoxes.GetLength(0); i++)
             {
-                for (int j = 0; j < picBoxes.GetLength(1); j++)
+                for (int j = 0; j < pictureBoxes.GetLength(1); j++)
                 {
-                    picBoxes[i, j].BackColor = Color.Transparent;
+                    pictureBoxes[i, j].BackColor = Color.Transparent;
                     if (piecesPictures[i, j] != null)
                         piecesPictures[i, j].BackColor = Color.Transparent;
                 }
@@ -213,67 +214,76 @@ namespace ShogiCheckersChess
             PictureBox picture = (PictureBox)sender;
             Color background;
             if (picture.Name[0] == 'B')
+            {
                 background = Color.Crimson;
+            }              
             else
+            {
                 background = Color.DarkBlue;
-
-            int xpic = GetX(picture);
-            int ypic = GetY(picture);
+            }
+                
+            //dostaneme souřadnice, na které jsme klikli, asi nevím jak to udělat elegantněji než projít celou šachovnici
+            int selected_x = GetX(picture);
+            int selected_y = GetY(picture);
 
             //klikli jsme někam náhodně, nic se neděje
-            if (Board.board[xpic, ypic] != null)
+            if (Board.board[selected_x, selected_y] != null)
             {
-                if ((Board.board[xpic, ypic].isWhite != Generating.WhitePlays) && (picBoxes[xpic, ypic].BackColor == Color.Transparent))
+                if ((Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays) && (pictureBoxes[selected_x, selected_y].BackColor == Color.Transparent))
+                {
                     return;
+                }                    
             }
 
             //přesun figurky
-            if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (picBoxes[xpic, ypic].BackColor != Color.Transparent))
+            if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))
             {
-                int x = GetX(CurrentMoving);
-                int y = GetY(CurrentMoving);
-                Pieces pic = GetPiece(CurrentMoving);
+                int piecePosition_x = GetX(CurrentMoving);
+                int piecePosition_y = GetY(CurrentMoving);
+                Pieces piece = GetPiece(CurrentMoving);
 
+                //dáma
                 if (Generating.CheckersTake)
                 {
                     int xpiece, ypiece;
-                    if (xpic > x)
+                    if (selected_x > piecePosition_x)
                     {
-                        xpiece = x + 1;
+                        xpiece = piecePosition_x + 1;
                     }
                     else
                     {
-                        xpiece = xpic + 1;
+                        xpiece = selected_x + 1;
                     }
 
-                    if (ypic > y)
+                    if (selected_y > piecePosition_y)
                     {
-                        ypiece = y + 1;
+                        ypiece = piecePosition_y + 1;
                     }
                     else
                     {
-                        ypiece = ypic + 1;
+                        ypiece = selected_y + 1;
                     }
                     Board.board[xpiece, ypiece] = null;
                     piecesPictures[xpiece, ypiece].Dispose();
                 }
 
-                Board.board[xpic, ypic] = pic;
-                Board.board[x, y] = null;
+                Board.board[selected_x, selected_y] = piece;
+                Board.board[piecePosition_x, piecePosition_y] = null;
 
-                piecesPictures[x, y] = null;
-                if (piecesPictures[xpic, ypic] != null)
+                piecesPictures[piecePosition_x, piecePosition_y] = null;
+
+                //pokud se figurka vyhazuje, musíme její obrázek zrušit
+                if (piecesPictures[selected_x, selected_y] != null)
                 {
-                    piecesPictures[xpic, ypic].Dispose();
+                    piecesPictures[selected_x, selected_y].Dispose();
                 }
 
+
+                piecesPictures[selected_x, selected_y] = CurrentMoving;
+
                 //změna figurky
-                bool changed = ChangePiece(xpic, ypic, pic);
-
-                piecesPictures[xpic, ypic] = CurrentMoving;
-
-                if (changed)
-                    CurrentMoving.Image = GamePieces.Images[Board.board[xpic, ypic].GetNumber()];
+                if (ChangePiece(selected_x, selected_y, piece))
+                    CurrentMoving.Image = GamePieces.Images[Board.board[selected_x, selected_y].GetNumber()];
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 
@@ -327,7 +337,7 @@ namespace ShogiCheckersChess
                     }
 
                     piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
-                    CurrentMoving.Location = picBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
+                    CurrentMoving.Location = pictureBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
                     CurrentMoving.BringToFront();
                     
 
@@ -335,6 +345,11 @@ namespace ShogiCheckersChess
                     Moves.EmptyCoordinates();
 
                     EndGame();
+
+                    if (Gameclass.CurrentGame.GameEnded)
+                    {
+                        NewGameButton.Visible = true;
+                    }
                 }
             }
 
@@ -346,7 +361,7 @@ namespace ShogiCheckersChess
                 selected = false;
             }
 
-            //uživatel klikne na políčko s figurkou, kdy není nic vybráno
+            //uživatel klikne na políčko s figurkou, když není nic vybráno
             else if (!selected)
             {
                 DeleteHighlight();
@@ -596,7 +611,7 @@ namespace ShogiCheckersChess
         //animac
         //mysli na to, že (velikost rozměrová) velikost šachovnice podle počtu políček se bude měnit
         //rozměr šachovnice - neměla by asi být fixní, každý má jinak velký monitor
-        public void draw_chess()             //vykreslí na pozadí formuláře šachovnici
+        public void DrawChessboard()             //vykreslí na pozadí formuláře šachovnici
         {
             Gameclass.CurrentGame.GameEnded = false;
 
@@ -605,7 +620,7 @@ namespace ShogiCheckersChess
             int border = 1;
             location = new Point[dimension, dimension];
             piecesPictures = new PictureBox[dimension, dimension];
-            picBoxes = new PictureBox[dimension, dimension];
+            pictureBoxes = new PictureBox[dimension, dimension];
             Board.board = new Pieces[dimension, dimension];
             Bitmap bm = new Bitmap(boxsize * dimension + border * boxsize, boxsize * dimension + border * boxsize);
             Graphics g = Graphics.FromImage(bm);
@@ -654,7 +669,7 @@ namespace ShogiCheckersChess
                             BackColor = Color.Transparent,
                             SizeMode = PictureBoxSizeMode.CenterImage
                         };
-                        picBoxes[a, b] = backpicture;
+                        pictureBoxes[a, b] = backpicture;
                         this.Controls.Add(backpicture);
                         backpicture.Click += MoveGamePiece;
 
@@ -674,5 +689,15 @@ namespace ShogiCheckersChess
             BackgroundImageLayout = ImageLayout.None;
         }
 
+        public class Chessboard
+        {
+
+        }
+
+        private void NewGameButton_Click(object sender, EventArgs e)
+        {
+            MainGameWindow NewWindow = new MainGameWindow();
+            NewWindow.Show(this);
+        }
     }
 }
