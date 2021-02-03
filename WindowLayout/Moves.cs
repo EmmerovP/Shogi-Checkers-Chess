@@ -39,6 +39,8 @@ namespace ShogiCheckersChess
             public List<int> value = new List<int>();
         }
 
+        public static bool isCastling;
+
 
         public static void EmptyCoordinates()
         {
@@ -161,7 +163,7 @@ namespace ShogiCheckersChess
         {
             int val = 0;
             //přidá se hodnota daného tahu - možná v případě hraní lidského hráče nemusí být?
-            if (Board.board[x,y] != null)
+            if (Board.board[x, y] != null)
             {
                 val = Board.board[x, y].Value;
             }
@@ -639,7 +641,7 @@ namespace ShogiCheckersChess
             if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] != null))
             {
                 enemyMet = false;
-                if ((ValidMove(x + 2, y + 2, chessboard))&&(Board.board[x + 2, y + 2] == null))
+                if ((ValidMove(x + 2, y + 2, chessboard)) && (Board.board[x + 2, y + 2] == null))
                 {
                     start_x.Add(x_starting_pos);
                     start_y.Add(y_starting_pos);
@@ -650,7 +652,7 @@ namespace ShogiCheckersChess
 
                     enemy = true;
                 }
-                
+
                 enemyMet = false;
             }
 
@@ -669,7 +671,7 @@ namespace ShogiCheckersChess
 
 
                     enemy = true;
-                   
+
                 }
                 enemyMet = false;
 
@@ -789,7 +791,7 @@ namespace ShogiCheckersChess
             //somehow they don't add one side of skew, this might help?
             enemyMet = false;
 
-            if (ValidMove(x-1, y-1, chessboard))
+            if (ValidMove(x - 1, y - 1, chessboard))
             {
                 if (chessboard[x - 1, y - 1] != null)
                 {
@@ -805,7 +807,7 @@ namespace ShogiCheckersChess
             }
             enemyMet = false;
 
-            if (ValidMove(x-1, y+1, chessboard))
+            if (ValidMove(x - 1, y + 1, chessboard))
             {
                 if (chessboard[x - 1, y + 1] != null)
                 {
@@ -832,7 +834,7 @@ namespace ShogiCheckersChess
             //somehow they don't add one side of skew, this might help?
             enemyMet = false;
 
-            if (ValidMove(x+1, y+1, chessboard))
+            if (ValidMove(x + 1, y + 1, chessboard))
             {
                 if (chessboard[x + 1, y + 1] != null)
                 {
@@ -848,7 +850,7 @@ namespace ShogiCheckersChess
             }
             enemyMet = false;
 
-            if (ValidMove(x+1, y-1, chessboard))
+            if (ValidMove(x + 1, y - 1, chessboard))
             {
                 if (chessboard[x + 1, y - 1] != null)
                 {
@@ -872,8 +874,8 @@ namespace ShogiCheckersChess
             int y_starting_pos = y;
 
             x--;
-            
-            if ((ValidMove(x, y, chessboard))&&(Board.board[x,y]==null))
+
+            if ((ValidMove(x, y, chessboard)) && (Board.board[x, y] == null))
             {
                 final_x.Add(x);
                 final_y.Add(y);
@@ -892,7 +894,7 @@ namespace ShogiCheckersChess
                 return;
 
             x--;
-            if ((ValidMove(x, y, chessboard))&& (Board.board[x, y] == null))
+            if ((ValidMove(x, y, chessboard)) && (Board.board[x, y] == null))
             {
                 final_x.Add(x);
                 final_y.Add(y);
@@ -937,6 +939,77 @@ namespace ShogiCheckersChess
                 start_y.Add(y_starting_pos);
             }
             enemyMet = false;
+        }
+
+
+        //rošáda
+        public static void Castling(int x, int y, Pieces[,] chessboard)
+        {
+            if (chessboard[x, y].Moved)
+            {
+                return;
+            }
+
+            //pro spodní velkou rošádu
+            if (x == 7 && y == 4
+                    && chessboard[7, 0] != null
+                    && chessboard[7, 0].Value == 50
+                    && chessboard[7, 0].isWhite == chessboard[x, y].isWhite
+                    && chessboard[7, 1] == null
+                    && chessboard[7, 2] == null
+                    && chessboard[7, 3] == null)
+            {
+                start_x.Add(x);
+                start_y.Add(y);
+                final_x.Add(x);
+                final_y.Add(y - 2);
+                AddValue(x, y - 2);
+            }
+
+            //pro spodní malou rošádu
+            if (x == 7 && y == 4
+                    && chessboard[7, 7] != null
+                    && chessboard[7, 7].Value == 50
+                    && chessboard[7, 7].isWhite == chessboard[x, y].isWhite
+                    && chessboard[7, 6] == null
+                    && chessboard[7, 5] == null)
+            {
+                start_x.Add(x);
+                start_y.Add(y);
+                final_x.Add(x);
+                final_y.Add(y + 2);
+                AddValue(x, y + 2);
+            }
+
+            //pro vrchní rošády
+            if (x == 0 && y == 4
+                    && chessboard[0, 0] != null
+                    && chessboard[0, 0].Value == 50
+                    && chessboard[0, 0].isWhite == chessboard[x, y].isWhite
+                    && chessboard[0, 1] == null
+                    && chessboard[0, 2] == null
+                    && chessboard[0, 3] == null)
+            {
+                start_x.Add(x);
+                start_y.Add(y);
+                final_x.Add(x);
+                final_y.Add(y - 2);
+                AddValue(x, y - 2);
+            }
+
+            if (x == 0 && y == 4
+                    && chessboard[0, 7] != null
+                    && chessboard[0, 7].Value == 50
+                    && chessboard[0, 7].isWhite == chessboard[x, y].isWhite
+                    && chessboard[0, 6] == null
+                    && chessboard[0, 5] == null)
+            {
+                start_x.Add(x);
+                start_y.Add(y);
+                final_x.Add(x);
+                final_y.Add(y + 2);
+                AddValue(x, y + 2);
+            }
         }
     }
 }

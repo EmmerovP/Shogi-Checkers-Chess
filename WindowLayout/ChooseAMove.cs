@@ -144,13 +144,6 @@ namespace ShogiCheckersChess
 
         public static int EvaluateChessboard()
         {
-            if (Gameclass.CurrentGame.KingCheck())
-            {
-                if (Gameclass.CurrentGame.CheckMate())
-                {
-                    return Int32.MaxValue;
-                }
-            }
             int eval = 0;
             for (int i = 0; i < Board.board.GetLength(0); i++)
             {

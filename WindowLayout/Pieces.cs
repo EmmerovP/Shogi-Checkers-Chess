@@ -12,32 +12,32 @@ namespace ShogiCheckersChess
         /*
         //základní rozestavení šachových figurek
         public static int[,] chess = new int[,] {
-        {23,24,25,21,22,25,24,23},
+        {23,24,25,22,21,25,24,23},
         {26,26,26,26,26,26,26,26},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {5,5,5,5,5,5,5,5},
-        {2,3,4,0,1,4,3,2}
-        };
-        */
-        
-        
+        {2,3,4,1,0,4,3,2}
+        };*/
+
+
+
 
         
         //šach mat - ukázková šachovnice
         public static int[,] chess = new int[,] {
-        {-1,21,-1,-1,-1,-1,-1,0},
+        {23,-1,-1,22,21,-1,-1,23},
+        {26,26,26,26,26,26,26,26},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,22,22,-1,-1,-1,-1},
-        {-1,-1,1,-1,-1,-1,-1,-1},
+        {5,5,5,5,5,5,5,5},
+        {2,-1,-1,1,0,-1,-1,2}
         }; 
-         
+
         //základní rozestavení figurek shogi
         public static int[,] shogi = new int[,] {
         {38,36,34,33,28,33,34,36,38},
@@ -90,7 +90,6 @@ namespace ShogiCheckersChess
         }; */
     }
 
-
     public class Pieces
     {
         public virtual void GenerateMoves(int x, int y, Pieces[,] chessboard)
@@ -98,7 +97,7 @@ namespace ShogiCheckersChess
 
         }
 
-        public bool moved;
+        public virtual bool Moved { get; set; } = false;
         public bool isWhite;
 
         public virtual int Value { get; protected set; } = 0;
@@ -136,6 +135,7 @@ namespace ShogiCheckersChess
 
     class King : Pieces
     {
+        public override bool Moved { get; set; } = false;
         public override int Value { get; protected set; } = 900;
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
@@ -147,6 +147,7 @@ namespace ShogiCheckersChess
             Moves.Back(x, y, chessboard);
             Moves.BackLeft(x, y, chessboard);
             Moves.BackRight(x, y, chessboard);
+            Moves.Castling(x, y, chessboard);
         }
     }
 

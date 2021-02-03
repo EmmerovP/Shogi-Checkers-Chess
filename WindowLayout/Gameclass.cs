@@ -25,10 +25,21 @@ namespace ShogiCheckersChess
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite) && Board.board[i,j].Value == 10)
                         {
+                            bool musttake = Moves.CheckersTake(i, j, Board.board);
+                            Moves.EmptyCoordinates();
 
-                            //okej, tohle jsem si mohla zakomentovat. Asi tady vytvořím seznam tahů? 
+                            if (musttake)
+                            {
+
+                                Moves.CoordinatesReturn(cp);
+                                return true;
+                            }
+                        }
+                        //pokud je to královna
+                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite) && Board.board[i, j].Value == 90)
+                        {
                             bool musttake = Moves.CheckersTake(i, j, Board.board);
                             Moves.EmptyCoordinates();
 

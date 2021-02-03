@@ -203,6 +203,82 @@ namespace ShogiCheckersChess
             }
         }
 
+        public bool isCastling(int start_x, int start_y, int final_x, int final_y)
+        {
+            //je to rošáda
+            if (start_x == final_x && start_y== final_y + 2)
+            {
+                //je to rošáda nahoře
+                if (start_x == 0)
+                {
+                    Board.board[0, 3] = Board.board[0, 0];
+                    Board.board[0, 0] = null;
+
+
+                    PictureBox rook = piecesPictures[0, 0];
+                    piecesPictures[0, 0] = null;
+                    piecesPictures[0, 3] = rook;
+                    rook.Location = location[0, 3];
+                    rook.BringToFront();
+                    
+
+                    return true;
+                }
+                //je to rošáda dole
+                if (start_x == 7)
+                {
+                    Board.board[7, 3] = Board.board[7, 0];
+                    Board.board[7, 0] = null;
+
+
+                    PictureBox rook = piecesPictures[7, 0];
+                    piecesPictures[7, 0] = null;
+                    piecesPictures[7, 3] = rook;
+                    rook.Location = location[7, 3];
+                    rook.BringToFront();
+
+
+                    return true;
+                }
+            }
+            if (start_x == final_x && start_y == final_y - 2)
+            {
+                //je to rošáda nahoře
+                if (start_x == 0)
+                {
+                    Board.board[0, 5] = Board.board[0, 7];
+                    Board.board[0, 7] = null;
+
+
+                    PictureBox rook = piecesPictures[0, 7];
+                    piecesPictures[0, 7] = null;
+                    piecesPictures[0, 5] = rook;
+                    rook.Location = location[0, 5];
+                    rook.BringToFront();
+
+
+                    return true;
+                }
+                //je to rošáda dole
+                if (start_x == 7)
+                {
+                    Board.board[7, 5] = Board.board[7, 7];
+                    Board.board[7, 7] = null;
+
+
+                    PictureBox rook = piecesPictures[7, 7];
+                    piecesPictures[7, 7] = null;
+                    piecesPictures[7, 5] = rook;
+                    rook.Location = location[7, 5];
+                    rook.BringToFront();
+
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         //souřadnice z location
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
@@ -293,8 +369,19 @@ namespace ShogiCheckersChess
                 CurrentMoving.BringToFront();
                 DeleteHighlight();
 
+                if (piece.Value == 900)
+                {
+                    piece.Moved = true;
+                    //pokud se král posunul o dvě políčka, jedná se o rošádu
+                    isCastling(piecePosition_x, piecePosition_y, selected_x, selected_y);
+                }
+
                 //hlídání konců her
-                EndGame();
+                if (EndGame())
+                {
+                    return;
+                }
+
 
                 //hraje AIčko
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
@@ -339,17 +426,18 @@ namespace ShogiCheckersChess
                     piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
                     CurrentMoving.Location = pictureBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
                     CurrentMoving.BringToFront();
-                    
+
+                    if (Board.board[Moves.final_x[move], Moves.final_y[move]].Value == 900)
+                    {
+                        //rošáda
+                        Board.board[Moves.final_x[move], Moves.final_y[move]].Moved = true;
+                        isCastling(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move]);
+                    }
 
                     Generating.WhitePlays = !Generating.WhitePlays;
                     Moves.EmptyCoordinates();
 
                     EndGame();
-
-                    if (Gameclass.CurrentGame.GameEnded)
-                    {
-                        NewGameButton.Visible = true;
-                    }
                 }
             }
 
@@ -377,7 +465,7 @@ namespace ShogiCheckersChess
             }
         }
 
-        public void EndGame()
+        public bool EndGame()
         {
             label2.Visible = false;
             //konec hry dáma
@@ -388,7 +476,7 @@ namespace ShogiCheckersChess
                     label2.Text = "Konec hry.";
                     label2.Visible = true;
                     Gameclass.CurrentGame.GameEnded = true;
-                    return;
+                    return true;
                 }
             }
 
@@ -400,7 +488,7 @@ namespace ShogiCheckersChess
                     label2.Text = "Konec hry.";
                     label2.Visible = true;
                     Gameclass.CurrentGame.GameEnded = true;
-                    return;
+                    return true;
                 }
             }
 
@@ -414,7 +502,7 @@ namespace ShogiCheckersChess
                 {
                     label2.Text = "Šach mat! Konec!";
                     Gameclass.CurrentGame.GameEnded = true;
-                    return;
+                    return true;
                 }
             }
             Generating.WhitePlays = !Generating.WhitePlays;
@@ -436,9 +524,12 @@ namespace ShogiCheckersChess
             {
                 label2.Text = "Nelze udělat tah, konec.";
                 label2.Visible = true;
+                Moves.EmptyCoordinates();
+                return true;
             }
 
             Moves.EmptyCoordinates();
+            return false;
         }
 
         //měnění figurek - logika
@@ -616,14 +707,14 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.GameEnded = false;
 
             int boxsize = 50;
-            int dimension = chessboard.GetLength(0);
+            int dimension = MainGameWindow.chessboard.GetLength(0);
             int border = 1;
             location = new Point[dimension, dimension];
             piecesPictures = new PictureBox[dimension, dimension];
             pictureBoxes = new PictureBox[dimension, dimension];
             Board.board = new Pieces[dimension, dimension];
-            Bitmap bm = new Bitmap(boxsize * dimension + border * boxsize, boxsize * dimension + border * boxsize);
-            Graphics g = Graphics.FromImage(bm);
+            Bitmap chessboard = new Bitmap(boxsize * dimension + border * boxsize, boxsize * dimension + border * boxsize);
+            Graphics graphics = Graphics.FromImage(chessboard);
             using (SolidBrush blackBrush = new SolidBrush(Color.DarkGray))
             using (SolidBrush whiteBrush = new SolidBrush(Color.White))  //na vykreslení bílých i černých polí
 
@@ -636,7 +727,7 @@ namespace ShogiCheckersChess
 
                         location[a, b] = new Point(j * boxsize, i * boxsize);
 
-                        int piece = chessboard[a, b];
+                        int piece = MainGameWindow.chessboard[a, b];
                         if (piece != -1)
                         {
                             var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
@@ -677,21 +768,16 @@ namespace ShogiCheckersChess
 
                         if (((a % 2 == 1) & (b % 2 == 1)) || ((a % 2 == 0) & (b % 2 == 0)))  //vykreslí se bílý čtvereček
                         {
-                            g.FillRectangle(whiteBrush, i * boxsize, j * boxsize, boxsize, boxsize);
+                            graphics.FillRectangle(whiteBrush, i * boxsize, j * boxsize, boxsize, boxsize);
                         }
                         else  //vykreslí se černý čtvereček
                         {
-                            g.FillRectangle(blackBrush, i * boxsize, j * boxsize, boxsize, boxsize);
+                            graphics.FillRectangle(blackBrush, i * boxsize, j * boxsize, boxsize, boxsize);
                         }
                     }
                 }
-            BackgroundImage = bm;
+            BackgroundImage = chessboard;
             BackgroundImageLayout = ImageLayout.None;
-        }
-
-        public class Chessboard
-        {
-
         }
 
         private void NewGameButton_Click(object sender, EventArgs e)
