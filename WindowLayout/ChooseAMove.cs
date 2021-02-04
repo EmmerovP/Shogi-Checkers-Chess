@@ -285,9 +285,6 @@ namespace ShogiCheckersChess
             int move = rnd.Next(indexes.Count);
 
             int pos = indexes[move];
-            Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
-            Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
-
             return pos;
 
 

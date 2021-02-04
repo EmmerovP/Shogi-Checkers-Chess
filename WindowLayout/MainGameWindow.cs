@@ -316,69 +316,8 @@ namespace ShogiCheckersChess
             {
                 int piecePosition_x = GetX(CurrentMoving);
                 int piecePosition_y = GetY(CurrentMoving);
-                Pieces piece = GetPiece(CurrentMoving);
 
-                //dáma
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[piecePosition_x, piecePosition_y].Value == 10 &&
-                        (piecePosition_x == selected_x - 2 || piecePosition_x == selected_x + 2))
-                {
-                    int xpiece, ypiece;
-                    if (selected_x > piecePosition_x)
-                    {
-                        xpiece = piecePosition_x + 1;
-                    }
-                    else
-                    {
-                        xpiece = selected_x + 1;
-                    }
-
-                    if (selected_y > piecePosition_y)
-                    {
-                        ypiece = piecePosition_y + 1;
-                    }
-                    else
-                    {
-                        ypiece = selected_y + 1;
-                    }
-                    Board.board[xpiece, ypiece] = null;
-                    piecesPictures[xpiece, ypiece].Dispose();
-                }
-
-                Board.board[selected_x, selected_y] = piece;
-                Board.board[piecePosition_x, piecePosition_y] = null;
-
-                piecesPictures[piecePosition_x, piecePosition_y] = null;
-
-                //pokud se figurka vyhazuje, musíme její obrázek zrušit
-                if (piecesPictures[selected_x, selected_y] != null)
-                {
-                    piecesPictures[selected_x, selected_y].Dispose();
-                }
-
-
-                piecesPictures[selected_x, selected_y] = CurrentMoving;
-
-                //změna figurky
-                if (ChangePiece(selected_x, selected_y, piece))
-                    CurrentMoving.Image = GamePieces.Images[Board.board[selected_x, selected_y].GetNumber()];
-
-                Generating.WhitePlays = !Generating.WhitePlays;
-
-                CurrentMoving.BackColor = Color.Transparent;
-                selected = false;
-                CurrentMoving.Location = picture.Location;
-                CurrentMoving.BringToFront();
-                DeleteHighlight();
-
-                if (piece.Value == 900)
-                {
-                    piece.Moved = true;
-                    //pokud se král posunul o dvě políčka, jedná se o rošádu
-                    isCastling(piecePosition_x, piecePosition_y, selected_x, selected_y);
-                }
-
-                //hlídání konců her
-                if (EndGame())
+                if (PieceMovement(piecePosition_x, piecePosition_y, selected_x, selected_y, CurrentMoving, true))
                 {
                     return;
                 }
@@ -388,60 +327,16 @@ namespace ShogiCheckersChess
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
                     int move = RandomMoveGen.FindPiece();
+
                     if (move == -1)
                     {
                         label2.Text = "Vyhráli jste!";
                         return;
                     }
-                    CurrentMoving = piecesPictures[Moves.start_x[move], Moves.start_y[move]];
-                    piecesPictures[Moves.start_x[move], Moves.start_y[move]] = null;
 
-                    //pokud se žeton o hodnotě deset posouvá o dvě pole, jedná se o vyhození v dámě
-                    if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[Moves.final_x[move], Moves.final_y[move]].Value == 10 &&
-                        (Moves.start_x[move] == Moves.final_x[move]-2 || Moves.start_x[move] == Moves.final_x[move] + 2))
-                    {
-                        int xpiece, ypiece;
-                        if (Moves.final_x[move] > Moves.start_x[move])
-                        {
-                              xpiece = Moves.start_x[move] + 1;
-                        }
-                        else
-                        {
-                            xpiece = Moves.final_x[move] + 1;
-                        }
-
-                        if (Moves.final_y[move] > Moves.start_y[move])
-                        {
-                            ypiece = Moves.start_y[move] + 1;
-                        }
-                        else
-                        {
-                            ypiece = Moves.final_y[move] + 1;
-                        }
-                        Board.board[xpiece, ypiece] = null;
-                        piecesPictures[xpiece, ypiece].Dispose();
-                    }
-
-                    if (piecesPictures[Moves.final_x[move], Moves.final_y[move]] != null)
-                    {
-                        piecesPictures[Moves.final_x[move], Moves.final_y[move]].Dispose();
-                    }
-
-                    piecesPictures[Moves.final_x[move], Moves.final_y[move]] = CurrentMoving;
-                    CurrentMoving.Location = pictureBoxes[Moves.final_x[move], Moves.final_y[move]].Location;
-                    CurrentMoving.BringToFront();
-
-                    if (Board.board[Moves.final_x[move], Moves.final_y[move]].Value == 900)
-                    {
-                        //rošáda
-                        Board.board[Moves.final_x[move], Moves.final_y[move]].Moved = true;
-                        isCastling(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move]);
-                    }
-
-                    Generating.WhitePlays = !Generating.WhitePlays;
-                    Moves.EmptyCoordinates();
-
-                    EndGame();
+                    PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
+                        piecesPictures[Moves.start_x[move], Moves.start_y[move]], false);
+                   
                 }
             }
 
@@ -534,6 +429,76 @@ namespace ShogiCheckersChess
 
             Moves.EmptyCoordinates();
             return false;
+        }
+
+        public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture, bool isPlayer)
+        {
+            Pieces piece = Board.board[start_x, start_y];
+           //dáma
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&
+                    (start_x == final_x - 2 || start_x == final_x + 2))
+            {
+                int xpiece, ypiece;
+                if (final_x > start_x)
+                {
+                    xpiece = start_x + 1;
+                }
+                else
+                {
+                    xpiece = final_x + 1;
+                }
+
+                if (final_y > start_y)
+                {
+                    ypiece = start_y + 1;
+                }
+                else
+                {
+                    ypiece = final_y + 1;
+                }
+                Board.board[xpiece, ypiece] = null;
+                piecesPictures[xpiece, ypiece].Dispose();
+            }
+
+            Board.board[final_x, final_y] = piece;
+            Board.board[start_x, start_y] = null;
+
+            piecesPictures[start_x, start_y] = null;
+
+            //pokud se figurka vyhazuje, musíme její obrázek zrušit
+            if (piecesPictures[final_x, final_y] != null)
+            {
+                piecesPictures[final_x, final_y].Dispose();
+            }
+
+
+            piecesPictures[final_x, final_y] = movingPicture;
+
+            //změna figurky
+            if (ChangePiece(final_x, final_y, piece))
+                movingPicture.Image = GamePieces.Images[Board.board[final_x, final_y].GetNumber()];
+
+            Generating.WhitePlays = !Generating.WhitePlays;
+
+            if (isPlayer)
+            {
+                movingPicture.BackColor = Color.Transparent;
+            }
+
+            selected = false;
+            movingPicture.Location = location[final_x, final_y]; ;
+            movingPicture.BringToFront();
+            DeleteHighlight();
+
+            if (piece.Value == 900)
+            {
+                piece.Moved = true;
+                //pokud se král posunul o dvě políčka, jedná se o rošádu
+                isCastling(start_x, start_y, final_x, final_y);
+            }
+
+            //hlídání konců her
+            return EndGame();
         }
 
         //měnění figurek - logika
