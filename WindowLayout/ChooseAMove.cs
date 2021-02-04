@@ -151,7 +151,7 @@ namespace ShogiCheckersChess
                 {
                     if (Board.board[i, j] != null)
                     {
-                        if (Board.board[i,j].isWhite == Generating.WhitePlays)
+                        if (Board.board[i, j].isWhite == Generating.WhitePlays)
                         {
                             eval -= Board.board[i, j].Value;
                         }
@@ -218,7 +218,7 @@ namespace ShogiCheckersChess
                         break;
                     }
 
-                    
+
                 }
 
                 Generating.WhitePlays = !Generating.WhitePlays;
@@ -237,73 +237,60 @@ namespace ShogiCheckersChess
             Generating.CheckersTake = false;
             Moves.EmptyCoordinates();
 
-
-            //vygeneruj všechny možný tahy, pokud je dáma  amusí se vzít figurka tak jen ty
-            if (!((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeAI())))
+            //Vygenerujeme možné tahy na momentální šachovnici
+            for (int i = 0; i < Board.board.GetLength(0); i++)
             {
-                //Vygenerujeme možné tahy na momentální šachovnici
-                for (int i = 0; i < Board.board.GetLength(0); i++)
+                for (int j = 0; j < Board.board.GetLength(0); j++)
                 {
-                    for (int j = 0; j < Board.board.GetLength(0); j++)
+                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
                     {
-                        if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
-                        {
-                            Generating.Generate(Board.board[i, j], false, i, j);
-                        }
+                        Generating.Generate(Board.board[i, j], false, i, j);
                     }
                 }
-
-                Generating.WhitePlays = !Generating.WhitePlays;
-
-                var moves = Moves.MakeCopyEmpty();
-                var Evaluations = new List<int>();
-
-                //skončili jsme
-                if (moves.final_x.Count == 0)
-                {
-                    return -1;
-                }
-
-                for (int i = 0; i < moves.final_x.Count; i++)
-                {
-                    var final_piece = Board.board[moves.final_x[i], moves.final_y[i]];
-                    Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
-                    Board.board[moves.start_x[i], moves.start_y[i]] = null;
-
-                    moves.value[i] = (OneStepMin(2, Int32.MinValue, Int32.MaxValue));
-
-                    Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
-                    Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;
-                }
-
-                Generating.WhitePlays = WhoPlays;
-
-                //pokud je nějaký tah možný, vyber nějaký s největší hodnotou a posuň tam figurku
-
-                Random rnd = new Random();
-                Moves.EmptyCoordinates();
-                Moves.CoordinatesReturn(moves);
-
-                int highest = Highest(moves.value);
-                var indexes = HighestIndexes(highest, moves.value);
-                int move = rnd.Next(indexes.Count);
-
-                int pos = indexes[move];
-                Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
-                Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
-
-                //jakože... tohle by tady asi být nemělo? idk ale funguje to!
-                Generating.CheckersTake = false;
-                return pos;
-
             }
-            else
+
+            Generating.WhitePlays = !Generating.WhitePlays;
+
+            var moves = Moves.MakeCopyEmpty();
+            var Evaluations = new List<int>();
+
+            //skončili jsme
+            if (moves.final_x.Count == 0)
             {
-                Generating.CheckersTake = true;
-                Board.board[Moves.final_x[0], Moves.final_y[0]] = Board.board[Moves.start_x[0], Moves.start_y[0]];
-                Board.board[Moves.start_x[0], Moves.start_y[0]] = null;
-                return 0;
+                return -1;
             }
+
+            for (int i = 0; i < moves.final_x.Count; i++)
+            {
+                var final_piece = Board.board[moves.final_x[i], moves.final_y[i]];
+                Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
+                Board.board[moves.start_x[i], moves.start_y[i]] = null;
+
+                moves.value[i] = (OneStepMin(2, Int32.MinValue, Int32.MaxValue));
+
+                Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
+                Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;
+            }
+
+            Generating.WhitePlays = WhoPlays;
+
+            //pokud je nějaký tah možný, vyber nějaký s největší hodnotou a posuň tam figurku
+
+            Random rnd = new Random();
+            Moves.EmptyCoordinates();
+            Moves.CoordinatesReturn(moves);
+
+            int highest = Highest(moves.value);
+            var indexes = HighestIndexes(highest, moves.value);
+            int move = rnd.Next(indexes.Count);
+
+            int pos = indexes[move];
+            Board.board[Moves.final_x[pos], Moves.final_y[pos]] = Board.board[Moves.start_x[pos], Moves.start_y[pos]];
+            Board.board[Moves.start_x[pos], Moves.start_y[pos]] = null;
+
+            return pos;
+
+
 
         }
     }

@@ -626,16 +626,13 @@ namespace ShogiCheckersChess
             enemyMet = false;
         }
 
-        //tady budou tahy, co se provádějí speciálně při vyhození figurky
-        //dáma - o dvě políčka šikmo, pěšec šikmo... Nojo, ale nedaly by se použít tahy běžné? Již napsané výše?
-
         public static bool CheckersTake(int x, int y, Pieces[,] chessboard)
         {
-
             int x_starting_pos = x;
             int y_starting_pos = y;
 
             bool enemy = false;
+            enemyMet = false;
 
             //funkční model, vypadá to
             if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] != null))
@@ -717,11 +714,19 @@ namespace ShogiCheckersChess
                 }
             }
 
-            enemyMet = false;
+            return enemy;
+        }
 
+        //tahy žetonem dámou pouze
 
-            if (!enemy)
-            {
+        public static bool Checkers(int x, int y, Pieces[,] chessboard)
+        {
+
+            int x_starting_pos = x;
+            int y_starting_pos = y;
+
+            bool enemy = false;
+
                 if ((ValidMove(x - 1, y - 1, chessboard)) && (Board.board[x - 1, y - 1] == null))
                 {
                     start_x.Add(x_starting_pos);
@@ -776,7 +781,7 @@ namespace ShogiCheckersChess
                 }
                 enemyMet = false;
 
-            }
+
 
             return enemy;
 

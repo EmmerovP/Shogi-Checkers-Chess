@@ -17,7 +17,7 @@ namespace ShogiCheckersChess
 
 
             //pro dámu, zda musí vzít určitou figurku
-            public static bool MustTake()
+            public static bool MustTakeCheckersPiece()
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
@@ -25,66 +25,41 @@ namespace ShogiCheckersChess
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
+                        //pokud je to speciální žeton v dámě
                         if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite) && Board.board[i,j].Value == 10)
                         {
-                            bool musttake = Moves.CheckersTake(i, j, Board.board);
-                            Moves.EmptyCoordinates();
-
-                            if (musttake)
+                            if (Moves.CheckersTake(i,j, Board.board))
                             {
-
+                                Moves.EmptyCoordinates();
                                 Moves.CoordinatesReturn(cp);
                                 return true;
                             }
+                            
+
                         }
-                        //pokud je to královna
-                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite) && Board.board[i, j].Value == 90)
+                        //pokud je to královna či jiná figurka co bere normálně
+                        else if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
-                            bool musttake = Moves.CheckersTake(i, j, Board.board);
-                            Moves.EmptyCoordinates();
-
-                            if (musttake)
+                            Board.board[i, j].GenerateMoves(i, j, Board.board);
+                            for (int k = 0; k < Moves.start_x.Count; k++)
                             {
-
-                                Moves.CoordinatesReturn(cp);
-                                return true;
+                                if (Board.board[Moves.final_x[k], Moves.final_y[k]] != null && Board.board[Moves.final_x[k], Moves.final_y[k]].isWhite != Board.board[i,j].isWhite)
+                                {
+                                    Moves.EmptyCoordinates();
+                                    Moves.CoordinatesReturn(cp);
+                                    return true;
+                                }
                             }
+                            
+
                         }
                     }
                 }
-
+                Moves.EmptyCoordinates();
                 Moves.CoordinatesReturn(cp);
                 return false;
             }
-
-            public static bool MustTakeAI()
-            {
-                bool take = false;
-                for (int i = 0; i < Board.board.GetLength(0); i++)
-                {
-                    for (int j = 0; j < Board.board.GetLength(1); j++)
-                    {
-                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
-                        {
-                            Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
-                            bool musttake = Moves.CheckersTake(i, j, Board.board);
-
-                            if (!musttake)
-                            {
-
-                                Moves.EmptyCoordinates();
-                            }
-                            else
-                            {
-                                take = true;
-                            }
-                            Moves.CoordinatesReturn(cp);
-
-                        }
-                    }
-                }
-                return take;
-            }
+           
 
             //zda v dámě má hráč figurky či už se nemůže hýbat
             public static bool CheckersEnd()

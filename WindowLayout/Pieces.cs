@@ -74,20 +74,20 @@ namespace ShogiCheckersChess
         {6,-1,6,-1,6,-1,6,-1},
         {-1,6,-1,6,-1,6,-1,6},
         {6,-1,6,-1,6,-1,6,-1},
-        };
+        }; 
 
-
-        /*//testové rozestavení figurek dámy
+        /*
+        //testové rozestavení figurek dámy
         public static int[,] checkers = new int[,] {
         {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,6,-1,-1,-1,-1,-1},
+        {-1,-1,6,-1,6,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,27,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        }; */
+        {-1,27,-1,-1,-1,27,-1,-1},
+        {-1,-1,22,-1,-1,-1,-1,-1},
+        };  */
     }
 
     public class Pieces
@@ -462,7 +462,7 @@ namespace ShogiCheckersChess
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
-            Moves.CheckersTake(x, y, chessboard);
+            Moves.Checkers(x, y, chessboard);
         }
 
     }
@@ -473,7 +473,7 @@ namespace ShogiCheckersChess
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
-            Moves.CheckersTake(x, y, chessboard);
+            Moves.Checkers(x, y, chessboard);
         }
 
     }

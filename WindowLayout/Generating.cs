@@ -24,27 +24,34 @@ namespace ShogiCheckersChess
             CheckersTake = false;
 
             //musíme-li vzít figurku v dámě, nemůžeme povolit žádný jiný tah
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeCheckersPiece()))
             {
-                if (Gameclass.CurrentGame.MustTake())
-                {
-                    Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
-
-                    if (!Moves.CheckersTake(x, y, Board.board))
+                    if (piece.Value == 10)
                     {
-                        Moves.EmptyCoordinates();
+                        CheckersTake = true;
+                        Moves.CheckersTake(x, y, Board.board);
+                        return;
                     }
                     else
                     {
-                        CheckersTake = true;
-                    }
+                        piece.GenerateMoves(x, y, Board.board);
+                        var copied_coordinates = Moves.MakeCopyEmpty();
+                        for (int i = 0; i < copied_coordinates.final_x.Count; i++)
+                        {
+                            if (Board.board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]]!= null &&
+                                Board.board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]].isWhite != piece.isWhite)
+                            {
+                                Moves.final_x.Add(copied_coordinates.final_x[i]);
+                                Moves.final_y.Add(copied_coordinates.final_y[i]);
 
-                    Moves.CoordinatesReturn(cp);
-                }
-                else
-                {
-                    piece.GenerateMoves(x, y, Board.board);
-                }
+                                Moves.start_x.Add(copied_coordinates.start_x[i]);
+                                Moves.start_y.Add(copied_coordinates.start_y[i]);
+
+                                Moves.value.Add(copied_coordinates.value[i]);
+                            }
+                        }
+                        return;                                       
+                    }
             }
             else
             {

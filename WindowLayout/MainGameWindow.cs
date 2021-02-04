@@ -319,7 +319,8 @@ namespace ShogiCheckersChess
                 Pieces piece = GetPiece(CurrentMoving);
 
                 //dáma
-                if (Generating.CheckersTake)
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[piecePosition_x, piecePosition_y].Value == 10 &&
+                        (piecePosition_x == selected_x - 2 || piecePosition_x == selected_x + 2))
                 {
                     int xpiece, ypiece;
                     if (selected_x > piecePosition_x)
@@ -394,7 +395,10 @@ namespace ShogiCheckersChess
                     }
                     CurrentMoving = piecesPictures[Moves.start_x[move], Moves.start_y[move]];
                     piecesPictures[Moves.start_x[move], Moves.start_y[move]] = null;
-                    if (Generating.CheckersTake)
+
+                    //pokud se žeton o hodnotě deset posouvá o dvě pole, jedná se o vyhození v dámě
+                    if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[Moves.final_x[move], Moves.final_y[move]].Value == 10 &&
+                        (Moves.start_x[move] == Moves.final_x[move]-2 || Moves.start_x[move] == Moves.final_x[move] + 2))
                     {
                         int xpiece, ypiece;
                         if (Moves.final_x[move] > Moves.start_x[move])
@@ -536,7 +540,6 @@ namespace ShogiCheckersChess
         public bool ChangePiece(int x, int y, Pieces piece)
         {
 
-            //bool ChangedPiece = false;
             //upperpawn
             if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(1) - 1))
             {
