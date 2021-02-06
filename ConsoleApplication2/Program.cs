@@ -101,7 +101,7 @@ namespace ConsoleApplication2
                 Gameclass.CurrentGame.GameEnded = true;
             }
 
-            RandomMoveGen.WhiteSide = !RandomMoveGen.WhiteSide;
+            //RandomMoveGen.WhiteSide = !RandomMoveGen.WhiteSide;
 
             //DrawBoard();
         }

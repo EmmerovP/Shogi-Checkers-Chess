@@ -18,8 +18,6 @@ namespace ShogiCheckersChess
             InitializeComponent();
         }
 
-        //radši přejmenuj tlačítka 
-
         public static Stopwatch watch;
 
         public static int[,] chessboard;
@@ -132,6 +130,14 @@ namespace ShogiCheckersChess
             //draw_chess();
         }
 
+        private void ShowShogiAddon()
+        {
+            ChooseShogiBox.Visible = true;
+            ChooseShogiButton.Visible = true;
+            ChooseShogiLabel.Visible = true;
+        }
+
+
         //reprezentace figurek bude intem
         //public static List<PictureBox> piecesPictures = new List<PictureBox>();
         public static PictureBox[,] piecesPictures;
@@ -203,7 +209,7 @@ namespace ShogiCheckersChess
             }
         }
 
-        public bool isCastling(int start_x, int start_y, int final_x, int final_y)
+        public bool IsCastling(int start_x, int start_y, int final_x, int final_y)
         {
             //je to rošáda
             if (start_x == final_x && start_y== final_y + 2)
@@ -279,6 +285,11 @@ namespace ShogiCheckersChess
             return false;
         }
 
+        public static bool isPlayer;
+
+        public static List<Pieces> shogiPlayerPieces = new List<Pieces>();
+        public static List<Pieces> shogiAIPieces = new List<Pieces>();
+
 
         //souřadnice z location
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
@@ -314,10 +325,11 @@ namespace ShogiCheckersChess
             //přesun figurky
             if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))
             {
+                isPlayer = true;
                 int piecePosition_x = GetX(CurrentMoving);
                 int piecePosition_y = GetY(CurrentMoving);
 
-                if (PieceMovement(piecePosition_x, piecePosition_y, selected_x, selected_y, CurrentMoving, true))
+                if (PieceMovement(piecePosition_x, piecePosition_y, selected_x, selected_y, CurrentMoving))
                 {
                     return;
                 }
@@ -326,6 +338,7 @@ namespace ShogiCheckersChess
                 //hraje AIčko
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
+                    isPlayer = false;
                     int move = RandomMoveGen.FindPiece();
 
                     if (move == -1)
@@ -335,7 +348,9 @@ namespace ShogiCheckersChess
                     }
 
                     PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                        piecesPictures[Moves.start_x[move], Moves.start_y[move]], false);
+                        piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
+
+                    isPlayer = true;
                    
                 }
             }
@@ -431,7 +446,7 @@ namespace ShogiCheckersChess
             return false;
         }
 
-        public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture, bool isPlayer)
+        public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
         {
             Pieces piece = Board.board[start_x, start_y];
            //dáma
@@ -458,6 +473,21 @@ namespace ShogiCheckersChess
                 }
                 Board.board[xpiece, ypiece] = null;
                 piecesPictures[xpiece, ypiece].Dispose();
+            }
+
+            //v shogi se vyhazuje figurka, přidáváme jí do seznamu vyhozených figurek
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[final_x, final_y] != null)
+            {
+                if (isPlayer)
+                {
+                    shogiPlayerPieces.Add(Board.board[final_x, final_y]);
+                    ShowShogiAddon();
+                    ChooseShogiBox.Items.Add(Board.board[final_x, final_y].Name);
+                }
+                else
+                {
+                    shogiAIPieces.Add(Board.board[final_x, final_y]);
+                }
             }
 
             Board.board[final_x, final_y] = piece;
@@ -494,7 +524,7 @@ namespace ShogiCheckersChess
             {
                 piece.Moved = true;
                 //pokud se král posunul o dvě políčka, jedná se o rošádu
-                isCastling(start_x, start_y, final_x, final_y);
+                IsCastling(start_x, start_y, final_x, final_y);
             }
 
             //hlídání konců her
@@ -655,16 +685,25 @@ namespace ShogiCheckersChess
 
         public bool Propagate(int PieceNumber, int x, int y)
         {
-            Propagation popup = new Propagation();
-            DialogResult result = popup.ShowDialog();
-            if (result == DialogResult.OK)
+            if (isPlayer)
+            {
+                Propagation popup = new Propagation();
+                DialogResult result = popup.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    Board.AddPiece(PieceNumber, x, y);
+                    popup.Dispose();
+                    return true;
+                }
+                popup.Dispose();
+                return false;
+            }
+            else
             {
                 Board.AddPiece(PieceNumber, x, y);
-                popup.Dispose();
                 return true;
             }
-            popup.Dispose();
-            return false;
+
         }
 
         //animac
@@ -752,6 +791,15 @@ namespace ShogiCheckersChess
         {
             MainGameWindow NewWindow = new MainGameWindow();
             NewWindow.Show(this);
+        }
+
+        private void ChooseShogiButton_Click(object sender, EventArgs e)
+        {
+            string Piece = ChooseShogiBox.Text;
+            switch (Piece)
+            {
+
+            }
         }
     }
 }

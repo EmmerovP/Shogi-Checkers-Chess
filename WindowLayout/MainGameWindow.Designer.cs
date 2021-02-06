@@ -44,11 +44,14 @@
             this.GamePieces = new System.Windows.Forms.ImageList(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.NewGameButton = new System.Windows.Forms.Button();
+            this.ChooseShogiBox = new System.Windows.Forms.ComboBox();
+            this.ChooseShogiLabel = new System.Windows.Forms.Label();
+            this.ChooseShogiButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SelectChessButton
             // 
-            this.SelectChessButton.Location = new System.Drawing.Point(136, 145);
+            this.SelectChessButton.Location = new System.Drawing.Point(169, 191);
             this.SelectChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectChessButton.Name = "SelectChessButton";
             this.SelectChessButton.Size = new System.Drawing.Size(76, 44);
@@ -59,7 +62,7 @@
             // 
             // SelectCheckersButton
             // 
-            this.SelectCheckersButton.Location = new System.Drawing.Point(250, 145);
+            this.SelectCheckersButton.Location = new System.Drawing.Point(283, 191);
             this.SelectCheckersButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCheckersButton.Name = "SelectCheckersButton";
             this.SelectCheckersButton.Size = new System.Drawing.Size(79, 44);
@@ -70,7 +73,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(176, 36);
+            this.label1.Location = new System.Drawing.Point(209, 82);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(238, 78);
@@ -80,7 +83,7 @@
             // 
             // SelectShogiButton
             // 
-            this.SelectShogiButton.Location = new System.Drawing.Point(368, 145);
+            this.SelectShogiButton.Location = new System.Drawing.Point(401, 191);
             this.SelectShogiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectShogiButton.Name = "SelectShogiButton";
             this.SelectShogiButton.Size = new System.Drawing.Size(79, 44);
@@ -91,7 +94,7 @@
             // 
             // SelectCustomGameButton
             // 
-            this.SelectCustomGameButton.Location = new System.Drawing.Point(249, 203);
+            this.SelectCustomGameButton.Location = new System.Drawing.Point(282, 249);
             this.SelectCustomGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCustomGameButton.Name = "SelectCustomGameButton";
             this.SelectCustomGameButton.Size = new System.Drawing.Size(79, 49);
@@ -102,7 +105,7 @@
             // 
             // AboutGameButton
             // 
-            this.AboutGameButton.Location = new System.Drawing.Point(249, 339);
+            this.AboutGameButton.Location = new System.Drawing.Point(282, 385);
             this.AboutGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.AboutGameButton.Name = "AboutGameButton";
             this.AboutGameButton.Size = new System.Drawing.Size(79, 43);
@@ -113,7 +116,7 @@
             // 
             // AboutAuthorButton
             // 
-            this.AboutAuthorButton.Location = new System.Drawing.Point(250, 404);
+            this.AboutAuthorButton.Location = new System.Drawing.Point(283, 450);
             this.AboutAuthorButton.Margin = new System.Windows.Forms.Padding(2);
             this.AboutAuthorButton.Name = "AboutAuthorButton";
             this.AboutAuthorButton.Size = new System.Drawing.Size(79, 43);
@@ -124,7 +127,7 @@
             // 
             // CreditsButton
             // 
-            this.CreditsButton.Location = new System.Drawing.Point(250, 468);
+            this.CreditsButton.Location = new System.Drawing.Point(283, 514);
             this.CreditsButton.Margin = new System.Windows.Forms.Padding(2);
             this.CreditsButton.Name = "CreditsButton";
             this.CreditsButton.Size = new System.Drawing.Size(79, 43);
@@ -135,7 +138,7 @@
             // 
             // SelectSingleplayerButton
             // 
-            this.SelectSingleplayerButton.Location = new System.Drawing.Point(136, 273);
+            this.SelectSingleplayerButton.Location = new System.Drawing.Point(169, 319);
             this.SelectSingleplayerButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectSingleplayerButton.Name = "SelectSingleplayerButton";
             this.SelectSingleplayerButton.Size = new System.Drawing.Size(76, 46);
@@ -147,7 +150,7 @@
             // 
             // SelectLocMultiButton
             // 
-            this.SelectLocMultiButton.Location = new System.Drawing.Point(249, 273);
+            this.SelectLocMultiButton.Location = new System.Drawing.Point(282, 319);
             this.SelectLocMultiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectLocMultiButton.Name = "SelectLocMultiButton";
             this.SelectLocMultiButton.Size = new System.Drawing.Size(80, 46);
@@ -159,7 +162,7 @@
             // 
             // SelectWebMultiButton
             // 
-            this.SelectWebMultiButton.Location = new System.Drawing.Point(370, 273);
+            this.SelectWebMultiButton.Location = new System.Drawing.Point(403, 319);
             this.SelectWebMultiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectWebMultiButton.Name = "SelectWebMultiButton";
             this.SelectWebMultiButton.Size = new System.Drawing.Size(76, 46);
@@ -219,7 +222,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(449, 462);
+            this.label2.Location = new System.Drawing.Point(606, 493);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 11;
@@ -229,7 +232,7 @@
             // NewGameButton
             // 
             this.NewGameButton.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.NewGameButton.Location = new System.Drawing.Point(452, 478);
+            this.NewGameButton.Location = new System.Drawing.Point(609, 509);
             this.NewGameButton.Name = "NewGameButton";
             this.NewGameButton.Size = new System.Drawing.Size(99, 48);
             this.NewGameButton.TabIndex = 12;
@@ -238,11 +241,44 @@
             this.NewGameButton.Visible = false;
             this.NewGameButton.Click += new System.EventHandler(this.NewGameButton_Click);
             // 
+            // ChooseShogiBox
+            // 
+            this.ChooseShogiBox.FormattingEnabled = true;
+            this.ChooseShogiBox.Location = new System.Drawing.Point(587, 70);
+            this.ChooseShogiBox.Name = "ChooseShogiBox";
+            this.ChooseShogiBox.Size = new System.Drawing.Size(121, 21);
+            this.ChooseShogiBox.TabIndex = 13;
+            this.ChooseShogiBox.Visible = false;
+            // 
+            // ChooseShogiLabel
+            // 
+            this.ChooseShogiLabel.AutoSize = true;
+            this.ChooseShogiLabel.Location = new System.Drawing.Point(584, 41);
+            this.ChooseShogiLabel.Name = "ChooseShogiLabel";
+            this.ChooseShogiLabel.Size = new System.Drawing.Size(109, 13);
+            this.ChooseShogiLabel.TabIndex = 14;
+            this.ChooseShogiLabel.Text = "Nebo vyberte figurku:";
+            this.ChooseShogiLabel.Visible = false;
+            // 
+            // ChooseShogiButton
+            // 
+            this.ChooseShogiButton.Location = new System.Drawing.Point(587, 110);
+            this.ChooseShogiButton.Name = "ChooseShogiButton";
+            this.ChooseShogiButton.Size = new System.Drawing.Size(75, 23);
+            this.ChooseShogiButton.TabIndex = 15;
+            this.ChooseShogiButton.Text = "Přidat";
+            this.ChooseShogiButton.UseVisualStyleBackColor = true;
+            this.ChooseShogiButton.Visible = false;
+            this.ChooseShogiButton.Click += new System.EventHandler(this.ChooseShogiButton_Click);
+            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 538);
+            this.ClientSize = new System.Drawing.Size(745, 596);
+            this.Controls.Add(this.ChooseShogiButton);
+            this.Controls.Add(this.ChooseShogiLabel);
+            this.Controls.Add(this.ChooseShogiBox);
             this.Controls.Add(this.NewGameButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.SelectWebMultiButton);
@@ -280,6 +316,9 @@
         private System.Windows.Forms.ImageList GamePieces;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button NewGameButton;
+        private System.Windows.Forms.ComboBox ChooseShogiBox;
+        private System.Windows.Forms.Label ChooseShogiLabel;
+        private System.Windows.Forms.Button ChooseShogiButton;
     }
 }
 
