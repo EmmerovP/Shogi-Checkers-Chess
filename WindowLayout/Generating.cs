@@ -17,9 +17,7 @@ namespace ShogiCheckersChess
 
         public static void GenerateMoves(Pieces piece, bool delete, int x, int y)
         {
-            //nejprve si smaže seznam tahů
-            if (delete)
-                Moves.EmptyCoordinates();
+
 
             CheckersTake = false;
 
@@ -63,6 +61,12 @@ namespace ShogiCheckersChess
         //main generating function
         public static void Generate(Pieces piece, bool delete, int x, int y)
         {
+            //nejprve si smaže seznam tahů
+            if (delete)
+                Moves.EmptyCoordinates();
+
+            int moves_start = Moves.final_x.Count; 
+
             GenerateMoves(piece, delete, x, y);
 
             //zamezíme tahům, které by nebyly validní, tzn. těm, co ohrozí vlastního krále
@@ -73,7 +77,7 @@ namespace ShogiCheckersChess
                 List<int> remove = new List<int>();
 
                 //pro Aičko by se to tady asi ani nemuselo brát od nuly...
-                for (int i = 0; i < Moves.final_x.Count; i++)
+                for (int i = moves_start; i < Moves.final_x.Count; i++)
                 {
                     Pieces takenpiece = Board.board[Moves.final_x[i], Moves.final_y[i]];
                     Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];

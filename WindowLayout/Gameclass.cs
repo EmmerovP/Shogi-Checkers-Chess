@@ -82,18 +82,20 @@ namespace ShogiCheckersChess
                 return true;
             }
 
+            /*
             //na konci tahu řekne zda šach či ne
             public static bool KingCheck()
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
-                //najdi krále dané strany
+                bool[,] board = new bool[Board.board.GetLength(0), Board.board.GetLength(1)];
+
                 for (int i = 0; i < Board.board.GetLength(0); i++)
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
                         if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
-                        {               
+                        {
                             Generating.GenerateMoves(Board.board[i, j], false, i, j);
                         }
                     }
@@ -115,6 +117,89 @@ namespace ShogiCheckersChess
 
                 return false;
             }
+
+            */
+
+
+
+            
+
+
+
+            //na konci tahu řekne zda šach či ne - z pohledu hrající strany na ddruhou stranu
+            public static bool KingCheck()
+            {
+                Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
+
+                int x = 0, y = 0;
+                //najdi krále dané strany
+                for (int i = 0; i < Board.board.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    {
+                        Pieces piece = Board.board[i, j];
+                        if ((piece != null) && ((piece.GetNumber() == 0) || (piece.GetNumber() == 21)) && (Generating.WhitePlays != piece.isWhite))
+                        {
+                            x = i;
+                            y = j;
+                            break;
+                        }
+                    }
+                }
+
+                //Koukneme se na krále jako na všechny tahy - zatím jako dáma a kůň
+                Generating.WhitePlays = !Generating.WhitePlays;
+
+                Moves.BackInfinity(x, y, Board.board);
+                Moves.BackLeftInfinity(x, y, Board.board);
+                Moves.BackRightInfinity(x, y, Board.board);
+                Moves.ForwardInfinity(x, y, Board.board);
+                Moves.ForwardLeftInfinity(x, y, Board.board);
+                Moves.ForwardRightInfinity(x, y, Board.board);
+                Moves.LeftInfinity(x, y, Board.board);
+                Moves.RightInfinity(x, y, Board.board);
+                Moves.Horse(x, y, Board.board);
+                Moves.HorseBackward(x, y, Board.board);
+                Moves.HorseForward(x, y, Board.board);
+
+                Generating.WhitePlays = !Generating.WhitePlays;
+
+                for (int i = 0; i < Moves.final_x.Count; i++)
+                {
+                    Pieces piece = Board.board[Moves.final_x[i], Moves.final_y[i]];
+                    if ((piece != null) && (Generating.WhitePlays == piece.isWhite))
+                    {
+
+                        int x_coor = Moves.final_x[i];
+                        int y_coor = Moves.final_y[i];
+
+                        Moves.CoordinatesCopy copy = Moves.MakeCopyEmpty();
+
+                        Board.board[x_coor, y_coor].GenerateMoves(x_coor, y_coor, Board.board);
+
+
+                        for (int j = 0; j < Moves.final_x.Count; j++)
+                        {
+                            Pieces isKing = Board.board[Moves.final_x[j], Moves.final_y[j]];
+                            if ((isKing != null) && ((isKing.GetNumber() == 0) || (isKing.GetNumber() == 21)) && (Generating.WhitePlays != isKing.isWhite))
+                            {
+                                Moves.EmptyCoordinates();
+                                Moves.CoordinatesReturn(cp);
+
+                                return true;
+                            }
+                        }
+                        Moves.EmptyCoordinates();
+                        Moves.CoordinatesReturn(copy);
+                    }
+                }
+
+                Moves.EmptyCoordinates();
+                Moves.CoordinatesReturn(cp);
+
+                return false;
+            }
+            
 
             //kontrola šachu matu?
             //provádí se jen v případě, že je šach

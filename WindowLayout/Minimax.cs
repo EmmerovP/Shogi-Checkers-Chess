@@ -84,7 +84,7 @@ namespace ShogiCheckersChess
                 //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
                 List<int> Evaluation = new List<int>();
-                int eval = 0;
+                int eval;
                 //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
                 //tvoříme děti jednotlivých tahů
@@ -103,7 +103,7 @@ namespace ShogiCheckersChess
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
 
-
+                    /*
                     //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
                     // alpha = Math.Max(beta, Evaluation[k]);
                     alpha = Math.Max(alpha, eval);
@@ -111,7 +111,7 @@ namespace ShogiCheckersChess
                     if (beta <= alpha)
                     {
                         break;
-                    }
+                    }*/
 
                 }
 
@@ -191,6 +191,7 @@ namespace ShogiCheckersChess
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
 
+                    /*
                     //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
                     // beta = Math.Min(beta, Evaluation[k]);
                     beta = Math.Min(beta, eval);
@@ -198,7 +199,7 @@ namespace ShogiCheckersChess
                     if (beta <= alpha)
                     {
                         break;
-                    }
+                    } */
 
 
                 }

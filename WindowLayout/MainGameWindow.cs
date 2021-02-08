@@ -130,12 +130,20 @@ namespace ShogiCheckersChess
             //draw_chess();
         }
 
-        private void ShowShogiAddon()
+        private void ShowBottomShogiAddon()
         {
-            ChooseShogiBox.Visible = true;
-            ChooseShogiButton.Visible = true;
-            ChooseShogiLabel.Visible = true;
+            ChooseShogiBoxBottom.Visible = true;
+            ChooseShogiButtonBottom.Visible = true;
+            ChooseShogiLabelBottom.Visible = true;
         }
+
+        private void ShowUpperShogiAddon()
+        {
+            ChooseShogiBoxUpper.Visible = true;
+            ChooseShogiButtonUpper.Visible = true;
+            ChooseShogiLabelUpper.Visible = true;
+        }
+
 
 
         //reprezentace figurek bude intem
@@ -286,7 +294,8 @@ namespace ShogiCheckersChess
         }
 
         public static bool isPlayer;
-        public static bool AddShogiPiece = false;
+        public static bool AddBottomShogiPiece = false;
+        public static bool AddUpperShogiPiece = false;
 
         public static int ShogiPiece;
 
@@ -310,9 +319,10 @@ namespace ShogiCheckersChess
             int selected_x = GetX(picture);
             int selected_y = GetY(picture);
 
-            if (AddShogiPiece)
+            if (AddBottomShogiPiece)
             {
-                AddShogiPiece = false;
+                PutShogiPieceLabelBottom.Visible = false;
+                AddBottomShogiPiece = false;
                 if (Board.board[selected_x, selected_y] != null)
                 {
                     return;
@@ -336,10 +346,65 @@ namespace ShogiCheckersChess
 
                 gamepiece.BringToFront();
 
+                Generating.WhitePlays = !Generating.WhitePlays;
+
 
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
-                    Generating.WhitePlays = !Generating.WhitePlays;
+                    
+                    isPlayer = false;
+                    int move = RandomMoveGen.FindPiece();
+
+                    if (move == -1)
+                    {
+                        label2.Text = "Vyhráli jste!";
+                        return;
+                    }
+
+                    PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
+                        piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
+
+                    isPlayer = true;
+
+                }
+
+                return;
+            }
+
+
+            if (AddUpperShogiPiece)
+            {
+                PutShogiPieceLabelUpper.Visible = false;
+                AddUpperShogiPiece = false;
+                if (Board.board[selected_x, selected_y] != null)
+                {
+                    return;
+                }
+
+                var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
+                {
+                    Name = Convert.ToString(ShogiPiece),
+                    Size = new Size(50, 50),
+                    Location = location[selected_x, selected_y],
+                    BackColor = Color.Transparent,
+                    Image = GamePieces.Images[ShogiPiece],
+                    SizeMode = PictureBoxSizeMode.CenterImage,
+                };
+
+                this.Controls.Add(gamepiece);
+                gamepiece.Click += MoveGamePiece;
+
+                piecesPictures[selected_x, selected_y] = gamepiece;
+                Board.AddPiece(ShogiPiece, selected_x, selected_y);
+
+                gamepiece.BringToFront();
+
+                Generating.WhitePlays = !Generating.WhitePlays;
+
+
+                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
+                {
+                    
                     isPlayer = false;
                     int move = RandomMoveGen.FindPiece();
 
@@ -536,11 +601,15 @@ namespace ShogiCheckersChess
             //v shogi se vyhazuje figurka, přidáváme jí do seznamu vyhozených figurek
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[final_x, final_y] != null)
             {
-                if (isPlayer)
+                if ((isPlayer)&&(Generating.WhitePlays))
                 {
-                    shogiPlayerPieces.Add(Board.board[final_x, final_y]);
-                    ShowShogiAddon();
-                    ChooseShogiBox.Items.Add(Board.board[final_x, final_y].Name);
+                    ShowBottomShogiAddon();
+                    ChooseShogiBoxBottom.Items.Add(Board.board[final_x, final_y].Name);
+                }
+                else if ((isPlayer) && (!Generating.WhitePlays))
+                {
+                    ShowUpperShogiAddon();
+                    ChooseShogiBoxUpper.Items.Add(Board.board[final_x, final_y].Name);
                 }
                 else
                 {
@@ -851,63 +920,132 @@ namespace ShogiCheckersChess
             NewWindow.Show(this);
         }
 
-        private void ChooseShogiButton_Click(object sender, EventArgs e)
+        private void ChooseShogiButtonBottom_Click(object sender, EventArgs e)
         {
-            if (AddShogiPiece)
+            if (AddBottomShogiPiece)
             {
                 return;
             }
 
-            string Piece = ChooseShogiBox.Text;
-            ChooseShogiBox.Text = "";
+            if (!Generating.WhitePlays)
+            {
+                return;
+            }
+
+            string Piece = ChooseShogiBoxBottom.Text;
+            PutShogiPieceLabelBottom.Visible = true;
+            ChooseShogiBoxBottom.Text = "";
             switch (Piece)
             {
                 case "":
                     return;
                 case "King":
                     ShogiPiece = 7;
-                    AddShogiPiece = true;
-                    ChooseShogiBox.Items.Remove("King");
+                    AddBottomShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("King");
                     break;
                 case "Rook":
                     ShogiPiece = 8;
-                    AddShogiPiece = true;
-                    ChooseShogiBox.Items.Remove("Rook");
+                    AddBottomShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Rook");
                     break;
                 case "Bishop":
                     ShogiPiece = 10;
-                    AddShogiPiece = true;
-                    ChooseShogiBox.Items.Remove("Bishop");
+                    AddBottomShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Bishop");
                     break;
                 case "Gold general":
                     ShogiPiece = 12;
-                    AddShogiPiece = true;
-                    ChooseShogiBox.Items.Remove("Gold general");
+                    AddBottomShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Gold general");
                     break;
                 case "Silver General":
                     ShogiPiece = 13;
-                    AddShogiPiece = true;
-                    ChooseShogiBox.Items.Remove("Silver General");
+                    AddBottomShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Silver General");
                     break;
                 case "Horse":
                     ShogiPiece = 15;
-                    AddShogiPiece = true;
-                    ChooseShogiBox.Items.Remove("Horse");
+                    AddBottomShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Horse");
                     break;
                 case "Lance":
                     ShogiPiece = 17;
-                    AddShogiPiece = true;
-                    ChooseShogiBox.Items.Remove("Lance");
+                    AddBottomShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Lance");
                     break;
                 case "Pawn":
                     ShogiPiece = 19;
-                    AddShogiPiece = true;
-                    ChooseShogiBox.Items.Remove("Pawn");
+                    AddBottomShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Pawn");
                     break;
                 default:
                     break;
             }
         }
 
+        private void ChooseShogiButtonUpper_Click(object sender, EventArgs e)
+        {
+            if (AddUpperShogiPiece)
+            {
+                return;
+            }
+
+            if (Generating.WhitePlays)
+            {
+                return;
+            }
+
+            string Piece = ChooseShogiBoxUpper.Text;
+            PutShogiPieceLabelUpper.Visible = true;
+            ChooseShogiBoxUpper.Text = "";
+            switch (Piece)
+            {
+                case "":
+                    return;
+                case "King":
+                    ShogiPiece = 28;
+                    AddUpperShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("King");
+                    break;
+                case "Rook":
+                    ShogiPiece = 29;
+                    AddUpperShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Rook");
+                    break;
+                case "Bishop":
+                    ShogiPiece = 31;
+                    AddUpperShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Bishop");
+                    break;
+                case "Gold general":
+                    ShogiPiece = 33;
+                    AddUpperShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Gold general");
+                    break;
+                case "Silver General":
+                    ShogiPiece = 34;
+                    AddUpperShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Silver General");
+                    break;
+                case "Horse":
+                    ShogiPiece = 36;
+                    AddUpperShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Horse");
+                    break;
+                case "Lance":
+                    ShogiPiece = 38;
+                    AddUpperShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Lance");
+                    break;
+                case "Pawn":
+                    ShogiPiece = 40;
+                    AddUpperShogiPiece = true;
+                    ChooseShogiBoxBottom.Items.Remove("Pawn");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
