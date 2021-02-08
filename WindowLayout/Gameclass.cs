@@ -87,8 +87,7 @@ namespace ShogiCheckersChess
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
-                bool[,] board = new bool[Board.board.GetLength(0), Board.board.GetLength(1)];
-
+                //najdi krále dané strany
                 for (int i = 0; i < Board.board.GetLength(0); i++)
                 {
                     for (int j = 0; j < Board.board.GetLength(1); j++)

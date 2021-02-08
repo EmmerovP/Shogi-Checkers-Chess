@@ -286,6 +286,9 @@ namespace ShogiCheckersChess
         }
 
         public static bool isPlayer;
+        public static bool AddShogiPiece = false;
+
+        public static int ShogiPiece;
 
         public static List<Pieces> shogiPlayerPieces = new List<Pieces>();
         public static List<Pieces> shogiAIPieces = new List<Pieces>();
@@ -294,11 +297,69 @@ namespace ShogiCheckersChess
         //souřadnice z location
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
         {
+            
             if (Gameclass.CurrentGame.GameEnded)
                 return;
 
+
+
             //zvýraznit tahy nejdřív a podívat se, zda jsou všechny napsané správně
             PictureBox picture = (PictureBox)sender;
+
+            //dostaneme souřadnice, na které jsme klikli, asi nevím jak to udělat elegantněji než projít celou šachovnici
+            int selected_x = GetX(picture);
+            int selected_y = GetY(picture);
+
+            if (AddShogiPiece)
+            {
+                AddShogiPiece = false;
+                if (Board.board[selected_x, selected_y] != null)
+                {
+                    return;
+                }
+
+                var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
+                {
+                    Name = Convert.ToString(ShogiPiece),
+                    Size = new Size(50, 50),
+                    Location = location[selected_x, selected_y],
+                    BackColor = Color.Transparent,
+                    Image = GamePieces.Images[ShogiPiece],
+                    SizeMode = PictureBoxSizeMode.CenterImage,
+                };
+                
+                this.Controls.Add(gamepiece);
+                gamepiece.Click += MoveGamePiece;
+
+                piecesPictures[selected_x, selected_y] = gamepiece;
+                Board.AddPiece(ShogiPiece, selected_x, selected_y);
+
+                gamepiece.BringToFront();
+
+
+                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
+                {
+                    Generating.WhitePlays = !Generating.WhitePlays;
+                    isPlayer = false;
+                    int move = RandomMoveGen.FindPiece();
+
+                    if (move == -1)
+                    {
+                        label2.Text = "Vyhráli jste!";
+                        return;
+                    }
+
+                    PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
+                        piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
+
+                    isPlayer = true;
+
+                }
+
+                return;
+            }
+
+
             Color background;
             if (picture.Name[0] == 'B')
             {
@@ -308,10 +369,7 @@ namespace ShogiCheckersChess
             {
                 background = Color.DarkBlue;
             }
-                
-            //dostaneme souřadnice, na které jsme klikli, asi nevím jak to udělat elegantněji než projít celou šachovnici
-            int selected_x = GetX(picture);
-            int selected_y = GetY(picture);
+               
 
             //klikli jsme někam náhodně, nic se neděje
             if (Board.board[selected_x, selected_y] != null)
@@ -795,11 +853,61 @@ namespace ShogiCheckersChess
 
         private void ChooseShogiButton_Click(object sender, EventArgs e)
         {
+            if (AddShogiPiece)
+            {
+                return;
+            }
+
             string Piece = ChooseShogiBox.Text;
+            ChooseShogiBox.Text = "";
             switch (Piece)
             {
-
+                case "":
+                    return;
+                case "King":
+                    ShogiPiece = 7;
+                    AddShogiPiece = true;
+                    ChooseShogiBox.Items.Remove("King");
+                    break;
+                case "Rook":
+                    ShogiPiece = 8;
+                    AddShogiPiece = true;
+                    ChooseShogiBox.Items.Remove("Rook");
+                    break;
+                case "Bishop":
+                    ShogiPiece = 10;
+                    AddShogiPiece = true;
+                    ChooseShogiBox.Items.Remove("Bishop");
+                    break;
+                case "Gold general":
+                    ShogiPiece = 12;
+                    AddShogiPiece = true;
+                    ChooseShogiBox.Items.Remove("Gold general");
+                    break;
+                case "Silver General":
+                    ShogiPiece = 13;
+                    AddShogiPiece = true;
+                    ChooseShogiBox.Items.Remove("Silver General");
+                    break;
+                case "Horse":
+                    ShogiPiece = 15;
+                    AddShogiPiece = true;
+                    ChooseShogiBox.Items.Remove("Horse");
+                    break;
+                case "Lance":
+                    ShogiPiece = 17;
+                    AddShogiPiece = true;
+                    ChooseShogiBox.Items.Remove("Lance");
+                    break;
+                case "Pawn":
+                    ShogiPiece = 19;
+                    AddShogiPiece = true;
+                    ChooseShogiBox.Items.Remove("Pawn");
+                    break;
+                default:
+                    break;
             }
         }
+
     }
 }
