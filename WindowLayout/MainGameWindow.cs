@@ -944,11 +944,85 @@ namespace ShogiCheckersChess
         {
             //Koukni, zda je na šachovnici správná figurka pro danou hru
             //Pro všechny - alespoň jedna figurka příslušné barvy
-            // šachy - jsou tam oba krílové?
-            // shogi - jsou tam oba králové? (shogi)
-            //dáma - vlastně je dost chill
-            //Pokud ne, vyhoď příslušnou chybu
-            //Jinak spusť hru
+            bool is_white = false;
+            bool is_black = false;
+
+            bool is_whiteking = false;
+            bool is_blackking = false;
+
+            bool uppershogiking = false;
+            bool bottomshogiking = false;
+
+            for (int i = 0; i < Board.board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.board.GetLength(1); j++)
+                {
+                    if (Board.board[i,j] != null)
+                    {
+                        if (Board.board[i, j].isWhite)
+                        {
+                            is_white = true;
+                        }
+                        if (!Board.board[i, j].isWhite)
+                        {
+                            is_black = true;
+                        }
+                        if (Board.board[i, j].GetNumber() == 0)
+                        {
+                            is_whiteking = true;
+                        }
+                        if (Board.board[i, j].GetNumber() == 21)
+                        {
+                            is_blackking = true;
+                        }
+                        if (Board.board[i, j].GetNumber() == 7)
+                        {
+                            bottomshogiking = true;
+                        }
+                        if (Board.board[i, j].GetNumber() == 28)
+                        {
+                            uppershogiking = true;
+                        }
+                    }
+
+                }
+            }
+
+            if (!(is_white && is_black))
+            {
+                CustomGameChooseErrorLabel.Text = "Na šachovnici musí být figurky obou stran pro zahájení hry.";
+                CustomGameChooseErrorLabel.Visible = true;
+                return;
+
+            }
+
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+            {
+                if (!(is_whiteking && is_blackking))
+                {
+                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být králové obou stran.";
+                    CustomGameChooseErrorLabel.Visible = true;
+                    return;
+                }
+            }
+
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+            {
+                if (!(bottomshogiking && uppershogiking))
+                {
+                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být králové obou stran.";
+                    CustomGameChooseErrorLabel.Visible = true;
+                    return;
+                }
+            }
+
+            Gameclass.CurrentGame.GameEnded = false;
+
+            CustomGameChooseButton.Visible = false;
+            CustomGameChooseCombobox.Visible = false;
+            CustomGameChooseErrorLabel.Visible = false;
+            CustomGameChooseLabel.Visible = false;
+            NewGameButton.Visible = false;
         }
 
         private void ChooseShogiButtonBottom_Click(object sender, EventArgs e)
@@ -1223,6 +1297,23 @@ namespace ShogiCheckersChess
             Board.AddPiece(AddPieceNumber, x, y);
 
             gamepiece.BringToFront();
+
+            if (AddPieceNumber == 0)
+            {
+                CustomGameChooseCombobox.Items.Remove("Bílý král");
+            }
+            if (AddPieceNumber == 7)
+            {
+                CustomGameChooseCombobox.Items.Remove("Spodní shogi král");
+            }
+            if (AddPieceNumber == 21)
+            {
+                CustomGameChooseCombobox.Items.Remove("Černý král");
+            }
+            if (AddPieceNumber == 28)
+            {
+                CustomGameChooseCombobox.Items.Remove("Vrchní shogi král");
+            }
         }
 
         private void CustomGameChooseButton_Click(object sender, EventArgs e)
