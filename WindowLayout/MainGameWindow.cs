@@ -311,6 +311,9 @@ namespace ShogiCheckersChess
         public static bool AddBottomShogiPiece = false;
         public static bool AddUpperShogiPiece = false;
 
+        public static bool AddPiece = false;
+        public static int AddPieceNumber;
+
         public static int ShogiPiece;
 
         public static List<Pieces> shogiPlayerPieces = new List<Pieces>();
@@ -321,8 +324,7 @@ namespace ShogiCheckersChess
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
         {
             
-            if (Gameclass.CurrentGame.GameEnded)
-                return;
+
 
 
 
@@ -332,6 +334,16 @@ namespace ShogiCheckersChess
             //dostaneme souřadnice, na které jsme klikli, asi nevím jak to udělat elegantněji než projít celou šachovnici
             int selected_x = GetX(picture);
             int selected_y = GetY(picture);
+
+
+            if(AddPiece)
+            {
+                AddPieceToBoard(selected_x, selected_y);
+                return;
+            }
+
+            if (Gameclass.CurrentGame.GameEnded)
+                return;
 
             if (AddBottomShogiPiece)
             {
@@ -930,8 +942,13 @@ namespace ShogiCheckersChess
 
         private void NewGameButton_Click(object sender, EventArgs e)
         {
-            MainGameWindow NewWindow = new MainGameWindow();
-            NewWindow.Show(this);
+            //Koukni, zda je na šachovnici správná figurka pro danou hru
+            //Pro všechny - alespoň jedna figurka příslušné barvy
+            // šachy - jsou tam oba krílové?
+            // shogi - jsou tam oba králové? (shogi)
+            //dáma - vlastně je dost chill
+            //Pokud ne, vyhoď příslušnou chybu
+            //Jinak spusť hru
         }
 
         private void ChooseShogiButtonBottom_Click(object sender, EventArgs e)
@@ -1168,6 +1185,149 @@ namespace ShogiCheckersChess
 
 
             DrawChessboard();
+            Gameclass.CurrentGame.GameEnded = true;
+
+            CustomGameChooseButton.Visible = true;
+            CustomGameChooseCombobox.Visible = true;
+            CustomGameChooseLabel.Visible = true;
+            NewGameButton.Visible = true;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddPieceToBoard(int x, int y)
+        {
+            AddPiece = false;
+            if (Board.board[x, y] != null)
+            {
+                return;
+            }
+
+            var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
+            {
+                Name = Convert.ToString(AddPieceNumber),
+                Size = new Size(50, 50),
+                Location = location[x, y],
+                BackColor = Color.Transparent,
+                Image = GamePieces.Images[AddPieceNumber],
+                SizeMode = PictureBoxSizeMode.CenterImage,
+            };
+
+            this.Controls.Add(gamepiece);
+            gamepiece.Click += MoveGamePiece;
+
+            piecesPictures[x, y] = gamepiece;
+            Board.AddPiece(AddPieceNumber, x, y);
+
+            gamepiece.BringToFront();
+        }
+
+        private void CustomGameChooseButton_Click(object sender, EventArgs e)
+        {
+            string piece = CustomGameChooseCombobox.Text;
+            
+            switch (piece)
+            {
+                case "Bílý král":
+                    AddPieceNumber = 0;
+                    break;
+                case "Bílá královna":
+                    AddPieceNumber = 1;
+                    break;
+                case "Bílá věž":
+                    AddPieceNumber = 2;
+                    break;
+                case "Bílý kůň":
+                    AddPieceNumber = 3;
+                    break;
+                case "Bílý střelec":
+                    AddPieceNumber = 4;
+                    break;
+                case "Bílý pěšec":
+                    AddPieceNumber = 5;
+                    break;
+                case "Bílý kámen":
+                    AddPieceNumber = 6;
+                    break;
+                case "Spodní shogi král":
+                    AddPieceNumber = 7;
+                    break;
+                case "Spodní shogi věž":
+                    AddPieceNumber = 8;
+                    break;
+                case "Spodní shogi střelec":
+                    AddPieceNumber = 10;
+                    break;
+                case "Spodní zlatý generál":
+                    AddPieceNumber = 12;
+                    break;
+                case "Spodní stříbrný generál":
+                    AddPieceNumber = 13;
+                    break;
+                case "Spodní shogi kůň":
+                    AddPieceNumber = 15;
+                    break;
+                case "Spodní kopiník":
+                    AddPieceNumber = 17;
+                    break;
+                case "Spodní shogi pěšák":
+                    AddPieceNumber = 19;
+                    break;
+                case "Černý král":
+                    AddPieceNumber = 21;
+                    break;
+                case "Černá královna":
+                    AddPieceNumber = 22;
+                    break;
+                case "Černá věž":
+                    AddPieceNumber = 23;
+                    break;
+                case "Černý kůň":
+                    AddPieceNumber = 24;
+                    break;
+                case "Černý střelec":
+                    AddPieceNumber = 25;
+                    break;
+                case "Černý pěšec":
+                    AddPieceNumber = 26;
+                    break;
+                case "Černý kámen":
+                    AddPieceNumber = 27;
+                    break;
+                case "Vrchní shogi král":
+                    AddPieceNumber = 28;
+                    break;
+                case "Vrchní shogi věž":
+                    AddPieceNumber = 29;
+                    break;
+                case "Vrchní shogi střelec":
+                    AddPieceNumber = 31;
+                    break;
+                case "Vrchní zlatý generál":
+                    AddPieceNumber = 33;
+                    break;
+                case "Vrchní stříbrný generál":
+                    AddPieceNumber = 34;
+                    break;
+                case "Vrchní shogi kůň":
+                    AddPieceNumber = 36;
+                    break;
+                case "Vrchní kopiník":
+                    AddPieceNumber = 38;
+                    break;
+                case "Vrchní shogi pěšák":
+                    AddPieceNumber = 40;
+                    break;
+                default:
+                    return;
+
+
+            }
+
+            AddPiece = true;
         }
     }
 }

@@ -61,6 +61,11 @@
             this.CustomGameTypeLabel = new System.Windows.Forms.Label();
             this.CustomGameTypeCombobox = new System.Windows.Forms.ComboBox();
             this.CustomGameTypeButton = new System.Windows.Forms.Button();
+            this.CustomGameChooseCombobox = new System.Windows.Forms.ComboBox();
+            this.CustomGameChooseLabel = new System.Windows.Forms.Label();
+            this.CustomGameChooseButton = new System.Windows.Forms.Button();
+            this.CustomGameChooseErrorLabel = new System.Windows.Forms.Label();
+            this.CustomGamePlayButton = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SelectChessButton
@@ -234,17 +239,18 @@
             // NewGameButton
             // 
             this.NewGameButton.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.NewGameButton.Location = new System.Drawing.Point(609, 509);
+            this.NewGameButton.Location = new System.Drawing.Point(566, 505);
             this.NewGameButton.Name = "NewGameButton";
             this.NewGameButton.Size = new System.Drawing.Size(99, 48);
             this.NewGameButton.TabIndex = 12;
-            this.NewGameButton.Text = "Nová hra";
+            this.NewGameButton.Text = "Hrát";
             this.NewGameButton.UseVisualStyleBackColor = true;
             this.NewGameButton.Visible = false;
             this.NewGameButton.Click += new System.EventHandler(this.NewGameButton_Click);
             // 
             // ChooseShogiBoxBottom
             // 
+            this.ChooseShogiBoxBottom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ChooseShogiBoxBottom.FormattingEnabled = true;
             this.ChooseShogiBoxBottom.Location = new System.Drawing.Point(566, 361);
             this.ChooseShogiBoxBottom.Name = "ChooseShogiBoxBottom";
@@ -318,6 +324,7 @@
             // 
             // ChooseShogiBoxUpper
             // 
+            this.ChooseShogiBoxUpper.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ChooseShogiBoxUpper.FormattingEnabled = true;
             this.ChooseShogiBoxUpper.Location = new System.Drawing.Point(566, 73);
             this.ChooseShogiBoxUpper.Name = "ChooseShogiBoxUpper";
@@ -427,11 +434,100 @@
             this.CustomGameTypeButton.Visible = false;
             this.CustomGameTypeButton.Click += new System.EventHandler(this.CustomGameTypeButton_Click);
             // 
+            // CustomGameChooseCombobox
+            // 
+            this.CustomGameChooseCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CustomGameChooseCombobox.FormattingEnabled = true;
+            this.CustomGameChooseCombobox.Items.AddRange(new object[] {
+            "Bílý král",
+            "Bílá královna",
+            "Bílá věž",
+            "Bílý kůň",
+            "Bílý střelec",
+            "Bílý pěšec",
+            "Bílý kámen",
+            "Spodní shogi král",
+            "Spodní shogi věž",
+            "Spodní shogi střelec",
+            "Spodní zlatý generál",
+            "Spodní stříbrný generál",
+            "Spodní shogi kůň",
+            "Spodní kopiník",
+            "Spodní shogi pěšák",
+            "Černý král",
+            "Černá královna",
+            "Černá věž",
+            "Černý kůň",
+            "Černý střelec",
+            "Černý pěšec",
+            "Černý kámen",
+            "Vrchní shogi král",
+            "Vrchní shogi věž",
+            "Vrchní shogi střelec",
+            "Vrchní zlatý generál",
+            "Vrchní stříbrný generál",
+            "Vrchní shogi kůň",
+            "Vrchní kopiník",
+            "Vrchní shogi pěšák"});
+            this.CustomGameChooseCombobox.Location = new System.Drawing.Point(565, 230);
+            this.CustomGameChooseCombobox.Name = "CustomGameChooseCombobox";
+            this.CustomGameChooseCombobox.Size = new System.Drawing.Size(121, 21);
+            this.CustomGameChooseCombobox.TabIndex = 31;
+            this.CustomGameChooseCombobox.Visible = false;
+            // 
+            // CustomGameChooseLabel
+            // 
+            this.CustomGameChooseLabel.AutoSize = true;
+            this.CustomGameChooseLabel.Location = new System.Drawing.Point(563, 207);
+            this.CustomGameChooseLabel.Name = "CustomGameChooseLabel";
+            this.CustomGameChooseLabel.Size = new System.Drawing.Size(81, 13);
+            this.CustomGameChooseLabel.TabIndex = 32;
+            this.CustomGameChooseLabel.Text = "Vyberte figurku:";
+            this.CustomGameChooseLabel.Visible = false;
+            this.CustomGameChooseLabel.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // CustomGameChooseButton
+            // 
+            this.CustomGameChooseButton.Location = new System.Drawing.Point(566, 262);
+            this.CustomGameChooseButton.Name = "CustomGameChooseButton";
+            this.CustomGameChooseButton.Size = new System.Drawing.Size(75, 23);
+            this.CustomGameChooseButton.TabIndex = 33;
+            this.CustomGameChooseButton.Text = "Přidat";
+            this.CustomGameChooseButton.UseVisualStyleBackColor = true;
+            this.CustomGameChooseButton.Visible = false;
+            this.CustomGameChooseButton.Click += new System.EventHandler(this.CustomGameChooseButton_Click);
+            // 
+            // CustomGameChooseErrorLabel
+            // 
+            this.CustomGameChooseErrorLabel.Location = new System.Drawing.Point(563, 291);
+            this.CustomGameChooseErrorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.CustomGameChooseErrorLabel.Name = "CustomGameChooseErrorLabel";
+            this.CustomGameChooseErrorLabel.Size = new System.Drawing.Size(118, 48);
+            this.CustomGameChooseErrorLabel.TabIndex = 34;
+            this.CustomGameChooseErrorLabel.Text = "Klikněte na pole, na které chcete figurku umístit.";
+            this.CustomGameChooseErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CustomGameChooseErrorLabel.Visible = false;
+            // 
+            // CustomGamePlayButton
+            // 
+            this.CustomGamePlayButton.AutoSize = true;
+            this.CustomGamePlayButton.Location = new System.Drawing.Point(546, 556);
+            this.CustomGamePlayButton.Name = "CustomGamePlayButton";
+            this.CustomGamePlayButton.Size = new System.Drawing.Size(105, 13);
+            this.CustomGamePlayButton.TabIndex = 35;
+            this.CustomGamePlayButton.Text = "Popis se bude měnit.";
+            this.CustomGamePlayButton.Visible = false;
+            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 596);
+            this.Controls.Add(this.CustomGamePlayButton);
+            this.Controls.Add(this.CustomGameChooseErrorLabel);
+            this.Controls.Add(this.CustomGameChooseButton);
+            this.Controls.Add(this.CustomGameChooseLabel);
+            this.Controls.Add(this.CustomGameChooseCombobox);
             this.Controls.Add(this.CustomGameTypeButton);
             this.Controls.Add(this.CustomGameTypeCombobox);
             this.Controls.Add(this.CustomGameTypeLabel);
@@ -503,6 +599,11 @@
         private System.Windows.Forms.Label CustomGameTypeLabel;
         private System.Windows.Forms.ComboBox CustomGameTypeCombobox;
         private System.Windows.Forms.Button CustomGameTypeButton;
+        private System.Windows.Forms.ComboBox CustomGameChooseCombobox;
+        private System.Windows.Forms.Label CustomGameChooseLabel;
+        private System.Windows.Forms.Button CustomGameChooseButton;
+        private System.Windows.Forms.Label CustomGameChooseErrorLabel;
+        private System.Windows.Forms.Label CustomGamePlayButton;
     }
 }
 
