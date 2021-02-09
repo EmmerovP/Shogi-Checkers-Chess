@@ -20,6 +20,9 @@ namespace ShogiCheckersChess
 
         public static Stopwatch watch;
 
+        const int MAX_SIZE = 15;
+        const int MIN_SIZE = 3;
+
         public static int[,] chessboard;
 
         private void SelectChessButton_Click(object sender, EventArgs e)
@@ -46,8 +49,21 @@ namespace ShogiCheckersChess
         private void SelectCustomGameButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.custom;
-            label1.Text = "Zatím není implementováno";
-            label1.Visible = true;
+            CustomGameSizeButton.Visible = true;
+            CustomGameSizeLabel.Visible = true;
+            CustomGameSizeXLabel.Visible = true;
+            CustomGameSizeXTextbox.Visible = true;
+            CustomGameSizeYLabel.Visible = true;
+            CustomGameSizeYTextbox.Visible = true;
+
+            SelectChessButton.Visible = false;
+            SelectCheckersButton.Visible = false;
+            SelectShogiButton.Visible = false;
+            SelectCustomGameButton.Visible = false;
+            AboutGameButton.Visible = false;
+            AboutAuthorButton.Visible = false;
+            CreditsButton.Visible = false;
+            label1.Visible = false;
         }
 
         public void ChooseTypeOfGame()
@@ -63,7 +79,6 @@ namespace ShogiCheckersChess
 
             SelectSingleplayerButton.Visible = true;
             SelectLocMultiButton.Visible = true;
-            SelectWebMultiButton.Visible = true;
         }
 
         private void AboutGameButton_Click(object sender, EventArgs e)
@@ -104,7 +119,6 @@ namespace ShogiCheckersChess
         {
             SelectSingleplayerButton.Visible = false;
             SelectLocMultiButton.Visible = false;
-            SelectWebMultiButton.Visible = false;
         }
 
         private void SelectSingleplayerButton_Click(object sender, EventArgs e)
@@ -1046,6 +1060,114 @@ namespace ShogiCheckersChess
                 default:
                     break;
             }
+        }
+
+
+        private void CustomGameSizeButton_Click(object sender, EventArgs e)
+        {
+            string x = CustomGameSizeXTextbox.Text;
+            string y = CustomGameSizeXTextbox.Text;
+
+            int number_x;
+
+            bool success = Int32.TryParse(x, out number_x);
+
+            if (!success)
+            {
+                CustomGameSizeErrorLabel.Visible = true;
+                CustomGameSizeErrorLabel.Text = "Chyba - nebylo zadáno platné číslo.";
+                return;
+            }
+
+            if (number_x<MIN_SIZE)
+            {
+                CustomGameSizeErrorLabel.Text = "Souřadnice x je moc malá, musí být alespoň 3.";
+                CustomGameSizeErrorLabel.Visible = true;
+                return;
+            }
+
+            if (number_x>MAX_SIZE)
+            {
+                CustomGameSizeErrorLabel.Text = "Souřadnice x je moc velká, musí být maximálně 15.";
+                CustomGameSizeErrorLabel.Visible = true;
+                return;
+            }
+
+            int number_y;
+
+            success = Int32.TryParse(y, out number_y);
+
+
+            if (!success)
+            {
+                CustomGameSizeErrorLabel.Visible = true;
+                CustomGameSizeErrorLabel.Text = "Chyba - nebylo zadáno platné číslo.";
+                return;
+            }
+
+            if (number_y < MIN_SIZE)
+            {
+                CustomGameSizeErrorLabel.Text = "Souřadnice y je moc malá, musí být alespoň 3.";
+                CustomGameSizeErrorLabel.Visible = true;
+                return;
+            }
+
+            if (number_y > MAX_SIZE)
+            {
+                CustomGameSizeErrorLabel.Text = "Souřadnice y je moc velká, musí být maximálně 15.";
+                CustomGameSizeErrorLabel.Visible = true;
+                return;
+            }
+
+            chessboard = new int[number_x, number_y];
+
+            for (int i = 0; i < number_x; i++)
+            {
+                for (int j = 0; j < number_y; j++)
+                {
+                    chessboard[i, j] = -1;
+                }
+            }
+
+            CustomGameSizeButton.Visible = false;
+            CustomGameSizeLabel.Visible = false;
+            CustomGameSizeXLabel.Visible = false;
+            CustomGameSizeXTextbox.Visible = false;
+            CustomGameSizeYLabel.Visible = false;
+            CustomGameSizeYTextbox.Visible = false;
+            CustomGameSizeErrorLabel.Visible = false;
+
+            CustomGameTypeButton.Visible = true;
+            CustomGameTypeCombobox.Visible = true;
+            CustomGameTypeLabel.Visible = true;
+        }
+
+        private void CustomGameTypeButton_Click(object sender, EventArgs e)
+        {
+            string GameType = CustomGameTypeCombobox.Text;
+
+            switch (GameType)
+            {
+                case "":
+                    return;
+                case "Šachy":
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
+                    break;
+                case "Dáma":
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
+                    break;
+                case "Shogi":
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
+                    break;
+            }
+
+            CustomGameTypeButton.Visible = false;
+            CustomGameTypeCombobox.Visible = false;
+            CustomGameTypeLabel.Visible = false;
+            SelectCustomGameButton.Visible = false;
+
+
+            DrawChessboard();
         }
     }
 }

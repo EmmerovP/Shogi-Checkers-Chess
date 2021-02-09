@@ -62,7 +62,7 @@ namespace ShogiCheckersChess
         public static int OneStepMax(int depth, int alpha, int beta)
         {
 
-            if (depth == 0)
+            if (depth == 0) //or terminal node? Jako kingcheck
             {
                 return EvaluateChessboard();
             }
@@ -83,8 +83,7 @@ namespace ShogiCheckersChess
             {
                 //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
-                List<int> Evaluation = new List<int>();
-                int eval;
+                int eval = Int32.MinValue;
                 //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
                 //tvoříme děti jednotlivých tahů
@@ -96,14 +95,12 @@ namespace ShogiCheckersChess
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
 
-                    eval = OneStepMax(depth - 1, alpha, beta);
-
-                    Evaluation.Add(eval);
+                    eval = Math.Max(OneStepMin(depth - 1, alpha, beta), eval);
 
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
 
-                    /*
+                    
                     //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
                     // alpha = Math.Max(beta, Evaluation[k]);
                     alpha = Math.Max(alpha, eval);
@@ -111,13 +108,13 @@ namespace ShogiCheckersChess
                     if (beta <= alpha)
                     {
                         break;
-                    }*/
+                    }
 
                 }
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 
-                return Highest(Evaluation);
+                return eval;
             }
 
             return 0;
@@ -170,8 +167,8 @@ namespace ShogiCheckersChess
             {
                 //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
-                List<int> Evaluation = new List<int>();
-                int eval = 0;
+
+                int eval = Int32.MaxValue;
                 //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
                 //tvoříme děti jednotlivých tahů
@@ -182,16 +179,12 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
-                    eval = OneStepMax(depth - 1, alpha, beta);
-
-
-
-                    Evaluation.Add(eval);
+                    eval = Math.Min(eval, OneStepMax(depth - 1, alpha, beta));
 
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
 
-                    /*
+                    
                     //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
                     // beta = Math.Min(beta, Evaluation[k]);
                     beta = Math.Min(beta, eval);
@@ -199,14 +192,14 @@ namespace ShogiCheckersChess
                     if (beta <= alpha)
                     {
                         break;
-                    } */
-
+                    } 
+                    
 
                 }
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 
-                return Lowest(Evaluation);
+                return eval;
             }
 
             return 0;

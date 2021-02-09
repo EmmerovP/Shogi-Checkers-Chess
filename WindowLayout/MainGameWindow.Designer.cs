@@ -40,7 +40,6 @@
             this.CreditsButton = new System.Windows.Forms.Button();
             this.SelectSingleplayerButton = new System.Windows.Forms.Button();
             this.SelectLocMultiButton = new System.Windows.Forms.Button();
-            this.SelectWebMultiButton = new System.Windows.Forms.Button();
             this.GamePieces = new System.Windows.Forms.ImageList(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.NewGameButton = new System.Windows.Forms.Button();
@@ -52,6 +51,16 @@
             this.ChooseShogiButtonUpper = new System.Windows.Forms.Button();
             this.ChooseShogiLabelUpper = new System.Windows.Forms.Label();
             this.ChooseShogiBoxUpper = new System.Windows.Forms.ComboBox();
+            this.CustomGameSizeLabel = new System.Windows.Forms.Label();
+            this.CustomGameSizeXTextbox = new System.Windows.Forms.TextBox();
+            this.CustomGameSizeYTextbox = new System.Windows.Forms.TextBox();
+            this.CustomGameSizeXLabel = new System.Windows.Forms.Label();
+            this.CustomGameSizeYLabel = new System.Windows.Forms.Label();
+            this.CustomGameSizeButton = new System.Windows.Forms.Button();
+            this.CustomGameSizeErrorLabel = new System.Windows.Forms.Label();
+            this.CustomGameTypeLabel = new System.Windows.Forms.Label();
+            this.CustomGameTypeCombobox = new System.Windows.Forms.ComboBox();
+            this.CustomGameTypeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SelectChessButton
@@ -143,7 +152,7 @@
             // 
             // SelectSingleplayerButton
             // 
-            this.SelectSingleplayerButton.Location = new System.Drawing.Point(169, 319);
+            this.SelectSingleplayerButton.Location = new System.Drawing.Point(225, 319);
             this.SelectSingleplayerButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectSingleplayerButton.Name = "SelectSingleplayerButton";
             this.SelectSingleplayerButton.Size = new System.Drawing.Size(76, 46);
@@ -155,7 +164,7 @@
             // 
             // SelectLocMultiButton
             // 
-            this.SelectLocMultiButton.Location = new System.Drawing.Point(282, 319);
+            this.SelectLocMultiButton.Location = new System.Drawing.Point(340, 319);
             this.SelectLocMultiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectLocMultiButton.Name = "SelectLocMultiButton";
             this.SelectLocMultiButton.Size = new System.Drawing.Size(80, 46);
@@ -164,18 +173,6 @@
             this.SelectLocMultiButton.UseVisualStyleBackColor = true;
             this.SelectLocMultiButton.Visible = false;
             this.SelectLocMultiButton.Click += new System.EventHandler(this.SelectLocMultiButton_Click);
-            // 
-            // SelectWebMultiButton
-            // 
-            this.SelectWebMultiButton.Location = new System.Drawing.Point(403, 319);
-            this.SelectWebMultiButton.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectWebMultiButton.Name = "SelectWebMultiButton";
-            this.SelectWebMultiButton.Size = new System.Drawing.Size(76, 46);
-            this.SelectWebMultiButton.TabIndex = 10;
-            this.SelectWebMultiButton.Text = "Multiplayer po síti";
-            this.SelectWebMultiButton.UseVisualStyleBackColor = true;
-            this.SelectWebMultiButton.Visible = false;
-            this.SelectWebMultiButton.Click += new System.EventHandler(this.SelectWebMultiButton_Click);
             // 
             // GamePieces
             // 
@@ -328,11 +325,123 @@
             this.ChooseShogiBoxUpper.TabIndex = 17;
             this.ChooseShogiBoxUpper.Visible = false;
             // 
+            // CustomGameSizeLabel
+            // 
+            this.CustomGameSizeLabel.AutoSize = true;
+            this.CustomGameSizeLabel.Location = new System.Drawing.Point(30, 29);
+            this.CustomGameSizeLabel.Name = "CustomGameSizeLabel";
+            this.CustomGameSizeLabel.Size = new System.Drawing.Size(316, 13);
+            this.CustomGameSizeLabel.TabIndex = 21;
+            this.CustomGameSizeLabel.Text = "Nastavte si velikost šachovnice. Hodnotu zadejte jako celé číslo.";
+            this.CustomGameSizeLabel.Visible = false;
+            // 
+            // CustomGameSizeXTextbox
+            // 
+            this.CustomGameSizeXTextbox.Location = new System.Drawing.Point(75, 55);
+            this.CustomGameSizeXTextbox.Name = "CustomGameSizeXTextbox";
+            this.CustomGameSizeXTextbox.Size = new System.Drawing.Size(100, 20);
+            this.CustomGameSizeXTextbox.TabIndex = 22;
+            this.CustomGameSizeXTextbox.Visible = false;
+            // 
+            // CustomGameSizeYTextbox
+            // 
+            this.CustomGameSizeYTextbox.Location = new System.Drawing.Point(75, 95);
+            this.CustomGameSizeYTextbox.Name = "CustomGameSizeYTextbox";
+            this.CustomGameSizeYTextbox.Size = new System.Drawing.Size(100, 20);
+            this.CustomGameSizeYTextbox.TabIndex = 23;
+            this.CustomGameSizeYTextbox.Visible = false;
+            // 
+            // CustomGameSizeXLabel
+            // 
+            this.CustomGameSizeXLabel.AutoSize = true;
+            this.CustomGameSizeXLabel.Location = new System.Drawing.Point(30, 58);
+            this.CustomGameSizeXLabel.Name = "CustomGameSizeXLabel";
+            this.CustomGameSizeXLabel.Size = new System.Drawing.Size(39, 13);
+            this.CustomGameSizeXLabel.TabIndex = 24;
+            this.CustomGameSizeXLabel.Text = "Výška:";
+            this.CustomGameSizeXLabel.Visible = false;
+            // 
+            // CustomGameSizeYLabel
+            // 
+            this.CustomGameSizeYLabel.AutoSize = true;
+            this.CustomGameSizeYLabel.Location = new System.Drawing.Point(30, 95);
+            this.CustomGameSizeYLabel.Name = "CustomGameSizeYLabel";
+            this.CustomGameSizeYLabel.Size = new System.Drawing.Size(37, 13);
+            this.CustomGameSizeYLabel.TabIndex = 25;
+            this.CustomGameSizeYLabel.Text = "Šířka:";
+            this.CustomGameSizeYLabel.Visible = false;
+            // 
+            // CustomGameSizeButton
+            // 
+            this.CustomGameSizeButton.Location = new System.Drawing.Point(86, 137);
+            this.CustomGameSizeButton.Name = "CustomGameSizeButton";
+            this.CustomGameSizeButton.Size = new System.Drawing.Size(75, 23);
+            this.CustomGameSizeButton.TabIndex = 26;
+            this.CustomGameSizeButton.Text = "OK";
+            this.CustomGameSizeButton.UseVisualStyleBackColor = true;
+            this.CustomGameSizeButton.Visible = false;
+            this.CustomGameSizeButton.Click += new System.EventHandler(this.CustomGameSizeButton_Click);
+            // 
+            // CustomGameSizeErrorLabel
+            // 
+            this.CustomGameSizeErrorLabel.AutoSize = true;
+            this.CustomGameSizeErrorLabel.Location = new System.Drawing.Point(48, 176);
+            this.CustomGameSizeErrorLabel.Name = "CustomGameSizeErrorLabel";
+            this.CustomGameSizeErrorLabel.Size = new System.Drawing.Size(176, 13);
+            this.CustomGameSizeErrorLabel.TabIndex = 27;
+            this.CustomGameSizeErrorLabel.Text = "Chyba - nebylo zadáno platné číslo.";
+            this.CustomGameSizeErrorLabel.Visible = false;
+            // 
+            // CustomGameTypeLabel
+            // 
+            this.CustomGameTypeLabel.AutoSize = true;
+            this.CustomGameTypeLabel.Location = new System.Drawing.Point(33, 230);
+            this.CustomGameTypeLabel.Name = "CustomGameTypeLabel";
+            this.CustomGameTypeLabel.Size = new System.Drawing.Size(80, 13);
+            this.CustomGameTypeLabel.TabIndex = 28;
+            this.CustomGameTypeLabel.Text = "Vyberte typ hry.";
+            this.CustomGameTypeLabel.Visible = false;
+            // 
+            // CustomGameTypeCombobox
+            // 
+            this.CustomGameTypeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CustomGameTypeCombobox.FormattingEnabled = true;
+            this.CustomGameTypeCombobox.Items.AddRange(new object[] {
+            "Šachy",
+            "Dáma",
+            "Shogi"});
+            this.CustomGameTypeCombobox.Location = new System.Drawing.Point(36, 262);
+            this.CustomGameTypeCombobox.Name = "CustomGameTypeCombobox";
+            this.CustomGameTypeCombobox.Size = new System.Drawing.Size(121, 21);
+            this.CustomGameTypeCombobox.TabIndex = 29;
+            this.CustomGameTypeCombobox.Visible = false;
+            // 
+            // CustomGameTypeButton
+            // 
+            this.CustomGameTypeButton.Location = new System.Drawing.Point(51, 304);
+            this.CustomGameTypeButton.Name = "CustomGameTypeButton";
+            this.CustomGameTypeButton.Size = new System.Drawing.Size(75, 23);
+            this.CustomGameTypeButton.TabIndex = 30;
+            this.CustomGameTypeButton.Text = "OK";
+            this.CustomGameTypeButton.UseVisualStyleBackColor = true;
+            this.CustomGameTypeButton.Visible = false;
+            this.CustomGameTypeButton.Click += new System.EventHandler(this.CustomGameTypeButton_Click);
+            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 596);
+            this.Controls.Add(this.CustomGameTypeButton);
+            this.Controls.Add(this.CustomGameTypeCombobox);
+            this.Controls.Add(this.CustomGameTypeLabel);
+            this.Controls.Add(this.CustomGameSizeErrorLabel);
+            this.Controls.Add(this.CustomGameSizeButton);
+            this.Controls.Add(this.CustomGameSizeYLabel);
+            this.Controls.Add(this.CustomGameSizeXLabel);
+            this.Controls.Add(this.CustomGameSizeYTextbox);
+            this.Controls.Add(this.CustomGameSizeXTextbox);
+            this.Controls.Add(this.CustomGameSizeLabel);
             this.Controls.Add(this.PutShogiPieceLabelUpper);
             this.Controls.Add(this.ChooseShogiButtonUpper);
             this.Controls.Add(this.ChooseShogiLabelUpper);
@@ -343,7 +452,6 @@
             this.Controls.Add(this.ChooseShogiBoxBottom);
             this.Controls.Add(this.NewGameButton);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.SelectWebMultiButton);
             this.Controls.Add(this.SelectLocMultiButton);
             this.Controls.Add(this.SelectSingleplayerButton);
             this.Controls.Add(this.CreditsButton);
@@ -374,7 +482,6 @@
         private System.Windows.Forms.Button CreditsButton;
         private System.Windows.Forms.Button SelectSingleplayerButton;
         private System.Windows.Forms.Button SelectLocMultiButton;
-        private System.Windows.Forms.Button SelectWebMultiButton;
         private System.Windows.Forms.ImageList GamePieces;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button NewGameButton;
@@ -386,6 +493,16 @@
         private System.Windows.Forms.Button ChooseShogiButtonUpper;
         private System.Windows.Forms.Label ChooseShogiLabelUpper;
         private System.Windows.Forms.ComboBox ChooseShogiBoxUpper;
+        private System.Windows.Forms.Label CustomGameSizeLabel;
+        private System.Windows.Forms.TextBox CustomGameSizeXTextbox;
+        private System.Windows.Forms.TextBox CustomGameSizeYTextbox;
+        private System.Windows.Forms.Label CustomGameSizeXLabel;
+        private System.Windows.Forms.Label CustomGameSizeYLabel;
+        private System.Windows.Forms.Button CustomGameSizeButton;
+        private System.Windows.Forms.Label CustomGameSizeErrorLabel;
+        private System.Windows.Forms.Label CustomGameTypeLabel;
+        private System.Windows.Forms.ComboBox CustomGameTypeCombobox;
+        private System.Windows.Forms.Button CustomGameTypeButton;
     }
 }
 
