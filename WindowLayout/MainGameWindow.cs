@@ -338,7 +338,7 @@ namespace ShogiCheckersChess
 
             if(AddPiece)
             {
-                AddPieceToBoard(selected_x, selected_y);
+                WhichPiece(selected_x, selected_y);
                 return;
             }
 
@@ -347,12 +347,24 @@ namespace ShogiCheckersChess
 
             if (AddBottomShogiPiece)
             {
-                PutShogiPieceLabelBottom.Visible = false;
-                AddBottomShogiPiece = false;
+
                 if (Board.board[selected_x, selected_y] != null)
                 {
                     return;
                 }
+
+                if (ShogiPiece == 19)
+                {
+                    for (int i = 0; i < Board.board.GetLength(0); i++)
+                    {
+                        if ((Board.board[selected_x, i]!= null) &&(Board.board[selected_x, i].GetNumber() == 19))
+                            return;
+                    }
+                }
+
+                PutShogiPieceLabelBottom.Visible = false;
+                AddBottomShogiPiece = false;
+
 
                 var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
                 {
@@ -400,12 +412,23 @@ namespace ShogiCheckersChess
 
             if (AddUpperShogiPiece)
             {
-                PutShogiPieceLabelUpper.Visible = false;
-                AddUpperShogiPiece = false;
+
                 if (Board.board[selected_x, selected_y] != null)
                 {
                     return;
                 }
+
+                if (ShogiPiece == 40)
+                {
+                    for (int i = 0; i < Board.board.GetLength(0); i++)
+                    {
+                        if (Board.board[selected_x, i].GetNumber() == 40)
+                            return;
+                    }
+                }
+
+                PutShogiPieceLabelUpper.Visible = false;
+                AddUpperShogiPiece = false;
 
                 var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
                 {
@@ -942,6 +965,7 @@ namespace ShogiCheckersChess
 
         private void NewGameButton_Click(object sender, EventArgs e)
         {
+            AddPiece = false;
             //Koukni, zda je na šachovnici správná figurka pro danou hru
             //Pro všechny - alespoň jedna figurka příslušné barvy
             bool is_white = false;
@@ -1018,7 +1042,6 @@ namespace ShogiCheckersChess
 
             Gameclass.CurrentGame.GameEnded = false;
 
-            CustomGameChooseButton.Visible = false;
             CustomGameChooseCombobox.Visible = false;
             CustomGameChooseErrorLabel.Visible = false;
             CustomGameChooseLabel.Visible = false;
@@ -1261,10 +1284,11 @@ namespace ShogiCheckersChess
             DrawChessboard();
             Gameclass.CurrentGame.GameEnded = true;
 
-            CustomGameChooseButton.Visible = true;
             CustomGameChooseCombobox.Visible = true;
             CustomGameChooseLabel.Visible = true;
             NewGameButton.Visible = true;
+
+            AddPiece = true;
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -1274,7 +1298,7 @@ namespace ShogiCheckersChess
 
         private void AddPieceToBoard(int x, int y)
         {
-            AddPiece = false;
+            
             if (Board.board[x, y] != null)
             {
                 return;
@@ -1316,10 +1340,10 @@ namespace ShogiCheckersChess
             }
         }
 
-        private void CustomGameChooseButton_Click(object sender, EventArgs e)
+        private void WhichPiece(int x, int y)
         {
             string piece = CustomGameChooseCombobox.Text;
-            
+
             switch (piece)
             {
                 case "Bílý král":
@@ -1413,12 +1437,16 @@ namespace ShogiCheckersChess
                     AddPieceNumber = 40;
                     break;
                 default:
-                    return;
-
-
+                    return;                    
             }
+            AddPieceToBoard(x, y);
+        }
 
-            AddPiece = true;
+        private void CustomGameChooseButton_Click(object sender, EventArgs e)
+        {
+            
+
+            
         }
     }
 }

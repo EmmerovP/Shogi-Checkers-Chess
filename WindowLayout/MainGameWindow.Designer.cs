@@ -63,9 +63,8 @@
             this.CustomGameTypeButton = new System.Windows.Forms.Button();
             this.CustomGameChooseCombobox = new System.Windows.Forms.ComboBox();
             this.CustomGameChooseLabel = new System.Windows.Forms.Label();
-            this.CustomGameChooseButton = new System.Windows.Forms.Button();
             this.CustomGameChooseErrorLabel = new System.Windows.Forms.Label();
-            this.CustomGamePlayButton = new System.Windows.Forms.Label();
+            this.CustomLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SelectChessButton
@@ -486,17 +485,6 @@
             this.CustomGameChooseLabel.Visible = false;
             this.CustomGameChooseLabel.Click += new System.EventHandler(this.label3_Click);
             // 
-            // CustomGameChooseButton
-            // 
-            this.CustomGameChooseButton.Location = new System.Drawing.Point(566, 262);
-            this.CustomGameChooseButton.Name = "CustomGameChooseButton";
-            this.CustomGameChooseButton.Size = new System.Drawing.Size(75, 23);
-            this.CustomGameChooseButton.TabIndex = 33;
-            this.CustomGameChooseButton.Text = "Přidat";
-            this.CustomGameChooseButton.UseVisualStyleBackColor = true;
-            this.CustomGameChooseButton.Visible = false;
-            this.CustomGameChooseButton.Click += new System.EventHandler(this.CustomGameChooseButton_Click);
-            // 
             // CustomGameChooseErrorLabel
             // 
             this.CustomGameChooseErrorLabel.Location = new System.Drawing.Point(563, 291);
@@ -508,24 +496,23 @@
             this.CustomGameChooseErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CustomGameChooseErrorLabel.Visible = false;
             // 
-            // CustomGamePlayButton
+            // CustomLabel
             // 
-            this.CustomGamePlayButton.AutoSize = true;
-            this.CustomGamePlayButton.Location = new System.Drawing.Point(546, 556);
-            this.CustomGamePlayButton.Name = "CustomGamePlayButton";
-            this.CustomGamePlayButton.Size = new System.Drawing.Size(105, 13);
-            this.CustomGamePlayButton.TabIndex = 35;
-            this.CustomGamePlayButton.Text = "Popis se bude měnit.";
-            this.CustomGamePlayButton.Visible = false;
+            this.CustomLabel.AutoSize = true;
+            this.CustomLabel.Location = new System.Drawing.Point(546, 556);
+            this.CustomLabel.Name = "CustomLabel";
+            this.CustomLabel.Size = new System.Drawing.Size(105, 13);
+            this.CustomLabel.TabIndex = 35;
+            this.CustomLabel.Text = "Popis se bude měnit.";
+            this.CustomLabel.Visible = false;
             // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 596);
-            this.Controls.Add(this.CustomGamePlayButton);
+            this.Controls.Add(this.CustomLabel);
             this.Controls.Add(this.CustomGameChooseErrorLabel);
-            this.Controls.Add(this.CustomGameChooseButton);
             this.Controls.Add(this.CustomGameChooseLabel);
             this.Controls.Add(this.CustomGameChooseCombobox);
             this.Controls.Add(this.CustomGameTypeButton);
@@ -601,9 +588,8 @@
         private System.Windows.Forms.Button CustomGameTypeButton;
         private System.Windows.Forms.ComboBox CustomGameChooseCombobox;
         private System.Windows.Forms.Label CustomGameChooseLabel;
-        private System.Windows.Forms.Button CustomGameChooseButton;
         private System.Windows.Forms.Label CustomGameChooseErrorLabel;
-        private System.Windows.Forms.Label CustomGamePlayButton;
+        private System.Windows.Forms.Label CustomLabel;
     }
 }
 

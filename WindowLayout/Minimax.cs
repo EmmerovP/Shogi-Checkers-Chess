@@ -101,7 +101,7 @@ namespace ShogiCheckersChess
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
 
                     
-                    //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
+
                     // alpha = Math.Max(beta, Evaluation[k]);
                     alpha = Math.Max(alpha, eval);
 
@@ -130,7 +130,7 @@ namespace ShogiCheckersChess
                 {
                     if (Board.board[i, j] != null)
                     {
-                        if (Board.board[i, j].isWhite == Generating.WhitePlays)
+                        if (Board.board[i, j].isWhite != WhiteSide)
                         {
                             eval -= Board.board[i, j].Value;
                         }

@@ -75,7 +75,7 @@ namespace ShogiCheckersChess
                 Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
                 Board.board[moves.start_x[i], moves.start_y[i]] = null;
 
-                moves.value[i] = (Minimax.OneStepMin(2, Int32.MinValue, Int32.MaxValue));
+                moves.value[i] = (Minimax.OneStepMin(3, Int32.MinValue, Int32.MaxValue));
 
                 Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
                 Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;

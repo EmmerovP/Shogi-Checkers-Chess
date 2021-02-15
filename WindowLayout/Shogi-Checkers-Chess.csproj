@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Gameclass.cs" />
     <Compile Include="Minimax.cs" />
+    <Compile Include="MonteCarlo.cs" />
     <Compile Include="Moves.cs" />
     <Compile Include="PawnChange.cs">
       <SubType>Form</SubType>
