@@ -65,7 +65,7 @@ namespace ShogiCheckersChess
             public static bool CheckersEnd()
             {
                 for (int i = 0; i < Board.board.GetLength(0); i++)
-                {
+                {   
                     for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
                         if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))

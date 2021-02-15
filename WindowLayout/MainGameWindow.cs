@@ -256,6 +256,10 @@ namespace ShogiCheckersChess
 
         public bool IsCastling(int start_x, int start_y, int final_x, int final_y)
         {
+            if (!(Board.board.GetLength(0)==8 && Board.board.GetLength(1) ==8))
+            {
+                return false;
+            }
             //je to rošáda
             if (start_x == final_x && start_y== final_y + 2)
             {
@@ -331,11 +335,6 @@ namespace ShogiCheckersChess
         }
 
 
-
-
-        //souřadnice z location
-    
-
         public bool EndGame()
         {
             label2.Visible = false;
@@ -407,7 +406,6 @@ namespace ShogiCheckersChess
        
 
 
-        //animac
         //mysli na to, že (velikost rozměrová) velikost šachovnice podle počtu políček se bude měnit
         //rozměr šachovnice - neměla by asi být fixní, každý má jinak velký monitor
         public void DrawChessboard()             //vykreslí na pozadí formuláře šachovnici
@@ -415,20 +413,21 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.GameEnded = false;
 
             int boxsize = 50;
-            int dimension = MainGameWindow.chessboard.GetLength(0);
+            int dimension_x = MainGameWindow.chessboard.GetLength(0);
+            int dimension_y = MainGameWindow.chessboard.GetLength(1);
             int border = 1;
-            location = new Point[dimension, dimension];
-            piecesPictures = new PictureBox[dimension, dimension];
-            pictureBoxes = new PictureBox[dimension, dimension];
-            Board.board = new Pieces[dimension, dimension];
-            Bitmap chessboard = new Bitmap(boxsize * dimension + border * boxsize, boxsize * dimension + border * boxsize);
+            location = new Point[dimension_x, dimension_y];
+            piecesPictures = new PictureBox[dimension_x, dimension_y];
+            pictureBoxes = new PictureBox[dimension_x, dimension_y];
+            Board.board = new Pieces[dimension_x, dimension_y];
+            Bitmap chessboard = new Bitmap(boxsize * dimension_y + border * boxsize, boxsize * dimension_x + border * boxsize);
             Graphics graphics = Graphics.FromImage(chessboard);
             using (SolidBrush blackBrush = new SolidBrush(Color.DarkGray))
             using (SolidBrush whiteBrush = new SolidBrush(Color.White))  //na vykreslení bílých i černých polí
 
-                for (int j = border; j < dimension + border; j++)
+                for (int j = border; j < dimension_y + border; j++)
                 {
-                    for (int i = border; i < dimension + border; i++)
+                    for (int i = border; i < dimension_x + border; i++)
                     {
                         int a = i - border;
                         int b = j - border;
@@ -453,9 +452,6 @@ namespace ShogiCheckersChess
 
                             piecesPictures[a, b] = gamepiece;
                             Board.AddPiece(piece, a, b);
-
-                            //aby se po kliknutí na picturebox zavolala příslušná metoda
-                            //PictureBoxArray[j, i] = picture;
                         }
 
 
@@ -476,11 +472,11 @@ namespace ShogiCheckersChess
 
                         if (((a % 2 == 1) & (b % 2 == 1)) || ((a % 2 == 0) & (b % 2 == 0)))  //vykreslí se bílý čtvereček
                         {
-                            graphics.FillRectangle(whiteBrush, i * boxsize, j * boxsize, boxsize, boxsize);
+                            graphics.FillRectangle(whiteBrush, j * boxsize, i * boxsize, boxsize, boxsize);
                         }
                         else  //vykreslí se černý čtvereček
                         {
-                            graphics.FillRectangle(blackBrush, i * boxsize, j * boxsize, boxsize, boxsize);
+                            graphics.FillRectangle(blackBrush, j * boxsize, i * boxsize, boxsize, boxsize);
                         }
                     }
                 }

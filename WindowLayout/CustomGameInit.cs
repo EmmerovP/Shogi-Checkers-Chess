@@ -24,7 +24,7 @@ namespace ShogiCheckersChess
         private void CustomGameSizeButton_Click(object sender, EventArgs e)
         {
             string x = CustomGameSizeXTextbox.Text;
-            string y = CustomGameSizeXTextbox.Text;
+            string y = CustomGameSizeYTextbox.Text;
 
             int number_x;
 
