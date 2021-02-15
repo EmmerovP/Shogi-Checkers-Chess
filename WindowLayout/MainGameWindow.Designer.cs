@@ -63,6 +63,8 @@
             this.CustomGameChooseLabel = new System.Windows.Forms.Label();
             this.CustomGameChooseErrorLabel = new System.Windows.Forms.Label();
             this.CustomLabel = new System.Windows.Forms.Label();
+            this.LoadGameButton = new System.Windows.Forms.Button();
+            this.LoadCustomGameDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // SelectChessButton
@@ -110,7 +112,7 @@
             // 
             // SelectCustomGameButton
             // 
-            this.SelectCustomGameButton.Location = new System.Drawing.Point(282, 249);
+            this.SelectCustomGameButton.Location = new System.Drawing.Point(225, 255);
             this.SelectCustomGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCustomGameButton.Name = "SelectCustomGameButton";
             this.SelectCustomGameButton.Size = new System.Drawing.Size(79, 49);
@@ -478,11 +480,28 @@
             this.CustomLabel.Text = "Popis se bude měnit.";
             this.CustomLabel.Visible = false;
             // 
+            // LoadGameButton
+            // 
+            this.LoadGameButton.Location = new System.Drawing.Point(331, 255);
+            this.LoadGameButton.Margin = new System.Windows.Forms.Padding(2);
+            this.LoadGameButton.Name = "LoadGameButton";
+            this.LoadGameButton.Size = new System.Drawing.Size(79, 49);
+            this.LoadGameButton.TabIndex = 36;
+            this.LoadGameButton.Text = "Načíst hru";
+            this.LoadGameButton.UseVisualStyleBackColor = true;
+            this.LoadGameButton.Click += new System.EventHandler(this.LoadGameButton_Click);
+            // 
+            // LoadCustomGameDialog
+            // 
+            this.LoadCustomGameDialog.FileName = "openFileDialog1";
+            this.LoadCustomGameDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 596);
+            this.Controls.Add(this.LoadGameButton);
             this.Controls.Add(this.CustomLabel);
             this.Controls.Add(this.CustomGameChooseErrorLabel);
             this.Controls.Add(this.CustomGameChooseLabel);
@@ -558,6 +577,8 @@
         private System.Windows.Forms.Label CustomGameChooseLabel;
         private System.Windows.Forms.Label CustomGameChooseErrorLabel;
         private System.Windows.Forms.Label CustomLabel;
+        private System.Windows.Forms.Button LoadGameButton;
+        private System.Windows.Forms.OpenFileDialog LoadCustomGameDialog;
     }
 }
 

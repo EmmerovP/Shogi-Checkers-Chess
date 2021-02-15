@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace ShogiCheckersChess
         {
             InitializeComponent();
         }
-        
+
 
         private void SelectChessButton_Click(object sender, EventArgs e)
         {
@@ -90,6 +91,7 @@ namespace ShogiCheckersChess
             SelectCheckersButton.Visible = false;
             SelectShogiButton.Visible = false;
             SelectCustomGameButton.Visible = false;
+            LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
             AboutAuthorButton.Visible = false;
             CreditsButton.Visible = false;
@@ -151,7 +153,7 @@ namespace ShogiCheckersChess
             {
                 DrawChessboard();
             }
-            
+
         }
 
         private void SelectLocMultiButton_Click(object sender, EventArgs e)
@@ -256,12 +258,12 @@ namespace ShogiCheckersChess
 
         public bool IsCastling(int start_x, int start_y, int final_x, int final_y)
         {
-            if (!(Board.board.GetLength(0)==8 && Board.board.GetLength(1) ==8))
+            if (!(Board.board.GetLength(0) == 8 && Board.board.GetLength(1) == 8))
             {
                 return false;
             }
             //je to rošáda
-            if (start_x == final_x && start_y== final_y + 2)
+            if (start_x == final_x && start_y == final_y + 2)
             {
                 //je to rošáda nahoře
                 if (start_x == 0)
@@ -275,7 +277,7 @@ namespace ShogiCheckersChess
                     piecesPictures[0, 3] = rook;
                     rook.Location = location[0, 3];
                     rook.BringToFront();
-                    
+
 
                     return true;
                 }
@@ -402,8 +404,8 @@ namespace ShogiCheckersChess
             return false;
         }
 
-        
-       
+
+
 
 
         //mysli na to, že (velikost rozměrová) velikost šachovnice podle počtu políček se bude měnit
@@ -482,7 +484,77 @@ namespace ShogiCheckersChess
                 }
             BackgroundImage = chessboard;
             BackgroundImageLayout = ImageLayout.None;
-        }            
+        }
 
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void LoadGameButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = LoadCustomGameDialog.ShowDialog();
+
+            if (result == DialogResult.OK) 
+            {
+                string file = LoadCustomGameDialog.FileName;
+                try
+                {
+                    using (var streamReader = new StreamReader(File.OpenRead(file), Encoding.UTF8, true))
+                    {
+                        String line;
+
+                        line = streamReader.ReadLine();
+
+                        switch (line)
+                        {
+                            case "chess": 
+                                Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
+                                break;
+                            case "checkers":
+                                Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
+                                break;
+                            case "shogi":
+                                Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
+                                break;
+                            default:
+                                throw new Exception();
+                        }
+
+                        line = streamReader.ReadLine();
+
+                        string[] dimensions = line.Split(',');
+
+                        int[,] board = new int[Int32.Parse(dimensions[0]), Int32.Parse(dimensions[1])];
+
+                        int cnt = 0;
+
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            dimensions = line.Split(',');
+
+                            for (int i = 0; i < board.GetLength(0); i++)
+                            {
+                                board[cnt, i] = Int32.Parse(dimensions[i]);
+                            }
+
+                            cnt++;
+                        }
+
+                        MainGameWindow.chessboard = board;
+
+                    }
+                }
+                catch (IOException)
+                {
+                }
+
+                ChooseTypeOfGame();
+
+            }
+
+
+
+        }
     }
 }

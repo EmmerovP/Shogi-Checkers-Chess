@@ -25,7 +25,7 @@ namespace ShogiCheckersChess
 
             if (ShogiPiece == 19)
             {
-                for (int i = 0; i < Board.board.GetLength(0); i++)
+                for (int i = 0; i < Board.board.GetLength(1); i++)
                 {
                     if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == 19))
                     {
@@ -99,7 +99,7 @@ namespace ShogiCheckersChess
 
             if (ShogiPiece == 40)
             {
-                for (int i = 0; i < Board.board.GetLength(0); i++)
+                for (int i = 0; i < Board.board.GetLength(1); i++)
                 {
                     if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == 40))
                     {

@@ -77,7 +77,8 @@ namespace ShogiCheckersChess
 
                 //Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
 
-                moves.value[i] = (Minimax.OneStepMin(3, Int32.MinValue, Int32.MaxValue));
+                moves.value[i] = (Minimax.OneStepMin(4, Int32.MinValue, Int32.MaxValue));
+
 
                 //Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
 
