@@ -13,7 +13,7 @@ namespace ShogiCheckersChess
     {
         public class Node
         {
-            public int[,] board;
+            public Pieces[,] board;
             public Node parent;
             public int visited;
             public List<Node> children;
@@ -55,7 +55,7 @@ namespace ShogiCheckersChess
             return node;
         }
 
-        public static bool Endgame(int[,] board)
+        public static bool Endgame(Pieces[,] board)
         {
             //zda na dané šachovnici došlo ke konci hry
             return false;

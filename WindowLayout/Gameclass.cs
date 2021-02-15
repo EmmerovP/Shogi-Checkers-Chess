@@ -271,8 +271,7 @@ namespace ShogiCheckersChess
         {
             chess,
             checkers,
-            shogi,
-            custom
+            shogi
         }
 
         public enum PlayerType

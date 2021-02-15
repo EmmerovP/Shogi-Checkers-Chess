@@ -59,8 +59,6 @@
             this.CustomGameSizeButton = new System.Windows.Forms.Button();
             this.CustomGameSizeErrorLabel = new System.Windows.Forms.Label();
             this.CustomGameTypeLabel = new System.Windows.Forms.Label();
-            this.CustomGameTypeCombobox = new System.Windows.Forms.ComboBox();
-            this.CustomGameTypeButton = new System.Windows.Forms.Button();
             this.CustomGameChooseCombobox = new System.Windows.Forms.ComboBox();
             this.CustomGameChooseLabel = new System.Windows.Forms.Label();
             this.CustomGameChooseErrorLabel = new System.Windows.Forms.Label();
@@ -401,37 +399,12 @@
             // CustomGameTypeLabel
             // 
             this.CustomGameTypeLabel.AutoSize = true;
-            this.CustomGameTypeLabel.Location = new System.Drawing.Point(33, 230);
+            this.CustomGameTypeLabel.Location = new System.Drawing.Point(282, 160);
             this.CustomGameTypeLabel.Name = "CustomGameTypeLabel";
             this.CustomGameTypeLabel.Size = new System.Drawing.Size(80, 13);
             this.CustomGameTypeLabel.TabIndex = 28;
             this.CustomGameTypeLabel.Text = "Vyberte typ hry.";
             this.CustomGameTypeLabel.Visible = false;
-            // 
-            // CustomGameTypeCombobox
-            // 
-            this.CustomGameTypeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CustomGameTypeCombobox.FormattingEnabled = true;
-            this.CustomGameTypeCombobox.Items.AddRange(new object[] {
-            "Šachy",
-            "Dáma",
-            "Shogi"});
-            this.CustomGameTypeCombobox.Location = new System.Drawing.Point(36, 262);
-            this.CustomGameTypeCombobox.Name = "CustomGameTypeCombobox";
-            this.CustomGameTypeCombobox.Size = new System.Drawing.Size(121, 21);
-            this.CustomGameTypeCombobox.TabIndex = 29;
-            this.CustomGameTypeCombobox.Visible = false;
-            // 
-            // CustomGameTypeButton
-            // 
-            this.CustomGameTypeButton.Location = new System.Drawing.Point(51, 304);
-            this.CustomGameTypeButton.Name = "CustomGameTypeButton";
-            this.CustomGameTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.CustomGameTypeButton.TabIndex = 30;
-            this.CustomGameTypeButton.Text = "OK";
-            this.CustomGameTypeButton.UseVisualStyleBackColor = true;
-            this.CustomGameTypeButton.Visible = false;
-            this.CustomGameTypeButton.Click += new System.EventHandler(this.CustomGameTypeButton_Click);
             // 
             // CustomGameChooseCombobox
             // 
@@ -483,7 +456,6 @@
             this.CustomGameChooseLabel.TabIndex = 32;
             this.CustomGameChooseLabel.Text = "Vyberte figurku:";
             this.CustomGameChooseLabel.Visible = false;
-            this.CustomGameChooseLabel.Click += new System.EventHandler(this.label3_Click);
             // 
             // CustomGameChooseErrorLabel
             // 
@@ -515,8 +487,6 @@
             this.Controls.Add(this.CustomGameChooseErrorLabel);
             this.Controls.Add(this.CustomGameChooseLabel);
             this.Controls.Add(this.CustomGameChooseCombobox);
-            this.Controls.Add(this.CustomGameTypeButton);
-            this.Controls.Add(this.CustomGameTypeCombobox);
             this.Controls.Add(this.CustomGameTypeLabel);
             this.Controls.Add(this.CustomGameSizeErrorLabel);
             this.Controls.Add(this.CustomGameSizeButton);
@@ -584,8 +554,6 @@
         private System.Windows.Forms.Button CustomGameSizeButton;
         private System.Windows.Forms.Label CustomGameSizeErrorLabel;
         private System.Windows.Forms.Label CustomGameTypeLabel;
-        private System.Windows.Forms.ComboBox CustomGameTypeCombobox;
-        private System.Windows.Forms.Button CustomGameTypeButton;
         private System.Windows.Forms.ComboBox CustomGameChooseCombobox;
         private System.Windows.Forms.Label CustomGameChooseLabel;
         private System.Windows.Forms.Label CustomGameChooseErrorLabel;
