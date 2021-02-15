@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9CD0E195-ADFB-4960-9B3D-619F63034AFE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WindowLayout</RootNamespace>
+    <RootNamespace>ShogiCheckersChess</RootNamespace>
     <AssemblyName>WindowLayout</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -101,6 +101,12 @@
     <Compile Include="ShogiAddPiece.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ShogiPawnProblem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShogiPawnProblem.Designer.cs">
+      <DependentUpon>ShogiPawnProblem.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutAuthor.resx">
       <DependentUpon>AboutAuthor.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,7 +136,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ShogiPawnProblem.resx">
+      <DependentUpon>ShogiPawnProblem.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -38,63 +38,7 @@ namespace ShogiCheckersChess
             if (AddBottomShogiPiece)
             {
 
-                if (Board.board[selected_x, selected_y] != null)
-                {
-                    return;
-                }
-
-                if (ShogiPiece == 19)
-                {
-                    for (int i = 0; i < Board.board.GetLength(0); i++)
-                    {
-                        if ((Board.board[selected_x, i] != null) && (Board.board[selected_x, i].GetNumber() == 19))
-                            return;
-                    }
-                }
-
-                PutShogiPieceLabelBottom.Visible = false;
-                AddBottomShogiPiece = false;
-
-
-                var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
-                {
-                    Name = Convert.ToString(ShogiPiece),
-                    Size = new Size(50, 50),
-                    Location = location[selected_x, selected_y],
-                    BackColor = Color.Transparent,
-                    Image = GamePieces.Images[ShogiPiece],
-                    SizeMode = PictureBoxSizeMode.CenterImage,
-                };
-
-                this.Controls.Add(gamepiece);
-                gamepiece.Click += MoveGamePiece;
-
-                piecesPictures[selected_x, selected_y] = gamepiece;
-                Board.AddPiece(ShogiPiece, selected_x, selected_y);
-
-                gamepiece.BringToFront();
-
-                Generating.WhitePlays = !Generating.WhitePlays;
-
-
-                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
-                {
-
-                    isPlayer = false;
-                    int move = RandomMoveGen.FindPiece();
-
-                    if (move == -1)
-                    {
-                        label2.Text = "Vyhráli jste!";
-                        return;
-                    }
-
-                    PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                        piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
-
-                    isPlayer = true;
-
-                }
+                AddBottomShogi(selected_x, selected_y);
 
                 return;
             }
@@ -103,62 +47,7 @@ namespace ShogiCheckersChess
             if (AddUpperShogiPiece)
             {
 
-                if (Board.board[selected_x, selected_y] != null)
-                {
-                    return;
-                }
-
-                if (ShogiPiece == 40)
-                {
-                    for (int i = 0; i < Board.board.GetLength(0); i++)
-                    {
-                        if (Board.board[selected_x, i].GetNumber() == 40)
-                            return;
-                    }
-                }
-
-                PutShogiPieceLabelUpper.Visible = false;
-                AddUpperShogiPiece = false;
-
-                var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
-                {
-                    Name = Convert.ToString(ShogiPiece),
-                    Size = new Size(50, 50),
-                    Location = location[selected_x, selected_y],
-                    BackColor = Color.Transparent,
-                    Image = GamePieces.Images[ShogiPiece],
-                    SizeMode = PictureBoxSizeMode.CenterImage,
-                };
-
-                this.Controls.Add(gamepiece);
-                gamepiece.Click += MoveGamePiece;
-
-                piecesPictures[selected_x, selected_y] = gamepiece;
-                Board.AddPiece(ShogiPiece, selected_x, selected_y);
-
-                gamepiece.BringToFront();
-
-                Generating.WhitePlays = !Generating.WhitePlays;
-
-
-                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
-                {
-
-                    isPlayer = false;
-                    int move = RandomMoveGen.FindPiece();
-
-                    if (move == -1)
-                    {
-                        label2.Text = "Vyhráli jste!";
-                        return;
-                    }
-
-                    PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                        piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
-
-                    isPlayer = true;
-
-                }
+                AddUpperShogi(selected_x, selected_y);
 
                 return;
             }
