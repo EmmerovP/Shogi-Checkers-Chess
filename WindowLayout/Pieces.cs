@@ -509,7 +509,9 @@ namespace ShogiCheckersChess
      {
         //do tohoto pole bych moc ráda vložila metody na pohyb, bohužel mi to moc nejde
         //public Action<int, int, Pieces[,]>[] moves;
-        int[] moves;
+        public int[] moves;
+
+        public override int Value { get; set; }
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
@@ -642,8 +644,6 @@ namespace ShogiCheckersChess
             }
 
         }
-
-        public override int Value { get; set; }
 
 
     } 

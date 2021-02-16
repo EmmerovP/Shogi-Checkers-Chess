@@ -530,13 +530,11 @@ namespace ShogiCheckersChess
 
                         int cnt = 0;
 
-                        line = streamReader.ReadLine();
+                        Pieces.DefinedPieces = new List<DefinedPiece>();
 
+                        while ((line = streamReader.ReadLine()) != "")
                         //jedná se o definici custom figurek
-                        if (line=="#")
-                        {
-                            Pieces.DefinedPieces = new List<DefinedPiece>();
-
+                        {                            
                             DefinedPiece newPiece = new DefinedPiece();
 
                             string[] moves = streamReader.ReadLine().Split(',');
@@ -553,10 +551,11 @@ namespace ShogiCheckersChess
                                 newPiece.isWhite = true;
                             }
 
+                            newPiece.Value = moves.Length * 3;
                             string image = streamReader.ReadLine();
                             GamePieces.Images.Add(Image.FromFile(image));
 
-
+                            Pieces.DefinedPieces.Add(newPiece);
                         }
 
 
