@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace ShogiCheckersChess
 {
+
     public class Minimax
     {
         public static bool WhiteSide = false;
@@ -128,8 +129,37 @@ namespace ShogiCheckersChess
             {
                 for (int j = 0; j < Board.board.GetLength(1); j++)
                 {
+
                     if (Board.board[i, j] != null)
                     {
+                        
+                        //spodní pěšec
+                        if (Board.board[i, j].GetNumber() == 5)
+                        {
+                            if (WhiteSide)
+                            {
+                                eval += (Board.board.GetLength(0) - i / 3 );
+                            }
+                            else
+                            {
+                                eval -= ( Board.board.GetLength(0) - i / 3);
+                            }
+                        }
+
+                        //vrchní pěšec
+                        if (Board.board[i, j].GetNumber() == 40)
+                        {
+                            if (WhiteSide)
+                            {
+                                eval -= i/3;
+                            }
+                            else
+                            {
+                                eval += i/3;
+                            }
+                        }
+
+
                         if (Board.board[i, j].isWhite != WhiteSide)
                         {
                             eval -= Board.board[i, j].Value;
@@ -138,9 +168,13 @@ namespace ShogiCheckersChess
                         {
                             eval += Board.board[i, j].Value;
                         }
+
+
                     }
                 }
             }
+
+            
             return eval;
         }
 
