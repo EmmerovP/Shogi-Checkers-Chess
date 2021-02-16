@@ -8,7 +8,7 @@ namespace ShogiCheckersChess
 {
     public static class Board
     {
-        const int NUMBER_OF_PIECES = 41;
+        const int NUMBER_OF_PIECES = 42;
         public static Pieces[,] board;
 
         public static void AddPiece(int value, int x, int y)
@@ -275,7 +275,7 @@ namespace ShogiCheckersChess
                 //tohle bude custom figurka
                 default:
                     MakeCustomPiece(value, x , y);
-                    break;
+                    return;
 
             }
 
@@ -287,6 +287,8 @@ namespace ShogiCheckersChess
         {
             var piece = new Custom();
             piece.isWhite = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].isWhite;
+            piece.moves = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].moves;
+            piece.Value = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].Value;
 
             board[x, y] = piece;
             

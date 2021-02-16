@@ -17,8 +17,6 @@ namespace ShogiCheckersChess
 
         public static void GenerateMoves(Pieces piece, bool delete, int x, int y)
         {
-
-
             CheckersTake = false;
 
             //musíme-li vzít figurku v dámě, nemůžeme povolit žádný jiný tah
@@ -81,7 +79,7 @@ namespace ShogiCheckersChess
                 {
                     Pieces takenpiece = Board.board[Moves.final_x[i], Moves.final_y[i]];
                     Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];
-                    Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
+                        Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
 
 
 

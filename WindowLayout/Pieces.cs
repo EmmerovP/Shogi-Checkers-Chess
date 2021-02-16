@@ -515,132 +515,113 @@ namespace ShogiCheckersChess
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
-            int cnt = 0;
-
-            if (moves[cnt] == 1)
+            for (int i = 0; i < moves.Length; i++)
             {
-                Moves.Forward(x, y, chessboard);
-                cnt++;
-            }
 
-            if (moves[cnt] == 2)
-            {
-                Moves.ForwardRight(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 1)
+                {
+                    Moves.Forward(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 3)
-            {
-                Moves.Right(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 2)
+                {
+                    Moves.ForwardRight(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 4)
-            {
-                Moves.BackRight(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 3)
+                {
+                    Moves.Right(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 5)
-            {
-                Moves.Back(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 4)
+                {
+                    Moves.BackRight(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 6)
-            {
-                Moves.BackLeft(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 5)
+                {
+                    Moves.Back(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 7)
-            {
-                Moves.Left(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 6)
+                {
+                    Moves.BackLeft(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 8)
-            {
-                Moves.ForwardLeft(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 7)
+                {
+                    Moves.Left(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 9)
-            {
-                Moves.ForwardInfinity(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 8)
+                {
+                    Moves.ForwardLeft(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 10)
-            {
-                Moves.ForwardRightInfinity(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 9)
+                {
+                    Moves.ForwardInfinity(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 11)
-            {
-                Moves.RightInfinity(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 10)
+                {
+                    Moves.ForwardRightInfinity(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 12)
-            {
-                Moves.BackRightInfinity(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 11)
+                {
+                    Moves.RightInfinity(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 13)
-            {
-                Moves.BackInfinity(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 12)
+                {
+                    Moves.BackRightInfinity(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 14)
-            {
-                Moves.BackLeftInfinity(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 13)
+                {
+                    Moves.BackInfinity(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 15)
-            {
-                Moves.LeftInfinity(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 14)
+                {
+                    Moves.BackLeftInfinity(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 16)
-            {
-                Moves.ForwardLeftInfinity(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 15)
+                {
+                    Moves.LeftInfinity(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 17)
-            {
-                Moves.Horse(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 16)
+                {
+                    Moves.ForwardLeftInfinity(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 18)
-            {
-                Moves.HorseForward(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 17)
+                {
+                    Moves.Horse(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 19)
-            {
-                Moves.HorseBackward(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 18)
+                {
+                    Moves.HorseForward(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 20)
-            {
-                Moves.TwoForward(x, y, chessboard);
-                cnt++;
-            }
+                if (moves[i] == 19)
+                {
+                    Moves.HorseBackward(x, y, chessboard);
+                }
 
-            if (moves[cnt] == 21)
-            {
-                Moves.TwoBackward(x, y, chessboard);
-                cnt++;
+                if (moves[i] == 20)
+                {
+                    Moves.TwoForward(x, y, chessboard);
+                }
+
+                if (moves[i] == 21)
+                {
+                    Moves.TwoBackward(x, y, chessboard);
+                }
             }
 
         }

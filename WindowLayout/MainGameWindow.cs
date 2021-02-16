@@ -575,7 +575,7 @@ namespace ShogiCheckersChess
 
                     }
                 }
-                catch (IOException)
+                catch (Exception)
                 {
                 }
 

@@ -62,6 +62,13 @@ namespace ShogiCheckersChess
 
             var moves = Moves.MakeCopyEmpty();
 
+            bool ischess = false;
+
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+            {
+                ischess = true;
+            }
+
             //skončili jsme
 
             if (moves.final_x.Count == 0)
@@ -75,12 +82,18 @@ namespace ShogiCheckersChess
                 Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
                 Board.board[moves.start_x[i], moves.start_y[i]] = null;
 
-                //Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
+                if (ischess)
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
+                }
 
-                moves.value[i] = (Minimax.OneStepMin(4, Int32.MinValue, Int32.MaxValue));
+                moves.value[i] = (Minimax.OneStepMin(3, Int32.MinValue, Int32.MaxValue));
 
-
-                //Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
+                if (ischess)
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.chess; ;
+                }
+               
 
                 Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
                 Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;
