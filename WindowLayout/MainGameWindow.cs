@@ -79,6 +79,7 @@ namespace ShogiCheckersChess
             SelectCheckersButton.Visible = false;
             SelectShogiButton.Visible = false;
             SelectCustomGameButton.Visible = false;
+            LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
             AboutAuthorButton.Visible = false;
             CreditsButton.Visible = false;
@@ -528,6 +529,36 @@ namespace ShogiCheckersChess
                         int[,] board = new int[Int32.Parse(dimensions[0]), Int32.Parse(dimensions[1])];
 
                         int cnt = 0;
+
+                        line = streamReader.ReadLine();
+
+                        //jedná se o definici custom figurek
+                        if (line=="#")
+                        {
+                            Pieces.DefinedPieces = new List<DefinedPiece>();
+
+                            DefinedPiece newPiece = new DefinedPiece();
+
+                            string[] moves = streamReader.ReadLine().Split(',');
+
+                            newPiece.moves = new int[moves.Length];
+
+                            for (int i = 0; i < moves.Length; i++)
+                            {
+                                newPiece.moves[i] = Int32.Parse(moves[i]);
+                            }
+
+                            if (streamReader.ReadLine() == "white")
+                            {
+                                newPiece.isWhite = true;
+                            }
+
+                            string image = streamReader.ReadLine();
+                            GamePieces.Images.Add(Image.FromFile(image));
+
+
+                        }
+
 
                         while ((line = streamReader.ReadLine()) != null)
                         {

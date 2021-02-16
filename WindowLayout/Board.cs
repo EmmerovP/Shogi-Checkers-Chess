@@ -271,6 +271,10 @@ namespace ShogiCheckersChess
                         isWhite = false
                     };
                     break;
+                //tohle bude custom figurka
+                default:
+                    piece = new Custom();
+                    break;
 
             }
 
