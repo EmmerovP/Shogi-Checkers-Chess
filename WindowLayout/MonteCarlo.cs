@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace ShogiCheckersChess
 {
-    
+
     public class MonteCarlo
     {
         public class Node
@@ -18,10 +18,42 @@ namespace ShogiCheckersChess
             public int visited;
             public int score;
             public List<Node> children;
+            public bool WhitePlays; //zda tah generovaný po tomto uzlu je bílý
+
+            public int start_x;
+            public int start_y;
+            public int final_x;
+            public int final_y;
+        }
+
+        public static int MonteCarloMove()
+        {
+
+            var rootnode = new Node
+            {
+                children = new List<Node>(),
+                WhitePlays = false,
+                board = Board.board.Clone() as Pieces[,],
+                visited = 0,
+                score = 0,
+                parent = null
+            };
+
+            var node = MonteCarloRoot(rootnode);
+
+            Moves.final_x.Add(node.final_x);
+            Moves.final_y.Add(node.final_y);
+            Moves.start_x.Add(node.start_x);
+            Moves.start_y.Add(node.start_y);
+
+            return 0;
+
+
+
         }
 
 
-        const float MAXTIME = 1.0F;
+        const float MAXTIME = 3000.0F;
         public static Node MonteCarloRoot(Node Root)
         {
             Stopwatch time = new Stopwatch();
@@ -29,100 +61,157 @@ namespace ShogiCheckersChess
 
             while (time.ElapsedMilliseconds < MAXTIME)
             {
-                Node leaf = Traverse(Root);
-                var simulation_result = Rollout(leaf);
-                Backpropagate(leaf, simulation_result);
+                Node highest_UCB = Selection(Root);
+                Node leaf = Expansion(highest_UCB);
+                int reward = Rollout(leaf, 0);
+                Backpropagation(leaf, reward);
+
             }
 
             return BestChild(Root);
         }
 
-        public static Node Traverse(Node node)
+        public static Node Expansion(Node node)
         {
-            bool Whiteplays = false;
-            //dokud není uzel "fully explored"
-            while (Endgame(node.board))
+            if (node.children.Count == 0)
             {
-                node = BestUCT(node, Whiteplays);
-                Whiteplays = !Whiteplays;
+                return node;
             }
 
-            for (int i = 0; i < node.children.Count; i++)
+            double max_ucb = Int32.MinValue;
+
+            Node selected_child = null;
+
+            foreach (var child in node.children)
             {
-                if (node.children[i].visited == 0)
+                double curr_ucb = Ucb_value(child);
+
+                if (curr_ucb > max_ucb)
                 {
-                    return node.children[i];
+                    max_ucb = curr_ucb;
+                    selected_child = child;
                 }
             }
 
-            return node;
+            return selected_child;
+
         }
 
-        public static bool Endgame(Pieces[,] board)
+        public static Node Selection(Node node)
         {
-            //zda na dané šachovnici došlo ke konci hry
-            return false;
-        }
+            double max_ucb = Int32.MinValue;
 
-        public static Node BestUCT(Node node, bool WhitePlays)
-        {
+            Node selected_child = null;
 
-            for (int i = 0; i < Board.board.GetLength(0); i++)
+            if (node.children.Count == 0)
             {
-                for (int j = 0; j < Board.board.GetLength(1); j++)
+                Create_children(node);
+            }
+
+            foreach (var child in node.children)
+            {
+                double curr_ucb = Ucb_value(child);
+
+                if (curr_ucb > max_ucb)
                 {
-                    if (Board.board[i,j] != null && Board.board[i,j].isWhite == WhitePlays)
+                    max_ucb = curr_ucb;
+                    selected_child = child;
+                }
+            }
+
+            return selected_child;
+        }
+
+        public static double Ucb_value(Node node)
+        {
+            return node.score + 2 * (Math.Sqrt(Math.Log(node.parent.visited + 0.01 + Math.E) / (node.visited + 0.01)));
+        }
+
+        public static void Create_children(Node node)
+        {
+            for (int i = 0; i < node.board.GetLength(0); i++)
+            {
+                for (int j = 0; j < node.board.GetLength(1); j++)
+                {
+                    if (node.board[i, j] != null && node.board[i, j].isWhite == node.WhitePlays)
                     {
-                        Board.board[i, j].GenerateMoves(i, j, node.board);
+                        node.board[i, j].GenerateMoves(i, j, node.board);
                     }
                 }
             }
 
-            foreach (var move in Moves.final_x)
+            for (int i = 0; i < Moves.final_x.Count; i++)
+
             {
                 Node newnode = new Node
                 {
                     children = new List<Node>(),
+                    WhitePlays = !node.WhitePlays,
+                    board = node.board.Clone() as Pieces[,],
+                    visited = 0,
+                    score = 0,
+                    parent = node,
 
-                    board = node.board.Clone() as Pieces[,]
+                    final_x = Moves.final_x[i],
+                    final_y = Moves.final_y[i],
+                    start_x = Moves.start_x[i],
+                    start_y = Moves.start_y[i]
                 };
 
-                newnode.board[Moves.final_x[move], Moves.final_y[move]] = newnode.board[Moves.start_x[move], Moves.start_y[move]];
-                newnode.board[Moves.start_x[move], Moves.start_y[move]] = null;
+                newnode.board[Moves.final_x[i], Moves.final_y[i]] = newnode.board[Moves.start_x[i], Moves.start_y[i]];
+                newnode.board[Moves.start_x[i], Moves.start_y[i]] = null;
 
-                double UCT = node.score + 2 * (Math.Sqrt(Math.Log(node.visited) / newnode.visited)); //??
+                node.children.Add(newnode);
             }
 
             Moves.EmptyCoordinates();
-
-            
-            //vygenerujeme všechny boardy z daného node, napojíme je na původní node
-            //vypočítáme si uct
-            //vybereme nejvyšší uct, napojíme ho
-            return node;
         }
 
         //prostě se vybere náhodný child node 
-        public static Node Rollout(Node node)
+        public static int Rollout(Node node, int steps)
         {
-            Random random = new Random();
-            int i = random.Next(node.children.Count);
-            return node.children[i];
-        }
-
-        public static void Backpropagate(Node leaf, Node result)
-        {
-            if (leaf.parent == null)
+            if (steps > 200)
             {
-                return;
+                return 0;
             }
 
-            //update stats??
+            if (node.children.Count == 0)
+            {
+                Create_children(node);
+            }
+           
 
-            Backpropagate(leaf.parent, result);
+            if (node.children.Count == 0)
+            {
+                if (node.WhitePlays)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
 
+            Random random = new Random();
+            int i = random.Next(node.children.Count);
+            steps++;
+            return Rollout(node.children[i], steps);
+        }
+
+        public static Node Backpropagation(Node node, int reward)
+        {
+            while (node.parent != null)
+            {
+                node.score += reward;
+                node.visited++;
+                node = node.parent;
+            }
+
+            return node;
 
         }
+
 
         public static Node BestChild(Node root)
         {
@@ -130,7 +219,7 @@ namespace ShogiCheckersChess
 
             for (int i = 1; i < root.children.Count; i++)
             {
-                if (root.children[i].visited > bestnode.visited)
+                if (root.children[i].score > bestnode.score)
                 {
                     bestnode = root.children[i];
                 }
@@ -139,4 +228,4 @@ namespace ShogiCheckersChess
             return bestnode;
         }
     }
-}   
+}

@@ -65,11 +65,7 @@ namespace ShogiCheckersChess
             }
 
 
-            //klikli jsme někam náhodně, nic se neděje
-            if (Board.board[selected_x, selected_y] != null && Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays)
-            {
-                return;
-            }
+
 
             //přesun figurky
             if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))
@@ -89,7 +85,9 @@ namespace ShogiCheckersChess
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
                     isPlayer = false;
-                    int move = RandomMoveGen.FindPiece();
+                    //int move = RandomMoveGen.FindPiece();
+
+                    int move = MonteCarlo.MonteCarloMove();
 
                     if (move == -1)
                     {
