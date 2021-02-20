@@ -54,7 +54,8 @@ namespace ShogiCheckersChess
 
 
             Color background;
-            if (picture.Name[0] == 'B')
+
+            if (Board.board[selected_x, selected_y] == null)
             {
                 background = Color.Crimson;
             }
@@ -65,18 +66,16 @@ namespace ShogiCheckersChess
 
 
             //klikli jsme někam náhodně, nic se neděje
-            if (Board.board[selected_x, selected_y] != null)
+            if (Board.board[selected_x, selected_y] != null && Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays)
             {
-                if ((Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays) && (pictureBoxes[selected_x, selected_y].BackColor == Color.Transparent))
-                {
-                    return;
-                }
+                return;
             }
 
             //přesun figurky
             if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))
             {
                 isPlayer = true;
+
                 int piecePosition_x = GetX(CurrentMoving);
                 int piecePosition_y = GetY(CurrentMoving);
 

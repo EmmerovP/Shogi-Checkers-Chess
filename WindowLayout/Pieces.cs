@@ -511,10 +511,18 @@ namespace ShogiCheckersChess
         //public Action<int, int, Pieces[,]>[] moves;
         public int[] moves;
 
+        Action<int, int, Pieces[,]>[] m; 
+
         public override int Value { get; set; }
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
+           /* m = new Action<int, int, Pieces[,]>[3];
+
+            m[0] = Moves.Forward;
+
+            m[0](x, y, chessboard);*/
+
             for (int i = 0; i < moves.Length; i++)
             {
 

@@ -132,7 +132,7 @@ namespace ShogiCheckersChess
 
                     if (Board.board[i, j] != null)
                     {
-                        
+                        /*
                         //spodní pěšec
                         if (Board.board[i, j].GetNumber() == 5)
                         {
@@ -158,7 +158,7 @@ namespace ShogiCheckersChess
                                 eval += i/3;
                             }
                         }
-
+                        */
 
                         if (Board.board[i, j].isWhite != WhiteSide)
                         {
@@ -196,6 +196,22 @@ namespace ShogiCheckersChess
                     }
                 }
             }
+
+            /*
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
+            {
+                foreach (var piece in MainGameWindow.shogiAIPieces)
+                {
+                    for (int i = 0; i < Board.board.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < Board.board.GetLength(1); j++)
+                        {
+
+                        }
+                    }
+                }
+            }
+            */
 
             if (Moves.final_x.Count != 0)
             {

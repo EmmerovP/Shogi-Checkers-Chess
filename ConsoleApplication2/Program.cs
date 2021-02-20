@@ -17,16 +17,17 @@ namespace ConsoleApplication2
             Game game = new Game();
             while (true)
             {
-                //Console.WriteLine("Choose a type of game (chess, shogi, checkers): ");
+                Console.WriteLine("Choose a type of game (chess, shogi, checkers): ");
 
+                int[,] chessboard = new int[8, 8];
 
+                string TypeOfGame = Console.ReadLine();
 
-                /*string TypeOfGame = Console.ReadLine();
-                
                 switch (TypeOfGame)
                 {
                     case "chess":
-                        
+                        chessboard = GameStarts.chess;
+                        Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
                         break;
                     case "checkers":
                         chessboard = GameStarts.checkers;
@@ -36,41 +37,39 @@ namespace ConsoleApplication2
                         chessboard = GameStarts.shogi;
                         Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
                         break;
-                }*/
+                }
 
+                Gameclass.CurrentGame.GameEnded = false;
 
-                for (int i = 0; i < 100; i++)
+                game.CreateChessBoard(chessboard);
+
+                int steps = 0;
+                Stopwatch sw = new Stopwatch();
+
+                sw.Start();
+                while (!Gameclass.CurrentGame.GameEnded)
                 {
-                    Gameclass.CurrentGame.GameEnded = false;
+                    game.MakeMove();
+                    steps++;
 
-                    int[,] chessboard = new int[8, 8];
-                    chessboard = GameStarts.chess;
-                    Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
-                    game.CreateChessBoard(chessboard);
-
-                    int steps = 0;
-                    Stopwatch sw = new Stopwatch();
-
-                    sw.Start();
-                    while (!Gameclass.CurrentGame.GameEnded)
+                    if (steps%10 == 0)
                     {
-                        game.MakeMove();
-                        steps++;
+                        game.DrawBoard();
+                    }                  
 
-                        if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+                    if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+                    {
+                        if (Gameclass.CurrentGame.KingOut())
                         {
-                            if (Gameclass.CurrentGame.KingOut())
-                            {
-                                Gameclass.CurrentGame.GameEnded = true;
-                            }
+                            Gameclass.CurrentGame.GameEnded = true;
                         }
                     }
-                    sw.Stop();
-                    //Console.WriteLine();
-                    //Console.WriteLine("Elapsed={0}", sw.Elapsed);
-                    //Console.WriteLine("Number of steps: " + steps);
-
                 }
+                sw.Stop();
+                Console.WriteLine();
+                Console.WriteLine("Elapsed={0}", sw.Elapsed);
+                Console.WriteLine("Number of steps: " + steps);
+
             }
 
         }
@@ -95,15 +94,54 @@ namespace ConsoleApplication2
 
         public void MakeMove()
         {
+            
+
             int move = RandomMoveGen.FindPiece();
             if (move == -1)
             {
                 Gameclass.CurrentGame.GameEnded = true;
+                return;
             }
 
-            //RandomMoveGen.WhiteSide = !RandomMoveGen.WhiteSide;
+            int start_x = Moves.start_x[move];
+            int start_y = Moves.start_y[move];
 
-            //DrawBoard();
+            int final_x = Moves.final_x[move];
+            int final_y = Moves.final_y[move];
+
+
+            Pieces piece = Board.board[start_x, start_y];
+            //dáma
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&
+                    (start_x == final_x - 2 || start_x == final_x + 2))
+            {
+                int xpiece, ypiece;
+                if (final_x > start_x)
+                {
+                    xpiece = start_x + 1;
+                }
+                else
+                {
+                    xpiece = final_x + 1;
+                }
+
+                if (final_y > start_y)
+                {
+                    ypiece = start_y + 1;
+                }
+                else
+                {
+                    ypiece = final_y + 1;
+                }
+                Board.board[xpiece, ypiece] = null;
+            }
+
+            Board.board[final_x, final_y] = piece;
+            Board.board[start_x, start_y] = null;
+
+            Generating.WhitePlays = !Generating.WhitePlays;
+
+
         }
 
         public void DrawBoard()
@@ -112,13 +150,13 @@ namespace ConsoleApplication2
             {
                 for (int j = 0; j < Board.board.GetLength(1); j++)
                 {
-                    if (Board.board[i,j] == null)
+                    if (Board.board[i, j] == null)
                     {
                         Console.Write("|O|");
                     }
                     else
                     {
-                        Console.Write("|"+Board.board[i,j].GetNumber()+"|");
+                        Console.Write("|" + Board.board[i, j].GetNumber() + "|");
                     }
                 }
                 Console.WriteLine();

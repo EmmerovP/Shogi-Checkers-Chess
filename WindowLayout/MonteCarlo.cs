@@ -16,6 +16,7 @@ namespace ShogiCheckersChess
             public Pieces[,] board;
             public Node parent;
             public int visited;
+            public int score;
             public List<Node> children;
         }
 
@@ -38,10 +39,12 @@ namespace ShogiCheckersChess
 
         public static Node Traverse(Node node)
         {
+            bool Whiteplays = false;
             //dokud není uzel "fully explored"
             while (Endgame(node.board))
             {
-                node = BestUCT(node);
+                node = BestUCT(node, Whiteplays);
+                Whiteplays = !Whiteplays;
             }
 
             for (int i = 0; i < node.children.Count; i++)
@@ -61,8 +64,38 @@ namespace ShogiCheckersChess
             return false;
         }
 
-        public static Node BestUCT(Node node)
+        public static Node BestUCT(Node node, bool WhitePlays)
         {
+
+            for (int i = 0; i < Board.board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.board.GetLength(1); j++)
+                {
+                    if (Board.board[i,j] != null && Board.board[i,j].isWhite == WhitePlays)
+                    {
+                        Board.board[i, j].GenerateMoves(i, j, node.board);
+                    }
+                }
+            }
+
+            foreach (var move in Moves.final_x)
+            {
+                Node newnode = new Node
+                {
+                    children = new List<Node>(),
+
+                    board = node.board.Clone() as Pieces[,]
+                };
+
+                newnode.board[Moves.final_x[move], Moves.final_y[move]] = newnode.board[Moves.start_x[move], Moves.start_y[move]];
+                newnode.board[Moves.start_x[move], Moves.start_y[move]] = null;
+
+                double UCT = node.score + 2 * (Math.Sqrt(Math.Log(node.visited) / newnode.visited)); //??
+            }
+
+            Moves.EmptyCoordinates();
+
+            
             //vygenerujeme všechny boardy z daného node, napojíme je na původní node
             //vypočítáme si uct
             //vybereme nejvyšší uct, napojíme ho
