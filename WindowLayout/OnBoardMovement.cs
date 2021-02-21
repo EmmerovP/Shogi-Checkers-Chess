@@ -67,7 +67,10 @@ namespace ShogiCheckersChess
             }
 
 
-
+            if (Board.board[selected_x, selected_y] != null && Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays)
+            {
+                return;
+            }
 
             //přesun figurky
             if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))

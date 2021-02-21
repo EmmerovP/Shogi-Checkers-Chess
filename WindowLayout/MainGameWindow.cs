@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShogiCheckersChess
@@ -492,99 +486,6 @@ namespace ShogiCheckersChess
 
         }
 
-        private void LoadGameButton_Click(object sender, EventArgs e)
-        {
-            DialogResult result = LoadCustomGameDialog.ShowDialog();
-
-            if (result == DialogResult.OK) 
-            {
-                string file = LoadCustomGameDialog.FileName;
-                try
-                {
-                    using (var streamReader = new StreamReader(File.OpenRead(file), Encoding.UTF8, true))
-                    {
-                        String line;
-
-                        line = streamReader.ReadLine();
-
-                        switch (line)
-                        {
-                            case "chess": 
-                                Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
-                                break;
-                            case "checkers":
-                                Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
-                                break;
-                            case "shogi":
-                                Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
-                                break;
-                            default:
-                                throw new Exception();
-                        }
-
-                        line = streamReader.ReadLine();
-
-                        string[] dimensions = line.Split(',');
-
-                        int[,] board = new int[Int32.Parse(dimensions[0]), Int32.Parse(dimensions[1])];
-
-                        int cnt = 0;
-
-                        Pieces.DefinedPieces = new List<DefinedPiece>();
-
-                        while ((line = streamReader.ReadLine()) != "")
-                        //jedná se o definici custom figurek
-                        {                            
-                            DefinedPiece newPiece = new DefinedPiece();
-
-                            string[] moves = streamReader.ReadLine().Split(',');
-
-                            newPiece.moves = new int[moves.Length];
-
-                            for (int i = 0; i < moves.Length; i++)
-                            {
-                                newPiece.moves[i] = Int32.Parse(moves[i]);
-                            }
-
-                            if (streamReader.ReadLine() == "white")
-                            {
-                                newPiece.isWhite = true;
-                            }
-
-                            newPiece.Value = moves.Length * 3;
-                            string image = streamReader.ReadLine();
-                            GamePieces.Images.Add(Image.FromFile(image));
-
-                            Pieces.DefinedPieces.Add(newPiece);
-                        }
-
-
-                        while ((line = streamReader.ReadLine()) != null)
-                        {
-                            dimensions = line.Split(',');
-
-                            for (int i = 0; i < board.GetLength(0); i++)
-                            {
-                                board[cnt, i] = Int32.Parse(dimensions[i]);
-                            }
-
-                            cnt++;
-                        }
-
-                        MainGameWindow.chessboard = board;
-
-                    }
-                }
-                catch (Exception)
-                {
-                }
-
-                ChooseTypeOfGame();
-
-            }
-
-
-
-        }
+       
     }
 }
