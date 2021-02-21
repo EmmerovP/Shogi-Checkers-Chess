@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShogiCheckersChess
 {
-    class PiecesTransfer
+    public class PiecesNumbers
     {
         public static Dictionary<int, string> getName = new Dictionary<int, string>()
         {
@@ -18,7 +18,7 @@ namespace ShogiCheckersChess
             { 5, "Bílý pěšec" },
             { 6, "Bílý kámen" },
             { 7, "Spodní shogi král" },
-            { 8, "Spodní spodní shogi věž" },
+            { 8, "Spodní shogi věž" },
             { 9, "Povýšená shogi věž" },
             { 10, "Spodní shogi střelec" },
             { 11, "Povýšený spodní shogi střelec" },

@@ -67,7 +67,7 @@ namespace ShogiCheckersChess
             }
 
 
-            if (Board.board[selected_x, selected_y] != null && Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays)
+            if (Board.board[selected_x, selected_y] != null && Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays && (!selected))
             {
                 return;
             }
@@ -258,28 +258,37 @@ namespace ShogiCheckersChess
         {
 
             //upperpawn
-            if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(1) - 1))
+            if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(0) - 1))
             {
-                PawnChange popup = new PawnChange();
-                DialogResult dialogresult = popup.ShowDialog();
-                switch (dialogresult)
+                if (isPlayer)
                 {
-                    case DialogResult.OK:
-                        Board.AddPiece(22, x, y);
-                        break;
-                    case DialogResult.Cancel:
-                        Board.AddPiece(23, x, y);
-                        break;
-                    case DialogResult.Abort:
-                        Board.AddPiece(25, x, y);
-                        break;
-                    case DialogResult.Retry:
-                        Board.AddPiece(24, x, y);
-                        break;
+                    PawnChange popup = new PawnChange();
+                    DialogResult dialogresult = popup.ShowDialog();
+                    switch (dialogresult)
+                    {
+                        case DialogResult.OK:
+                            Board.AddPiece(22, x, y);
+                            break;
+                        case DialogResult.Cancel:
+                            Board.AddPiece(23, x, y);
+                            break;
+                        case DialogResult.Abort:
+                            Board.AddPiece(25, x, y);
+                            break;
+                        case DialogResult.Retry:
+                            Board.AddPiece(24, x, y);
+                            break;
 
+                    }
+                    popup.Dispose();
+                    return true;
                 }
-                popup.Dispose();
-                return true;
+                else
+                {
+                    Board.AddPiece(22, x, y);
+                    return true;
+                }
+
             }
 
             //bottompawn

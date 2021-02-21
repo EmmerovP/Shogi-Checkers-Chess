@@ -119,7 +119,7 @@ namespace ShogiCheckersChess
 
         private void NewGameButton_Click(object sender, EventArgs e)
         {
-            AddPiece = false;
+            
             //Koukni, zda je na šachovnici správná figurka pro danou hru
             //Pro všechny - alespoň jedna figurka příslušné barvy
             bool is_white = false;
@@ -194,6 +194,8 @@ namespace ShogiCheckersChess
                 }
             }
 
+            AddPiece = false;
+
             Gameclass.CurrentGame.GameEnded = false;
 
             CustomGameChooseCombobox.Visible = false;
@@ -250,101 +252,7 @@ namespace ShogiCheckersChess
         {
             string piece = CustomGameChooseCombobox.Text;
 
-            switch (piece)
-            {
-                case "Bílý král":
-                    AddPieceNumber = 0;
-                    break;
-                case "Bílá královna":
-                    AddPieceNumber = 1;
-                    break;
-                case "Bílá věž":
-                    AddPieceNumber = 2;
-                    break;
-                case "Bílý kůň":
-                    AddPieceNumber = 3;
-                    break;
-                case "Bílý střelec":
-                    AddPieceNumber = 4;
-                    break;
-                case "Bílý pěšec":
-                    AddPieceNumber = 5;
-                    break;
-                case "Bílý kámen":
-                    AddPieceNumber = 6;
-                    break;
-                case "Spodní shogi král":
-                    AddPieceNumber = 7;
-                    break;
-                case "Spodní shogi věž":
-                    AddPieceNumber = 8;
-                    break;
-                case "Spodní shogi střelec":
-                    AddPieceNumber = 10;
-                    break;
-                case "Spodní zlatý generál":
-                    AddPieceNumber = 12;
-                    break;
-                case "Spodní stříbrný generál":
-                    AddPieceNumber = 13;
-                    break;
-                case "Spodní shogi kůň":
-                    AddPieceNumber = 15;
-                    break;
-                case "Spodní kopiník":
-                    AddPieceNumber = 17;
-                    break;
-                case "Spodní shogi pěšák":
-                    AddPieceNumber = 19;
-                    break;
-                case "Černý král":
-                    AddPieceNumber = 21;
-                    break;
-                case "Černá královna":
-                    AddPieceNumber = 22;
-                    break;
-                case "Černá věž":
-                    AddPieceNumber = 23;
-                    break;
-                case "Černý kůň":
-                    AddPieceNumber = 24;
-                    break;
-                case "Černý střelec":
-                    AddPieceNumber = 25;
-                    break;
-                case "Černý pěšec":
-                    AddPieceNumber = 26;
-                    break;
-                case "Černý kámen":
-                    AddPieceNumber = 27;
-                    break;
-                case "Vrchní shogi král":
-                    AddPieceNumber = 28;
-                    break;
-                case "Vrchní shogi věž":
-                    AddPieceNumber = 29;
-                    break;
-                case "Vrchní shogi střelec":
-                    AddPieceNumber = 31;
-                    break;
-                case "Vrchní zlatý generál":
-                    AddPieceNumber = 33;
-                    break;
-                case "Vrchní stříbrný generál":
-                    AddPieceNumber = 34;
-                    break;
-                case "Vrchní shogi kůň":
-                    AddPieceNumber = 36;
-                    break;
-                case "Vrchní kopiník":
-                    AddPieceNumber = 38;
-                    break;
-                case "Vrchní shogi pěšák":
-                    AddPieceNumber = 40;
-                    break;
-                default:
-                    return;
-            }
+            AddPieceNumber = PiecesNumbers.getNumber[piece];
             AddPieceToBoard(x, y);
         }
 
