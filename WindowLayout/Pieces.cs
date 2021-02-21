@@ -488,7 +488,7 @@ namespace ShogiCheckersChess
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
-            Moves.Checkers(x, y, chessboard);
+            Moves.WhiteChecker(x, y, chessboard);
         }
 
     }
@@ -499,7 +499,7 @@ namespace ShogiCheckersChess
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
-            Moves.Checkers(x, y, chessboard);
+            Moves.BlackChecker(x, y, chessboard);
         }
 
     }

@@ -22,32 +22,41 @@ namespace ShogiCheckersChess
             //musíme-li vzít figurku v dámě, nemůžeme povolit žádný jiný tah
             if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeCheckersPiece()))
             {
-                    if (piece.Value == 10)
+                if (piece.Value == 10)
+                {
+                    CheckersTake = true;
+                    if (WhitePlays)
                     {
-                        CheckersTake = true;
-                        Moves.CheckersTake(x, y, Board.board);
-                        return;
+                        Moves.WhiteCheckersTake(x, y, Board.board);
                     }
                     else
                     {
-                        piece.GenerateMoves(x, y, Board.board);
-                        var copied_coordinates = Moves.MakeCopyEmpty();
-                        for (int i = 0; i < copied_coordinates.final_x.Count; i++)
-                        {
-                            if (Board.board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]]!= null &&
-                                Board.board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]].isWhite != piece.isWhite)
-                            {
-                                Moves.final_x.Add(copied_coordinates.final_x[i]);
-                                Moves.final_y.Add(copied_coordinates.final_y[i]);
-
-                                Moves.start_x.Add(copied_coordinates.start_x[i]);
-                                Moves.start_y.Add(copied_coordinates.start_y[i]);
-
-                                Moves.value.Add(copied_coordinates.value[i]);
-                            }
-                        }
-                        return;                                       
+                        Moves.BlackCheckersTake(x, y, Board.board);
                     }
+
+
+                    return;
+                }
+                else
+                {
+                    piece.GenerateMoves(x, y, Board.board);
+                    var copied_coordinates = Moves.MakeCopyEmpty();
+                    for (int i = 0; i < copied_coordinates.final_x.Count; i++)
+                    {
+                        if (Board.board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]] != null &&
+                            Board.board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]].isWhite != piece.isWhite)
+                        {
+                            Moves.final_x.Add(copied_coordinates.final_x[i]);
+                            Moves.final_y.Add(copied_coordinates.final_y[i]);
+
+                            Moves.start_x.Add(copied_coordinates.start_x[i]);
+                            Moves.start_y.Add(copied_coordinates.start_y[i]);
+
+                            Moves.value.Add(copied_coordinates.value[i]);
+                        }
+                    }
+                    return;
+                }
             }
             else
             {
@@ -63,7 +72,7 @@ namespace ShogiCheckersChess
             if (delete)
                 Moves.EmptyCoordinates();
 
-            int moves_start = Moves.final_x.Count; 
+            int moves_start = Moves.final_x.Count;
 
             GenerateMoves(piece, delete, x, y);
 
@@ -79,7 +88,7 @@ namespace ShogiCheckersChess
                 {
                     Pieces takenpiece = Board.board[Moves.final_x[i], Moves.final_y[i]];
                     Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];
-                        Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
+                    Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
 
 
 
@@ -128,7 +137,7 @@ namespace ShogiCheckersChess
 
 
         }
-        
+
     }
 
 }

@@ -626,7 +626,7 @@ namespace ShogiCheckersChess
             enemyMet = false;
         }
 
-        public static bool CheckersTake(int x, int y, Pieces[,] chessboard)
+        public static bool BlackCheckersTake(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
             int y_starting_pos = y;
@@ -674,6 +674,18 @@ namespace ShogiCheckersChess
 
             }
 
+            return enemy;
+        }
+
+        public static bool WhiteCheckersTake(int x, int y, Pieces[,] chessboard)
+        {
+            int x_starting_pos = x;
+            int y_starting_pos = y;
+
+            bool enemy = false;
+            enemyMet = false;
+
+            //funkční model, vypadá to          
             if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] != null))
             {
                 enemyMet = false;
@@ -717,9 +729,50 @@ namespace ShogiCheckersChess
             return enemy;
         }
 
+        public static bool BlackChecker(int x, int y, Pieces[,] chessboard)
+        {
+
+            int x_starting_pos = x;
+            int y_starting_pos = y;
+
+            bool enemy = false;
+
+
+            if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] == null))
+            {
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+
+                final_x.Add(x + 1);
+                final_y.Add(y + 1);
+
+                AddValue(x + 1, y + 1);
+
+            }
+            enemyMet = false;
+
+            if ((ValidMove(x + 1, y - 1, chessboard)) && (Board.board[x + 1, y - 1] == null))
+            {
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+
+                final_x.Add(x + 1);
+                final_y.Add(y - 1);
+
+                AddValue(x + 1, y - 1);
+
+            }
+            enemyMet = false;
+
+
+
+            return enemy;
+
+        }
+
         //tahy žetonem dámou pouze
 
-        public static bool Checkers(int x, int y, Pieces[,] chessboard)
+        public static bool WhiteChecker(int x, int y, Pieces[,] chessboard)
         {
 
             int x_starting_pos = x;
@@ -740,19 +793,6 @@ namespace ShogiCheckersChess
                 }
                 enemyMet = false;
 
-                if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] == null))
-                {
-                    start_x.Add(x_starting_pos);
-                    start_y.Add(y_starting_pos);
-
-                    final_x.Add(x + 1);
-                    final_y.Add(y + 1);
-
-                    AddValue(x + 1, y + 1);
-
-                }
-                enemyMet = false;
-
 
                 if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] == null))
                 {
@@ -766,22 +806,6 @@ namespace ShogiCheckersChess
 
                 }
                 enemyMet = false;
-
-
-                if ((ValidMove(x + 1, y - 1, chessboard)) && (Board.board[x + 1, y - 1] == null))
-                {
-                    start_x.Add(x_starting_pos);
-                    start_y.Add(y_starting_pos);
-
-                    final_x.Add(x + 1);
-                    final_y.Add(y - 1);
-
-                    AddValue(x + 1, y - 1);
-
-                }
-                enemyMet = false;
-
-
 
             return enemy;
 

@@ -15,6 +15,8 @@ namespace ShogiCheckersChess
 {
     public partial class MainGameWindow : Form
     {
+        public static bool CheckersTake;
+
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
         {
 
@@ -80,14 +82,20 @@ namespace ShogiCheckersChess
                     return;
                 }
 
+                if (CheckersTake)
+                {
+                    Generating.WhitePlays = !Generating.WhitePlays;
+                    return;
+                }
+
 
                 //hraje AIčko
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
                     isPlayer = false;
-                    //int move = RandomMoveGen.FindPiece();
+                    int move = RandomMoveGen.FindPiece();
 
-                    int move = MonteCarlo.MonteCarloMove();
+                    //int move = MonteCarlo.MonteCarloMove();
 
                     if (move == -1)
                     {
@@ -97,6 +105,24 @@ namespace ShogiCheckersChess
 
                     PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
                         piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
+
+                    while (CheckersTake)
+                    {
+                        Generating.WhitePlays = !Generating.WhitePlays;
+
+                        move = RandomMoveGen.FindPiece();
+
+                        //int move = MonteCarlo.MonteCarloMove();
+
+                        if (move == -1)
+                        {
+                            label2.Text = "Vyhráli jste!";
+                            return;
+                        }
+
+                        PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
+                            piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
+                    }
 
                     isPlayer = true;
 
@@ -129,7 +155,10 @@ namespace ShogiCheckersChess
 
         public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
         {
-            Pieces piece = Board.board[start_x, start_y];
+            CheckersTake = false;
+
+            Pieces piece = Board.board[start_x, start_y];           
+
             //dáma
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&
                     (start_x == final_x - 2 || start_x == final_x + 2))
@@ -154,6 +183,11 @@ namespace ShogiCheckersChess
                 }
                 Board.board[xpiece, ypiece] = null;
                 piecesPictures[xpiece, ypiece].Dispose();
+
+                if (Gameclass.CurrentGame.MustTakeCheckersPiece())
+                {
+                    CheckersTake = true;
+                }
             }
 
             //v shogi se vyhazuje figurka, přidáváme jí do seznamu vyhozených figurek

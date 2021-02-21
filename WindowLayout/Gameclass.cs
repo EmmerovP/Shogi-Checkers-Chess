@@ -28,7 +28,13 @@ namespace ShogiCheckersChess
                         //pokud je to speciální žeton v dámě
                         if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite) && Board.board[i,j].Value == 10)
                         {
-                            if (Moves.CheckersTake(i,j, Board.board))
+                            if (Generating.WhitePlays && Moves.WhiteCheckersTake(i, j, Board.board))
+                            {
+                                Moves.EmptyCoordinates();
+                                Moves.CoordinatesReturn(cp);
+                                return true;
+                            }
+                            else if (!Generating.WhitePlays && Moves.BlackCheckersTake(i,j, Board.board))
                             {
                                 Moves.EmptyCoordinates();
                                 Moves.CoordinatesReturn(cp);
