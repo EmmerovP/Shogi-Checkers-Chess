@@ -51,8 +51,6 @@ namespace ShogiCheckersChess
 
                             Moves.start_x.Add(copied_coordinates.start_x[i]);
                             Moves.start_y.Add(copied_coordinates.start_y[i]);
-
-                            Moves.value.Add(copied_coordinates.value[i]);
                         }
                     }
                     return;

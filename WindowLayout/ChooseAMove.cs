@@ -62,6 +62,8 @@ namespace ShogiCheckersChess
 
             var moves = Moves.MakeCopyEmpty();
 
+            List<int> choice = new List<int>();
+
             bool ischess = false;
 
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
@@ -87,7 +89,7 @@ namespace ShogiCheckersChess
                     Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
                 }
 
-                moves.value[i] = (Minimax.OneStepMin(2, Int32.MinValue, Int32.MaxValue));
+                choice.Add(Minimax.OneStepMin(2, Int32.MinValue, Int32.MaxValue));
 
                 if (ischess)
                 {
@@ -107,8 +109,8 @@ namespace ShogiCheckersChess
             Moves.EmptyCoordinates();
             Moves.CoordinatesReturn(moves);
 
-            int highest = Highest(moves.value);
-            var indexes = HighestIndexes(highest, moves.value);
+            int highest = Highest(choice);
+            var indexes = HighestIndexes(highest, choice);
             int move = rnd.Next(indexes.Count);
 
             int pos = indexes[move];

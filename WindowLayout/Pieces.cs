@@ -177,6 +177,7 @@ namespace ShogiCheckersChess
         {
             Moves.TwoForward(x, y, chessboard);
             Moves.SkewForward(x, y, chessboard);
+            Moves.BottomEnPassante(x, y, chessboard);
         }
     }
 
@@ -188,6 +189,7 @@ namespace ShogiCheckersChess
         {
             Moves.TwoBackward(x, y, chessboard);
             Moves.SkewBackward(x, y, chessboard);
+            Moves.UpperEnPassante(x, y, chessboard);
         }
     }
 

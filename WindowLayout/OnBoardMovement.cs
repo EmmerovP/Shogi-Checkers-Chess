@@ -156,13 +156,58 @@ namespace ShogiCheckersChess
             }
         }
 
+        public void BottomEnpassante(int start_x, int start_y, int final_x, int final_y)
+        {
+            if (start_x == 3)
+            {
+                if (final_x == 2 && final_y == start_y - 1)
+                {
+                    Board.board[start_x, start_y - 1] = null;
+                    piecesPictures[start_x, start_y - 1].Dispose();
+                }
+                else if (final_x == 2 && final_y == start_y + 1)
+                {
+                    Board.board[start_x, start_y + 1] = null;
+                    piecesPictures[start_x, start_y + 1].Dispose();
+                }
+            }
+        }
+
+        public void UpperEnpassante(int start_x, int start_y, int final_x, int final_y)
+        {
+            if (start_x == Board.board.GetLength(0) - 4)
+            {
+                if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y - 1)
+                {
+                    Board.board[start_x, start_y - 1] = null;
+                    piecesPictures[start_x, start_y - 1].Dispose();
+                }
+                else if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y + 1)
+                {
+                    Board.board[start_x, start_y + 1] = null;
+                    piecesPictures[start_x, start_y + 1].Dispose();
+                }
+            }
+        }
+
         public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
         {
             CheckersTake = false;
 
             Pieces piece = Board.board[start_x, start_y];
 
-            Enpassante();
+
+
+            if (piece.GetNumber() == 5)
+            {
+                BottomEnpassante(start_x, start_y, final_x, final_y);
+            }
+            else if (piece.GetNumber() == 26)
+            {
+                UpperEnpassante(start_x, start_y, final_x, final_y);
+            }
+
+
 
             //dáma
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&

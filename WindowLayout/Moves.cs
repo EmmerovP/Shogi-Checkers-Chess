@@ -19,6 +19,7 @@ namespace ShogiCheckersChess
         public static List<int> start_x = new List<int>();
         public static List<int> start_y = new List<int>();
 
+
         //public static List<int> value = new List<int>();
 
         public class CoordinatesCopy
@@ -28,8 +29,6 @@ namespace ShogiCheckersChess
 
             public List<int> start_x = new List<int>();
             public List<int> start_y = new List<int>();
-
-            public List<int> value = new List<int>();
         }
 
         public static bool isCastling;
@@ -721,29 +720,29 @@ namespace ShogiCheckersChess
 
             bool enemy = false;
 
-                if ((ValidMove(x - 1, y - 1, chessboard)) && (Board.board[x - 1, y - 1] == null))
-                {
-                    start_x.Add(x_starting_pos);
-                    start_y.Add(y_starting_pos);
+            if ((ValidMove(x - 1, y - 1, chessboard)) && (Board.board[x - 1, y - 1] == null))
+            {
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
 
-                    final_x.Add(x - 1);
-                    final_y.Add(y - 1);
-
-
-                }
-                enemyMet = false;
+                final_x.Add(x - 1);
+                final_y.Add(y - 1);
 
 
-                if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] == null))
-                {
-                    start_x.Add(x_starting_pos);
-                    start_y.Add(y_starting_pos);
+            }
+            enemyMet = false;
 
-                    final_x.Add(x - 1);
-                    final_y.Add(y + 1);
 
-                }
-                enemyMet = false;
+            if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] == null))
+            {
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+
+                final_x.Add(x - 1);
+                final_y.Add(y + 1);
+
+            }
+            enemyMet = false;
 
             return enemy;
 
@@ -966,14 +965,14 @@ namespace ShogiCheckersChess
 
         public static void BottomEnPassante(int x, int y, Pieces[,] chessboard)
         {
-            if (chessboard.GetLength(0) < 5 )
+            if (chessboard.GetLength(0) < 5)
             {
                 return;
             }
 
             if (x == 3)
             {
-                if (chessboard[x, y+1]!=null && chessboard[x,y+1].GetNumber() == 26)
+                if (y < chessboard.GetLength(1) - 1 && x > 0 && chessboard[x, y + 1] != null && chessboard[x, y + 1].GetNumber() == 26)
                 {
                     start_x.Add(x);
                     start_y.Add(y);
@@ -981,7 +980,7 @@ namespace ShogiCheckersChess
                     final_y.Add(y + 1);
                 }
 
-                if (chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 26)
+                if (y > 0 && x > 0 && chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 26)
                 {
                     start_x.Add(x);
                     start_y.Add(y);
@@ -991,7 +990,7 @@ namespace ShogiCheckersChess
             }
         }
 
-        public static void  UpperEnPassante(int x, int y, Pieces[,] chessboard)
+        public static void UpperEnPassante(int x, int y, Pieces[,] chessboard)
         {
             if (chessboard.GetLength(0) < 5)
             {
@@ -1000,19 +999,19 @@ namespace ShogiCheckersChess
 
             if (x == chessboard.GetLength(0) - 4)
             {
-                if (chessboard[x, y + 1] != null && chessboard[x, y + 1].GetNumber() == 5)
+                if (x < chessboard.GetLength(0) - 1 && y<chessboard.GetLength(1) - 1 && chessboard[x, y + 1] != null && chessboard[x, y + 1].GetNumber() == 5)
                 {
                     start_x.Add(x);
                     start_y.Add(y);
-                    final_x.Add(x - 1);
+                    final_x.Add(x + 1);
                     final_y.Add(y + 1);
                 }
 
-                if (chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 5)
+                if (x < chessboard.GetLength(0) - 1 && y>0 && chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 5)
                 {
                     start_x.Add(x);
                     start_y.Add(y);
-                    final_x.Add(x - 1);
+                    final_x.Add(x + 1);
                     final_y.Add(y - 1);
                 }
             }
