@@ -160,7 +160,9 @@ namespace ShogiCheckersChess
         {
             CheckersTake = false;
 
-            Pieces piece = Board.board[start_x, start_y];           
+            Pieces piece = Board.board[start_x, start_y];
+
+            Enpassante();
 
             //dáma
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&

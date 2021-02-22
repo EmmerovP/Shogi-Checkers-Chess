@@ -101,5 +101,34 @@ namespace ShogiCheckersChess
         };
 
 
+
+        public static Dictionary<int, Action<int, int, Pieces[,]>> getMovefromNumber = new Dictionary<int, Action<int, int, Pieces[,]>>()
+        {
+            { 1, Moves.Forward },
+            { 2, Moves.ForwardRight },
+            { 3, Moves.Right },
+            { 4, Moves.BackRight },
+            { 5, Moves.Back },
+            { 6, Moves.BackLeft },
+            { 7, Moves.Left },
+            { 8, Moves.ForwardLeft },
+            { 9, Moves.ForwardInfinity },
+            { 10, Moves.ForwardRightInfinity },
+            { 11, Moves.RightInfinity },
+            { 12, Moves.BackRightInfinity },
+            { 13, Moves.BackInfinity },
+            { 14, Moves.BackLeftInfinity },
+            { 15, Moves.LeftInfinity},
+            { 16, Moves.ForwardLeftInfinity },
+            { 17, Moves.Horse },
+            { 18, Moves.HorseForward },
+            { 19, Moves.HorseBackward },
+            { 20, Moves.TwoForward },
+            { 21, Moves.TwoBackward }
+        };
+
+
+
+
     }
 }

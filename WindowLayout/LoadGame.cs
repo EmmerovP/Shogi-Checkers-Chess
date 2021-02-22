@@ -62,9 +62,12 @@ namespace ShogiCheckersChess
                 {
                     for (int i = 0; i < customGame.Pieces.Length; i++)
                     {
-                        DefinedPiece newPiece = new DefinedPiece();
+                        DefinedPiece newPiece = new DefinedPiece
+                        {
+                            moves = customGame.Pieces[i].Item4,
+                            Name = customGame.Pieces[i].Item1
 
-                        newPiece.moves = customGame.Pieces[i].Item4;
+                        };
 
                         if (customGame.Pieces[i].Item2 == "white")
                         {
@@ -76,6 +79,9 @@ namespace ShogiCheckersChess
                         GamePieces.Images.Add(Image.FromFile(image));
 
                         Pieces.DefinedPieces.Add(newPiece);
+
+                        PiecesNumbers.getName.Add(PiecesNumbers.getName.Count, customGame.Pieces[i].Item1);
+                        PiecesNumbers.getNumber.Add(customGame.Pieces[i].Item1, PiecesNumbers.getName.Count);
                     }
                 }
 

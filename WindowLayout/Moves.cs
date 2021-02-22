@@ -8,13 +8,6 @@ using System.Threading.Tasks;
 
 namespace ShogiCheckersChess
 {
-    //reprezentace chessboard - 0 pokud na políčku nic není
-    public static class Lists
-    {
-
-    }
-
-
     public static class Moves
     {
         //problémy s pairy: C# moc pairy nemá... U každé souřadnice bych musela vytvářet nový objekt, což je něco, čemu jsem se chtěla vyhnout :(
@@ -26,7 +19,7 @@ namespace ShogiCheckersChess
         public static List<int> start_x = new List<int>();
         public static List<int> start_y = new List<int>();
 
-        public static List<int> value = new List<int>();
+        //public static List<int> value = new List<int>();
 
         public class CoordinatesCopy
         {
@@ -50,7 +43,6 @@ namespace ShogiCheckersChess
             start_x.Clear();
             start_y.Clear();
 
-            value.Clear();
         }
 
         public static void RemoveAt(int i)
@@ -61,7 +53,6 @@ namespace ShogiCheckersChess
             start_x.RemoveAt(i);
             start_y.RemoveAt(i);
 
-            value.RemoveAt(i);
         }
 
         public static void ReplaceAt(int i)
@@ -72,7 +63,6 @@ namespace ShogiCheckersChess
             start_x[i] = -1;
             start_y[i] = -1;
 
-            value[i] = -1;
         }
 
         public static bool Equals(int i)
@@ -91,7 +81,6 @@ namespace ShogiCheckersChess
             start_x.RemoveAll(item => item == i);
             start_y.RemoveAll(item => item == i);
 
-            value.RemoveAll(item => item == i);
         }
 
         public static void CoordinatesReturn(CoordinatesCopy cp)
@@ -102,7 +91,6 @@ namespace ShogiCheckersChess
             start_x.AddRange(cp.start_x);
             start_y.AddRange(cp.start_y);
 
-            value.AddRange(cp.value);
         }
 
         public static CoordinatesCopy MakeCopyEmpty()
@@ -115,7 +103,6 @@ namespace ShogiCheckersChess
             cp.start_x.AddRange(start_x);
             cp.start_y.AddRange(start_y);
 
-            cp.value.AddRange(value);
 
             EmptyCoordinates();
 
@@ -159,18 +146,6 @@ namespace ShogiCheckersChess
             return true;
         }
 
-        public static void AddValue(int x, int y)
-        {
-            int val = 0;
-            //přidá se hodnota daného tahu - možná v případě hraní lidského hráče nemusí být?
-            if (Board.board[x, y] != null)
-            {
-                val = Board.board[x, y].Value;
-            }
-
-            Moves.value.Add(val);
-        }
-
         //nekonečno do každého směru
         //možná z toho udělám třídy - definování custom figurek
         //nebo taky ne, nevím moc co s tím, tohle se mi zdá srozumitelnější? Ifové/case podmínky na vytvoření custom figurky
@@ -188,7 +163,6 @@ namespace ShogiCheckersChess
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
-                AddValue(x, y);
                 x--;
             }
             enemyMet = false;
@@ -207,7 +181,6 @@ namespace ShogiCheckersChess
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
-                AddValue(x, y);
 
                 y--;
             }
@@ -226,7 +199,6 @@ namespace ShogiCheckersChess
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
-                AddValue(x, y);
 
                 y++;
             }
@@ -245,7 +217,6 @@ namespace ShogiCheckersChess
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
-                AddValue(x, y);
 
                 x++;
             }
@@ -265,7 +236,6 @@ namespace ShogiCheckersChess
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
-                AddValue(x, y);
                 x--;
                 y--;
             }
@@ -285,7 +255,6 @@ namespace ShogiCheckersChess
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
-                AddValue(x, y);
 
                 x++;
                 y--;
@@ -306,7 +275,6 @@ namespace ShogiCheckersChess
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
-                AddValue(x, y);
 
                 x--;
                 y++;
@@ -327,7 +295,6 @@ namespace ShogiCheckersChess
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
-                AddValue(x, y);
 
                 x++;
                 y++;
@@ -348,7 +315,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
             }
             enemyMet = false;
@@ -365,7 +331,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
             }
             enemyMet = false;
@@ -382,7 +347,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
             }
             enemyMet = false;
@@ -399,7 +363,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
             }
             enemyMet = false;
@@ -418,7 +381,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
             }
             enemyMet = false;
@@ -437,7 +399,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
             }
             enemyMet = false;
@@ -456,7 +417,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
             }
             enemyMet = false;
@@ -475,7 +435,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
             }
             enemyMet = false;
@@ -495,7 +454,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x - 2);
                 final_y.Add(y + 1);
-                AddValue(x - 2, y + 1);
 
             }
             enemyMet = false;
@@ -507,7 +465,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x - 2);
                 final_y.Add(y - 1);
-                AddValue(x - 2, y - 1);
 
             }
             enemyMet = false;
@@ -525,7 +482,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x + 2);
                 final_y.Add(y + 1);
-                AddValue(x + 2, y + 1);
 
             }
             enemyMet = false;
@@ -538,7 +494,6 @@ namespace ShogiCheckersChess
                 final_x.Add(x + 2);
                 final_y.Add(y - 1);
 
-                AddValue(x + 2, y - 1);
 
             }
             enemyMet = false;
@@ -558,7 +513,6 @@ namespace ShogiCheckersChess
                 final_x.Add(x + 1);
                 final_y.Add(y - 2);
 
-                AddValue(x + 1, y - 2);
             }
             enemyMet = false;
 
@@ -570,7 +524,6 @@ namespace ShogiCheckersChess
                 final_x.Add(x - 1);
                 final_y.Add(y - 2);
 
-                AddValue(x - 1, y - 2);
 
             }
             enemyMet = false;
@@ -582,7 +535,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x - 1);
                 final_y.Add(y + 2);
-                AddValue(x - 1, y + 2);
 
             }
             enemyMet = false;
@@ -595,7 +547,6 @@ namespace ShogiCheckersChess
                 final_x.Add(x + 1);
                 final_y.Add(y + 2);
 
-                AddValue(x + 1, y + 2);
 
             }
             enemyMet = false;
@@ -608,7 +559,6 @@ namespace ShogiCheckersChess
                 final_x.Add(x + 2);
                 final_y.Add(y + 1);
 
-                AddValue(x + 2, y + 1);
 
             }
             enemyMet = false;
@@ -620,7 +570,6 @@ namespace ShogiCheckersChess
 
                 final_x.Add(x + 2);
                 final_y.Add(y - 1);
-                AddValue(x + 2, y - 1);
 
             }
             enemyMet = false;
@@ -645,7 +594,6 @@ namespace ShogiCheckersChess
 
                     final_x.Add(x + 2);
                     final_y.Add(y + 2);
-                    AddValue(x + 2, y + 2);
 
                     enemy = true;
                 }
@@ -663,8 +611,6 @@ namespace ShogiCheckersChess
 
                     final_x.Add(x + 2);
                     final_y.Add(y - 2);
-
-                    AddValue(x + 2, y - 2);
 
 
                     enemy = true;
@@ -697,7 +643,6 @@ namespace ShogiCheckersChess
                     final_x.Add(x - 2);
                     final_y.Add(y + 2);
 
-                    AddValue(x - 2, y + 2);
 
 
                     enemy = true;
@@ -717,8 +662,6 @@ namespace ShogiCheckersChess
 
                     final_x.Add(x - 2);
                     final_y.Add(y - 2);
-
-                    AddValue(x - 2, y - 2);
 
 
                     enemy = true;
@@ -746,7 +689,6 @@ namespace ShogiCheckersChess
                 final_x.Add(x + 1);
                 final_y.Add(y + 1);
 
-                AddValue(x + 1, y + 1);
 
             }
             enemyMet = false;
@@ -759,7 +701,6 @@ namespace ShogiCheckersChess
                 final_x.Add(x + 1);
                 final_y.Add(y - 1);
 
-                AddValue(x + 1, y - 1);
 
             }
             enemyMet = false;
@@ -788,7 +729,6 @@ namespace ShogiCheckersChess
                     final_x.Add(x - 1);
                     final_y.Add(y - 1);
 
-                    AddValue(x - 1, y - 1);
 
                 }
                 enemyMet = false;
@@ -801,8 +741,6 @@ namespace ShogiCheckersChess
 
                     final_x.Add(x - 1);
                     final_y.Add(y + 1);
-
-                    AddValue(x - 1, y + 1);
 
                 }
                 enemyMet = false;
@@ -830,7 +768,6 @@ namespace ShogiCheckersChess
                     final_x.Add(x - 1);
                     final_y.Add(y - 1);
 
-                    AddValue(x - 1, y - 1);
 
                 }
             }
@@ -845,8 +782,6 @@ namespace ShogiCheckersChess
 
                     final_x.Add(x - 1);
                     final_y.Add(y + 1);
-
-                    AddValue(x - 1, y + 1);
 
                 }
             }
@@ -873,8 +808,6 @@ namespace ShogiCheckersChess
                     final_x.Add(x + 1);
                     final_y.Add(y + 1);
 
-                    AddValue(x + 1, y + 1);
-
                 }
             }
             enemyMet = false;
@@ -888,8 +821,6 @@ namespace ShogiCheckersChess
 
                     final_x.Add(x + 1);
                     final_y.Add(y - 1);
-
-                    AddValue(x + 1, y - 1);
 
                 }
             }
@@ -908,7 +839,6 @@ namespace ShogiCheckersChess
             {
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
 
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
@@ -927,7 +857,6 @@ namespace ShogiCheckersChess
             {
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
             }
@@ -945,7 +874,6 @@ namespace ShogiCheckersChess
             {
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
             }
@@ -963,7 +891,6 @@ namespace ShogiCheckersChess
             {
                 final_x.Add(x);
                 final_y.Add(y);
-                AddValue(x, y);
                 start_x.Add(x_starting_pos);
                 start_y.Add(y_starting_pos);
             }
@@ -992,7 +919,6 @@ namespace ShogiCheckersChess
                 start_y.Add(y);
                 final_x.Add(x);
                 final_y.Add(y - 2);
-                AddValue(x, y - 2);
             }
 
             //pro spodní malou rošádu
@@ -1007,7 +933,6 @@ namespace ShogiCheckersChess
                 start_y.Add(y);
                 final_x.Add(x);
                 final_y.Add(y + 2);
-                AddValue(x, y + 2);
             }
 
             //pro vrchní rošády
@@ -1023,7 +948,6 @@ namespace ShogiCheckersChess
                 start_y.Add(y);
                 final_x.Add(x);
                 final_y.Add(y - 2);
-                AddValue(x, y - 2);
             }
 
             if (x == 0 && y == 4
@@ -1037,7 +961,60 @@ namespace ShogiCheckersChess
                 start_y.Add(y);
                 final_x.Add(x);
                 final_y.Add(y + 2);
-                AddValue(x, y + 2);
+            }
+        }
+
+        public static void BottomEnPassante(int x, int y, Pieces[,] chessboard)
+        {
+            if (chessboard.GetLength(0) < 5 )
+            {
+                return;
+            }
+
+            if (x == 3)
+            {
+                if (chessboard[x, y+1]!=null && chessboard[x,y+1].GetNumber() == 26)
+                {
+                    start_x.Add(x);
+                    start_y.Add(y);
+                    final_x.Add(x - 1);
+                    final_y.Add(y + 1);
+                }
+
+                if (chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 26)
+                {
+                    start_x.Add(x);
+                    start_y.Add(y);
+                    final_x.Add(x - 1);
+                    final_y.Add(y - 1);
+                }
+            }
+        }
+
+        public static void  UpperEnPassante(int x, int y, Pieces[,] chessboard)
+        {
+            if (chessboard.GetLength(0) < 5)
+            {
+                return;
+            }
+
+            if (x == chessboard.GetLength(0) - 4)
+            {
+                if (chessboard[x, y + 1] != null && chessboard[x, y + 1].GetNumber() == 5)
+                {
+                    start_x.Add(x);
+                    start_y.Add(y);
+                    final_x.Add(x - 1);
+                    final_y.Add(y + 1);
+                }
+
+                if (chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 5)
+                {
+                    start_x.Add(x);
+                    start_y.Add(y);
+                    final_x.Add(x - 1);
+                    final_y.Add(y - 1);
+                }
             }
         }
     }

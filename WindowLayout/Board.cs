@@ -285,11 +285,11 @@ namespace ShogiCheckersChess
 
         public static void MakeCustomPiece(int number, int x, int y)
         {
-            var piece = new Custom();
-            piece.isWhite = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].isWhite;
-            piece.moves = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].moves;
-            piece.Value = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].Value;
+            var piece = new Custom(Pieces.DefinedPieces[number - NUMBER_OF_PIECES].moves, 
+                Pieces.DefinedPieces[number - NUMBER_OF_PIECES].Name, Pieces. 
+                DefinedPieces[number - NUMBER_OF_PIECES].Value);
 
+            piece.isWhite = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].isWhite;
             board[x, y] = piece;
             
 
