@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\MoveController.cs" />
     <Compile Include="View\AboutAuthor.cs">
       <SubType>Form</SubType>
     </Compile>

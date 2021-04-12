@@ -80,7 +80,7 @@ namespace ShogiCheckersChess
             GenerateMoves(piece, delete, x, y);
 
             //zamezíme tahům, které by nebyly validní, tzn. těm, co ohrozí vlastního krále
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (MainGameWindow.isPlayer))
             {
                 WhitePlays = !WhitePlays;
 

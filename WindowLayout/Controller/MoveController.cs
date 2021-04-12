@@ -1,0 +1,238 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ShogiCheckersChess
+{
+    public static class MoveController
+    {
+
+        public static int delete_x;
+        public static int delete_y;
+
+        public static bool isCastling;
+
+        public static int castling_x;
+        public static int castling_y;
+        public static int castling_z;
+
+
+        public static void BottomEnpassante(int start_x, int start_y, int final_x, int final_y)
+        {
+            if (start_x == 3)
+            {
+                if (final_x == 2 && final_y == start_y - 1)
+                {
+                    Board.board[start_x, start_y - 1] = null;
+                    //piecesPictures[start_x, start_y - 1].Dispose();
+                    delete_x = start_x;
+                    delete_y = start_y - 1;
+                }
+                else if (final_x == 2 && final_y == start_y + 1)
+                {
+                    Board.board[start_x, start_y + 1] = null;
+                    //piecesPictures[start_x, start_y + 1].Dispose();
+                    delete_x = start_x;
+                    delete_y = start_y + 1;
+                }
+            }
+        }
+
+        public static void UpperEnpassante(int start_x, int start_y, int final_x, int final_y)
+        {
+            if (start_x == Board.board.GetLength(0) - 4)
+            {
+                if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y - 1)
+                {
+                    Board.board[start_x, start_y - 1] = null;
+                    //piecesPictures[start_x, start_y - 1].Dispose();
+                    delete_x = start_x;
+                    delete_y = start_y - 1;
+                }
+                else if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y + 1)
+                {
+                    Board.board[start_x, start_y + 1] = null;
+                    //piecesPictures[start_x, start_y + 1].Dispose();
+                    delete_x = start_x;
+                    delete_y = start_y + 1;
+                }
+            }
+        }
+
+        public static bool IsCastling(int start_x, int start_y, int final_x, int final_y)
+        {
+            if (!(Board.board.GetLength(0) == 8 && Board.board.GetLength(1) == 8))
+            {
+                return false;
+            }
+            //je to rošáda
+            if (start_x == final_x && start_y == final_y + 2)
+            {
+                //je to rošáda nahoře
+                if (start_x == 0)
+                {
+                    isCastling = true;
+
+                    Board.board[0, 3] = Board.board[0, 0];
+                    Board.board[0, 0] = null;
+
+                    isCastling = true;
+
+                    castling_x = 0;
+                    castling_y = 0;
+                    castling_z = 3;
+
+
+                    return true;
+                }
+                //je to rošáda dole
+                if (start_x == 7)
+                {
+                    isCastling = true;
+
+                    Board.board[7, 3] = Board.board[7, 0];
+                    Board.board[7, 0] = null;
+
+
+                    castling_x = 7;
+                    castling_y = 0;
+                    castling_z = 3;
+
+
+                    return true;
+                }
+            }
+            if (start_x == final_x && start_y == final_y - 2)
+            {
+                //je to rošáda nahoře
+                if (start_x == 0)
+                {
+                    isCastling = true;
+
+                    Board.board[0, 5] = Board.board[0, 7];
+                    Board.board[0, 7] = null;
+
+                    castling_x = 0;
+                    castling_y = 7;
+                    castling_z = 5;
+
+
+                    return true;
+                }
+                //je to rošáda dole
+                if (start_x == 7)
+                {
+                    isCastling = true;
+
+                    Board.board[7, 5] = Board.board[7, 7];
+                    Board.board[7, 7] = null;
+
+                    castling_x = 7;
+                    castling_y = 7;
+                    castling_z = 5;
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        public static void apply_move(int start_x, int start_y, int final_x, int final_y)
+        {
+            delete_x = -1;
+            isCastling = false;
+
+            //CheckersTake = false;
+
+            Pieces piece = Board.board[start_x, start_y];
+
+
+
+            if (piece.GetNumber() == 5)
+            {
+                BottomEnpassante(start_x, start_y, final_x, final_y);
+            }
+            else if (piece.GetNumber() == 26)
+            {
+                UpperEnpassante(start_x, start_y, final_x, final_y);
+            }
+
+
+
+            //dáma
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&
+                    (start_x == final_x - 2 || start_x == final_x + 2))
+            {
+                int xpiece, ypiece;
+                if (final_x > start_x)
+                {
+                    xpiece = start_x + 1;
+                }
+                else
+                {
+                    xpiece = final_x + 1;
+                }
+
+                if (final_y > start_y)
+                {
+                    ypiece = start_y + 1;
+                }
+                else
+                {
+                    ypiece = final_y + 1;
+                }
+                Board.board[xpiece, ypiece] = null;
+
+                delete_x = xpiece;
+                delete_y = ypiece;
+
+                if (Gameclass.CurrentGame.MustTakeCheckersPiece())
+                {
+                    //CheckersTake = true;
+                }
+            }
+
+            //v shogi se vyhazuje figurka, přidáváme jí do seznamu vyhozených figurek
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[final_x, final_y] != null)
+            {
+                if (!MainGameWindow.isPlayer)
+                {
+                    MainGameWindow.shogiAIPieces.Add(Board.board[final_x, final_y]);
+                }
+            }
+
+            Board.board[final_x, final_y] = piece;
+            Board.board[start_x, start_y] = null;
+
+ 
+
+            Generating.WhitePlays = !Generating.WhitePlays;
+
+
+
+
+
+            if (piece.Value == 900)
+            {
+                piece.Moved = true;
+                //pokud se král posunul o dvě políčka, jedná se o rošádu
+                IsCastling(start_x, start_y, final_x, final_y);
+            }
+
+            //hlídání konců her
+            return;
+        }
+
+        public static void reapply_move()
+        {
+
+        }
+
+
+    }
+}

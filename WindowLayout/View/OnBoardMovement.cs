@@ -187,91 +187,11 @@ namespace ShogiCheckersChess
             }
         }
 
-        public void BottomEnpassante(int start_x, int start_y, int final_x, int final_y)
-        {
-            if (start_x == 3)
-            {
-                if (final_x == 2 && final_y == start_y - 1)
-                {
-                    Board.board[start_x, start_y - 1] = null;
-                    piecesPictures[start_x, start_y - 1].Dispose();
-                }
-                else if (final_x == 2 && final_y == start_y + 1)
-                {
-                    Board.board[start_x, start_y + 1] = null;
-                    piecesPictures[start_x, start_y + 1].Dispose();
-                }
-            }
-        }
 
-        public void UpperEnpassante(int start_x, int start_y, int final_x, int final_y)
-        {
-            if (start_x == Board.board.GetLength(0) - 4)
-            {
-                if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y - 1)
-                {
-                    Board.board[start_x, start_y - 1] = null;
-                    piecesPictures[start_x, start_y - 1].Dispose();
-                }
-                else if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y + 1)
-                {
-                    Board.board[start_x, start_y + 1] = null;
-                    piecesPictures[start_x, start_y + 1].Dispose();
-                }
-            }
-        }
 
         public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
         {
-            CheckersTake = false;
 
-            Pieces piece = Board.board[start_x, start_y];
-
-
-
-            if (piece.GetNumber() == 5)
-            {
-                BottomEnpassante(start_x, start_y, final_x, final_y);
-            }
-            else if (piece.GetNumber() == 26)
-            {
-                UpperEnpassante(start_x, start_y, final_x, final_y);
-            }
-
-
-
-            //dáma
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&
-                    (start_x == final_x - 2 || start_x == final_x + 2))
-            {
-                int xpiece, ypiece;
-                if (final_x > start_x)
-                {
-                    xpiece = start_x + 1;
-                }
-                else
-                {
-                    xpiece = final_x + 1;
-                }
-
-                if (final_y > start_y)
-                {
-                    ypiece = start_y + 1;
-                }
-                else
-                {
-                    ypiece = final_y + 1;
-                }
-                Board.board[xpiece, ypiece] = null;
-                piecesPictures[xpiece, ypiece].Dispose();
-
-                if (Gameclass.CurrentGame.MustTakeCheckersPiece())
-                {
-                    CheckersTake = true;
-                }
-            }
-
-            //v shogi se vyhazuje figurka, přidáváme jí do seznamu vyhozených figurek
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[final_x, final_y] != null)
             {
                 if ((isPlayer) && (Generating.WhitePlays))
@@ -284,31 +204,27 @@ namespace ShogiCheckersChess
                     ShowUpperShogiAddon();
                     ChooseShogiBoxUpper.Items.Add(Board.board[final_x, final_y].Name);
                 }
-                else
-                {
-                    shogiAIPieces.Add(Board.board[final_x, final_y]);
-                }
             }
 
-            Board.board[final_x, final_y] = piece;
-            Board.board[start_x, start_y] = null;
+
+            MoveController.apply_move(start_x, start_y, final_x, final_y);
 
             piecesPictures[start_x, start_y] = null;
 
             //pokud se figurka vyhazuje, musíme její obrázek zrušit
             if (piecesPictures[final_x, final_y] != null)
             {
-                piecesPictures[final_x, final_y].Dispose();
+                MainGameWindow.piecesPictures[final_x, final_y].Dispose();
             }
 
 
             piecesPictures[final_x, final_y] = movingPicture;
 
-            //změna figurky
-            if (ChangePiece(final_x, final_y, piece))
-                movingPicture.Image = GamePieces.Images[Board.board[final_x, final_y].GetNumber()];
 
-            Generating.WhitePlays = !Generating.WhitePlays;
+            if (MoveController.delete_x != -1)
+            {
+                piecesPictures[MoveController.delete_x, MoveController.delete_y].Dispose();
+            }
 
             if (isPlayer)
             {
@@ -320,16 +236,97 @@ namespace ShogiCheckersChess
             movingPicture.BringToFront();
             DeleteHighlight();
 
-            if (piece.Value == 900)
+
+            if (MoveController.isCastling)
             {
-                piece.Moved = true;
-                //pokud se král posunul o dvě políčka, jedná se o rošádu
-                IsCastling(start_x, start_y, final_x, final_y);
+                PictureBox rook = piecesPictures[MoveController.castling_x, MoveController.castling_y];
+                piecesPictures[MoveController.castling_x, MoveController.castling_y] = null;
+                piecesPictures[MoveController.castling_x, MoveController.castling_z] = rook;
+                rook.Location = location[MoveController.castling_x, MoveController.castling_z];
+                rook.BringToFront();
             }
 
-            //hlídání konců her
+
+            //změna figurky
+            if (ChangePiece(final_x, final_y, Board.board[final_x, final_y]))
+                movingPicture.Image = GamePieces.Images[Board.board[final_x, final_y].GetNumber()];
+
             return EndGame();
         }
+
+        public bool EndGame()
+        {
+            bool player = isPlayer;
+            isPlayer = true;
+
+            label2.Visible = false;
+            //konec hry dáma
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+            {
+                if (Gameclass.CurrentGame.CheckersEnd())
+                {
+                    label2.Text = "Konec hry.";
+                    label2.Visible = true;
+                    Gameclass.CurrentGame.GameEnded = true;
+                    return true;
+                }
+            }
+
+            //konec hry shogi
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+            {
+                if (Gameclass.CurrentGame.KingOut())
+                {
+                    label2.Text = "Konec hry.";
+                    label2.Visible = true;
+                    Gameclass.CurrentGame.GameEnded = true;
+                    return true;
+                }
+            }
+
+            //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
+            Generating.WhitePlays = !Generating.WhitePlays;
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck()))
+            {
+                label2.Text = "Šach!";
+                label2.Visible = true;
+                if (Gameclass.CurrentGame.CheckMate())
+                {
+                    label2.Text = "Šach mat! Konec!";
+                    Gameclass.CurrentGame.GameEnded = true;
+                    return true;
+                }
+            }
+            Generating.WhitePlays = !Generating.WhitePlays;
+
+            //může protějšek udělat tah?
+            Moves.EmptyCoordinates();
+            for (int i = 0; i < Board.board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.board.GetLength(1); j++)
+                {
+                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
+                    {
+                        Generating.Generate(Board.board[i, j], false, i, j);
+                    }
+                }
+            }
+
+            if (Moves.final_x.Count == 0)
+            {
+                label2.Text = "Nelze udělat tah, konec.";
+                label2.Visible = true;
+                Moves.EmptyCoordinates();
+                return true;
+            }
+
+            isPlayer = player;
+            Moves.EmptyCoordinates();
+            return false;
+        }
+
+
+
 
         //měnění figurek - logika
         public bool ChangePiece(int x, int y, Pieces piece)
