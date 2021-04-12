@@ -80,11 +80,39 @@ namespace ShogiCheckersChess
                 }
             }
 
+            int eval = Int32.MinValue;
+
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
+            {
+                List<Pieces> availablePieces = new List<Pieces>();
+                availablePieces.AddRange(MainGameWindow.shogiAIPieces);
+
+                foreach (var piece in availablePieces)
+                {
+                    for (int i = 0; i < Board.board.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < Board.board.GetLength(1); j++)
+                        {
+                            if (Board.board[i, j] == null)
+                            {
+                                Board.board[i, j] = piece;
+                                Board.board[i, j].isWhite = false;
+                                MainGameWindow.shogiAIPieces.Remove(piece);
+
+                                eval = Math.Min(eval, OneStepMin(depth - 1, alpha, beta));
+
+                                MainGameWindow.shogiAIPieces.Add(piece);
+                                Board.board[i, j] = null;
+                            }
+                        }
+                    }
+                }
+            }
+
             if (Moves.final_x.Count != 0)
             {
                 //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
-                int eval = Int32.MinValue;
                 //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
                 //tvoříme děti jednotlivých tahů
@@ -98,10 +126,11 @@ namespace ShogiCheckersChess
 
                     eval = Math.Max(OneStepMin(depth - 1, alpha, beta), eval);
 
+
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
 
-                    
+
 
                     // alpha = Math.Max(beta, Evaluation[k]);
                     alpha = Math.Max(alpha, eval);
@@ -174,7 +203,7 @@ namespace ShogiCheckersChess
                 }
             }
 
-            
+
             return eval;
         }
 
@@ -197,28 +226,40 @@ namespace ShogiCheckersChess
                 }
             }
 
-            /*
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
+            int eval = Int32.MaxValue;
+
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiPlayerPieces.Count != 0))
             {
-                foreach (var piece in MainGameWindow.shogiAIPieces)
+                List<Pieces> availablePieces = new List<Pieces>();
+                availablePieces.AddRange(MainGameWindow.shogiAIPieces);
+
+                foreach (var piece in availablePieces)
                 {
                     for (int i = 0; i < Board.board.GetLength(0); i++)
                     {
                         for (int j = 0; j < Board.board.GetLength(1); j++)
                         {
+                            if (Board.board[i, j] == null)
+                            {
+                                Board.board[i, j] = piece;
+                                Board.board[i, j].isWhite = false;
+                                MainGameWindow.shogiPlayerPieces.Remove(piece);
 
+                                eval = Math.Min(eval, OneStepMax(depth - 1, alpha, beta));
+
+                                MainGameWindow.shogiPlayerPieces.Add(piece);
+                                Board.board[i, j] = null;
+                            }
                         }
                     }
                 }
             }
-            */
+
 
             if (Moves.final_x.Count != 0)
             {
                 //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
-
-                int eval = Int32.MaxValue;
                 //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
                 //tvoříme děti jednotlivých tahů
@@ -234,7 +275,7 @@ namespace ShogiCheckersChess
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
 
-                    
+
                     //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
                     // beta = Math.Min(beta, Evaluation[k]);
                     beta = Math.Min(beta, eval);
@@ -242,8 +283,8 @@ namespace ShogiCheckersChess
                     if (beta <= alpha)
                     {
                         break;
-                    } 
-                    
+                    }
+
 
                 }
 

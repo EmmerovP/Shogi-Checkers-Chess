@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/** kontrola stavů hry 
+ */
+
 namespace ShogiCheckersChess
 {
     public class Gameclass

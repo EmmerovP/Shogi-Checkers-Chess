@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,8 +48,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,88 +67,88 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutAuthor.cs">
+    <Compile Include="View\AboutAuthor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutAuthor.Designer.cs">
+    <Compile Include="View\AboutAuthor.Designer.cs">
       <DependentUpon>AboutAuthor.cs</DependentUpon>
     </Compile>
-    <Compile Include="AboutGame.cs">
+    <Compile Include="View\AboutGame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutGame.Designer.cs">
+    <Compile Include="View\AboutGame.Designer.cs">
       <DependentUpon>AboutGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="Board.cs" />
-    <Compile Include="Credits.cs">
+    <Compile Include="Model\Board.cs" />
+    <Compile Include="View\Credits.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Credits.Designer.cs">
+    <Compile Include="View\Credits.Designer.cs">
       <DependentUpon>Credits.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomGameInit.cs">
+    <Compile Include="View\CustomGameInit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generating.cs" />
-    <Compile Include="LoadGame.cs" />
-    <Compile Include="MainGameWindow.cs">
+    <Compile Include="Controller\Generating.cs" />
+    <Compile Include="Model\LoadGame.cs" />
+    <Compile Include="View\MainGameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainGameWindow.Designer.cs">
+    <Compile Include="View\MainGameWindow.Designer.cs">
       <DependentUpon>MainGameWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gameclass.cs" />
-    <Compile Include="Minimax.cs" />
-    <Compile Include="MonteCarlo.cs" />
-    <Compile Include="Moves.cs" />
-    <Compile Include="OnBoardMovement.cs">
+    <Compile Include="Model\Gameclass.cs" />
+    <Compile Include="Model\Algorithms\Minimax.cs" />
+    <Compile Include="Model\Algorithms\MonteCarlo.cs" />
+    <Compile Include="Model\Moves.cs" />
+    <Compile Include="View\OnBoardMovement.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PawnChange.cs">
+    <Compile Include="View\PawnChange.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PawnChange.Designer.cs">
+    <Compile Include="View\PawnChange.Designer.cs">
       <DependentUpon>PawnChange.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pieces.cs" />
-    <Compile Include="PiecesNumbers.cs" />
+    <Compile Include="Model\Pieces.cs" />
+    <Compile Include="Model\PiecesNumbers.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="propagation.cs">
+    <Compile Include="View\propagation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="propagation.Designer.cs">
+    <Compile Include="View\propagation.Designer.cs">
       <DependentUpon>propagation.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ChooseAMove.cs" />
-    <Compile Include="ShogiAddPiece.cs">
+    <Compile Include="Controller\ChooseAMove.cs" />
+    <Compile Include="View\ShogiAddPiece.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ShogiPawnProblem.cs">
+    <Compile Include="View\ShogiPawnProblem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ShogiPawnProblem.Designer.cs">
+    <Compile Include="View\ShogiPawnProblem.Designer.cs">
       <DependentUpon>ShogiPawnProblem.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutAuthor.resx">
+    <EmbeddedResource Include="View\AboutAuthor.resx">
       <DependentUpon>AboutAuthor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AboutGame.aa.resx">
+    <EmbeddedResource Include="View\AboutGame.aa.resx">
       <DependentUpon>AboutGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AboutGame.resx">
+    <EmbeddedResource Include="View\AboutGame.resx">
       <DependentUpon>AboutGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Credits.resx">
+    <EmbeddedResource Include="View\Credits.resx">
       <DependentUpon>Credits.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainGameWindow.resx">
+    <EmbeddedResource Include="View\MainGameWindow.resx">
       <DependentUpon>MainGameWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PawnChange.resx">
+    <EmbeddedResource Include="View\PawnChange.resx">
       <DependentUpon>PawnChange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="propagation.resx">
+    <EmbeddedResource Include="View\propagation.resx">
       <DependentUpon>propagation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -146,7 +161,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ShogiPawnProblem.resx">
+    <EmbeddedResource Include="View\ShogiPawnProblem.resx">
       <DependentUpon>ShogiPawnProblem.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -163,5 +178,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

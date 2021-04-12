@@ -5,6 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* Vygeneruje tahy pro zadanou figurku.
+ * 
+ * 
+ */
+
 namespace ShogiCheckersChess
 {
     public static class Generating
@@ -128,12 +133,6 @@ namespace ShogiCheckersChess
             if ((x == 0) || (x == 1) || (x == 2))
                 return true;
             return false;
-        }
-
-        public static void MovePiece(int x, int y, int xpic, int ypic, Pieces pic, Label label)
-        {
-
-
         }
 
     }

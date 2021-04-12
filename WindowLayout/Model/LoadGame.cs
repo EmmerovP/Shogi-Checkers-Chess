@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 
 //třída primárně určena pro vizualizaci tahu figurkou na grafické šachovnici
+
+//pro model-view-controller nechat tuto třídu jako model, controller, tedy samotné to tlačítko bude v nějaké controller třídě
+
 namespace ShogiCheckersChess
 {
     public class CustomGame

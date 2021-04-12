@@ -16,5 +16,10 @@ namespace ShogiCheckersChess
         {
             InitializeComponent();
         }
+
+        private void AuthorOk_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

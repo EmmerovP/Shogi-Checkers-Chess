@@ -7,10 +7,6 @@ using System.Windows.Forms;
 
 namespace ShogiCheckersChess
 {
-    //shogi-propagace
-    //šachy - změna pěšce při dojití na konec
-
-
     public class RandomMoveGen
     {
         public static List<int> HighestIndexes(int highest, List<int> list)

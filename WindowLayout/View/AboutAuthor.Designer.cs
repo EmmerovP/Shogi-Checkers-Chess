@@ -34,9 +34,10 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(266, 117);
+            this.label1.Size = new System.Drawing.Size(200, 95);
             this.label1.TabIndex = 0;
             this.label1.Text = "Projekt je ročníková/bakalářská práce pro MFF UK, kde autorka Péťa studuje inform" +
     "atiku.";
@@ -45,20 +46,23 @@
             // AuthorOk
             // 
             this.AuthorOk.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.AuthorOk.Location = new System.Drawing.Point(87, 129);
+            this.AuthorOk.Location = new System.Drawing.Point(65, 105);
+            this.AuthorOk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AuthorOk.Name = "AuthorOk";
-            this.AuthorOk.Size = new System.Drawing.Size(105, 60);
+            this.AuthorOk.Size = new System.Drawing.Size(79, 49);
             this.AuthorOk.TabIndex = 1;
             this.AuthorOk.Text = "OK";
             this.AuthorOk.UseVisualStyleBackColor = true;
+            this.AuthorOk.Click += new System.EventHandler(this.AuthorOk_Click);
             // 
             // AboutAuthor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 231);
+            this.ClientSize = new System.Drawing.Size(221, 188);
             this.Controls.Add(this.AuthorOk);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "AboutAuthor";
             this.Text = "O Autorce";
             this.ResumeLayout(false);

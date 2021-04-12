@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-//třída pro komponenty potřebné k vytvoření Custom hry
+//potřeba vytvořit controller classu odkazující do tohoto souboru
+
 namespace ShogiCheckersChess
 {
     public partial class MainGameWindow : Form
