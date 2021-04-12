@@ -100,6 +100,37 @@ namespace ShogiCheckersChess
 
                     //int move = MonteCarlo.MonteCarloMove();
 
+                    if (RandomMoveGen.AddingPiece)
+                    {
+                        Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move]);
+                        var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
+                        {
+                            Name = Convert.ToString(ShogiPiece),
+                            Size = new Size(50, 50),
+                            Location = location[Moves.final_x[move], Moves.final_y[move]],
+                            BackColor = Color.Transparent,
+                            Image = GamePieces.Images[ShogiPiece],
+                            SizeMode = PictureBoxSizeMode.CenterImage,
+                        };
+
+                        this.Controls.Add(gamepiece);
+                        gamepiece.Click += MoveGamePiece;
+
+                        piecesPictures[Moves.final_x[move], Moves.final_y[move]] = gamepiece;
+
+                        gamepiece.BringToFront();
+
+                        shogiAIPieces.Remove(Board.board[Moves.final_x[move], Moves.final_y[move]]);
+
+                        Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;
+
+                        Generating.WhitePlays = !Generating.WhitePlays;
+                        return;
+
+                    }
+
+                    //int move = MonteCarlo.MonteCarloMove();
+
                     if (move == -1)
                     {
                         label2.Text = "Vyhráli jste!";
