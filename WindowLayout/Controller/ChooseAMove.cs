@@ -80,7 +80,7 @@ namespace ShogiCheckersChess
                 Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
                 Board.board[moves.start_x[i], moves.start_y[i]] = null;
 
-                choice.Add(Minimax.OneStepMin(2, Int32.MinValue, Int32.MaxValue));
+                choice.Add(Minimax.OneStepMax(2, Int32.MinValue, Int32.MaxValue, false));
 
                 Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
                 Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;
@@ -105,7 +105,7 @@ namespace ShogiCheckersChess
                                 Board.board[i, j].isWhite = false;
                                 MainGameWindow.shogiAIPieces.Remove(piece);
 
-                                choice.Add(Minimax.OneStepMin(2, Int32.MinValue, Int32.MaxValue));
+                                choice.Add(Minimax.OneStepMax(2, Int32.MinValue, Int32.MaxValue, false));
 
                                 moves.final_x.Add(i);
                                 moves.final_y.Add(j);

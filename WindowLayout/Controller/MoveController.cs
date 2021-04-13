@@ -9,7 +9,7 @@ namespace ShogiCheckersChess
 {
     public static class MoveController
     {
-
+        //potřeba pro view
         public static int delete_x;
         public static int delete_y;
 
@@ -18,6 +18,15 @@ namespace ShogiCheckersChess
         public static int castling_x;
         public static int castling_y;
         public static int castling_z;
+
+        //potřeba pro reapply
+        //vyhozená figurka
+        public static Pieces piece;
+        public static int taken_x;
+        public static int taken_y; //pokud není, hodnota -1. Řeší i vyhození v dámě a en passante
+
+        //+ v minimaxu si musím zapamatovat tyto položky pro danou instanci, pak je dostanu zpátky v reapply!
+
 
 
         public static void BottomEnpassante(int start_x, int start_y, int final_x, int final_y)
@@ -142,7 +151,7 @@ namespace ShogiCheckersChess
 
 
 
-        public static void apply_move(int start_x, int start_y, int final_x, int final_y)
+        public static void ApplyMove(int start_x, int start_y, int final_x, int final_y)
         {
             delete_x = -1;
             isCastling = false;
@@ -228,9 +237,49 @@ namespace ShogiCheckersChess
             return;
         }
 
-        public static void reapply_move()
+        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int taken_x, int taken_y, bool isCastling)
         {
+            if (isCastling)
+            {
+                if (start_x == final_x && start_y == final_y + 2)
+                {
+                    //je to rošáda nahoře
+                    if (start_x == 0)
+                    {
+                        Board.board[0, 0] = Board.board[0, 3];
+                        Board.board[0, 3] = null;
+                    }
+                    //je to rošáda dole
+                    else if (start_x == 7)
+                    {
+                        Board.board[7, 0] = Board.board[7, 3];
+                        Board.board[7, 3] = null;
+                    }
+                }
+                else if (start_x == final_x && start_y == final_y - 2)
+                {
+                    //je to rošáda nahoře
+                    if (start_x == 0)
+                    {
+                        Board.board[0, 7] = Board.board[0, 5];
+                        Board.board[0, 5] = null;
+                    }
+                    //je to rošáda dole
+                    else if (start_x == 7)
+                    {
+                        Board.board[7, 7] = Board.board[7, 5];
+                        Board.board[7, 5] = null;
+                    }
+                }
+            }
 
+            Board.board[start_x, start_y] = Board.board[final_x, final_y];
+            Board.board[final_x, final_y] = null;
+
+            if (taken_x != -1)
+            {
+                Board.board[taken_x, taken_y] = piece;
+            }
         }
 
 

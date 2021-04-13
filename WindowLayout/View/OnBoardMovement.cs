@@ -207,7 +207,7 @@ namespace ShogiCheckersChess
             }
 
 
-            MoveController.apply_move(start_x, start_y, final_x, final_y);
+            MoveController.ApplyMove(start_x, start_y, final_x, final_y);
 
             piecesPictures[start_x, start_y] = null;
 

@@ -57,13 +57,64 @@ namespace ShogiCheckersChess
             return lowest;
         }
 
+        public static int AddingPieces(int eval, int depth, int alpha, int beta, bool isMaxing)
+        {
+            List<Pieces> PiecesList;
+
+            if (isMaxing)
+            {
+                PiecesList = MainGameWindow.shogiAIPieces;
+            }
+            else
+            {
+                PiecesList = MainGameWindow.shogiPlayerPieces;
+            }
+
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (PiecesList.Count != 0))
+            {
+                List<Pieces> availablePieces = new List<Pieces>();
+                availablePieces.AddRange(PiecesList);
+
+                foreach (var piece in availablePieces)
+                {
+                    for (int i = 0; i < Board.board.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < Board.board.GetLength(1); j++)
+                        {
+                            if (Board.board[i, j] == null)
+                            {
+                                Board.board[i, j] = piece;
+                                Board.board[i, j].isWhite = false;
+                                PiecesList.Remove(piece);
+
+                                if (isMaxing)
+                                {
+                                    eval = Math.Max(eval, OneStepMax(depth - 1, alpha, beta, false));
+                                }
+                                else
+                                {
+                                    eval = Math.Min(eval, OneStepMax(depth - 1, alpha, beta, true));
+                                }                             
+
+                                PiecesList.Add(piece);
+                                Board.board[i, j] = null;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            return eval;
+        }
 
 
 
-        public static int OneStepMax(int depth, int alpha, int beta)
+
+        public static int OneStepMax(int depth, int alpha, int beta, bool isMaxing)
         {
 
-            if (depth == 0) //or terminal node? Jako kingcheck
+            if (depth == 0)
             {
                 return EvaluateChessboard();
             }
@@ -80,34 +131,22 @@ namespace ShogiCheckersChess
                 }
             }
 
-            int eval = Int32.MinValue;
+            int eval;
 
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
+            if (isMaxing)
             {
-                List<Pieces> availablePieces = new List<Pieces>();
-                availablePieces.AddRange(MainGameWindow.shogiAIPieces);
-
-                foreach (var piece in availablePieces)
-                {
-                    for (int i = 0; i < Board.board.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < Board.board.GetLength(1); j++)
-                        {
-                            if (Board.board[i, j] == null)
-                            {
-                                Board.board[i, j] = piece;
-                                Board.board[i, j].isWhite = false;
-                                MainGameWindow.shogiAIPieces.Remove(piece);
-
-                                eval = Math.Min(eval, OneStepMin(depth - 1, alpha, beta));
-
-                                MainGameWindow.shogiAIPieces.Add(piece);
-                                Board.board[i, j] = null;
-                            }
-                        }
-                    }
-                }
+                eval = Int32.MinValue;
+                eval = Math.Max(eval, AddingPieces(eval, depth, alpha, beta, isMaxing));
             }
+            else
+            {
+                eval = Int32.MaxValue;
+                eval = Math.Min(eval, AddingPieces(eval, depth, alpha, beta, isMaxing));
+            }
+            
+
+
+
 
             if (Moves.final_x.Count != 0)
             {
@@ -124,16 +163,32 @@ namespace ShogiCheckersChess
                     Board.board[cp.start_x[k], cp.start_y[k]] = null;
 
 
-                    eval = Math.Max(OneStepMin(depth - 1, alpha, beta), eval);
+                    if (isMaxing)
+                    {
+                        eval = Math.Max(OneStepMax(depth - 1, alpha, beta, false), eval);
+                    }
+                    else
+                    {
+                        eval = Math.Min(OneStepMax(depth - 1, alpha, beta, true), eval);
+                    }
+
+                    
 
 
                     Board.board[cp.start_x[k], cp.start_y[k]] = piece;
                     Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
 
 
-
+                    if (isMaxing)
+                    {
+                        alpha = Math.Max(alpha, eval);
+                    }
+                    else
+                    {
+                        beta = Math.Min(beta, eval);
+                    }
                     // alpha = Math.Max(beta, Evaluation[k]);
-                    alpha = Math.Max(alpha, eval);
+
 
                     if (beta <= alpha)
                     {
@@ -161,34 +216,6 @@ namespace ShogiCheckersChess
 
                     if (Board.board[i, j] != null)
                     {
-                        /*
-                        //spodní pěšec
-                        if (Board.board[i, j].GetNumber() == 5)
-                        {
-                            if (WhiteSide)
-                            {
-                                eval += (Board.board.GetLength(0) - i / 3 );
-                            }
-                            else
-                            {
-                                eval -= ( Board.board.GetLength(0) - i / 3);
-                            }
-                        }
-
-                        //vrchní pěšec
-                        if (Board.board[i, j].GetNumber() == 40)
-                        {
-                            if (WhiteSide)
-                            {
-                                eval -= i/3;
-                            }
-                            else
-                            {
-                                eval += i/3;
-                            }
-                        }
-                        */
-
                         if (Board.board[i, j].isWhite != WhiteSide)
                         {
                             eval -= Board.board[i, j].Value;
@@ -202,100 +229,8 @@ namespace ShogiCheckersChess
                     }
                 }
             }
-
-
             return eval;
-        }
-
-        public static int OneStepMin(int depth, int alpha, int beta)
-        {
-            if (depth == 0)
-            {
-                return EvaluateChessboard();
-            }
-
-            //Vygenerujeme možné tahy na momentální šachovnici
-            for (int i = 0; i < Board.board.GetLength(0); i++)
-            {
-                for (int j = 0; j < Board.board.GetLength(1); j++)
-                {
-                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
-                    {
-                        Generating.Generate(Board.board[i, j], false, i, j);
-                    }
-                }
-            }
-
-            int eval = Int32.MaxValue;
-
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiPlayerPieces.Count != 0))
-            {
-                List<Pieces> availablePieces = new List<Pieces>();
-                availablePieces.AddRange(MainGameWindow.shogiAIPieces);
-
-                foreach (var piece in availablePieces)
-                {
-                    for (int i = 0; i < Board.board.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < Board.board.GetLength(1); j++)
-                        {
-                            if (Board.board[i, j] == null)
-                            {
-                                Board.board[i, j] = piece;
-                                Board.board[i, j].isWhite = false;
-                                MainGameWindow.shogiPlayerPieces.Remove(piece);
-
-                                eval = Math.Min(eval, OneStepMax(depth - 1, alpha, beta));
-
-                                MainGameWindow.shogiPlayerPieces.Add(piece);
-                                Board.board[i, j] = null;
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            if (Moves.final_x.Count != 0)
-            {
-                //vykopírujeme si tahy
-                var cp = Moves.MakeCopyEmpty();
-                //prohodíme strany na další tah
-                Generating.WhitePlays = !Generating.WhitePlays;
-                //tvoříme děti jednotlivých tahů
-                for (int k = 0; k < cp.final_x.Count; k++)
-                {
-                    var piece = Board.board[cp.start_x[k], cp.start_y[k]];
-                    var takenpiece = Board.board[cp.final_x[k], cp.final_y[k]];
-                    Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
-                    Board.board[cp.start_x[k], cp.start_y[k]] = null;
-
-                    eval = Math.Min(eval, OneStepMax(depth - 1, alpha, beta));
-
-                    Board.board[cp.start_x[k], cp.start_y[k]] = piece;
-                    Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
-
-
-                    //Tato možnost se zdá být velmi pomalá, ta druhá rychlá, ale na tak účinná
-                    // beta = Math.Min(beta, Evaluation[k]);
-                    beta = Math.Min(beta, eval);
-
-                    if (beta <= alpha)
-                    {
-                        break;
-                    }
-
-
-                }
-
-                Generating.WhitePlays = !Generating.WhitePlays;
-
-                return eval;
-            }
-
-            return 0;
-
-        }
+        }     
 
     }
 }
