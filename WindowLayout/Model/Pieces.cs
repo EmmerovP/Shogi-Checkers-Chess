@@ -376,7 +376,7 @@ namespace ShogiCheckersChess
     class ShogiBottomPawn : Pieces
     {
         public override int Value { get; set; } = 10;
-        public override string Name { get; protected set; } = "Shogi pěšec";
+        public override string Name { get; protected set; } = "Shogi pěšák";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.Forward(x, y, chessboard);
@@ -386,7 +386,7 @@ namespace ShogiCheckersChess
     class ShogiUpperPawn : Pieces
     {
         public override int Value { get; set; } = 10;
-        public override string Name { get; protected set; } = "Shogi pěšec";
+        public override string Name { get; protected set; } = "Shogi pěšák";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.Back(x, y, chessboard);

@@ -178,46 +178,11 @@ namespace ShogiCheckersChess
 
             string Piece = ChooseShogiBoxBottom.Text;
             PutShogiPieceLabelBottom.Visible = true;
+            
+            ShogiPiece = PiecesNumbers.getBottomNumber[Piece];
+            AddBottomShogiPiece = true;
+
             ChooseShogiBoxBottom.Text = "";
-            switch (Piece)
-            {
-                case "":
-                    return;
-                case "King":
-                    ShogiPiece = 7;
-                    AddBottomShogiPiece = true;
-                    break;
-                case "Rook":
-                    ShogiPiece = 8;
-                    AddBottomShogiPiece = true;
-                    break;
-                case "Bishop":
-                    ShogiPiece = 10;
-                    AddBottomShogiPiece = true;
-                    break;
-                case "Gold general":
-                    ShogiPiece = 12;
-                    AddBottomShogiPiece = true;
-                    break;
-                case "Silver General":
-                    ShogiPiece = 13;
-                    AddBottomShogiPiece = true;
-                    break;
-                case "Horse":
-                    ShogiPiece = 15;
-                    AddBottomShogiPiece = true;
-                    break;
-                case "Lance":
-                    ShogiPiece = 17;
-                    AddBottomShogiPiece = true;
-                    break;
-                case "Pawn":
-                    ShogiPiece = 19;
-                    AddBottomShogiPiece = true;
-                    break;
-                default:
-                    break;
-            }
 
             ShogiPieceName = Piece;
         }
@@ -236,54 +201,11 @@ namespace ShogiCheckersChess
 
             string Piece = ChooseShogiBoxUpper.Text;
             PutShogiPieceLabelUpper.Visible = true;
+            
+            ShogiPiece = PiecesNumbers.getUpperNumber[Piece];
+            AddUpperShogiPiece = true;
+
             ChooseShogiBoxUpper.Text = "";
-            switch (Piece)
-            {
-                case "":
-                    return;
-                case "King":
-                    ShogiPiece = 28;
-                    AddUpperShogiPiece = true;
-                    ChooseShogiBoxBottom.Items.Remove("King");
-                    break;
-                case "Rook":
-                    ShogiPiece = 29;
-                    AddUpperShogiPiece = true;
-                    ChooseShogiBoxBottom.Items.Remove("Rook");
-                    break;
-                case "Bishop":
-                    ShogiPiece = 31;
-                    AddUpperShogiPiece = true;
-                    ChooseShogiBoxBottom.Items.Remove("Bishop");
-                    break;
-                case "Gold general":
-                    ShogiPiece = 33;
-                    AddUpperShogiPiece = true;
-                    ChooseShogiBoxBottom.Items.Remove("Gold general");
-                    break;
-                case "Silver General":
-                    ShogiPiece = 34;
-                    AddUpperShogiPiece = true;
-                    ChooseShogiBoxBottom.Items.Remove("Silver General");
-                    break;
-                case "Horse":
-                    ShogiPiece = 36;
-                    AddUpperShogiPiece = true;
-                    
-                    break;
-                case "Lance":
-                    ShogiPiece = 38;
-                    AddUpperShogiPiece = true;
-                    ChooseShogiBoxBottom.Items.Remove("Lance");
-                    break;
-                case "Pawn":
-                    ShogiPiece = 40;
-                    AddUpperShogiPiece = true;
-                    ChooseShogiBoxBottom.Items.Remove("Pawn");
-                    break;
-                default:
-                    break;
-            }
 
             ShogiPieceName = Piece;
         }

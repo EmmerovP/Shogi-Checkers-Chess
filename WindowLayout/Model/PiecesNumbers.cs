@@ -19,7 +19,7 @@ namespace ShogiCheckersChess
             { 6, "Bílý kámen" },
             { 7, "Spodní shogi král" },
             { 8, "Spodní shogi věž" },
-            { 9, "Povýšená shogi věž" },
+            { 9, "Povýšená spodní shogi věž" },
             { 10, "Spodní shogi střelec" },
             { 11, "Povýšený spodní shogi střelec" },
             { 12, "Spodní zlatý generál" },
@@ -64,8 +64,8 @@ namespace ShogiCheckersChess
             {  "Bílý pěšec", 5 },
             {  "Bílý kámen", 6 },
             { "Spodní shogi král", 7 },
-            { "Spodní spodní shogi věž", 8 },
-            { "Povýšená shogi věž", 9 },
+            { "Spodní shogi věž", 8 },
+            { "Povýšená spodní shogi věž", 9 },
             { "Spodní shogi střelec", 10 },
             { "Povýšený spodní shogi střelec", 11 },
             { "Spodní zlatý generál", 12 },
@@ -99,6 +99,58 @@ namespace ShogiCheckersChess
             { "Vrchní shogi pěšák", 40 },
             { "Povýšený vrchní shogi pěšák", 41 }
         };
+
+        public static Dictionary<string, int> getBottomNumber = new Dictionary<string, int>()
+        {
+            { "Shogi král", 7 },
+            { "Shogi věž", 8 },
+            { "Povýšená shogi věž", 9 },
+            { "Shogi střelec", 10 },
+            { "Povýšený shogi střelec", 11 },
+            { "Zlatý generál", 12 },
+            { "Stříbrný generál", 13 },
+            { "Povýšený stříbrný generál", 14 },
+            { "Shogi kůň", 15 },
+            { "Povýšený shogi kůň", 16 },
+            { "Kopiník", 17 },
+            { "Povýšený kopiník", 18 },
+            { "Shogi pěšák", 19 },
+            { "Povýšený shogi pěšák", 20 },
+            { "Král", 21},
+            { "Královna", 22 },
+            { "Věž", 23 },
+            { "Kůň", 24 },
+            { "Střelec", 25 },
+            { "Pěšec", 26 },
+            { "Kámen", 27 },          
+        };
+
+        public static Dictionary<string, int> getUpperNumber = new Dictionary<string, int>()
+        {
+            { "Král", 0},
+            { "Královna", 1 },
+            { "Věž", 2 },
+            {  "Kůň", 3 },
+            { "Střelec", 4 },
+            {  "Pěšec", 5 },
+            {  "Kámen", 6 },
+            { "Shogi král", 28 },
+            { "Shogi věž", 29 },
+            { "Povýšená shogi věž", 30 },
+            { "Shogi střelec", 31 },
+            { "Povýšený shogi střelec", 32 },
+            { "Zlatý generál", 33 },
+            { "Stříbrný generál", 34 },
+            { "Povýšený stříbrný generál", 35 },
+            { "Shogi kůň", 36 },
+            { "Povýšený shogi kůň", 37 },
+            { "Kopiník", 38 },
+            { "Povýšený kopiník", 39 },
+            { "Shogi pěšák", 40 },
+            { "Povýšený shogi pěšák", 41 }
+        };
+
+
 
 
 
