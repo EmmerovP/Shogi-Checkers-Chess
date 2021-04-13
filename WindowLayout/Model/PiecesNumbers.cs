@@ -179,6 +179,19 @@ namespace ShogiCheckersChess
             { 21, Moves.TwoBackward }
         };
 
+        public static int updatePiece(string name)
+        {
+            int value = getNumber.Count();
+
+            getName.Add(value, name);
+            getNumber.Add(name, value);
+
+            getBottomNumber.Add(name, value);
+            getUpperNumber.Add(name, value);
+
+            return value;
+        }
+
 
 
 
