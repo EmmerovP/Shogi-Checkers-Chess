@@ -157,11 +157,11 @@ namespace ShogiCheckersChess
                 //tvoříme děti jednotlivých tahů
                 for (int k = 0; k < cp.final_x.Count; k++)
                 {
-                    var piece = Board.board[cp.start_x[k], cp.start_y[k]];
-                    var takenpiece = Board.board[cp.final_x[k], cp.final_y[k]];
-                    Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
-                    Board.board[cp.start_x[k], cp.start_y[k]] = null;
-
+                    MoveController.ApplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k]);
+                    var piece = MoveController.takenPiece;
+                    int taken_x = MoveController.taken_x;
+                    int taken_y = MoveController.taken_y;
+                    bool isCastling = MoveController.isCastling;
 
                     if (isMaxing)
                     {
@@ -172,11 +172,7 @@ namespace ShogiCheckersChess
                         eval = Math.Min(OneStepMax(depth - 1, alpha, beta, true), eval);
                     }
 
-                    
-
-
-                    Board.board[cp.start_x[k], cp.start_y[k]] = piece;
-                    Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece;
+                    MoveController.ReapplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], piece, taken_x, taken_y, isCastling);
 
 
                     if (isMaxing)
@@ -187,7 +183,6 @@ namespace ShogiCheckersChess
                     {
                         beta = Math.Min(beta, eval);
                     }
-                    // alpha = Math.Max(beta, Evaluation[k]);
 
 
                     if (beta <= alpha)

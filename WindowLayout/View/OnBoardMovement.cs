@@ -209,6 +209,8 @@ namespace ShogiCheckersChess
 
             MoveController.ApplyMove(start_x, start_y, final_x, final_y);
 
+            Generating.WhitePlays = !Generating.WhitePlays;
+
             piecesPictures[start_x, start_y] = null;
 
             //pokud se figurka vyhazuje, musíme její obrázek zrušit
