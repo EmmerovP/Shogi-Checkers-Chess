@@ -49,6 +49,11 @@ namespace ShogiCheckersChess
             Generating.CheckersTake = false;
             Moves.EmptyCoordinates();
 
+            List<int> choice = new List<int>();
+
+
+
+
             //Vygenerujeme možné tahy na momentální šachovnici
             for (int i = 0; i < Board.board.GetLength(0); i++)
             {
@@ -65,7 +70,6 @@ namespace ShogiCheckersChess
 
             var moves = Moves.MakeCopyEmpty();
 
-            List<int> choice = new List<int>();
 
             //skončili jsme
 
@@ -76,14 +80,18 @@ namespace ShogiCheckersChess
 
             for (int i = 0; i < moves.final_x.Count; i++)
             {
-                var final_piece = Board.board[moves.final_x[i], moves.final_y[i]];
-                Board.board[moves.final_x[i], moves.final_y[i]] = Board.board[moves.start_x[i], moves.start_y[i]];
-                Board.board[moves.start_x[i], moves.start_y[i]] = null;
+                MoveController.ApplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i]);
+                var piece = MoveController.takenPiece;
+                int taken_x = MoveController.taken_x;
+                int taken_y = MoveController.taken_y;
+                bool isCastling = MoveController.isCastling;
+
 
                 choice.Add(Minimax.OneStepMax(2, Int32.MinValue, Int32.MaxValue, false));
 
-                Board.board[moves.start_x[i], moves.start_y[i]] = Board.board[moves.final_x[i], moves.final_y[i]];
-                Board.board[moves.final_x[i], moves.final_y[i]] = final_piece;
+
+                MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling);
+
             }
 
             int normalMoves = moves.final_x.Count;

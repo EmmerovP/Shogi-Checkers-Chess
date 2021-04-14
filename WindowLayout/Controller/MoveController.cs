@@ -31,26 +31,30 @@ namespace ShogiCheckersChess
 
         public static void BottomEnpassante(int start_x, int start_y, int final_x, int final_y)
         {
+            if (Board.board[final_x, final_y] != null)
+            {
+                return;
+            }
+
+
             if (start_x == 3)
             {
-                if (final_x == 2 && final_y == start_y - 1)
+                if ((final_x == 2 && final_y == start_y - 1) && (Board.board[start_x, start_y - 1] != null))
                 {
                     takenPiece = Board.board[start_x, start_y - 1];
 
                     Board.board[start_x, start_y - 1] = null;
-                    //piecesPictures[start_x, start_y - 1].Dispose();
                     delete_x = start_x;
                     delete_y = start_y - 1;
 
                     taken_x = start_x;
                     taken_y = start_y - 1;
                 }
-                else if (final_x == 2 && final_y == start_y + 1)
+                else if ((final_x == 2 && final_y == start_y + 1) && (Board.board[start_x, start_y + 1] != null))
                 {
                     takenPiece = Board.board[start_x, start_y + 1];
 
                     Board.board[start_x, start_y + 1] = null;
-                    //piecesPictures[start_x, start_y + 1].Dispose();
                     delete_x = start_x;
                     delete_y = start_y + 1;
 
@@ -64,24 +68,22 @@ namespace ShogiCheckersChess
         {
             if (start_x == Board.board.GetLength(0) - 4)
             {
-                if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y - 1)
+                if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y - 1 && Board.board[start_x, start_y - 1] != null)
                 {
                     takenPiece = Board.board[start_x, start_y - 1];
 
                     Board.board[start_x, start_y - 1] = null;
-                    //piecesPictures[start_x, start_y - 1].Dispose();
                     delete_x = start_x;
                     delete_y = start_y - 1;
 
                     taken_x = start_x;
                     taken_y = start_y - 1;
                 }
-                else if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y + 1)
+                else if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y + 1 && Board.board[start_x, start_y + 1] != null)
                 {
                     takenPiece = Board.board[start_x, start_y + 1];
 
                     Board.board[start_x, start_y + 1] = null;
-                    //piecesPictures[start_x, start_y + 1].Dispose();
                     delete_x = start_x;
                     delete_y = start_y + 1;
 
@@ -188,7 +190,7 @@ namespace ShogiCheckersChess
             }
 
 
-
+            /*
             if (piece.GetNumber() == 5)
             {
                 BottomEnpassante(start_x, start_y, final_x, final_y);
@@ -196,8 +198,8 @@ namespace ShogiCheckersChess
             else if (piece.GetNumber() == 26)
             {
                 UpperEnpassante(start_x, start_y, final_x, final_y);
-            }
-
+            }*/
+            
 
 
             //dáma
@@ -256,9 +258,10 @@ namespace ShogiCheckersChess
 
 
             
-
+            
             if (piece.Value == 900)
             {
+                //tadyto vadí při ai
                 piece.Moved = true;
                 //pokud se král posunul o dvě políčka, jedná se o rošádu
                 IsCastling(start_x, start_y, final_x, final_y);
@@ -268,7 +271,7 @@ namespace ShogiCheckersChess
             return;
         }
 
-        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int taken_x, int taken_y, bool isCastling)
+        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling)
         {
             if (isCastling)
             {
@@ -307,10 +310,15 @@ namespace ShogiCheckersChess
             Board.board[start_x, start_y] = Board.board[final_x, final_y];
             Board.board[final_x, final_y] = null;
 
-            if (taken_x != -1)
+            if (local_taken_x != -1)
             {
-                Board.board[taken_x, taken_y] = piece;
+                if (piece == null)
+                {
+                    throw new Exception();
+                }
+                Board.board[local_taken_x, local_taken_y] = piece;
             }
+
         }
 
 

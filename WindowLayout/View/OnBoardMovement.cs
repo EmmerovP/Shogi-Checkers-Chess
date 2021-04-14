@@ -21,7 +21,7 @@ namespace ShogiCheckersChess
         {
 
             //zvýraznit tahy nejdřív a podívat se, zda jsou všechny napsané správně
-            PictureBox picture = (PictureBox)sender;
+                PictureBox picture = (PictureBox)sender;
 
             //dostaneme souřadnice, na které jsme klikli, asi nevím jak to udělat elegantněji než projít celou šachovnici
             int selected_x = GetX(picture);
@@ -105,11 +105,11 @@ namespace ShogiCheckersChess
                         Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move]);
                         var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
                         {
-                            Name = Convert.ToString(ShogiPiece),
+                            Name = Convert.ToString(Moves.start_x[move]),
                             Size = new Size(50, 50),
                             Location = location[Moves.final_x[move], Moves.final_y[move]],
                             BackColor = Color.Transparent,
-                            Image = GamePieces.Images[ShogiPiece],
+                            Image = GamePieces.Images[Moves.start_x[move]],
                             SizeMode = PictureBoxSizeMode.CenterImage,
                         };
 
