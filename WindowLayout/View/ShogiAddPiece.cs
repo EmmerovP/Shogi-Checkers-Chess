@@ -35,6 +35,7 @@ namespace ShogiCheckersChess
 
                         PutShogiPieceLabelBottom.Visible = false;
                         AddBottomShogiPiece = false;
+                        ChooseShogiBoxBottom.Items.Add("Shogi pěšák");
 
                         return;
                     }
@@ -109,6 +110,8 @@ namespace ShogiCheckersChess
 
                         PutShogiPieceLabelUpper.Visible = false;
                         AddUpperShogiPiece = false;
+                        ChooseShogiBoxUpper.Items.Add("Shogi pěšák");
+
 
                         return;
                     }
@@ -182,6 +185,7 @@ namespace ShogiCheckersChess
             ShogiPiece = PiecesNumbers.getBottomNumber[Piece];
             AddBottomShogiPiece = true;
 
+            ChooseShogiBoxBottom.Items.Remove(Piece);
             ChooseShogiBoxBottom.Text = "";
 
             ShogiPieceName = Piece;
@@ -205,6 +209,7 @@ namespace ShogiCheckersChess
             ShogiPiece = PiecesNumbers.getUpperNumber[Piece];
             AddUpperShogiPiece = true;
 
+            ChooseShogiBoxUpper.Items.Remove(Piece);
             ChooseShogiBoxUpper.Text = "";
 
             ShogiPieceName = Piece;
