@@ -136,12 +136,12 @@ namespace ShogiCheckersChess
             if (isMaxing)
             {
                 eval = Int32.MinValue;
-                eval = Math.Max(eval, AddingPieces(eval, depth, alpha, beta, isMaxing));
+                //eval = Math.Max(eval, AddingPieces(eval, depth, alpha, beta, isMaxing));
             }
             else
             {
                 eval = Int32.MaxValue;
-                eval = Math.Min(eval, AddingPieces(eval, depth, alpha, beta, isMaxing));
+                //eval = Math.Min(eval, AddingPieces(eval, depth, alpha, beta, isMaxing));
             }
             
 
@@ -161,13 +161,9 @@ namespace ShogiCheckersChess
                     var piece = MoveController.takenPiece;
                     int taken_x = MoveController.taken_x;
                     int taken_y = MoveController.taken_y;
-                    bool isCastling = MoveController.isCastling; 
+                    bool isCastling = MoveController.isCastling;
+                    var movedPiece = MoveController.moved;
 
-                    /*
-                    var piece = Board.board[cp.start_x[k], cp.start_y[k]];
-                    var takenpiece = Board.board[cp.final_x[k], cp.final_y[k]];
-                    Board.board[cp.final_x[k], cp.final_y[k]] = Board.board[cp.start_x[k], cp.start_y[k]];
-                    Board.board[cp.start_x[k], cp.start_y[k]] = null;*/
 
                     if (isMaxing)
                     {
@@ -178,10 +174,7 @@ namespace ShogiCheckersChess
                         eval = Math.Min(OneStepMax(depth - 1, alpha, beta, true), eval);
                     }
 
-                    
-                    /*Board.board[cp.start_x[k], cp.start_y[k]] = piece;
-                    Board.board[cp.final_x[k], cp.final_y[k]] = takenpiece; */
-                    MoveController.ReapplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], piece, taken_x, taken_y, isCastling);
+                    MoveController.ReapplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece);
 
 
                     if (isMaxing)

@@ -25,6 +25,8 @@ namespace ShogiCheckersChess
         public static int taken_x;
         public static int taken_y; //pokud není, hodnota -1. Řeší i vyhození v dámě a en passante
 
+        public static Pieces moved;
+
         //+ v minimaxu si musím zapamatovat tyto položky pro danou instanci, pak je dostanu zpátky v reapply!
 
 
@@ -66,6 +68,11 @@ namespace ShogiCheckersChess
 
         public static void UpperEnpassante(int start_x, int start_y, int final_x, int final_y)
         {
+                        if (Board.board[final_x, final_y] != null)
+            {
+                return;
+            }
+
             if (start_x == Board.board.GetLength(0) - 4)
             {
                 if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y - 1 && Board.board[start_x, start_y - 1] != null)
@@ -179,6 +186,7 @@ namespace ShogiCheckersChess
             taken_x = -1;
             isCastling = false;
             takenPiece = null;
+            moved = null;
 
             //CheckersTake = false;
 
@@ -190,7 +198,7 @@ namespace ShogiCheckersChess
             }
 
 
-            /*
+            
             if (piece.GetNumber() == 5)
             {
                 BottomEnpassante(start_x, start_y, final_x, final_y);
@@ -198,7 +206,7 @@ namespace ShogiCheckersChess
             else if (piece.GetNumber() == 26)
             {
                 UpperEnpassante(start_x, start_y, final_x, final_y);
-            }*/
+            }
             
 
 
@@ -247,10 +255,7 @@ namespace ShogiCheckersChess
 
                 takenPiece = Board.board[final_x, final_y];
 
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && !MainGameWindow.isPlayer)
-                {
-                    MainGameWindow.shogiAIPieces.Add(Board.board[final_x, final_y]);
-                }
+
             }
 
             Board.board[final_x, final_y] = piece;
@@ -261,6 +266,10 @@ namespace ShogiCheckersChess
             
             if (piece.Value == 900)
             {
+                if (piece.Moved == false)
+                {
+                    moved = piece;
+                }
                 //tadyto vadí při ai
                 piece.Moved = true;
                 //pokud se král posunul o dvě políčka, jedná se o rošádu
@@ -271,7 +280,7 @@ namespace ShogiCheckersChess
             return;
         }
 
-        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling)
+        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces MovedPiece)
         {
             if (isCastling)
             {
@@ -317,6 +326,11 @@ namespace ShogiCheckersChess
                     throw new Exception();
                 }
                 Board.board[local_taken_x, local_taken_y] = piece;
+            }
+
+            if (MovedPiece != null)
+            {
+                MovedPiece.Moved = false;
             }
 
         }

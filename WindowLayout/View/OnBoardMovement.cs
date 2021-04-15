@@ -103,13 +103,19 @@ namespace ShogiCheckersChess
                     if (RandomMoveGen.AddingPiece)
                     {
                         Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move]);
+
+                        string pieceName = PiecesNumbers.getName[Moves.start_x[move]];
+
+                        int AddingPiece = PiecesNumbers.getUpperNumber[pieceName];
+
+
                         var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
                         {
-                            Name = Convert.ToString(Moves.start_x[move]),
+                            Name = Convert.ToString(AddingPiece),
                             Size = new Size(50, 50),
                             Location = location[Moves.final_x[move], Moves.final_y[move]],
                             BackColor = Color.Transparent,
-                            Image = GamePieces.Images[Moves.start_x[move]],
+                            Image = GamePieces.Images[AddingPiece],
                             SizeMode = PictureBoxSizeMode.CenterImage,
                         };
 
@@ -194,7 +200,11 @@ namespace ShogiCheckersChess
 
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[final_x, final_y] != null)
             {
-                if ((isPlayer) && (Generating.WhitePlays))
+                if (!isPlayer)
+                {
+                    shogiAIPieces.Add(Board.board[final_x, final_y]);
+                }
+                else if ((isPlayer) && (Generating.WhitePlays))
                 {
                     ShowBottomShogiAddon();
                     ChooseShogiBoxBottom.Items.Add(Board.board[final_x, final_y].Name);
