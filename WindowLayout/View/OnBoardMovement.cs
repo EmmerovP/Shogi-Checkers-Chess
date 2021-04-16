@@ -95,73 +95,7 @@ namespace ShogiCheckersChess
                 //hraje AIčko
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
-                    isPlayer = false;
-                    int move = RandomMoveGen.FindPiece();
-
-                    //int move = MonteCarlo.MonteCarloMove();
-
-                    if (RandomMoveGen.isAddingPiece)
-                    {
-                        Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move]);
-
-
-                        var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
-                        {
-                            Name = Convert.ToString(Moves.start_x[move]),
-                            Size = new Size(50, 50),
-                            Location = location[Moves.final_x[move], Moves.final_y[move]],
-                            BackColor = Color.Transparent,
-                            Image = GamePieces.Images[Moves.start_x[move]],
-                            SizeMode = PictureBoxSizeMode.CenterImage,
-                        };
-
-                        this.Controls.Add(gamepiece);
-                        gamepiece.Click += MoveGamePiece;
-
-                        piecesPictures[Moves.final_x[move], Moves.final_y[move]] = gamepiece;
-
-                        gamepiece.BringToFront();
-
-                        shogiAIPieces.Remove(Board.board[Moves.final_x[move], Moves.final_y[move]]);
-
-                        Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;
-
-                        Generating.WhitePlays = !Generating.WhitePlays;
-                        return;
-
-                    }
-
-                    //int move = MonteCarlo.MonteCarloMove();
-
-                    if (move == -1)
-                    {
-                        label2.Text = "Vyhráli jste!";
-                        return;
-                    }
-
-                    PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                        piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
-
-                    while (CheckersTake)
-                    {
-                        Generating.WhitePlays = !Generating.WhitePlays;
-
-                        move = RandomMoveGen.FindPiece();
-
-                        //int move = MonteCarlo.MonteCarloMove();
-
-                        if (move == -1)
-                        {
-                            label2.Text = "Vyhráli jste!";
-                            return;
-                        }
-
-                        PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                            piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
-                    }
-
-                    isPlayer = true;
-
+                    SinglerplayerPlay();
                 }
             }
 
@@ -189,6 +123,76 @@ namespace ShogiCheckersChess
             }
         }
 
+        public void SinglerplayerPlay()
+        {
+            isPlayer = false;
+            int move = RandomMoveGen.FindPiece();
+
+            //int move = MonteCarlo.MonteCarloMove();
+
+            if (RandomMoveGen.isAddingPiece)
+            {
+                Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move]);
+
+
+                var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
+                {
+                    Name = Convert.ToString(Moves.start_x[move]),
+                    Size = new Size(50, 50),
+                    Location = location[Moves.final_x[move], Moves.final_y[move]],
+                    BackColor = Color.Transparent,
+                    Image = GamePieces.Images[Moves.start_x[move]],
+                    SizeMode = PictureBoxSizeMode.CenterImage,
+                };
+
+                this.Controls.Add(gamepiece);
+                gamepiece.Click += MoveGamePiece;
+
+                piecesPictures[Moves.final_x[move], Moves.final_y[move]] = gamepiece;
+
+                gamepiece.BringToFront();
+
+                shogiAIPieces.Remove(Board.board[Moves.final_x[move], Moves.final_y[move]]);
+
+                Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;
+
+                Generating.WhitePlays = !Generating.WhitePlays;
+                return;
+
+            }
+
+            //int move = MonteCarlo.MonteCarloMove();
+
+            if (move == -1)
+            {
+                label2.Text = "Vyhráli jste!";
+                return;
+            }
+
+            PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
+                piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
+
+            while (CheckersTake)
+            {
+                Generating.WhitePlays = !Generating.WhitePlays;
+
+                move = RandomMoveGen.FindPiece();
+
+                //int move = MonteCarlo.MonteCarloMove();
+
+                if (move == -1)
+                {
+                    label2.Text = "Vyhráli jste!";
+                    return;
+                }
+
+                PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
+                    piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
+            }
+
+            isPlayer = true;
+
+        }
 
 
         public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)

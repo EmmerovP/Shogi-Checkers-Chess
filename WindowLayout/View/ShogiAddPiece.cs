@@ -72,19 +72,7 @@ namespace ShogiCheckersChess
             if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
             {
 
-                isPlayer = false;
-                int move = RandomMoveGen.FindPiece();
-
-                if (move == -1)
-                {
-                    label2.Text = "Vyhráli jste!";
-                    return;
-                }
-
-                PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                    piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
-
-                isPlayer = true;
+                SinglerplayerPlay();
 
             }
 
@@ -143,27 +131,6 @@ namespace ShogiCheckersChess
             ChooseShogiBoxBottom.Items.Remove(ShogiPieceName);
 
             Generating.WhitePlays = !Generating.WhitePlays;
-
-
-            if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
-            {
-
-                isPlayer = false;
-                int move = RandomMoveGen.FindPiece();
-
-                if (move == -1)
-                {
-                    label2.Text = "Vyhráli jste!";
-                    return;
-                }
-
-                PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                    piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
-
-                isPlayer = true;
-
-            }
-
 
         }
 
