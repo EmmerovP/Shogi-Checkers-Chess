@@ -14,7 +14,8 @@ namespace ShogiCheckersChess
     public class RandomMoveGen
     {
 
-        public static bool AddingPiece;
+        public static bool isAddingPiece;
+        public static Pieces AddingPiece;
         public static List<int> HighestIndexes(int highest, List<int> list)
         {
             List<int> indexes = new List<int>();
@@ -44,7 +45,7 @@ namespace ShogiCheckersChess
         public static int FindPiece()
         {
             bool WhoPlays = Generating.WhitePlays;
-            AddingPiece = false;
+            isAddingPiece = false;
 
             Generating.CheckersTake = false;
             Moves.EmptyCoordinates();
@@ -119,7 +120,7 @@ namespace ShogiCheckersChess
                                 moves.final_x.Add(i);
                                 moves.final_y.Add(j);
 
-                                moves.start_x.Add(piece.GetNumber());
+                                moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
 
                                 MainGameWindow.shogiAIPieces.Add(piece);
                                 Board.board[i, j] = null;
@@ -144,7 +145,8 @@ namespace ShogiCheckersChess
 
             if (pos >= Moves.start_y.Count)
             {
-                AddingPiece = true;
+                isAddingPiece = true;
+
             }
 
             return pos;

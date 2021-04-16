@@ -150,6 +150,53 @@ namespace ShogiCheckersChess
             { "Povýšený shogi pěšák", 41 }
         };
 
+        /*
+        public static Dictionary<int, string> getUpperName = new Dictionary<string, int>()
+        {
+            { 0, "Bílý král"},
+            { 1, "Bílá královna" },
+            { 2, "Bílá věž" },
+            { 3, "Bílý kůň" },
+            { 4, "Bílý střelec" },
+            { 5, "Bílý pěšec" },
+            { 6, "Bílý kámen" },
+            { 7, "Spodní shogi král" },
+            { 8, "Spodní shogi věž" },
+            { 9, "Povýšená spodní shogi věž" },
+            { 10, "Spodní shogi střelec" },
+            { 11, "Povýšený spodní shogi střelec" },
+            { 12, "Spodní zlatý generál" },
+            { 13, "Spodní stříbrný generál" },
+            { 14, "Povýšený spodní stříbrný generál" },
+            { 15, "Spodní shogi kůň" },
+            { 16, "Povýšený spodní shogi kůň" },
+            { 17, "Spodní kopiník" },
+            { 18, "Povýšený spodní kopiník" },
+            { 19, "Spodní shogi pěšák" },
+            { 20, "Povýšený spodní shogi pěšák" },
+            { 21, "Černý král"},
+            { 22, "Černá královna" },
+            { 23, "Černá věž" },
+            { 24, "Černý kůň" },
+            { 25, "Černý střelec" },
+            { 26, "Černý pěšec" },
+            { 27, "Černý kámen" },
+            { 28, "Vrchní shogi král" },
+            { 29, "Vrchní shogi věž" },
+            { 30, "Povýšená vrchní shogi věž" },
+            { 31, "Vrchní shogi střelec" },
+            { 32, "Povýšený vrchní shogi střelec" },
+            { 33, "Vrchní zlatý generál" },
+            { 34, "Vrchní stříbrný generál" },
+            { 35, "Povýšený vrchní stříbrný generál" },
+            { 36, "Vrchní shogi kůň" },
+            { 37, "Povýšený vrchní shogi kůň" },
+            { 38, "Vrchní kopiník" },
+            { 39, "Povýšený vrchní kopiník" },
+            { 40, "Vrchní shogi pěšák" },
+            { 41, "Povýšený vrchní shogi pěšák" }
+        }; */
+
 
 
 

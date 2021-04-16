@@ -80,13 +80,14 @@
             // 
             // SelectCheckersButton
             // 
+            this.SelectCheckersButton.BackColor = System.Drawing.Color.LightGray;
             this.SelectCheckersButton.Location = new System.Drawing.Point(283, 191);
             this.SelectCheckersButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCheckersButton.Name = "SelectCheckersButton";
             this.SelectCheckersButton.Size = new System.Drawing.Size(79, 44);
             this.SelectCheckersButton.TabIndex = 1;
             this.SelectCheckersButton.Text = "Dáma";
-            this.SelectCheckersButton.UseVisualStyleBackColor = true;
+            this.SelectCheckersButton.UseVisualStyleBackColor = false;
             this.SelectCheckersButton.Click += new System.EventHandler(this.SelectCheckersButton_Click);
             // 
             // label1
@@ -250,6 +251,7 @@
             // ChooseShogiBoxBottom
             // 
             this.ChooseShogiBoxBottom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ChooseShogiBoxBottom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ChooseShogiBoxBottom.FormattingEnabled = true;
             this.ChooseShogiBoxBottom.Location = new System.Drawing.Point(566, 361);
             this.ChooseShogiBoxBottom.Name = "ChooseShogiBoxBottom";
@@ -323,7 +325,9 @@
             // 
             // ChooseShogiBoxUpper
             // 
+            this.ChooseShogiBoxUpper.BackColor = System.Drawing.Color.White;
             this.ChooseShogiBoxUpper.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ChooseShogiBoxUpper.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ChooseShogiBoxUpper.FormattingEnabled = true;
             this.ChooseShogiBoxUpper.Location = new System.Drawing.Point(566, 73);
             this.ChooseShogiBoxUpper.Name = "ChooseShogiBoxUpper";
@@ -500,6 +504,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(745, 596);
             this.Controls.Add(this.LoadGameButton);
             this.Controls.Add(this.CustomLabel);

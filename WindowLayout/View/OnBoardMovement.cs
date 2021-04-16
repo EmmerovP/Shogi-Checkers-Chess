@@ -100,22 +100,18 @@ namespace ShogiCheckersChess
 
                     //int move = MonteCarlo.MonteCarloMove();
 
-                    if (RandomMoveGen.AddingPiece)
+                    if (RandomMoveGen.isAddingPiece)
                     {
                         Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move]);
-
-                        string pieceName = PiecesNumbers.getName[Moves.start_x[move]];
-
-                        int AddingPiece = PiecesNumbers.getUpperNumber[pieceName];
 
 
                         var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
                         {
-                            Name = Convert.ToString(AddingPiece),
+                            Name = Convert.ToString(Moves.start_x[move]),
                             Size = new Size(50, 50),
                             Location = location[Moves.final_x[move], Moves.final_y[move]],
                             BackColor = Color.Transparent,
-                            Image = GamePieces.Images[AddingPiece],
+                            Image = GamePieces.Images[Moves.start_x[move]],
                             SizeMode = PictureBoxSizeMode.CenterImage,
                         };
 
