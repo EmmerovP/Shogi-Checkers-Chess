@@ -449,7 +449,7 @@ namespace ShogiCheckersChess
 
     class BottomPromotedPawn : BottomGoldGeneral
     {
-        public override string Name { get; protected set; } = "Shogi pěšec";
+        public override string Name { get; protected set; } = "Shogi pěšák";
         public override int Value { get; set; } = 20;
 
     }
@@ -478,7 +478,7 @@ namespace ShogiCheckersChess
 
     class UpperPromotedPawn : UpperGoldGeneral
     {
-        public override string Name { get; protected set; } = "Shogi pěšec";
+        public override string Name { get; protected set; } = "Shogi pěšák";
         public override int Value { get; set; } = 20;
 
     }

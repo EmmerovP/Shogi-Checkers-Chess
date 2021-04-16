@@ -98,6 +98,8 @@ namespace ShogiCheckersChess
 
             int normalMoves = moves.final_x.Count;
 
+            List<Pieces> removePieces = new List<Pieces>();
+
             if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
             {
                 List<Pieces> availablePieces = new List<Pieces>();
@@ -121,6 +123,7 @@ namespace ShogiCheckersChess
                                 moves.final_y.Add(j);
 
                                 moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
+                                removePieces.Add(piece);
 
                                 MainGameWindow.shogiAIPieces.Add(piece);
                                 Board.board[i, j] = null;
@@ -146,7 +149,7 @@ namespace ShogiCheckersChess
             if (pos >= Moves.start_y.Count)
             {
                 isAddingPiece = true;
-
+                MainGameWindow.shogiAIPieces.Remove(removePieces[pos - Moves.start_y.Count]);
             }
 
             return pos;
