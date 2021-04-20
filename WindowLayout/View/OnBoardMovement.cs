@@ -21,7 +21,7 @@ namespace ShogiCheckersChess
         {
 
             //zvýraznit tahy nejdřív a podívat se, zda jsou všechny napsané správně
-                PictureBox picture = (PictureBox)sender;
+            PictureBox picture = (PictureBox)sender;
 
             //dostaneme souřadnice, na které jsme klikli, asi nevím jak to udělat elegantněji než projít celou šachovnici
             int selected_x = GetX(picture);
@@ -172,23 +172,6 @@ namespace ShogiCheckersChess
             PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
                 piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
 
-            while (CheckersTake)
-            {
-                Generating.WhitePlays = !Generating.WhitePlays;
-
-                move = RandomMoveGen.FindPiece();
-
-                //int move = MonteCarlo.MonteCarloMove();
-
-                if (move == -1)
-                {
-                    label2.Text = "Vyhráli jste!";
-                    return;
-                }
-
-                PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                    piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
-            }
 
             isPlayer = true;
 
@@ -197,6 +180,9 @@ namespace ShogiCheckersChess
 
         public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
         {
+            bool musttakecheckers = false;
+
+            Pieces piece = Board.board[start_x, start_y];
 
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[final_x, final_y] != null)
             {
@@ -219,7 +205,8 @@ namespace ShogiCheckersChess
 
             MoveController.ApplyMove(start_x, start_y, final_x, final_y);
 
-            Generating.WhitePlays = !Generating.WhitePlays;
+
+
 
             piecesPictures[start_x, start_y] = null;
 
@@ -236,12 +223,22 @@ namespace ShogiCheckersChess
             if (MoveController.delete_x != -1)
             {
                 piecesPictures[MoveController.delete_x, MoveController.delete_y].Dispose();
+
+
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Gameclass.CurrentGame.MustTakeCheckersPiece() && piece.Name == "Kámen")
+                {
+
+                    musttakecheckers = true;
+
+                }
             }
 
             if (isPlayer)
             {
                 movingPicture.BackColor = Color.Transparent;
             }
+
+            Generating.WhitePlays = !Generating.WhitePlays;
 
             selected = false;
             movingPicture.Location = location[final_x, final_y]; ;
@@ -262,6 +259,15 @@ namespace ShogiCheckersChess
             //změna figurky
             if (ChangePiece(final_x, final_y, Board.board[final_x, final_y]))
                 movingPicture.Image = GamePieces.Images[Board.board[final_x, final_y].GetNumber()];
+
+            if (musttakecheckers)
+            {
+                Generating.WhitePlays = !Generating.WhitePlays;
+                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single && (!MainGameWindow.isPlayer))
+                {
+                    SinglerplayerPlay();
+                }
+            }
 
             return EndGame();
         }

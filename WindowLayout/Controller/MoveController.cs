@@ -68,7 +68,7 @@ namespace ShogiCheckersChess
 
         public static void UpperEnpassante(int start_x, int start_y, int final_x, int final_y)
         {
-                        if (Board.board[final_x, final_y] != null)
+            if (Board.board[final_x, final_y] != null)
             {
                 return;
             }
@@ -198,7 +198,7 @@ namespace ShogiCheckersChess
             }
 
 
-            
+
             if (piece.GetNumber() == 5)
             {
                 BottomEnpassante(start_x, start_y, final_x, final_y);
@@ -207,7 +207,7 @@ namespace ShogiCheckersChess
             {
                 UpperEnpassante(start_x, start_y, final_x, final_y);
             }
-            
+
 
 
             //dáma
@@ -259,8 +259,8 @@ namespace ShogiCheckersChess
             Board.board[start_x, start_y] = null;
 
 
-            
-            
+
+
             if (piece.Value == 900)
             {
                 if (piece.Moved == false)
@@ -273,10 +273,7 @@ namespace ShogiCheckersChess
                 IsCastling(start_x, start_y, final_x, final_y);
             }
 
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Gameclass.CurrentGame.MustTakeCheckersPiece())
-            {
-                Generating.WhitePlays = !Generating.WhitePlays;
-            }
+
 
             //hlídání konců her
             return;
