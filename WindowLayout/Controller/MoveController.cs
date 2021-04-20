@@ -241,10 +241,7 @@ namespace ShogiCheckersChess
                 taken_x = xpiece;
                 taken_y = ypiece;
 
-                if (Gameclass.CurrentGame.MustTakeCheckersPiece())
-                {
-                    //CheckersTake = true;
-                }
+
             }
 
             //v shogi se vyhazuje figurka, přidáváme jí do seznamu vyhozených figurek
@@ -274,6 +271,11 @@ namespace ShogiCheckersChess
                 piece.Moved = true;
                 //pokud se král posunul o dvě políčka, jedná se o rošádu
                 IsCastling(start_x, start_y, final_x, final_y);
+            }
+
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Gameclass.CurrentGame.MustTakeCheckersPiece())
+            {
+                Generating.WhitePlays = !Generating.WhitePlays;
             }
 
             //hlídání konců her

@@ -113,6 +113,16 @@ namespace ShogiCheckersChess
                         {
                             if (Board.board[i, j] == null)
                             {
+                                if (piece.GetNumber() == 19)
+                                {
+                                    //koukni jestli ve sloupečku již není pěšák, můžeš to udělat tou funkcí co už máš
+                                    if (PawnColumn(j))
+                                    {
+                                        break;
+                                    }
+
+                                }
+
                                 Board.board[i, j] = piece;
                                 Board.board[i, j].isWhite = false;
                                 MainGameWindow.shogiAIPieces.Remove(piece);
@@ -156,6 +166,20 @@ namespace ShogiCheckersChess
 
 
 
+        }
+
+        public static bool PawnColumn(int column)
+        {
+            for (int i = 0; i < Board.board.GetLength(1); i++)
+            {
+                if ((Board.board[i, column] != null) && (Board.board[i, column].GetNumber() == 19))
+                {
+
+                    return true;
+                }
+
+            }
+            return false;
         }
     }
 }
