@@ -65,11 +65,14 @@
             this.CustomLabel = new System.Windows.Forms.Label();
             this.LoadGameButton = new System.Windows.Forms.Button();
             this.LoadCustomGameDialog = new System.Windows.Forms.OpenFileDialog();
+            this.MinimaxButton = new System.Windows.Forms.Button();
+            this.MonteCarloButton = new System.Windows.Forms.Button();
+            this.ChooseAlgorithmLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SelectChessButton
             // 
-            this.SelectChessButton.Location = new System.Drawing.Point(169, 191);
+            this.SelectChessButton.Location = new System.Drawing.Point(193, 153);
             this.SelectChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectChessButton.Name = "SelectChessButton";
             this.SelectChessButton.Size = new System.Drawing.Size(76, 44);
@@ -80,19 +83,19 @@
             // 
             // SelectCheckersButton
             // 
-            this.SelectCheckersButton.BackColor = System.Drawing.Color.LightGray;
-            this.SelectCheckersButton.Location = new System.Drawing.Point(283, 191);
+            this.SelectCheckersButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.SelectCheckersButton.Location = new System.Drawing.Point(307, 153);
             this.SelectCheckersButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCheckersButton.Name = "SelectCheckersButton";
             this.SelectCheckersButton.Size = new System.Drawing.Size(79, 44);
             this.SelectCheckersButton.TabIndex = 1;
             this.SelectCheckersButton.Text = "Dáma";
-            this.SelectCheckersButton.UseVisualStyleBackColor = false;
+            this.SelectCheckersButton.UseVisualStyleBackColor = true;
             this.SelectCheckersButton.Click += new System.EventHandler(this.SelectCheckersButton_Click);
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(209, 82);
+            this.label1.Location = new System.Drawing.Point(233, 44);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(238, 78);
@@ -102,7 +105,7 @@
             // 
             // SelectShogiButton
             // 
-            this.SelectShogiButton.Location = new System.Drawing.Point(401, 191);
+            this.SelectShogiButton.Location = new System.Drawing.Point(425, 153);
             this.SelectShogiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectShogiButton.Name = "SelectShogiButton";
             this.SelectShogiButton.Size = new System.Drawing.Size(79, 44);
@@ -113,7 +116,7 @@
             // 
             // SelectCustomGameButton
             // 
-            this.SelectCustomGameButton.Location = new System.Drawing.Point(225, 255);
+            this.SelectCustomGameButton.Location = new System.Drawing.Point(249, 276);
             this.SelectCustomGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCustomGameButton.Name = "SelectCustomGameButton";
             this.SelectCustomGameButton.Size = new System.Drawing.Size(79, 49);
@@ -124,7 +127,7 @@
             // 
             // AboutGameButton
             // 
-            this.AboutGameButton.Location = new System.Drawing.Point(282, 385);
+            this.AboutGameButton.Location = new System.Drawing.Point(306, 406);
             this.AboutGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.AboutGameButton.Name = "AboutGameButton";
             this.AboutGameButton.Size = new System.Drawing.Size(79, 43);
@@ -135,7 +138,7 @@
             // 
             // AboutAuthorButton
             // 
-            this.AboutAuthorButton.Location = new System.Drawing.Point(283, 450);
+            this.AboutAuthorButton.Location = new System.Drawing.Point(307, 471);
             this.AboutAuthorButton.Margin = new System.Windows.Forms.Padding(2);
             this.AboutAuthorButton.Name = "AboutAuthorButton";
             this.AboutAuthorButton.Size = new System.Drawing.Size(79, 43);
@@ -146,7 +149,7 @@
             // 
             // CreditsButton
             // 
-            this.CreditsButton.Location = new System.Drawing.Point(283, 514);
+            this.CreditsButton.Location = new System.Drawing.Point(307, 535);
             this.CreditsButton.Margin = new System.Windows.Forms.Padding(2);
             this.CreditsButton.Name = "CreditsButton";
             this.CreditsButton.Size = new System.Drawing.Size(79, 43);
@@ -157,7 +160,7 @@
             // 
             // SelectSingleplayerButton
             // 
-            this.SelectSingleplayerButton.Location = new System.Drawing.Point(225, 319);
+            this.SelectSingleplayerButton.Location = new System.Drawing.Point(249, 340);
             this.SelectSingleplayerButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectSingleplayerButton.Name = "SelectSingleplayerButton";
             this.SelectSingleplayerButton.Size = new System.Drawing.Size(76, 46);
@@ -169,7 +172,7 @@
             // 
             // SelectLocMultiButton
             // 
-            this.SelectLocMultiButton.Location = new System.Drawing.Point(340, 319);
+            this.SelectLocMultiButton.Location = new System.Drawing.Point(364, 340);
             this.SelectLocMultiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectLocMultiButton.Name = "SelectLocMultiButton";
             this.SelectLocMultiButton.Size = new System.Drawing.Size(80, 46);
@@ -405,7 +408,7 @@
             // CustomGameTypeLabel
             // 
             this.CustomGameTypeLabel.AutoSize = true;
-            this.CustomGameTypeLabel.Location = new System.Drawing.Point(282, 160);
+            this.CustomGameTypeLabel.Location = new System.Drawing.Point(306, 122);
             this.CustomGameTypeLabel.Name = "CustomGameTypeLabel";
             this.CustomGameTypeLabel.Size = new System.Drawing.Size(80, 13);
             this.CustomGameTypeLabel.TabIndex = 28;
@@ -486,7 +489,7 @@
             // 
             // LoadGameButton
             // 
-            this.LoadGameButton.Location = new System.Drawing.Point(331, 255);
+            this.LoadGameButton.Location = new System.Drawing.Point(355, 276);
             this.LoadGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.LoadGameButton.Name = "LoadGameButton";
             this.LoadGameButton.Size = new System.Drawing.Size(79, 49);
@@ -500,12 +503,49 @@
             this.LoadCustomGameDialog.FileName = "openFileDialog1";
             this.LoadCustomGameDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
+            // MinimaxButton
+            // 
+            this.MinimaxButton.Location = new System.Drawing.Point(252, 217);
+            this.MinimaxButton.Margin = new System.Windows.Forms.Padding(2);
+            this.MinimaxButton.Name = "MinimaxButton";
+            this.MinimaxButton.Size = new System.Drawing.Size(76, 44);
+            this.MinimaxButton.TabIndex = 37;
+            this.MinimaxButton.Text = "Minimax";
+            this.MinimaxButton.UseVisualStyleBackColor = true;
+            this.MinimaxButton.Visible = false;
+            this.MinimaxButton.Click += new System.EventHandler(this.MinimaxButton_Click);
+            // 
+            // MonteCarloButton
+            // 
+            this.MonteCarloButton.Location = new System.Drawing.Point(358, 217);
+            this.MonteCarloButton.Margin = new System.Windows.Forms.Padding(2);
+            this.MonteCarloButton.Name = "MonteCarloButton";
+            this.MonteCarloButton.Size = new System.Drawing.Size(76, 44);
+            this.MonteCarloButton.TabIndex = 38;
+            this.MonteCarloButton.Text = "MonteCarlo";
+            this.MonteCarloButton.UseVisualStyleBackColor = true;
+            this.MonteCarloButton.Visible = false;
+            this.MonteCarloButton.Click += new System.EventHandler(this.MonteCarloButton_Click);
+            // 
+            // ChooseAlgorithmLabel
+            // 
+            this.ChooseAlgorithmLabel.AutoSize = true;
+            this.ChooseAlgorithmLabel.Location = new System.Drawing.Point(306, 176);
+            this.ChooseAlgorithmLabel.Name = "ChooseAlgorithmLabel";
+            this.ChooseAlgorithmLabel.Size = new System.Drawing.Size(96, 13);
+            this.ChooseAlgorithmLabel.TabIndex = 39;
+            this.ChooseAlgorithmLabel.Text = "Vyberte algoritmus.";
+            this.ChooseAlgorithmLabel.Visible = false;
+            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(745, 596);
+            this.Controls.Add(this.ChooseAlgorithmLabel);
+            this.Controls.Add(this.MonteCarloButton);
+            this.Controls.Add(this.MinimaxButton);
             this.Controls.Add(this.LoadGameButton);
             this.Controls.Add(this.CustomLabel);
             this.Controls.Add(this.CustomGameChooseErrorLabel);
@@ -584,6 +624,9 @@
         private System.Windows.Forms.Label CustomLabel;
         private System.Windows.Forms.Button LoadGameButton;
         private System.Windows.Forms.OpenFileDialog LoadCustomGameDialog;
+        private System.Windows.Forms.Button MinimaxButton;
+        private System.Windows.Forms.Button MonteCarloButton;
+        private System.Windows.Forms.Label ChooseAlgorithmLabel;
     }
 }
 

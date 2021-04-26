@@ -15,6 +15,7 @@ namespace ShogiCheckersChess
         {
             public static GameType gameType;
             public static PlayerType playerType;
+            public static AlgorithmType algorithmType;
 
             public static bool GameEnded;
 
@@ -288,6 +289,12 @@ namespace ShogiCheckersChess
             single,
             localmulti,
             webmulti
+        }
+
+        public enum AlgorithmType
+        {
+            minimax,
+            montecarlo
         }
     }
 }

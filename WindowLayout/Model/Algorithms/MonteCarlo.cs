@@ -48,12 +48,10 @@ namespace ShogiCheckersChess
 
             return 0;
 
-
-
         }
 
 
-        const float MAXTIME = 3000.0F;
+        const float MAXTIME = 7000.0F;
         public static Node MonteCarloRoot(Node Root)
         {
             Stopwatch time = new Stopwatch();
@@ -65,7 +63,6 @@ namespace ShogiCheckersChess
                 Node leaf = Expansion(highest_UCB);
                 int reward = Rollout(leaf, 0);
                 Backpropagation(leaf, reward);
-
             }
 
             return BestChild(Root);

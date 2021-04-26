@@ -80,7 +80,8 @@ namespace ShogiCheckersChess
             GenerateMoves(piece, delete, x, y);
 
             //zamezíme tahům, které by nebyly validní, tzn. těm, co ohrozí vlastního krále
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (MainGameWindow.isPlayer))
+            //if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (MainGameWindow.isPlayer))
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
             {
                 WhitePlays = !WhitePlays;
 
@@ -92,9 +93,6 @@ namespace ShogiCheckersChess
                     Pieces takenpiece = Board.board[Moves.final_x[i], Moves.final_y[i]];
                     Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];
                     Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
-
-
-
 
                     //kontrola šachu - do seznamu remove dá ty tahy, jež mají šach
                     if (Gameclass.CurrentGame.KingCheck())

@@ -136,10 +136,22 @@ namespace ShogiCheckersChess
             SelectLocMultiButton.Visible = false;
         }
 
-        private void SelectSingleplayerButton_Click(object sender, EventArgs e)
+        public void ShowChooseAlgorithmButtons()
         {
-            Gameclass.CurrentGame.playerType = Gameclass.PlayerType.single;
-            HidePlayerTypeButtons();
+            ChooseAlgorithmLabel.Visible = true;
+            MinimaxButton.Visible = true;
+            MonteCarloButton.Visible = true;
+        }
+
+        public void HideChooseAlgorithmButtons()
+        {
+            ChooseAlgorithmLabel.Visible = false;
+            MinimaxButton.Visible = false;
+            MonteCarloButton.Visible = false;
+        }
+
+        public void CreateChessboard()
+        {
             if (isCustom)
             {
                 DrawCustomChessboard();
@@ -148,7 +160,27 @@ namespace ShogiCheckersChess
             {
                 DrawChessboard();
             }
+        }
 
+        private void SelectSingleplayerButton_Click(object sender, EventArgs e)
+        {
+            Gameclass.CurrentGame.playerType = Gameclass.PlayerType.single;
+            HidePlayerTypeButtons();
+            ShowChooseAlgorithmButtons(); 
+        }
+
+        private void MinimaxButton_Click(object sender, EventArgs e)
+        {
+            Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.minimax;
+            HideChooseAlgorithmButtons();
+            CreateChessboard();
+        }
+
+        private void MonteCarloButton_Click(object sender, EventArgs e)
+        {
+            Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.montecarlo;
+            HideChooseAlgorithmButtons();
+            CreateChessboard();
         }
 
         private void SelectLocMultiButton_Click(object sender, EventArgs e)
@@ -338,6 +370,6 @@ namespace ShogiCheckersChess
 
         }
 
-       
+
     }
 }

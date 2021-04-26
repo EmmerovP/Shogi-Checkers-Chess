@@ -126,9 +126,17 @@ namespace ShogiCheckersChess
         public void SinglerplayerPlay()
         {
             isPlayer = false;
-            int move = RandomMoveGen.FindPiece();
+            int move;
 
-            //int move = MonteCarlo.MonteCarloMove();
+            if (Gameclass.CurrentGame.algorithmType == Gameclass.AlgorithmType.minimax)
+            {
+                move = RandomMoveGen.FindPiece();
+            }
+            else
+            {
+                move = MonteCarlo.MonteCarloMove();
+            }
+         
 
             if (RandomMoveGen.isAddingPiece)
             {
@@ -161,7 +169,7 @@ namespace ShogiCheckersChess
 
             }
 
-            //int move = MonteCarlo.MonteCarloMove();
+
 
             if (move == -1)
             {
