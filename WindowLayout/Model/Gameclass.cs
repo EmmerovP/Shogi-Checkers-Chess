@@ -21,24 +21,24 @@ namespace ShogiCheckersChess
 
 
             //pro dámu, zda musí vzít určitou figurku
-            public static bool MustTakeCheckersPiece()
+            public static bool MustTakeCheckersPiece(Pieces[,] Board)
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
-                for (int i = 0; i < Board.board.GetLength(0); i++)
+                for (int i = 0; i < Board.GetLength(0); i++)
                 {
-                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    for (int j = 0; j < Board.GetLength(1); j++)
                     {
                         //pokud je to speciální žeton v dámě
-                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite) && Board.board[i,j].Value == 10)
+                        if ((Board[i, j] != null) && (Generating.WhitePlays == Board[i, j].isWhite) && Board[i,j].Value == 10)
                         {
-                            if (Generating.WhitePlays && Moves.WhiteCheckersTake(i, j, Board.board))
+                            if (Generating.WhitePlays && Moves.WhiteCheckersTake(i, j, Board))
                             {
                                 Moves.EmptyCoordinates();
                                 Moves.CoordinatesReturn(cp);
                                 return true;
                             }
-                            else if (!Generating.WhitePlays && Moves.BlackCheckersTake(i,j, Board.board))
+                            else if (!Generating.WhitePlays && Moves.BlackCheckersTake(i,j, Board))
                             {
                                 Moves.EmptyCoordinates();
                                 Moves.CoordinatesReturn(cp);
@@ -48,12 +48,12 @@ namespace ShogiCheckersChess
 
                         }
                         //pokud je to královna či jiná figurka co bere normálně
-                        else if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
+                        else if ((Board[i, j] != null) && (Generating.WhitePlays == Board[i, j].isWhite))
                         {
-                            Board.board[i, j].GenerateMoves(i, j, Board.board);
+                            Board[i, j].GenerateMoves(i, j, Board);
                             for (int k = 0; k < Moves.start_x.Count; k++)
                             {
-                                if (Board.board[Moves.final_x[k], Moves.final_y[k]] != null && Board.board[Moves.final_x[k], Moves.final_y[k]].isWhite != Board.board[i,j].isWhite)
+                                if (Board[Moves.final_x[k], Moves.final_y[k]] != null && Board[Moves.final_x[k], Moves.final_y[k]].isWhite != Board[i,j].isWhite)
                                 {
                                     Moves.EmptyCoordinates();
                                     Moves.CoordinatesReturn(cp);
@@ -72,15 +72,15 @@ namespace ShogiCheckersChess
            
 
             //zda v dámě má hráč figurky či už se nemůže hýbat
-            public static bool CheckersEnd()
+            public static bool CheckersEnd(Pieces[,] Board)
             {
-                for (int i = 0; i < Board.board.GetLength(0); i++)
+                for (int i = 0; i < Board.GetLength(0); i++)
                 {   
-                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    for (int j = 0; j < Board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board[i, j] != null) && (Generating.WhitePlays == Board[i, j].isWhite))
                         {
-                            Generating.Generate(Board.board[i, j], true, i, j, true);
+                            Generating.Generate(Board[i, j], true, i, j, true, Board);
                             if (Moves.final_x.Count != 0)
                             {
                                 return false;
@@ -92,62 +92,18 @@ namespace ShogiCheckersChess
                 return true;
             }
 
-            /*
-            //na konci tahu řekne zda šach či ne
-            public static bool KingCheck()
-            {
-                Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
-
-                bool[,] board = new bool[Board.board.GetLength(0), Board.board.GetLength(1)];
-
-                for (int i = 0; i < Board.board.GetLength(0); i++)
-                {
-                    for (int j = 0; j < Board.board.GetLength(1); j++)
-                    {
-                        if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
-                        {
-                            Generating.GenerateMoves(Board.board[i, j], false, i, j);
-                        }
-                    }
-                }
-
-                for (int i = 0; i < Moves.final_x.Count; i++)
-                {
-                    Pieces piece = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                    if ((piece != null) && ((piece.GetNumber() == 0) || (piece.GetNumber() == 21)) && (Generating.WhitePlays != piece.isWhite))
-                    {
-                        Moves.EmptyCoordinates();
-                        Moves.CoordinatesReturn(cp);
-                        return true;
-                    }
-                }
-
-                Moves.EmptyCoordinates();
-                Moves.CoordinatesReturn(cp);
-
-                return false;
-            }
-
-            */
-
-
-
-            
-
-
-
             //na konci tahu řekne zda šach či ne - z pohledu hrající strany na ddruhou stranu
-            public static bool KingCheck()
+            public static bool KingCheck(Pieces[,] Board)
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
                 int x = 0, y = 0;
                 //najdi krále dané strany
-                for (int i = 0; i < Board.board.GetLength(0); i++)
+                for (int i = 0; i < Board.GetLength(0); i++)
                 {
-                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    for (int j = 0; j < Board.GetLength(1); j++)
                     {
-                        Pieces piece = Board.board[i, j];
+                        Pieces piece = Board[i, j];
                         if ((piece != null) && ((piece.GetNumber() == 0) || (piece.GetNumber() == 21)) && (Generating.WhitePlays != piece.isWhite))
                         {
                             x = i;
@@ -160,23 +116,23 @@ namespace ShogiCheckersChess
                 //Koukneme se na krále jako na všechny tahy - zatím jako dáma a kůň
                 Generating.WhitePlays = !Generating.WhitePlays;
 
-                Moves.BackInfinity(x, y, Board.board);
-                Moves.BackLeftInfinity(x, y, Board.board);
-                Moves.BackRightInfinity(x, y, Board.board);
-                Moves.ForwardInfinity(x, y, Board.board);
-                Moves.ForwardLeftInfinity(x, y, Board.board);
-                Moves.ForwardRightInfinity(x, y, Board.board);
-                Moves.LeftInfinity(x, y, Board.board);
-                Moves.RightInfinity(x, y, Board.board);
-                Moves.Horse(x, y, Board.board);
-                Moves.HorseBackward(x, y, Board.board);
-                Moves.HorseForward(x, y, Board.board);
+                Moves.BackInfinity(x, y, Board);
+                Moves.BackLeftInfinity(x, y, Board);
+                Moves.BackRightInfinity(x, y, Board);
+                Moves.ForwardInfinity(x, y, Board);
+                Moves.ForwardLeftInfinity(x, y, Board);
+                Moves.ForwardRightInfinity(x, y, Board);
+                Moves.LeftInfinity(x, y, Board);
+                Moves.RightInfinity(x, y, Board);
+                Moves.Horse(x, y, Board);
+                Moves.HorseBackward(x, y, Board);
+                Moves.HorseForward(x, y, Board);
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 
                 for (int i = 0; i < Moves.final_x.Count; i++)
                 {
-                    Pieces piece = Board.board[Moves.final_x[i], Moves.final_y[i]];
+                    Pieces piece = Board[Moves.final_x[i], Moves.final_y[i]];
                     if ((piece != null) && (Generating.WhitePlays == piece.isWhite))
                     {
 
@@ -185,12 +141,12 @@ namespace ShogiCheckersChess
 
                         Moves.CoordinatesCopy copy = Moves.MakeCopyEmpty();
 
-                        Board.board[x_coor, y_coor].GenerateMoves(x_coor, y_coor, Board.board);
+                        Board[x_coor, y_coor].GenerateMoves(x_coor, y_coor, Board);
 
 
                         for (int j = 0; j < Moves.final_x.Count; j++)
                         {
-                            Pieces isKing = Board.board[Moves.final_x[j], Moves.final_y[j]];
+                            Pieces isKing = Board[Moves.final_x[j], Moves.final_y[j]];
                             if ((isKing != null) && ((isKing.GetNumber() == 0) || (isKing.GetNumber() == 21)) && (Generating.WhitePlays != isKing.isWhite))
                             {
                                 Moves.EmptyCoordinates();
@@ -215,20 +171,20 @@ namespace ShogiCheckersChess
             //provádí se jen v případě, že je šach
             //zkusím využít té featury programu, že se vygenerují pouze tahy, které jsou možné udělat
             //takže pokud se nám nepodaří vygenerovat žádný tah pro žádnou figurku, je to šach mat
-            public static bool CheckMate()
+            public static bool CheckMate(Pieces[,] Board)
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 
                 //teď musíme pohnout každou (naší) figurkou... a zjišťovat zda se změní šach mat...   
-                for (int i = 0; i < Board.board.GetLength(0); i++)
+                for (int i = 0; i < Board.GetLength(0); i++)
                 {
-                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    for (int j = 0; j < Board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
+                        if ((Board[i, j] != null) && (Generating.WhitePlays == Board[i, j].isWhite))
                         {
-                            Generating.Generate(Board.board[i, j], true, i, j, true);
+                            Generating.Generate(Board[i, j], true, i, j, true, Board);
 
                             if (Moves.final_x.Count != 0)
                             {
@@ -246,19 +202,19 @@ namespace ShogiCheckersChess
             }
 
             //zda je král vůbec na šachovnici - pro shogi
-            public static bool KingOut()
+            public static bool KingOut(Pieces[,] Board)
             {
                 bool OneKing = false;
                 bool SecondKing = false;
-                for (int i = 0; i < Board.board.GetLength(0); i++)
+                for (int i = 0; i < Board.GetLength(0); i++)
                 {
-                    for (int j = 0; j < Board.board.GetLength(1); j++)
+                    for (int j = 0; j < Board.GetLength(1); j++)
                     {
-                        if ((Board.board[i, j] != null) && (Board.board[i, j].GetNumber() == 7))
+                        if ((Board[i, j] != null) && (Board[i, j].GetNumber() == 7))
                         {
                             OneKing = true;
                         }
-                        if ((Board.board[i, j] != null) && (Board.board[i, j].GetNumber() == 28))
+                        if ((Board[i, j] != null) && (Board[i, j].GetNumber() == 28))
                         {
                             SecondKing = true;
                         }

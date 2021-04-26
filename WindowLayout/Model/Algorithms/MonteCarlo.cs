@@ -132,7 +132,7 @@ namespace ShogiCheckersChess
                 {
                     if (node.board[i, j] != null && node.board[i, j].isWhite == node.WhitePlays)
                     {
-                        node.board[i, j].GenerateMoves(i, j, node.board);
+                        Generating.Generate(node.board[i, j], false, i, j, true, node.board);
                     }
                 }
             }

@@ -905,6 +905,11 @@ namespace ShogiCheckersChess
                 return;
             }
 
+            if (!(chessboard.GetLength(0) == 8 && chessboard.GetLength(1) == 8))
+            {
+                return;
+            }
+
             //pro spodní velkou rošádu
             if (x == 7 && y == 4
                     && chessboard[7, 0] != null

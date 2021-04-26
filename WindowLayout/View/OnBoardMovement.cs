@@ -116,7 +116,7 @@ namespace ShogiCheckersChess
                 selected = true;
                 if (background == Color.DarkBlue)
                 {
-                    Generating.Generate(GetPiece(picture), true, GetX(picture), GetY(picture), true);
+                    Generating.Generate(GetPiece(picture), true, GetX(picture), GetY(picture), true, Board.board);
 
                     Highlight();
                 }
@@ -233,7 +233,7 @@ namespace ShogiCheckersChess
                 piecesPictures[MoveController.delete_x, MoveController.delete_y].Dispose();
 
 
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Gameclass.CurrentGame.MustTakeCheckersPiece() && piece.Name == "Kámen")
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Gameclass.CurrentGame.MustTakeCheckersPiece(Board.board) && piece.Name == "Kámen")
                 {
 
                     musttakecheckers = true;
@@ -289,7 +289,7 @@ namespace ShogiCheckersChess
             //konec hry dáma
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
             {
-                if (Gameclass.CurrentGame.CheckersEnd())
+                if (Gameclass.CurrentGame.CheckersEnd(Board.board))
                 {
                     label2.Text = "Konec hry.";
                     label2.Visible = true;
@@ -301,7 +301,7 @@ namespace ShogiCheckersChess
             //konec hry shogi
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
             {
-                if (Gameclass.CurrentGame.KingOut())
+                if (Gameclass.CurrentGame.KingOut(Board.board))
                 {
                     label2.Text = "Konec hry.";
                     label2.Visible = true;
@@ -312,11 +312,11 @@ namespace ShogiCheckersChess
 
             //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
             Generating.WhitePlays = !Generating.WhitePlays;
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck()))
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck(Board.board)))
             {
                 label2.Text = "Šach!";
                 label2.Visible = true;
-                if (Gameclass.CurrentGame.CheckMate())
+                if (Gameclass.CurrentGame.CheckMate(Board.board))
                 {
                     label2.Text = "Šach mat! Konec!";
                     Gameclass.CurrentGame.GameEnded = true;
@@ -333,7 +333,7 @@ namespace ShogiCheckersChess
                 {
                     if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
                     {
-                        Generating.Generate(Board.board[i, j], false, i, j, true);
+                        Generating.Generate(Board.board[i, j], false, i, j, true, Board.board);
                     }
                 }
             }

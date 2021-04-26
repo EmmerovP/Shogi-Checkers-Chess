@@ -20,23 +20,23 @@ namespace ShogiCheckersChess
 
         //vnitřní funkce, která jen vygeneruje tahy 
 
-        public static void GenerateMoves(Pieces piece, bool delete, int x, int y)
+        public static void GenerateMoves(Pieces piece, bool delete, int x, int y, Pieces[,] Board)
         {
             CheckersTake = false;
 
             //musíme-li vzít figurku v dámě, nemůžeme povolit žádný jiný tah
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeCheckersPiece()))
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeCheckersPiece(Board)))
             {
                 if (piece.Value == 10)
                 {
                     CheckersTake = true;
                     if (WhitePlays)
                     {
-                        Moves.WhiteCheckersTake(x, y, Board.board);
+                        Moves.WhiteCheckersTake(x, y, Board);
                     }
                     else
                     {
-                        Moves.BlackCheckersTake(x, y, Board.board);
+                        Moves.BlackCheckersTake(x, y, Board);
                     }
 
 
@@ -44,12 +44,12 @@ namespace ShogiCheckersChess
                 }
                 else
                 {
-                    piece.GenerateMoves(x, y, Board.board);
+                    piece.GenerateMoves(x, y, Board);
                     var copied_coordinates = Moves.MakeCopyEmpty();
                     for (int i = 0; i < copied_coordinates.final_x.Count; i++)
                     {
-                        if (Board.board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]] != null &&
-                            Board.board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]].isWhite != piece.isWhite)
+                        if (Board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]] != null &&
+                            Board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]].isWhite != piece.isWhite)
                         {
                             Moves.final_x.Add(copied_coordinates.final_x[i]);
                             Moves.final_y.Add(copied_coordinates.final_y[i]);
@@ -63,13 +63,13 @@ namespace ShogiCheckersChess
             }
             else
             {
-                piece.GenerateMoves(x, y, Board.board);
+                piece.GenerateMoves(x, y, Board);
             }
 
         }
 
         //main generating function
-        public static void Generate(Pieces piece, bool delete, int x, int y, bool checkValidMoves)
+        public static void Generate(Pieces piece, bool delete, int x, int y, bool checkValidMoves, Pieces[,] Board)
         {
             //nejprve si smaže seznam tahů
             if (delete)
@@ -77,7 +77,7 @@ namespace ShogiCheckersChess
 
             int moves_start = Moves.final_x.Count;
 
-            GenerateMoves(piece, delete, x, y);
+            GenerateMoves(piece, delete, x, y, Board);
 
             //zamezíme tahům, které by nebyly validní, tzn. těm, co ohrozí vlastního krále
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess && checkValidMoves)
@@ -90,19 +90,19 @@ namespace ShogiCheckersChess
                 //pro Aičko by se to tady asi ani nemuselo brát od nuly...
                 for (int i = moves_start; i < Moves.final_x.Count; i++)
                 {
-                    Pieces takenpiece = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                    Board.board[Moves.final_x[i], Moves.final_y[i]] = Board.board[Moves.start_x[i], Moves.start_y[i]];
-                    Board.board[Moves.start_x[i], Moves.start_y[i]] = null;
+                    Pieces takenpiece = Board[Moves.final_x[i], Moves.final_y[i]];
+                    Board[Moves.final_x[i], Moves.final_y[i]] = Board[Moves.start_x[i], Moves.start_y[i]];
+                    Board[Moves.start_x[i], Moves.start_y[i]] = null;
 
                     //kontrola šachu - do seznamu remove dá ty tahy, jež mají šach
-                    if (Gameclass.CurrentGame.KingCheck())
+                    if (Gameclass.CurrentGame.KingCheck(Board))
                     {
                         remove.Add(i);
                     }
 
 
-                    Board.board[Moves.start_x[i], Moves.start_y[i]] = Board.board[Moves.final_x[i], Moves.final_y[i]];
-                    Board.board[Moves.final_x[i], Moves.final_y[i]] = takenpiece;
+                    Board[Moves.start_x[i], Moves.start_y[i]] = Board[Moves.final_x[i], Moves.final_y[i]];
+                    Board[Moves.final_x[i], Moves.final_y[i]] = takenpiece;
                 }
 
                 //removneme jak špatné tahy, tak jejich value pro aiščko
