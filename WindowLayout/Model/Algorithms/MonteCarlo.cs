@@ -75,7 +75,7 @@ namespace ShogiCheckersChess
                 return node;
             }
 
-            double max_ucb = Int32.MinValue;
+            double max_ucb = Double.MinValue;
 
             Node selected_child = null;
 
@@ -96,7 +96,7 @@ namespace ShogiCheckersChess
 
         public static Node Selection(Node node)
         {
-            double max_ucb = Int32.MinValue;
+            double max_ucb = Double.MinValue;
 
             Node selected_child = null;
 
@@ -126,13 +126,22 @@ namespace ShogiCheckersChess
 
         public static void Create_children(Node node)
         {
+            Generating.WhitePlays = node.WhitePlays;
+
+            bool checkValidMoves = false;
+
+            if (node.parent == null)
+            {
+                checkValidMoves = true;
+            }
+
             for (int i = 0; i < node.board.GetLength(0); i++)
             {
                 for (int j = 0; j < node.board.GetLength(1); j++)
                 {
                     if (node.board[i, j] != null && node.board[i, j].isWhite == node.WhitePlays)
                     {
-                        Generating.Generate(node.board[i, j], false, i, j, true, node.board);
+                        Generating.Generate(node.board[i, j], false, i, j, checkValidMoves, node.board);
                     }
                 }
             }
@@ -176,6 +185,16 @@ namespace ShogiCheckersChess
             {
                 Create_children(node);
             }
+
+            if (IsMissing(0, node.board))
+            {
+                return 1;
+            }
+
+            if (IsMissing(21, node.board))
+            {
+                return -1;
+            }
            
 
             if (node.children.Count == 0)
@@ -194,6 +213,21 @@ namespace ShogiCheckersChess
             int i = random.Next(node.children.Count);
             steps++;
             return Rollout(node.children[i], steps);
+        }
+
+        public static bool IsMissing(int pieceNumber, Pieces[,] board)
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    if (board[i, j]!=null && board[i,j].GetNumber() == pieceNumber)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public static Node Backpropagation(Node node, int reward)

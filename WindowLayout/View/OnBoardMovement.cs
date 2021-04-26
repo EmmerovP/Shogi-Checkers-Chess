@@ -128,6 +128,8 @@ namespace ShogiCheckersChess
             isPlayer = false;
             int move;
 
+            bool whoPlays = Generating.WhitePlays;
+
             if (Gameclass.CurrentGame.algorithmType == Gameclass.AlgorithmType.minimax)
             {
                 move = RandomMoveGen.FindPiece();
@@ -136,6 +138,8 @@ namespace ShogiCheckersChess
             {
                 move = MonteCarlo.MonteCarloMove();
             }
+
+            Generating.WhitePlays = whoPlays;
          
 
             if (RandomMoveGen.isAddingPiece)

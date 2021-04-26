@@ -33,14 +33,14 @@ namespace ShogiCheckersChess
 
                 string file = LoadCustomGameDialog.FileName;
 
-                try
-                {
+                //try
+                //{
                     customGame = JsonConvert.DeserializeObject<CustomGame>(File.ReadAllText(file));
-                }
-                catch(Exception)
-                {
-                    return;
-                }
+                //}
+                //catch(Exception)
+                //{
+                //   throw new Exception();
+                //}
 
                 Pieces.DefinedPieces = new List<DefinedPiece>();
 

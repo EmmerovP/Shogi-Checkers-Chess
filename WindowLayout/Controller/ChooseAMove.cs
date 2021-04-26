@@ -92,6 +92,8 @@ namespace ShogiCheckersChess
                 choice.Add(Minimax.OneStepMax(3, Int32.MinValue, Int32.MaxValue, false));
 
 
+
+
                 MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, movedPiece);
 
             }
