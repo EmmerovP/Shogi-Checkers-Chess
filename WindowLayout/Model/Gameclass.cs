@@ -80,7 +80,7 @@ namespace ShogiCheckersChess
                     {
                         if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
-                            Generating.Generate(Board.board[i, j], true, i, j);
+                            Generating.Generate(Board.board[i, j], true, i, j, true);
                             if (Moves.final_x.Count != 0)
                             {
                                 return false;
@@ -228,7 +228,7 @@ namespace ShogiCheckersChess
                     {
                         if ((Board.board[i, j] != null) && (Generating.WhitePlays == Board.board[i, j].isWhite))
                         {
-                            Generating.Generate(Board.board[i, j], true, i, j);
+                            Generating.Generate(Board.board[i, j], true, i, j, true);
 
                             if (Moves.final_x.Count != 0)
                             {

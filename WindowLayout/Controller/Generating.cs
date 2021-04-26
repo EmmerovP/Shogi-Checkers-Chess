@@ -69,7 +69,7 @@ namespace ShogiCheckersChess
         }
 
         //main generating function
-        public static void Generate(Pieces piece, bool delete, int x, int y)
+        public static void Generate(Pieces piece, bool delete, int x, int y, bool checkValidMoves)
         {
             //nejprve si smaže seznam tahů
             if (delete)
@@ -80,8 +80,8 @@ namespace ShogiCheckersChess
             GenerateMoves(piece, delete, x, y);
 
             //zamezíme tahům, které by nebyly validní, tzn. těm, co ohrozí vlastního krále
-            //if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (MainGameWindow.isPlayer))
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess && checkValidMoves)
+            //if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
             {
                 WhitePlays = !WhitePlays;
 
