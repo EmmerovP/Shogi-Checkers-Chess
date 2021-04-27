@@ -15,8 +15,8 @@ namespace ShogiCheckersChess
         {
             public Pieces[,] board;
             public Node parent;
-            public int visited;
-            public int score;
+            public int numberOfSimulations;
+            public int wins;
             public List<Node> children;
             public bool WhitePlays; //zda tah generovaný po tomto uzlu je bílý
 
@@ -34,8 +34,8 @@ namespace ShogiCheckersChess
                 children = new List<Node>(),
                 WhitePlays = false,
                 board = Board.board.Clone() as Pieces[,],
-                visited = 0,
-                score = 0,
+                numberOfSimulations = 1,
+                wins = 0,
                 parent = null
             };
 
@@ -51,7 +51,7 @@ namespace ShogiCheckersChess
         }
 
 
-        const float MAXTIME = 7000.0F;
+        const float MAXTIME = 3000.0F;
         public static Node MonteCarloRoot(Node Root)
         {
             Stopwatch time = new Stopwatch();
@@ -68,25 +68,28 @@ namespace ShogiCheckersChess
             return BestChild(Root);
         }
 
-        public static Node Expansion(Node node)
+        public static Node Selection(Node node)
         {
-            if (node.children.Count == 0)
+            Node selected_child = node;
+
+            while (selected_child.children.Count != 0)
             {
-                return node;
-            }
+                double max_ucb = Double.MinValue;
 
-            double max_ucb = Double.MinValue;
-
-            Node selected_child = null;
-
-            foreach (var child in node.children)
-            {
-                double curr_ucb = Ucb_value(child);
-
-                if (curr_ucb > max_ucb)
+                if (double.IsNaN(max_ucb))
                 {
-                    max_ucb = curr_ucb;
-                    selected_child = child;
+                    throw new Exception();
+                }
+
+                foreach (var child in node.children)
+                {
+                    double curr_ucb = Ucb_value(child);
+
+                    if (curr_ucb > max_ucb)
+                    {
+                        max_ucb = curr_ucb;
+                        selected_child = child;
+                    }
                 }
             }
 
@@ -94,34 +97,22 @@ namespace ShogiCheckersChess
 
         }
 
-        public static Node Selection(Node node)
+        public static Node Expansion(Node node)
         {
-            double max_ucb = Double.MinValue;
 
-            Node selected_child = null;
+            Create_children(node);
 
-            if (node.children.Count == 0)
-            {
-                Create_children(node);
-            }
+            Random random = new Random();
 
-            foreach (var child in node.children)
-            {
-                double curr_ucb = Ucb_value(child);
+            int count = node.children.Count;
 
-                if (curr_ucb > max_ucb)
-                {
-                    max_ucb = curr_ucb;
-                    selected_child = child;
-                }
-            }
 
-            return selected_child;
+            return node.children[random.Next(count)];
         }
 
         public static double Ucb_value(Node node)
         {
-            return node.score + 2 * (Math.Sqrt(Math.Log(node.parent.visited + 0.01 + Math.E) / (node.visited + 0.01)));
+            return (node.wins/(node.numberOfSimulations + 0.01)) + Math.Sqrt(2) * Math.Sqrt(Math.Log(node.parent.numberOfSimulations + 0.01) / (node.numberOfSimulations + 0.01));
         }
 
         public static void Create_children(Node node)
@@ -154,8 +145,8 @@ namespace ShogiCheckersChess
                     children = new List<Node>(),
                     WhitePlays = !node.WhitePlays,
                     board = node.board.Clone() as Pieces[,],
-                    visited = 0,
-                    score = 0,
+                    numberOfSimulations = 0,
+                    wins = 0,
                     parent = node,
 
                     final_x = Moves.final_x[i],
@@ -234,8 +225,8 @@ namespace ShogiCheckersChess
         {
             while (node.parent != null)
             {
-                node.score += reward;
-                node.visited++;
+                node.wins += reward;
+                node.numberOfSimulations++;
                 node = node.parent;
             }
 
@@ -250,7 +241,7 @@ namespace ShogiCheckersChess
 
             for (int i = 1; i < root.children.Count; i++)
             {
-                if (root.children[i].score > bestnode.score)
+                if (root.children[i].wins > bestnode.wins)
                 {
                     bestnode = root.children[i];
                 }
