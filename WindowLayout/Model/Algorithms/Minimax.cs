@@ -157,7 +157,7 @@ namespace ShogiCheckersChess
                 //tvoříme děti jednotlivých tahů
                 for (int k = 0; k < cp.final_x.Count; k++)
                 {
-                    MoveController.ApplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k]);
+                    MoveController.ApplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], Board.board);
                     var piece = MoveController.takenPiece;
                     int taken_x = MoveController.taken_x;
                     int taken_y = MoveController.taken_y;
@@ -174,7 +174,7 @@ namespace ShogiCheckersChess
                         eval = Math.Min(OneStepMax(depth - 1, alpha, beta, true), eval);
                     }
 
-                    MoveController.ReapplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece);
+                    MoveController.ReapplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
 
 
                     if (isMaxing)

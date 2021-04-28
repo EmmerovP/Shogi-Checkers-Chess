@@ -215,7 +215,7 @@ namespace ShogiCheckersChess
             }
 
 
-            MoveController.ApplyMove(start_x, start_y, final_x, final_y);
+            MoveController.ApplyMove(start_x, start_y, final_x, final_y, Board.board);
 
 
 

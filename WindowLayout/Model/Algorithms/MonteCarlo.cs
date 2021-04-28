@@ -11,6 +11,8 @@ namespace ShogiCheckersChess
 
     public class MonteCarlo
     {
+        public static int Nodeid;
+
         public class Node
         {
             public Pieces[,] board;
@@ -19,6 +21,7 @@ namespace ShogiCheckersChess
             public int wins;
             public List<Node> children;
             public bool WhitePlays; //zda tah generovaný po tomto uzlu je bílý
+            public int id;
 
             public int start_x;
             public int start_y;
@@ -36,8 +39,10 @@ namespace ShogiCheckersChess
                 board = Board.board.Clone() as Pieces[,],
                 numberOfSimulations = 1,
                 wins = 0,
-                parent = null
+                parent = null,
+                id = 0
             };
+            Nodeid++;
 
             var node = MonteCarloRoot(rootnode);
 
@@ -52,6 +57,8 @@ namespace ShogiCheckersChess
 
 
         const float MAXTIME = 3000.0F;
+        const int LOOPS = 200;
+
         public static Node MonteCarloRoot(Node Root)
         {
             Stopwatch time = new Stopwatch();
@@ -61,7 +68,7 @@ namespace ShogiCheckersChess
             {
                 Node highest_UCB = Selection(Root);
                 Node leaf = Expansion(highest_UCB);
-                int reward = Rollout(leaf, 0);
+                int reward = Rollout(leaf);
                 Backpropagation(leaf, reward);
             }
 
@@ -81,7 +88,7 @@ namespace ShogiCheckersChess
                     throw new Exception();
                 }
 
-                foreach (var child in node.children)
+                foreach (var child in selected_child.children)
                 {
                     double curr_ucb = Ucb_value(child);
 
@@ -90,6 +97,11 @@ namespace ShogiCheckersChess
                         max_ucb = curr_ucb;
                         selected_child = child;
                     }
+                }
+
+                if (selected_child.parent == null)
+                {
+                    throw new Exception();
                 }
             }
 
@@ -102,10 +114,14 @@ namespace ShogiCheckersChess
 
             Create_children(node);
 
+            if (node.children.Count == 0)
+            {
+                return node;
+            }
+
             Random random = new Random();
 
             int count = node.children.Count;
-
 
             return node.children[random.Next(count)];
         }
@@ -147,6 +163,7 @@ namespace ShogiCheckersChess
                     board = node.board.Clone() as Pieces[,],
                     numberOfSimulations = 0,
                     wins = 0,
+                    id = Nodeid,
                     parent = node,
 
                     final_x = Moves.final_x[i],
@@ -154,6 +171,8 @@ namespace ShogiCheckersChess
                     start_x = Moves.start_x[i],
                     start_y = Moves.start_y[i]
                 };
+
+                Nodeid++;
 
                 newnode.board[Moves.final_x[i], Moves.final_y[i]] = newnode.board[Moves.start_x[i], Moves.start_y[i]];
                 newnode.board[Moves.start_x[i], Moves.start_y[i]] = null;
@@ -164,46 +183,57 @@ namespace ShogiCheckersChess
             Moves.EmptyCoordinates();
         }
 
-        //prostě se vybere náhodný child node 
-        public static int Rollout(Node node, int steps)
+        public static int FindRandomMove(Pieces[,] board)
         {
-            if (steps > 200)
-            {
-                return 0;
-            }
 
-            if (node.children.Count == 0)
-            {
-                Create_children(node);
-            }
+        }
 
-            if (IsMissing(0, node.board))
-            {
-                return 1;
-            }
+        //prostě se vybere náhodný child node 
+        public static int Rollout(Node node)
+        {
+            Pieces[,] board = node.board.Clone() as Pieces[,];
 
-            if (IsMissing(21, node.board))
-            {
-                return -1;
-            }
-           
+            int steps = 0;
 
-            if (node.children.Count == 0)
+            Generating.WhitePlays = node.WhitePlays;
+
+            for (int i = 0; i < LOOPS; i++)
             {
-                if (node.WhitePlays)
+                //tady udělat na šachovnici tah
+                int move = FindRandomMove(board);
+
+
+                //nenašel se žádný tah
+                if (move == -1)
+                {
+                    if (Generating.WhitePlays)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+
+                //aplikuj tah na dané šachovnici
+                MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], board);
+
+                //zda skončila hra
+                if (IsMissing(0, board))
                 {
                     return 1;
                 }
-                else
+
+                if (IsMissing(21, board))
                 {
                     return -1;
                 }
+
+                Generating.WhitePlays = !Generating.WhitePlays;
             }
 
-            Random random = new Random();
-            int i = random.Next(node.children.Count);
-            steps++;
-            return Rollout(node.children[i], steps);
+            return 0;
         }
 
         public static bool IsMissing(int pieceNumber, Pieces[,] board)

@@ -31,9 +31,9 @@ namespace ShogiCheckersChess
 
 
 
-        public static void BottomEnpassante(int start_x, int start_y, int final_x, int final_y)
+        public static void BottomEnpassante(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
-            if (Board.board[final_x, final_y] != null)
+            if (Board[final_x, final_y] != null)
             {
                 return;
             }
@@ -41,22 +41,22 @@ namespace ShogiCheckersChess
 
             if (start_x == 3)
             {
-                if ((final_x == 2 && final_y == start_y - 1) && (Board.board[start_x, start_y - 1] != null))
+                if ((final_x == 2 && final_y == start_y - 1) && (Board[start_x, start_y - 1] != null))
                 {
-                    takenPiece = Board.board[start_x, start_y - 1];
+                    takenPiece = Board[start_x, start_y - 1];
 
-                    Board.board[start_x, start_y - 1] = null;
+                    Board[start_x, start_y - 1] = null;
                     delete_x = start_x;
                     delete_y = start_y - 1;
 
                     taken_x = start_x;
                     taken_y = start_y - 1;
                 }
-                else if ((final_x == 2 && final_y == start_y + 1) && (Board.board[start_x, start_y + 1] != null))
+                else if ((final_x == 2 && final_y == start_y + 1) && (Board[start_x, start_y + 1] != null))
                 {
-                    takenPiece = Board.board[start_x, start_y + 1];
+                    takenPiece = Board[start_x, start_y + 1];
 
-                    Board.board[start_x, start_y + 1] = null;
+                    Board[start_x, start_y + 1] = null;
                     delete_x = start_x;
                     delete_y = start_y + 1;
 
@@ -66,31 +66,31 @@ namespace ShogiCheckersChess
             }
         }
 
-        public static void UpperEnpassante(int start_x, int start_y, int final_x, int final_y)
+        public static void UpperEnpassante(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
-            if (Board.board[final_x, final_y] != null)
+            if (Board[final_x, final_y] != null)
             {
                 return;
             }
 
-            if (start_x == Board.board.GetLength(0) - 4)
+            if (start_x == Board.GetLength(0) - 4)
             {
-                if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y - 1 && Board.board[start_x, start_y - 1] != null)
+                if (final_x == Board.GetLength(0) - 3 && final_y == start_y - 1 && Board[start_x, start_y - 1] != null)
                 {
-                    takenPiece = Board.board[start_x, start_y - 1];
+                    takenPiece = Board[start_x, start_y - 1];
 
-                    Board.board[start_x, start_y - 1] = null;
+                    Board[start_x, start_y - 1] = null;
                     delete_x = start_x;
                     delete_y = start_y - 1;
 
                     taken_x = start_x;
                     taken_y = start_y - 1;
                 }
-                else if (final_x == Board.board.GetLength(0) - 3 && final_y == start_y + 1 && Board.board[start_x, start_y + 1] != null)
+                else if (final_x == Board.GetLength(0) - 3 && final_y == start_y + 1 && Board[start_x, start_y + 1] != null)
                 {
-                    takenPiece = Board.board[start_x, start_y + 1];
+                    takenPiece = Board[start_x, start_y + 1];
 
-                    Board.board[start_x, start_y + 1] = null;
+                    Board[start_x, start_y + 1] = null;
                     delete_x = start_x;
                     delete_y = start_y + 1;
 
@@ -100,9 +100,9 @@ namespace ShogiCheckersChess
             }
         }
 
-        public static bool IsCastling(int start_x, int start_y, int final_x, int final_y)
+        public static bool IsCastling(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
-            if (!(Board.board.GetLength(0) == 8 && Board.board.GetLength(1) == 8))
+            if (!(Board.GetLength(0) == 8 && Board.GetLength(1) == 8))
             {
                 return false;
             }
@@ -114,8 +114,8 @@ namespace ShogiCheckersChess
                 {
                     isCastling = true;
 
-                    Board.board[0, 3] = Board.board[0, 0];
-                    Board.board[0, 0] = null;
+                    Board[0, 3] = Board[0, 0];
+                    Board[0, 0] = null;
 
                     isCastling = true;
 
@@ -131,8 +131,8 @@ namespace ShogiCheckersChess
                 {
                     isCastling = true;
 
-                    Board.board[7, 3] = Board.board[7, 0];
-                    Board.board[7, 0] = null;
+                    Board[7, 3] = Board[7, 0];
+                    Board[7, 0] = null;
 
 
                     castling_x = 7;
@@ -150,8 +150,8 @@ namespace ShogiCheckersChess
                 {
                     isCastling = true;
 
-                    Board.board[0, 5] = Board.board[0, 7];
-                    Board.board[0, 7] = null;
+                    Board[0, 5] = Board[0, 7];
+                    Board[0, 7] = null;
 
                     castling_x = 0;
                     castling_y = 7;
@@ -165,8 +165,8 @@ namespace ShogiCheckersChess
                 {
                     isCastling = true;
 
-                    Board.board[7, 5] = Board.board[7, 7];
-                    Board.board[7, 7] = null;
+                    Board[7, 5] = Board[7, 7];
+                    Board[7, 7] = null;
 
                     castling_x = 7;
                     castling_y = 7;
@@ -180,7 +180,7 @@ namespace ShogiCheckersChess
 
 
 
-        public static void ApplyMove(int start_x, int start_y, int final_x, int final_y)
+        public static void ApplyMove(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
             delete_x = -1;
             taken_x = -1;
@@ -190,7 +190,7 @@ namespace ShogiCheckersChess
 
             //CheckersTake = false;
 
-            Pieces piece = Board.board[start_x, start_y];
+            Pieces piece = Board[start_x, start_y];
 
             if (piece == null)
             {
@@ -201,17 +201,17 @@ namespace ShogiCheckersChess
 
             if (piece.GetNumber() == 5)
             {
-                BottomEnpassante(start_x, start_y, final_x, final_y);
+                BottomEnpassante(start_x, start_y, final_x, final_y, Board);
             }
             else if (piece.GetNumber() == 26)
             {
-                UpperEnpassante(start_x, start_y, final_x, final_y);
+                UpperEnpassante(start_x, start_y, final_x, final_y, Board);
             }
 
 
 
             //dáma
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board[start_x, start_y].Value == 10 &&
                     (start_x == final_x - 2 || start_x == final_x + 2))
             {
                 int xpiece, ypiece;
@@ -232,8 +232,8 @@ namespace ShogiCheckersChess
                 {
                     ypiece = final_y + 1;
                 }
-                takenPiece = Board.board[xpiece, ypiece];
-                Board.board[xpiece, ypiece] = null;
+                takenPiece = Board[xpiece, ypiece];
+                Board[xpiece, ypiece] = null;
 
                 delete_x = xpiece;
                 delete_y = ypiece;
@@ -245,18 +245,18 @@ namespace ShogiCheckersChess
             }
 
             //v shogi se vyhazuje figurka, přidáváme jí do seznamu vyhozených figurek
-            if (Board.board[final_x, final_y] != null)
+            if (Board[final_x, final_y] != null)
             {
                 taken_x = final_x;
                 taken_y = final_y;
 
-                takenPiece = Board.board[final_x, final_y];
+                takenPiece = Board[final_x, final_y];
 
 
             }
 
-            Board.board[final_x, final_y] = piece;
-            Board.board[start_x, start_y] = null;
+            Board[final_x, final_y] = piece;
+            Board[start_x, start_y] = null;
 
 
 
@@ -270,7 +270,7 @@ namespace ShogiCheckersChess
                 //tadyto vadí při ai
                 piece.Moved = true;
                 //pokud se král posunul o dvě políčka, jedná se o rošádu
-                IsCastling(start_x, start_y, final_x, final_y);
+                IsCastling(start_x, start_y, final_x, final_y, Board);
             }
 
 
@@ -279,7 +279,7 @@ namespace ShogiCheckersChess
             return;
         }
 
-        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces MovedPiece)
+        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces MovedPiece, Pieces[,] Board)
         {
             if (isCastling)
             {
@@ -288,14 +288,14 @@ namespace ShogiCheckersChess
                     //je to rošáda nahoře
                     if (start_x == 0)
                     {
-                        Board.board[0, 0] = Board.board[0, 3];
-                        Board.board[0, 3] = null;
+                        Board[0, 0] = Board[0, 3];
+                        Board[0, 3] = null;
                     }
                     //je to rošáda dole
                     else if (start_x == 7)
                     {
-                        Board.board[7, 0] = Board.board[7, 3];
-                        Board.board[7, 3] = null;
+                        Board[7, 0] = Board[7, 3];
+                        Board[7, 3] = null;
                     }
                 }
                 else if (start_x == final_x && start_y == final_y - 2)
@@ -303,20 +303,20 @@ namespace ShogiCheckersChess
                     //je to rošáda nahoře
                     if (start_x == 0)
                     {
-                        Board.board[0, 7] = Board.board[0, 5];
-                        Board.board[0, 5] = null;
+                        Board[0, 7] = Board[0, 5];
+                        Board[0, 5] = null;
                     }
                     //je to rošáda dole
                     else if (start_x == 7)
                     {
-                        Board.board[7, 7] = Board.board[7, 5];
-                        Board.board[7, 5] = null;
+                        Board[7, 7] = Board[7, 5];
+                        Board[7, 5] = null;
                     }
                 }
             }
 
-            Board.board[start_x, start_y] = Board.board[final_x, final_y];
-            Board.board[final_x, final_y] = null;
+            Board[start_x, start_y] = Board[final_x, final_y];
+            Board[final_x, final_y] = null;
 
             if (local_taken_x != -1)
             {
@@ -324,7 +324,7 @@ namespace ShogiCheckersChess
                 {
                     throw new Exception();
                 }
-                Board.board[local_taken_x, local_taken_y] = piece;
+                Board[local_taken_x, local_taken_y] = piece;
             }
 
             if (MovedPiece != null)
