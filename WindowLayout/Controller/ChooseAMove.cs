@@ -81,7 +81,7 @@ namespace ShogiCheckersChess
 
             for (int i = 0; i < moves.final_x.Count; i++)
             {
-                MoveController.ApplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i]);
+                MoveController.ApplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], Board.board);
                 var piece = MoveController.takenPiece;
                 int taken_x = MoveController.taken_x;
                 int taken_y = MoveController.taken_y;
@@ -94,7 +94,7 @@ namespace ShogiCheckersChess
 
 
 
-                MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, movedPiece);
+                MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
 
             }
 

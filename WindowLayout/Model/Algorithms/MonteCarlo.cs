@@ -185,15 +185,26 @@ namespace ShogiCheckersChess
 
         public static int FindRandomMove(Pieces[,] board)
         {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    if (board[i,j] != null && board[i,j].isWhite == Generating.WhitePlays)
+                    {
+                        Generating.Generate(board[i, j], false, i, j, false, board);
+                    }
+                }
+            }
 
+            Random rnd = new Random();
+
+            return rnd.Next(Moves.final_x.Count);
         }
 
         //prostě se vybere náhodný child node 
         public static int Rollout(Node node)
         {
             Pieces[,] board = node.board.Clone() as Pieces[,];
-
-            int steps = 0;
 
             Generating.WhitePlays = node.WhitePlays;
 
@@ -218,6 +229,8 @@ namespace ShogiCheckersChess
 
                 //aplikuj tah na dané šachovnici
                 MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], board);
+
+                Moves.EmptyCoordinates();
 
                 //zda skončila hra
                 if (IsMissing(0, board))
