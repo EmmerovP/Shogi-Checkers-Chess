@@ -64,12 +64,16 @@ namespace ShogiCheckersChess
             Stopwatch time = new Stopwatch();
             time.Start();
 
+            int steps= 0;
+
             while (time.ElapsedMilliseconds < MAXTIME)
             {
                 Node highest_UCB = Selection(Root);
                 Node leaf = Expansion(highest_UCB);
                 int reward = Rollout(leaf);
                 Backpropagation(leaf, reward);
+
+                steps++;
             }
 
             return BestChild(Root);
@@ -129,7 +133,7 @@ namespace ShogiCheckersChess
         public static double Ucb_value(Node node)
         {
             return (node.wins/(node.numberOfSimulations + 0.01)) + Math.Sqrt(2) * Math.Sqrt(Math.Log(node.parent.numberOfSimulations + 0.01) / (node.numberOfSimulations + 0.01));
-        }
+        } 
 
         public static void Create_children(Node node)
         {
@@ -198,10 +202,14 @@ namespace ShogiCheckersChess
 
             Random rnd = new Random();
 
+            if (Moves.final_x.Count == 0)
+            {
+                return -1;
+            }
+
             return rnd.Next(Moves.final_x.Count);
         }
 
-        //prostě se vybere náhodný child node 
         public static int Rollout(Node node)
         {
             Pieces[,] board = node.board.Clone() as Pieces[,];
@@ -217,14 +225,7 @@ namespace ShogiCheckersChess
                 //nenašel se žádný tah
                 if (move == -1)
                 {
-                    if (Generating.WhitePlays)
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return -1;
-                    }
+                    return 0;
                 }
 
                 //aplikuj tah na dané šachovnici
@@ -264,16 +265,22 @@ namespace ShogiCheckersChess
             return false;
         }
 
-        public static Node Backpropagation(Node node, int reward)
+        public static void Backpropagation(Node node, int reward)
         {
-            while (node.parent != null)
+            while (node != null)
             {
-                node.wins += reward;
+                if (node.WhitePlays)
+                {
+                    node.wins -= reward;
+                }
+                else
+                {
+                    node.wins += reward;
+                }
+
                 node.numberOfSimulations++;
                 node = node.parent;
             }
-
-            return node;
 
         }
 
@@ -284,7 +291,7 @@ namespace ShogiCheckersChess
 
             for (int i = 1; i < root.children.Count; i++)
             {
-                if (root.children[i].wins > bestnode.wins)
+                if (root.children[i].wins < bestnode.wins)
                 {
                     bestnode = root.children[i];
                 }
