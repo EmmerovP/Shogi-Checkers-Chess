@@ -64,7 +64,7 @@ namespace ShogiCheckersChess
             Stopwatch time = new Stopwatch();
             time.Start();
 
-            int steps= 0;
+            int steps = 0;
 
             while (time.ElapsedMilliseconds < MAXTIME)
             {
@@ -132,8 +132,8 @@ namespace ShogiCheckersChess
 
         public static double Ucb_value(Node node)
         {
-            return (node.wins/(node.numberOfSimulations + 0.01)) + Math.Sqrt(2) * Math.Sqrt(Math.Log(node.parent.numberOfSimulations + 0.01) / (node.numberOfSimulations + 0.01));
-        } 
+            return (node.wins / (node.numberOfSimulations + 0.01)) + Math.Sqrt(2) * Math.Sqrt(Math.Log(node.parent.numberOfSimulations + 0.01) / (node.numberOfSimulations + 0.01));
+        }
 
         public static void Create_children(Node node)
         {
@@ -193,7 +193,7 @@ namespace ShogiCheckersChess
             {
                 for (int j = 0; j < board.GetLength(1); j++)
                 {
-                    if (board[i,j] != null && board[i,j].isWhite == Generating.WhitePlays)
+                    if (board[i, j] != null && board[i, j].isWhite == Generating.WhitePlays)
                     {
                         Generating.Generate(board[i, j], false, i, j, false, board);
                     }
@@ -222,9 +222,23 @@ namespace ShogiCheckersChess
                 int move = FindRandomMove(board);
 
 
+
+
                 //nenašel se žádný tah
                 if (move == -1)
                 {
+                    if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+                    {
+
+                        if (Generating.WhitePlays)
+                        {
+                            return -1;
+                        }
+                        else
+                        {
+                            return 1;
+                        }
+                    }
                     return 0;
                 }
 
@@ -233,16 +247,35 @@ namespace ShogiCheckersChess
 
                 Moves.EmptyCoordinates();
 
-                //zda skončila hra
-                if (IsMissing(0, board))
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
                 {
-                    return 1;
+                    //zda skončila hra
+                    if (IsMissing(0, board))
+                    {
+                        return 1;
+                    }
+
+                    if (IsMissing(21, board))
+                    {
+                        return -1;
+                    }
                 }
 
-                if (IsMissing(21, board))
+
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                 {
-                    return -1;
+                    //zda skončila hra
+                    if (IsMissing(7, board))
+                    {
+                        return 1;
+                    }
+
+                    if (IsMissing(28, board))
+                    {
+                        return -1;
+                    }
                 }
+
 
                 Generating.WhitePlays = !Generating.WhitePlays;
             }
@@ -256,7 +289,7 @@ namespace ShogiCheckersChess
             {
                 for (int j = 0; j < board.GetLength(1); j++)
                 {
-                    if (board[i, j]!=null && board[i,j].GetNumber() == pieceNumber)
+                    if (board[i, j] != null && board[i, j].GetNumber() == pieceNumber)
                     {
                         return true;
                     }
