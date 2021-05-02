@@ -71,67 +71,76 @@ namespace ShogiCheckersChess
 
             Generating.GenerateAllMoves(Board.board, false, false);
 
-            int eval;
+            //when we can't make a move, we return evaluated chessboard
+            if (Moves.GetCount() == 0)
+            {
+                return EvaluateChessboard();
+            }
+
+            int evaluation;
 
             if (isMaxing)
             {
-                eval = Int32.MinValue;
+                evaluation = Int32.MinValue;
             }
             else
             {
-                eval = Int32.MaxValue;
+                evaluation = Int32.MaxValue;
             }
-            
-            if (Moves.final_x.Count != 0)
+
+            //create a copy of generated moves
+            var moves = Moves.MakeCopyEmptyCoordinates();
+
+            //switch sides of the game
+            Generating.WhitePlays = !Generating.WhitePlays;
+
+            //iterate through generated moves
+            for (int k = 0; k < moves.GetCount(); k++)
             {
-                var cp = Moves.MakeCopyEmpty();
-                Generating.WhitePlays = !Generating.WhitePlays;
-                for (int k = 0; k < cp.final_x.Count; k++)
+
+                //apply given move and remember parameters needed to re-do the move
+                MoveController.ApplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], Board.board);
+                var piece = MoveController.takenPiece;
+                int taken_x = MoveController.taken_x;
+                int taken_y = MoveController.taken_y;
+                bool isCastling = MoveController.isCastling;
+                var movedPiece = MoveController.moved;
+
+                //depending on whether we are in the maxing or minimazing state, get according evaluation
+                if (isMaxing)
                 {
-                    MoveController.ApplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], Board.board);
-                    var piece = MoveController.takenPiece;
-                    int taken_x = MoveController.taken_x;
-                    int taken_y = MoveController.taken_y;
-                    bool isCastling = MoveController.isCastling;
-                    var movedPiece = MoveController.moved;
-
-
-                    if (isMaxing)
-                    {
-                        eval = Math.Max(OneStep(depth - 1, alpha, beta, false), eval);
-                    }
-                    else
-                    {
-                        eval = Math.Min(OneStep(depth - 1, alpha, beta, true), eval);
-                    }
-
-                    MoveController.ReapplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
-
-
-                    if (isMaxing)
-                    {
-                        alpha = Math.Max(alpha, eval);
-                    }
-                    else
-                    {
-                        beta = Math.Min(beta, eval);
-                    }
-
-
-                    if (beta <= alpha)
-                    {
-                        break;
-                    }
-
+                    evaluation = Math.Max(OneStep(depth - 1, alpha, beta, false), evaluation);
+                }
+                else
+                {
+                    evaluation = Math.Min(OneStep(depth - 1, alpha, beta, true), evaluation);
                 }
 
-                Generating.WhitePlays = !Generating.WhitePlays;
+                //revert move
+                MoveController.ReapplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
 
-                return eval;
+
+                //alpha-beta pruning
+                if (isMaxing)
+                {
+                    alpha = Math.Max(alpha, evaluation);
+                }
+                else
+                {
+                    beta = Math.Min(beta, evaluation);
+                }
+
+
+                if (beta <= alpha)
+                {
+                    break;
+                }
+
             }
 
-            return 0;
+            Generating.WhitePlays = !Generating.WhitePlays;
 
+            return evaluation;
         }
 
 
@@ -141,7 +150,8 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static int EvaluateChessboard()
         {
-            int eval = 0;
+            int evaluation = 0;
+
             for (int i = 0; i < Board.board.GetLength(0); i++)
             {
                 for (int j = 0; j < Board.board.GetLength(1); j++)
@@ -151,22 +161,26 @@ namespace ShogiCheckersChess
                     {
                         if (Board.board[i, j].isWhite != WhiteSide)
                         {
-                            eval -= Board.board[i, j].Value;
+                            evaluation -= Board.board[i, j].Value;
                         }
                         else
                         {
-                            eval += Board.board[i, j].Value;
+                            evaluation += Board.board[i, j].Value;
                         }
 
 
                     }
                 }
             }
-            return eval;
+
+            return evaluation;
         }
 
+        /// <summary>
+        /// Signalizes whether minimax generated a move where we only add a piece to the board.
+        /// </summary>
         public static bool isAddingPiece;
-        public static Pieces AddingPiece;
+
 
         /// <summary>
         /// Tries to add piece to see what happens in minimax algorithm.
@@ -176,46 +190,53 @@ namespace ShogiCheckersChess
         /// <param name="removePieces"></param>
         public static void TryToAddPiece(List<int> choice, Moves.CoordinatesCopy moves, List<Pieces> removePieces)
         {
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
+            if (MainGameWindow.shogiAIPieces.Count == 0)
             {
-                List<Pieces> availablePieces = new List<Pieces>();
-                availablePieces.AddRange(MainGameWindow.shogiAIPieces);
+                return;
+            }
 
-                foreach (var piece in availablePieces)
+            //create copy of available pieces we can put on a board, so we don't have an inconsistency during going through the list
+            List<Pieces> availablePieces = new List<Pieces>();
+            availablePieces.AddRange(MainGameWindow.shogiAIPieces);
+
+            foreach (var piece in availablePieces)
+            {
+                for (int i = 0; i < Board.board.GetLength(0); i++)
                 {
-                    for (int i = 0; i < Board.board.GetLength(0); i++)
+                    for (int j = 0; j < Board.board.GetLength(1); j++)
                     {
-                        for (int j = 0; j < Board.board.GetLength(1); j++)
+                        if (Board.board[i, j] == null)
                         {
-                            if (Board.board[i, j] == null)
-                            {
-                                if (PiecesNumbers.IsShogiPawn(piece))
-                                {
-                                    //koukni jestli ve sloupečku již není pěšák, můžeš to udělat tou funkcí co už máš
-                                    if (PawnColumn(j))
-                                    {
-                                        break;
-                                    }
 
+                            //we can't put another shogi pawn to the column where there already is
+                            if (PiecesNumbers.IsShogiPawn(piece))
+                            {
+                                if (PawnColumn(j))
+                                {
+                                    break;
                                 }
 
-                                Board.board[i, j] = piece;
-                                Board.board[i, j].isWhite = false;
-                                MainGameWindow.shogiAIPieces.Remove(piece);
-
-                                choice.Add(Minimax.OneStep(2, Int32.MinValue, Int32.MaxValue, false));
-
-                                moves.final_x.Add(i);
-                                moves.final_y.Add(j);
-
-                                moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
-                                removePieces.Add(piece);
-
-                                MainGameWindow.shogiAIPieces.Add(piece);
-                                Board.board[i, j] = null;
                             }
+
+                            //add piece on board
+                            //TODO: asi se přidávají špatně...
+                            Board.board[i, j] = piece;
+                            Board.board[i, j].isWhite = false;
+                            MainGameWindow.shogiAIPieces.Remove(piece);
+
+                            choice.Add(Minimax.OneStep(2, Int32.MinValue, Int32.MaxValue, false));
+
+                            moves.final_x.Add(i);
+                            moves.final_y.Add(j);
+
+                            moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
+                            removePieces.Add(piece);
+
+                            MainGameWindow.shogiAIPieces.Add(piece);
+                            Board.board[i, j] = null;
                         }
                     }
+
                 }
             }
         }
@@ -227,23 +248,28 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static int GetNextMove()
         {
+            //remember current player
             bool WhoPlays = Generating.WhitePlays;
+
+            //set bool for signalizing of piece addition to default value
             isAddingPiece = false;
 
+            //set bool for signalizing of when piece has to take another one in checkers to default value 
             Generating.CheckersTake = false;
+
             Moves.EmptyCoordinates();
 
             List<int> possibleMovesEvaluation = new List<int>();
 
             Generating.GenerateAllMoves(Board.board, true, false);
 
+            //switch sides for nex move
             Generating.WhitePlays = !Generating.WhitePlays;
 
-            var moves = Moves.MakeCopyEmpty();
+            //create a copy of generated moves
+            var moves = Moves.MakeCopyEmptyCoordinates();
 
-
-            //skončili jsme
-
+            //when there are no moves, the game is over
             if (moves.GetCount() == 0)
             {
                 return -1;
@@ -251,6 +277,7 @@ namespace ShogiCheckersChess
 
             for (int i = 0; i < moves.GetCount(); i++)
             {
+                //apply given move and remember parameters needed to re-do the move
                 MoveController.ApplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], Board.board);
                 var piece = MoveController.takenPiece;
                 int taken_x = MoveController.taken_x;
@@ -258,39 +285,58 @@ namespace ShogiCheckersChess
                 bool isCastling = MoveController.isCastling;
                 var movedPiece = MoveController.moved;
 
-
+                //run minimax algorithm for each move
                 possibleMovesEvaluation.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
 
+                //depending on whether we are in the maxing or minimazing state, get according evaluation
                 MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
 
             }
 
+            //segment for adding pieces to the chessboard
             List<Pieces> removePieces = new List<Pieces>();
 
             TryToAddPiece(possibleMovesEvaluation, moves, removePieces);
 
+            //we finished generating moves, so we can return the value of who plays
             Generating.WhitePlays = WhoPlays;
 
             Random random = new Random();
+
+            //we return generated moves to main lists, so we can access them even from outside
             Moves.EmptyCoordinates();
             Moves.CoordinatesReturn(moves);
 
+            //there can be multiple moves with highest value, so we randomly pick one
             int highestEvaluation = GetHighestValue(possibleMovesEvaluation);
             List<int> indexesOfHighestValues = GetAllIndexes(highestEvaluation, possibleMovesEvaluation);
             int move = random.Next(indexesOfHighestValues.Count);
-            int pos = indexesOfHighestValues[move];
+            int randomIndexOfHighestValue = indexesOfHighestValues[move];
 
-
-            if (pos >= Moves.start_y.Count)
+            //checks if we are trying to add a piece to board, signalizes
+            if (IsTryingToAddPiece(randomIndexOfHighestValue))
             {
                 isAddingPiece = true;
-                MainGameWindow.shogiAIPieces.Remove(removePieces[pos - Moves.start_y.Count]);
+                MainGameWindow.shogiAIPieces.Remove(removePieces[randomIndexOfHighestValue - Moves.start_y.Count]);
             }
 
-            return pos;
+            return randomIndexOfHighestValue;
 
+        }
 
+        /// <summary>
+        /// Checks whether an index of preferred move is higher than all the items in start_y, because start_y coordinate isn't used when adding pieces
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static bool IsTryingToAddPiece(int index)
+        {
+            if (index >= Moves.start_y.Count)
+            {
+                return true;
+            }
 
+            return false;
         }
 
 

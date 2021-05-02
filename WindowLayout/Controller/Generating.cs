@@ -45,7 +45,7 @@ namespace ShogiCheckersChess
                 else
                 {
                     piece.GenerateMoves(x, y, Board);
-                    var copied_coordinates = Moves.MakeCopyEmpty();
+                    var copied_coordinates = Moves.MakeCopyEmptyCoordinates();
                     for (int i = 0; i < copied_coordinates.final_x.Count; i++)
                     {
                         if (Board[copied_coordinates.final_x[i], copied_coordinates.final_y[i]] != null &&

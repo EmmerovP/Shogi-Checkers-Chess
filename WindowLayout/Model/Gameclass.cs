@@ -23,7 +23,7 @@ namespace ShogiCheckersChess
             //pro dámu, zda musí vzít určitou figurku
             public static bool MustTakeCheckersPiece(Pieces[,] Board)
             {
-                Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
+                Moves.CoordinatesCopy cp = Moves.MakeCopyEmptyCoordinates();
 
                 for (int i = 0; i < Board.GetLength(0); i++)
                 {
@@ -95,7 +95,7 @@ namespace ShogiCheckersChess
             //na konci tahu řekne zda šach či ne - z pohledu hrající strany na ddruhou stranu
             public static bool KingCheck(Pieces[,] Board)
             {
-                Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
+                Moves.CoordinatesCopy cp = Moves.MakeCopyEmptyCoordinates();
 
                 int x = 0, y = 0;
                 //najdi krále dané strany
@@ -139,7 +139,7 @@ namespace ShogiCheckersChess
                         int x_coor = Moves.final_x[i];
                         int y_coor = Moves.final_y[i];
 
-                        Moves.CoordinatesCopy copy = Moves.MakeCopyEmpty();
+                        Moves.CoordinatesCopy copy = Moves.MakeCopyEmptyCoordinates();
 
                         Board[x_coor, y_coor].GenerateMoves(x_coor, y_coor, Board);
 
@@ -173,7 +173,7 @@ namespace ShogiCheckersChess
             //takže pokud se nám nepodaří vygenerovat žádný tah pro žádnou figurku, je to šach mat
             public static bool CheckMate(Pieces[,] Board)
             {
-                Moves.CoordinatesCopy cp = Moves.MakeCopyEmpty();
+                Moves.CoordinatesCopy cp = Moves.MakeCopyEmptyCoordinates();
 
                 Generating.WhitePlays = !Generating.WhitePlays;
 

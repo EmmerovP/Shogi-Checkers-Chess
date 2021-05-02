@@ -96,7 +96,7 @@ namespace ShogiCheckersChess
 
         }
 
-        public static CoordinatesCopy MakeCopyEmpty()
+        public static CoordinatesCopy MakeCopyEmptyCoordinates()
         {
             CoordinatesCopy cp = new CoordinatesCopy();
 
