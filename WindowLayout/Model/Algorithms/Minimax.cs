@@ -168,6 +168,52 @@ namespace ShogiCheckersChess
         public static bool isAddingPiece;
         public static Pieces AddingPiece;
 
+        public static void TryToAddPiece(List<int> choice, Moves.CoordinatesCopy moves, List<Pieces> removePieces)
+        {
+            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
+            {
+                List<Pieces> availablePieces = new List<Pieces>();
+                availablePieces.AddRange(MainGameWindow.shogiAIPieces);
+
+                foreach (var piece in availablePieces)
+                {
+                    for (int i = 0; i < Board.board.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < Board.board.GetLength(1); j++)
+                        {
+                            if (Board.board[i, j] == null)
+                            {
+                                if (piece.Name == "Shogi pěšák")
+                                {
+                                    //koukni jestli ve sloupečku již není pěšák, můžeš to udělat tou funkcí co už máš
+                                    if (PawnColumn(j))
+                                    {
+                                        break;
+                                    }
+
+                                }
+
+                                Board.board[i, j] = piece;
+                                Board.board[i, j].isWhite = false;
+                                MainGameWindow.shogiAIPieces.Remove(piece);
+
+                                choice.Add(Minimax.OneStep(2, Int32.MinValue, Int32.MaxValue, false));
+
+                                moves.final_x.Add(i);
+                                moves.final_y.Add(j);
+
+                                moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
+                                removePieces.Add(piece);
+
+                                MainGameWindow.shogiAIPieces.Add(piece);
+                                Board.board[i, j] = null;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Gets a next move for minimax algorithm.
@@ -220,48 +266,7 @@ namespace ShogiCheckersChess
 
             List<Pieces> removePieces = new List<Pieces>();
 
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
-            {
-                List<Pieces> availablePieces = new List<Pieces>();
-                availablePieces.AddRange(MainGameWindow.shogiAIPieces);
-
-                foreach (var piece in availablePieces)
-                {
-                    for (int i = 0; i < Board.board.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < Board.board.GetLength(1); j++)
-                        {
-                            if (Board.board[i, j] == null)
-                            {
-                                if (piece.Name == "Shogi pěšák")
-                                {
-                                    //koukni jestli ve sloupečku již není pěšák, můžeš to udělat tou funkcí co už máš
-                                    if (PawnColumn(j))
-                                    {
-                                        break;
-                                    }
-
-                                }
-
-                                Board.board[i, j] = piece;
-                                Board.board[i, j].isWhite = false;
-                                MainGameWindow.shogiAIPieces.Remove(piece);
-
-                                choice.Add(Minimax.OneStep(2, Int32.MinValue, Int32.MaxValue, false));
-
-                                moves.final_x.Add(i);
-                                moves.final_y.Add(j);
-
-                                moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
-                                removePieces.Add(piece);
-
-                                MainGameWindow.shogiAIPieces.Add(piece);
-                                Board.board[i, j] = null;
-                            }
-                        }
-                    }
-                }
-            }
+            TryToAddPiece(choice, moves, removePieces);
 
             Generating.WhitePlays = WhoPlays;
 
