@@ -94,7 +94,7 @@ namespace ShogiCheckersChess
 
 
                 //hraje AIčko
-                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
+                if ((Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single) && (!musttakecheckers))
                 {
                     SinglerplayerPlay();
                 }
@@ -191,9 +191,11 @@ namespace ShogiCheckersChess
         }
 
 
+        public static bool musttakecheckers;
+
         public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
         {
-            bool musttakecheckers = false;
+            musttakecheckers = false;
 
             Pieces piece = Board.board[start_x, start_y];
 
