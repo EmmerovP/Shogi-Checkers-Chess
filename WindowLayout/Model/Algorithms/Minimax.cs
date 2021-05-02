@@ -261,14 +261,9 @@ namespace ShogiCheckersChess
 
                 possibleMovesEvaluation.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
 
-
-
-
                 MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
 
             }
-
-            int normalMoves = moves.final_x.Count;
 
             List<Pieces> removePieces = new List<Pieces>();
 
@@ -276,16 +271,15 @@ namespace ShogiCheckersChess
 
             Generating.WhitePlays = WhoPlays;
 
-            //pokud je nějaký tah možný, vyber nějaký s největší hodnotou a posuň tam figurku
-
-            Random rnd = new Random();
+            Random random = new Random();
             Moves.EmptyCoordinates();
             Moves.CoordinatesReturn(moves);
 
-            int highest = GetHighestValue(possibleMovesEvaluation);
-            var indexes = GetAllIndexes(highest, possibleMovesEvaluation);
-            int move = rnd.Next(indexes.Count);
-            int pos = indexes[move];
+            int highestEvaluation = GetHighestValue(possibleMovesEvaluation);
+            List<int> indexesOfHighestValues = GetAllIndexes(highestEvaluation, possibleMovesEvaluation);
+            int move = random.Next(indexesOfHighestValues.Count);
+            int pos = indexesOfHighestValues[move];
+
 
             if (pos >= Moves.start_y.Count)
             {
