@@ -7,37 +7,68 @@ using System.Windows.Forms;
 
 namespace ShogiCheckersChess
 {
+    /// <summary>
+    /// Class for applying and reapplying moves on a board.
+    /// </summary>
     public static class MoveController
     {
-        //potřeba pro view
+        /// <summary>
+        /// x coordinate of a piece which needs to be deleted.
+        /// </summary>
         public static int delete_x;
+
+        /// <summary>
+        /// y coordinate of a piece which needs to be deleted.
+        /// </summary>
         public static int delete_y;
 
+
+        /// <summary>
+        /// Signalizes whether the ongoing move is castling.
+        /// </summary>
         public static bool isCastling;
 
+        //coordinates needed for castling
         public static int castling_x;
         public static int castling_y;
         public static int castling_z;
 
-        //potřeba pro reapply
-        //vyhozená figurka
+        /// <summary>
+        /// Taken piece in out move
+        /// </summary>
         public static Pieces takenPiece;
-        public static int taken_x;
-        public static int taken_y; //pokud není, hodnota -1. Řeší i vyhození v dámě a en passante
 
+        /// <summary>
+        /// x coordinate of taken piece, if none was taken, -1 is the value
+        /// </summary>
+        public static int taken_x;
+
+        /// <summary>
+        /// y coordinate of taken piece, if none was taken, -1 is the value
+        /// </summary>
+        public static int taken_y; 
+
+        /// <summary>
+        /// Which piece was moved
+        /// </summary>
         public static Pieces moved;
 
-        //+ v minimaxu si musím zapamatovat tyto položky pro danou instanci, pak je dostanu zpátky v reapply!
 
-
-
+        /// <summary>
+        /// Checks whether the move is bottom enpassante, and makes correct changes on the board.
+        /// </summary>
+        /// <param name="start_x"></param>
+        /// <param name="start_y"></param>
+        /// <param name="final_x"></param>
+        /// <param name="final_y"></param>
+        /// <param name="Board"></param>
         public static void BottomEnpassante(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
+           
             if (Board[final_x, final_y] != null)
             {
                 return;
             }
-
 
             if (start_x == 3)
             {
@@ -66,6 +97,14 @@ namespace ShogiCheckersChess
             }
         }
 
+        /// <summary>
+        /// Checks whether the move is upper enpassante, and makes correct changes on the board.
+        /// </summary>
+        /// <param name="start_x"></param>
+        /// <param name="start_y"></param>
+        /// <param name="final_x"></param>
+        /// <param name="final_y"></param>
+        /// <param name="Board"></param>
         public static void UpperEnpassante(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
             if (Board[final_x, final_y] != null)
@@ -100,16 +139,27 @@ namespace ShogiCheckersChess
             }
         }
 
+        /// <summary>
+        ///  Checks whether the move is castling, and makes correct changes on the board.
+        /// </summary>
+        /// <param name="start_x"></param>
+        /// <param name="start_y"></param>
+        /// <param name="final_x"></param>
+        /// <param name="final_y"></param>
+        /// <param name="Board"></param>
+        /// <returns></returns>
         public static bool IsCastling(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
+
+            //we return when the board is incorrect size
             if (!(Board.GetLength(0) == 8 && Board.GetLength(1) == 8))
             {
                 return false;
             }
-            //je to rošáda
+           
             if (start_x == final_x && start_y == final_y + 2)
             {
-                //je to rošáda nahoře
+                //upper castling
                 if (start_x == 0)
                 {
                     isCastling = true;
@@ -126,7 +176,7 @@ namespace ShogiCheckersChess
 
                     return true;
                 }
-                //je to rošáda dole
+                //bottom castling
                 if (start_x == 7)
                 {
                     isCastling = true;
@@ -143,9 +193,10 @@ namespace ShogiCheckersChess
                     return true;
                 }
             }
+
             if (start_x == final_x && start_y == final_y - 2)
             {
-                //je to rošáda nahoře
+                //upper castling
                 if (start_x == 0)
                 {
                     isCastling = true;
@@ -160,7 +211,8 @@ namespace ShogiCheckersChess
 
                     return true;
                 }
-                //je to rošáda dole
+
+                //bottom castling
                 if (start_x == 7)
                 {
                     isCastling = true;
@@ -179,26 +231,29 @@ namespace ShogiCheckersChess
         }
 
 
-
+        /// <summary>
+        /// Applies given move to a given game board. Takes castling, en passante, and checkers pieces into account.
+        /// </summary>
+        /// <param name="start_x"></param>
+        /// <param name="start_y"></param>
+        /// <param name="final_x"></param>
+        /// <param name="final_y"></param>
+        /// <param name="Board"></param>
         public static void ApplyMove(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
+
+            //set all booleans to default state - false
             delete_x = -1;
             taken_x = -1;
             isCastling = false;
             takenPiece = null;
             moved = null;
 
-            //CheckersTake = false;
-
+            //get moving piece
             Pieces piece = Board[start_x, start_y];
 
-            if (piece == null)
-            {
-                throw new Exception();
-            }
 
-
-
+            //en passante check
             if (piece.GetNumber() == 5)
             {
                 BottomEnpassante(start_x, start_y, final_x, final_y, Board);
@@ -210,88 +265,121 @@ namespace ShogiCheckersChess
 
 
 
-            //dáma
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board[start_x, start_y].Value == 10 &&
-                    (start_x == final_x - 2 || start_x == final_x + 2))
+            //checks whether we are taking another piece with checker piece
+            if (PiecesNumbers.IsCheckersPiece(piece) && IsCheckersPieceTaking(start_x, final_x))
             {
-                int xpiece, ypiece;
+                int x_position;
+                int y_position;
+
+                //finding out a position of deleted piece
                 if (final_x > start_x)
                 {
-                    xpiece = start_x + 1;
+                    x_position = start_x + 1;
                 }
                 else
                 {
-                    xpiece = final_x + 1;
+                    x_position = final_x + 1;
                 }
 
                 if (final_y > start_y)
                 {
-                    ypiece = start_y + 1;
+                    y_position = start_y + 1;
                 }
                 else
                 {
-                    ypiece = final_y + 1;
+                    y_position = final_y + 1;
                 }
-                takenPiece = Board[xpiece, ypiece];
-                Board[xpiece, ypiece] = null;
 
-                delete_x = xpiece;
-                delete_y = ypiece;
+                takenPiece = Board[x_position, y_position];
+                Board[x_position, y_position] = null;
 
-                taken_x = xpiece;
-                taken_y = ypiece;
+                delete_x = x_position;
+                delete_y = y_position;
+
+                taken_x = x_position;
+                taken_y = y_position;
 
 
             }
 
-            //v shogi se vyhazuje figurka, přidáváme jí do seznamu vyhozených figurek
+            //we need to mark a piece we are deleting
             if (Board[final_x, final_y] != null)
             {
                 taken_x = final_x;
                 taken_y = final_y;
 
                 takenPiece = Board[final_x, final_y];
-
-
             }
 
+
+            //movement of a piece
             Board[final_x, final_y] = piece;
             Board[start_x, start_y] = null;
 
 
 
-
-            if (piece.Value == 900)
+            //mark kinh as moved when we move him
+            if (PiecesNumbers.IsKing(piece))
             {
                 if (piece.Moved == false)
                 {
                     moved = piece;
                 }
-                //tadyto vadí při ai
+
                 piece.Moved = true;
-                //pokud se král posunul o dvě políčka, jedná se o rošádu
+
+                //check whether the move is castling
                 IsCastling(start_x, start_y, final_x, final_y, Board);
             }
 
 
-
-            //hlídání konců her
             return;
         }
 
+
+        /// <summary>
+        /// Returns true when the move is supposed to take another piece with checkers piece.
+        /// </summary>
+        /// <param name="start_x"></param>
+        /// <param name="final_x"></param>
+        /// <returns></returns>
+        public static bool IsCheckersPieceTaking(int start_x, int final_x)
+        {
+            if (start_x == final_x - 2 || start_x == final_x + 2)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Reapplies given move, taking care of taken pieces, castling, en passante.
+        /// </summary>
+        /// <param name="start_x"></param>
+        /// <param name="start_y"></param>
+        /// <param name="final_x"></param>
+        /// <param name="final_y"></param>
+        /// <param name="piece"></param>
+        /// <param name="local_taken_x"></param>
+        /// <param name="local_taken_y"></param>
+        /// <param name="isCastling"></param>
+        /// <param name="MovedPiece"></param>
+        /// <param name="Board"></param>
         public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces MovedPiece, Pieces[,] Board)
         {
             if (isCastling)
             {
                 if (start_x == final_x && start_y == final_y + 2)
                 {
-                    //je to rošáda nahoře
+                    //upper castling
                     if (start_x == 0)
                     {
                         Board[0, 0] = Board[0, 3];
                         Board[0, 3] = null;
                     }
-                    //je to rošáda dole
+                    //bottom castling
                     else if (start_x == 7)
                     {
                         Board[7, 0] = Board[7, 3];
@@ -300,13 +388,13 @@ namespace ShogiCheckersChess
                 }
                 else if (start_x == final_x && start_y == final_y - 2)
                 {
-                    //je to rošáda nahoře
+                    //upper castling
                     if (start_x == 0)
                     {
                         Board[0, 7] = Board[0, 5];
                         Board[0, 5] = null;
                     }
-                    //je to rošáda dole
+                    //bottom castling
                     else if (start_x == 7)
                     {
                         Board[7, 7] = Board[7, 5];
@@ -315,18 +403,17 @@ namespace ShogiCheckersChess
                 }
             }
 
+            //reapply move
             Board[start_x, start_y] = Board[final_x, final_y];
             Board[final_x, final_y] = null;
 
+            //put back taken piece
             if (local_taken_x != -1)
             {
-                if (piece == null)
-                {
-                    throw new Exception();
-                }
                 Board[local_taken_x, local_taken_y] = piece;
             }
 
+            //switch back movement flag on the king piece
             if (MovedPiece != null)
             {
                 MovedPiece.Moved = false;

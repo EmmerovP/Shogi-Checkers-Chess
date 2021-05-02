@@ -208,6 +208,36 @@ namespace ShogiCheckersChess
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is checkers piece.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static bool IsCheckersPiece(Pieces piece)
+        {
+            switch (piece.GetNumber())
+            {
+                case 27: return true;
+                case 6: return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true when given piece is checkers piece.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static bool IsKing(Pieces piece)
+        {
+            switch (piece.GetNumber())
+            {
+                case 0: return true;
+                case 21: return true;
+            }
+            return false;
+        }
+
 
 
 

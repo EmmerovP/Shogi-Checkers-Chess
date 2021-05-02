@@ -475,7 +475,6 @@ namespace ShogiCheckersChess
             enemyMet = false;
         }
 
-
         public static void HorseForward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
@@ -532,7 +531,6 @@ namespace ShogiCheckersChess
             }
             enemyMet = false;
         }
-        //zbytek tahů pro šachy
 
         public static void Horse(int x, int y, Pieces[,] chessboard)
         {
@@ -884,7 +882,6 @@ namespace ShogiCheckersChess
             enemyMet = false;
         }
 
-
         public static void PawnTwoBackward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
@@ -917,7 +914,6 @@ namespace ShogiCheckersChess
             }
             enemyMet = false;
         }
-
 
         public static void Castling(int x, int y, Pieces[,] chessboard)
         {
