@@ -370,6 +370,10 @@ namespace ShogiCheckersChess
 
         }
 
-
+        private void NewGameInstanceButton_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+            Environment.Exit(0);
+        }
     }
 }

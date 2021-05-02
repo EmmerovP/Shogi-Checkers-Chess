@@ -68,6 +68,7 @@
             this.MinimaxButton = new System.Windows.Forms.Button();
             this.MonteCarloButton = new System.Windows.Forms.Button();
             this.ChooseAlgorithmLabel = new System.Windows.Forms.Label();
+            this.NewGameInstanceButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SelectChessButton
@@ -307,7 +308,7 @@
             // 
             // ChooseShogiButtonUpper
             // 
-            this.ChooseShogiButtonUpper.Location = new System.Drawing.Point(565, 113);
+            this.ChooseShogiButtonUpper.Location = new System.Drawing.Point(576, 127);
             this.ChooseShogiButtonUpper.Name = "ChooseShogiButtonUpper";
             this.ChooseShogiButtonUpper.Size = new System.Drawing.Size(75, 23);
             this.ChooseShogiButtonUpper.TabIndex = 19;
@@ -319,7 +320,7 @@
             // ChooseShogiLabelUpper
             // 
             this.ChooseShogiLabelUpper.AutoSize = true;
-            this.ChooseShogiLabelUpper.Location = new System.Drawing.Point(563, 44);
+            this.ChooseShogiLabelUpper.Location = new System.Drawing.Point(574, 58);
             this.ChooseShogiLabelUpper.Name = "ChooseShogiLabelUpper";
             this.ChooseShogiLabelUpper.Size = new System.Drawing.Size(109, 13);
             this.ChooseShogiLabelUpper.TabIndex = 18;
@@ -332,7 +333,7 @@
             this.ChooseShogiBoxUpper.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ChooseShogiBoxUpper.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ChooseShogiBoxUpper.FormattingEnabled = true;
-            this.ChooseShogiBoxUpper.Location = new System.Drawing.Point(566, 73);
+            this.ChooseShogiBoxUpper.Location = new System.Drawing.Point(577, 87);
             this.ChooseShogiBoxUpper.Name = "ChooseShogiBoxUpper";
             this.ChooseShogiBoxUpper.Size = new System.Drawing.Size(121, 21);
             this.ChooseShogiBoxUpper.TabIndex = 17;
@@ -468,7 +469,7 @@
             // 
             // CustomGameChooseErrorLabel
             // 
-            this.CustomGameChooseErrorLabel.Location = new System.Drawing.Point(563, 291);
+            this.CustomGameChooseErrorLabel.Location = new System.Drawing.Point(563, 266);
             this.CustomGameChooseErrorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CustomGameChooseErrorLabel.Name = "CustomGameChooseErrorLabel";
             this.CustomGameChooseErrorLabel.Size = new System.Drawing.Size(118, 48);
@@ -480,7 +481,7 @@
             // CustomLabel
             // 
             this.CustomLabel.AutoSize = true;
-            this.CustomLabel.Location = new System.Drawing.Point(546, 556);
+            this.CustomLabel.Location = new System.Drawing.Point(562, 565);
             this.CustomLabel.Name = "CustomLabel";
             this.CustomLabel.Size = new System.Drawing.Size(105, 13);
             this.CustomLabel.TabIndex = 35;
@@ -537,12 +538,23 @@
             this.ChooseAlgorithmLabel.Text = "Vyberte algoritmus.";
             this.ChooseAlgorithmLabel.Visible = false;
             // 
+            // NewGameInstanceButton
+            // 
+            this.NewGameInstanceButton.Location = new System.Drawing.Point(627, 9);
+            this.NewGameInstanceButton.Name = "NewGameInstanceButton";
+            this.NewGameInstanceButton.Size = new System.Drawing.Size(106, 32);
+            this.NewGameInstanceButton.TabIndex = 40;
+            this.NewGameInstanceButton.Text = "Nová hra";
+            this.NewGameInstanceButton.UseVisualStyleBackColor = true;
+            this.NewGameInstanceButton.Click += new System.EventHandler(this.NewGameInstanceButton_Click);
+            // 
             // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(745, 596);
+            this.Controls.Add(this.NewGameInstanceButton);
             this.Controls.Add(this.ChooseAlgorithmLabel);
             this.Controls.Add(this.MonteCarloButton);
             this.Controls.Add(this.MinimaxButton);
@@ -627,6 +639,7 @@
         private System.Windows.Forms.Button MinimaxButton;
         private System.Windows.Forms.Button MonteCarloButton;
         private System.Windows.Forms.Label ChooseAlgorithmLabel;
+        private System.Windows.Forms.Button NewGameInstanceButton;
     }
 }
 
