@@ -5,26 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-/* Vygeneruje tahy pro zadanou figurku.
- * 
- * 
- */
 
 namespace ShogiCheckersChess
 {
+    /// <summary>
+    /// Class taking care of generating moves.
+    /// </summary>
     public static class Generating
     {
+        /// <summary>
+        /// Marks which player's moves should currently be generated.
+        /// </summary>
         public static bool WhitePlays = true;
 
+        /// <summary>
+        /// Marks whether we take a piece with checkers piece.
+        /// </summary>
         public static bool CheckersTake = false;
 
-        //vnitřní funkce, která jen vygeneruje tahy 
-
+        /// <summary>
+        /// Inner function, taking care of logic 
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <param name="delete"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="Board"></param>
         public static void GenerateMoves(Pieces piece, bool delete, int x, int y, Pieces[,] Board)
         {
             CheckersTake = false;
 
-            //musíme-li vzít figurku v dámě, nemůžeme povolit žádný jiný tah
+            //takes care of special movement of checker pieces
             if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeCheckersPiece(Board)))
             {
                 if (piece.Value == 10)
@@ -38,7 +49,6 @@ namespace ShogiCheckersChess
                     {
                         Moves.BlackCheckersTake(x, y, Board);
                     }
-
 
                     return;
                 }
@@ -68,7 +78,15 @@ namespace ShogiCheckersChess
 
         }
 
-        //main generating function
+        /// <summary>
+        /// Main generating function.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <param name="delete"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="checkValidMoves"></param>
+        /// <param name="Board"></param>
         public static void Generate(Pieces piece, bool delete, int x, int y, bool checkValidMoves, Pieces[,] Board)
         {
             //nejprve si smaže seznam tahů
