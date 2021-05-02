@@ -133,7 +133,7 @@ namespace ShogiCheckersChess
 
             if (Gameclass.CurrentGame.algorithmType == Gameclass.AlgorithmType.minimax)
             {
-                move = Minimax.FindPiece();
+                move = Minimax.GetNextMove();
             }
             else
             {

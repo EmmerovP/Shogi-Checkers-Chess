@@ -12,9 +12,15 @@ namespace ShogiCheckersChess
     {
         public static bool WhiteSide = false;
 
-        public static int Highest(List<int> list)
+        /// <summary>
+        /// Returns highest number of a list of integers.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static int GetHighestValue(List<int> list)
         {
             int highest = Int32.MinValue;
+
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i] > highest)
@@ -25,61 +31,37 @@ namespace ShogiCheckersChess
             return highest;
         }
 
-        public static int AddingPieces(int eval, int depth, int alpha, int beta, bool isMaxing)
+        /// <summary>
+        /// Returns list of indexes of a given list which contains a specified value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<int> GetAllIndexes(int value, List<int> list)
         {
-            List<Pieces> PiecesList;
-
-            if (isMaxing)
+            List<int> indexes = new List<int>();
+            for (int i = 0; i < list.Count; i++)
             {
-                PiecesList = MainGameWindow.shogiAIPieces;
-            }
-            else
-            {
-                PiecesList = MainGameWindow.shogiPlayerPieces;
-            }
-
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (PiecesList.Count != 0))
-            {
-                List<Pieces> availablePieces = new List<Pieces>();
-                availablePieces.AddRange(PiecesList);
-
-                foreach (var piece in availablePieces)
+                if (list[i] == value)
                 {
-                    for (int i = 0; i < Board.board.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < Board.board.GetLength(1); j++)
-                        {
-                            if (Board.board[i, j] == null)
-                            {
-                                Board.board[i, j] = piece;
-                                Board.board[i, j].isWhite = false;
-                                PiecesList.Remove(piece);
-
-                                if (isMaxing)
-                                {
-                                    eval = Math.Max(eval, OneStepMax(depth - 1, alpha, beta, false));
-                                }
-                                else
-                                {
-                                    eval = Math.Min(eval, OneStepMax(depth - 1, alpha, beta, true));
-                                }                             
-
-                                PiecesList.Add(piece);
-                                Board.board[i, j] = null;
-                            }
-                        }
-                    }
+                    indexes.Add(i);
                 }
             }
 
-
-            return eval;
+            return indexes;
         }
 
 
 
-
-        public static int OneStepMax(int depth, int alpha, int beta, bool isMaxing)
+        /// <summary>
+        /// One step of a minimax algorithm.
+        /// </summary>
+        /// <param name="depth"></param>
+        /// <param name="alpha"></param>
+        /// <param name="beta"></param>
+        /// <param name="isMaxing"></param>
+        /// <returns></returns>
+        public static int OneStep(int depth, int alpha, int beta, bool isMaxing)
         {
 
             if (depth == 0)
@@ -104,12 +86,10 @@ namespace ShogiCheckersChess
             if (isMaxing)
             {
                 eval = Int32.MinValue;
-                //eval = Math.Max(eval, AddingPieces(eval, depth, alpha, beta, isMaxing));
             }
             else
             {
                 eval = Int32.MaxValue;
-                //eval = Math.Min(eval, AddingPieces(eval, depth, alpha, beta, isMaxing));
             }
             
 
@@ -118,11 +98,8 @@ namespace ShogiCheckersChess
 
             if (Moves.final_x.Count != 0)
             {
-                //vykopírujeme si tahy
                 var cp = Moves.MakeCopyEmpty();
-                //prohodíme strany na další tah
                 Generating.WhitePlays = !Generating.WhitePlays;
-                //tvoříme děti jednotlivých tahů
                 for (int k = 0; k < cp.final_x.Count; k++)
                 {
                     MoveController.ApplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], Board.board);
@@ -135,11 +112,11 @@ namespace ShogiCheckersChess
 
                     if (isMaxing)
                     {
-                        eval = Math.Max(OneStepMax(depth - 1, alpha, beta, false), eval);
+                        eval = Math.Max(OneStep(depth - 1, alpha, beta, false), eval);
                     }
                     else
                     {
-                        eval = Math.Min(OneStepMax(depth - 1, alpha, beta, true), eval);
+                        eval = Math.Min(OneStep(depth - 1, alpha, beta, true), eval);
                     }
 
                     MoveController.ReapplyMove(cp.start_x[k], cp.start_y[k], cp.final_x[k], cp.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
@@ -171,6 +148,11 @@ namespace ShogiCheckersChess
 
         }
 
+
+        /// <summary>
+        /// Evaluates chessboard for minimax algorithm.
+        /// </summary>
+        /// <returns></returns>
         public static int EvaluateChessboard()
         {
             int eval = 0;
@@ -199,21 +181,13 @@ namespace ShogiCheckersChess
 
         public static bool isAddingPiece;
         public static Pieces AddingPiece;
-        public static List<int> HighestIndexes(int highest, List<int> list)
-        {
-            List<int> indexes = new List<int>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i] == highest)
-                {
-                    indexes.Add(i);
-                }
-            }
 
-            return indexes;
-        }
 
-        public static int FindPiece()
+        /// <summary>
+        /// Gets a next move for minimax algorithm.
+        /// </summary>
+        /// <returns></returns>
+        public static int GetNextMove()
         {
             bool WhoPlays = Generating.WhitePlays;
             isAddingPiece = false;
@@ -260,7 +234,7 @@ namespace ShogiCheckersChess
                 var movedPiece = MoveController.moved;
 
 
-                choice.Add(Minimax.OneStepMax(3, Int32.MinValue, Int32.MaxValue, false));
+                choice.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
 
 
 
@@ -300,7 +274,7 @@ namespace ShogiCheckersChess
                                 Board.board[i, j].isWhite = false;
                                 MainGameWindow.shogiAIPieces.Remove(piece);
 
-                                choice.Add(Minimax.OneStepMax(2, Int32.MinValue, Int32.MaxValue, false));
+                                choice.Add(Minimax.OneStep(2, Int32.MinValue, Int32.MaxValue, false));
 
                                 moves.final_x.Add(i);
                                 moves.final_y.Add(j);
@@ -324,8 +298,8 @@ namespace ShogiCheckersChess
             Moves.EmptyCoordinates();
             Moves.CoordinatesReturn(moves);
 
-            int highest = Highest(choice);
-            var indexes = HighestIndexes(highest, choice);
+            int highest = GetHighestValue(choice);
+            var indexes = GetAllIndexes(highest, choice);
             int move = rnd.Next(indexes.Count);
             int pos = indexes[move];
 
@@ -341,13 +315,18 @@ namespace ShogiCheckersChess
 
         }
 
+
+        /// <summary>
+        /// Check whether it is okay to put a shogi pawn in specified column.
+        /// </summary>
+        /// <param name="column"></param>
+        /// <returns></returns>
         public static bool PawnColumn(int column)
         {
             for (int i = 0; i < Board.board.GetLength(1); i++)
             {
                 if ((Board.board[i, column] != null) && ((Board.board[i, column].GetNumber() == 40) || (Board.board[i, column].GetNumber() == 41)))
                 {
-
                     return true;
                 }
 
