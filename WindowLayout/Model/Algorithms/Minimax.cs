@@ -168,6 +168,12 @@ namespace ShogiCheckersChess
         public static bool isAddingPiece;
         public static Pieces AddingPiece;
 
+        /// <summary>
+        /// Tries to add piece to see what happens in minimax algorithm.
+        /// </summary>
+        /// <param name="choice"></param>
+        /// <param name="moves"></param>
+        /// <param name="removePieces"></param>
         public static void TryToAddPiece(List<int> choice, Moves.CoordinatesCopy moves, List<Pieces> removePieces)
         {
             if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (MainGameWindow.shogiAIPieces.Count != 0))
@@ -227,7 +233,7 @@ namespace ShogiCheckersChess
             Generating.CheckersTake = false;
             Moves.EmptyCoordinates();
 
-            List<int> choice = new List<int>();
+            List<int> possibleMovesEvaluation = new List<int>();
 
             Generating.GenerateAllMoves(Board.board, true, false);
 
@@ -238,12 +244,12 @@ namespace ShogiCheckersChess
 
             //skončili jsme
 
-            if (moves.final_x.Count == 0)
+            if (moves.GetCount() == 0)
             {
                 return -1;
             }
 
-            for (int i = 0; i < moves.final_x.Count; i++)
+            for (int i = 0; i < moves.GetCount(); i++)
             {
                 MoveController.ApplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], Board.board);
                 var piece = MoveController.takenPiece;
@@ -253,7 +259,7 @@ namespace ShogiCheckersChess
                 var movedPiece = MoveController.moved;
 
 
-                choice.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
+                possibleMovesEvaluation.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
 
 
 
@@ -266,7 +272,7 @@ namespace ShogiCheckersChess
 
             List<Pieces> removePieces = new List<Pieces>();
 
-            TryToAddPiece(choice, moves, removePieces);
+            TryToAddPiece(possibleMovesEvaluation, moves, removePieces);
 
             Generating.WhitePlays = WhoPlays;
 
@@ -276,8 +282,8 @@ namespace ShogiCheckersChess
             Moves.EmptyCoordinates();
             Moves.CoordinatesReturn(moves);
 
-            int highest = GetHighestValue(choice);
-            var indexes = GetAllIndexes(highest, choice);
+            int highest = GetHighestValue(possibleMovesEvaluation);
+            var indexes = GetAllIndexes(highest, possibleMovesEvaluation);
             int move = rnd.Next(indexes.Count);
             int pos = indexes[move];
 

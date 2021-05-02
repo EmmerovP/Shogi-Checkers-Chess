@@ -10,17 +10,11 @@ namespace ShogiCheckersChess
 {
     public static class Moves
     {
-        //problémy s pairy: C# moc pairy nemá... U každé souřadnice bych musela vytvářet nový objekt, což je něco, čemu jsem se chtěla vyhnout :(
-        //a co začátek tahu? Asi bych zase tahy musela reprezentovat 
-
         public static List<int> final_x = new List<int>();
         public static List<int> final_y = new List<int>();
 
         public static List<int> start_x = new List<int>();
         public static List<int> start_y = new List<int>();
-
-
-        //public static List<int> value = new List<int>();
 
         public class CoordinatesCopy
         {
@@ -29,9 +23,19 @@ namespace ShogiCheckersChess
 
             public List<int> start_x = new List<int>();
             public List<int> start_y = new List<int>();
+
+            public int GetCount()
+            {
+                return final_x.Count;
+            }
         }
 
         public static bool isCastling;
+
+        public static int GetCount()
+        {
+            return final_x.Count();
+        }
 
 
         public static void EmptyCoordinates()
