@@ -12,10 +12,6 @@ namespace ShogiCheckersChess
     {
         public static bool WhiteSide = false;
 
-
-        //já nevím tohle jde asi líp...
-        public static int CurrentHighest;
-
         public static int Highest(List<int> list)
         {
             int highest = Int32.MinValue;
@@ -27,34 +23,6 @@ namespace ShogiCheckersChess
                 }
             }
             return highest;
-        }
-
-        //není něco v knihovně na tohle?
-        public static bool isEqual(int a)
-        {
-            if (a == CurrentHighest)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
-
-        public static int Lowest(List<int> list)
-        {
-            int lowest = Int32.MaxValue;
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i] < lowest)
-                {
-                    lowest = list[i];
-                }
-            }
-            return lowest;
         }
 
         public static int AddingPieces(int eval, int depth, int alpha, int beta, bool isMaxing)

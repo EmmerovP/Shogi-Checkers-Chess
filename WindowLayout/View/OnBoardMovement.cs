@@ -15,6 +15,7 @@ namespace ShogiCheckersChess
 {
     public partial class MainGameWindow : Form
     {
+
         public static bool CheckersTake;
 
         public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
