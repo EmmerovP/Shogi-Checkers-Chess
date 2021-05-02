@@ -121,7 +121,6 @@
       <DependentUpon>propagation.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controller\ChooseAMove.cs" />
     <Compile Include="View\ShogiAddPiece.cs">
       <SubType>Form</SubType>
     </Compile>

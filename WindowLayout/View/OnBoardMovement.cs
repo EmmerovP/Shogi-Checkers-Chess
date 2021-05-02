@@ -132,7 +132,7 @@ namespace ShogiCheckersChess
 
             if (Gameclass.CurrentGame.algorithmType == Gameclass.AlgorithmType.minimax)
             {
-                move = RandomMoveGen.FindPiece();
+                move = Minimax.FindPiece();
             }
             else
             {
@@ -142,7 +142,7 @@ namespace ShogiCheckersChess
             Generating.WhitePlays = whoPlays;
          
 
-            if (RandomMoveGen.isAddingPiece)
+            if (Minimax.isAddingPiece)
             {
                 Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move]);
 
