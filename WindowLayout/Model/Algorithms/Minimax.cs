@@ -69,17 +69,7 @@ namespace ShogiCheckersChess
                 return EvaluateChessboard();
             }
 
-            //Vygenerujeme možné tahy na momentální šachovnici
-            for (int i = 0; i < Board.board.GetLength(0); i++)
-            {
-                for (int j = 0; j < Board.board.GetLength(1); j++)
-                {
-                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
-                    {
-                        Generating.Generate(Board.board[i, j], false, i, j, false, Board.board);
-                    }
-                }
-            }
+            Generating.GenerateAllMoves(Board.board, false, false);
 
             int eval;
 
@@ -92,10 +82,6 @@ namespace ShogiCheckersChess
                 eval = Int32.MaxValue;
             }
             
-
-
-
-
             if (Moves.final_x.Count != 0)
             {
                 var cp = Moves.MakeCopyEmpty();

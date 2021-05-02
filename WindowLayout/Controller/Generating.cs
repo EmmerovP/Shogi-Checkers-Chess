@@ -119,6 +119,20 @@ namespace ShogiCheckersChess
 
         }
 
+        public static void GenerateAllMoves(Pieces[,] Board, bool checkValidMoves, bool deleteMoves)
+        {
+            for (int i = 0; i < Board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.GetLength(1); j++)
+                {
+                    if ((Board[i, j] != null) && (Board[i, j].isWhite == Generating.WhitePlays))
+                    {
+                        Generating.Generate(Board[i, j], deleteMoves, i, j, checkValidMoves, Board);
+                    }
+                }
+            }
+        }
+
         public static bool UpperShogiPromotion(int x)
         {
             if ((x == Board.board.GetLength(1) - 3) || (x == Board.board.GetLength(1) - 1) || (x == Board.board.GetLength(1) - 2))
