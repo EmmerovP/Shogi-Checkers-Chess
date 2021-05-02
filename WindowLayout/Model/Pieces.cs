@@ -174,8 +174,8 @@ namespace ShogiCheckersChess
         public override string Name { get; protected set; } = "Pěšec";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
-            Moves.TwoForward(x, y, chessboard);
-            Moves.SkewForward(x, y, chessboard);
+            Moves.PawnTwoForward(x, y, chessboard);
+            Moves.PawnSkewForward(x, y, chessboard);
             Moves.BottomEnPassante(x, y, chessboard);
         }
     }
@@ -186,8 +186,8 @@ namespace ShogiCheckersChess
         public override string Name { get; protected set; } = "Pěšec";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
-            Moves.TwoBackward(x, y, chessboard);
-            Moves.SkewBackward(x, y, chessboard);
+            Moves.PawnTwoBackward(x, y, chessboard);
+            Moves.PawnSkewBackward(x, y, chessboard);
             Moves.UpperEnPassante(x, y, chessboard);
         }
     }

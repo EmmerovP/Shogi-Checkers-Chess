@@ -99,8 +99,8 @@
       <DependentUpon>MainGameWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Gameclass.cs" />
-    <Compile Include="Model\Algorithms\Minimax.cs" />
-    <Compile Include="Model\Algorithms\MonteCarlo.cs" />
+    <Compile Include="Controller\Algorithms\Minimax.cs" />
+    <Compile Include="Controller\Algorithms\MonteCarlo.cs" />
     <Compile Include="Model\Moves.cs" />
     <Compile Include="View\OnBoardMovement.cs">
       <SubType>Form</SubType>

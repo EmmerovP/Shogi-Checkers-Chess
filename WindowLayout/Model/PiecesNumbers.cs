@@ -172,8 +172,8 @@ namespace ShogiCheckersChess
             { 17, Moves.Horse },
             { 18, Moves.HorseForward },
             { 19, Moves.HorseBackward },
-            { 20, Moves.TwoForward },
-            { 21, Moves.TwoBackward }
+            { 20, Moves.PawnTwoForward },
+            { 21, Moves.PawnTwoBackward }
         };
 
         public static int updatePiece(string name)

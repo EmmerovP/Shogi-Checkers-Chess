@@ -7,7 +7,9 @@ using System.Windows.Forms;
 
 namespace ShogiCheckersChess
 {
-
+    /// <summary>
+    /// Class taking care of a minimax algorithm, which traverses through a game tree and evaluates leaves by pieces on board
+    /// </summary>
     public class Minimax
     {
         public static bool WhiteSide = false;

@@ -4,18 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//tohle je vlastně už vnitřní záležitost, ne windowlayout
-
 namespace ShogiCheckersChess
 {
+    /// <summary>
+    /// Class taking care of all possible piece movement, and storing generated moves.
+    /// </summary>
     public static class Moves
     {
+
+        //main lists used for storing generated moves coordinates for current game
         public static List<int> final_x = new List<int>();
         public static List<int> final_y = new List<int>();
 
         public static List<int> start_x = new List<int>();
         public static List<int> start_y = new List<int>();
 
+        //class for storing a copy of main moves coordinates
         public class CoordinatesCopy
         {
             public List<int> final_x = new List<int>();
@@ -24,20 +28,28 @@ namespace ShogiCheckersChess
             public List<int> start_x = new List<int>();
             public List<int> start_y = new List<int>();
 
+            /// <summary>
+            /// Returns count of items in list of moves coordinates.
+            /// </summary>
+            /// <returns>Count of items in final_x, final_y, and so.</returns>
             public int GetCount()
             {
                 return final_x.Count;
             }
         }
 
-        public static bool isCastling;
-
+        /// <summary>
+        /// Returns count of items in list of moves coordinates.
+        /// </summary>
+        /// <returns>Count of items in final_x, final_y, and so.</returns>
         public static int GetCount()
         {
             return final_x.Count();
         }
 
-
+        /// <summary>
+        /// Clear all of main moves coordinates lists.
+        /// </summary>
         public static void EmptyCoordinates()
         {
             final_x.Clear();
@@ -48,6 +60,10 @@ namespace ShogiCheckersChess
 
         }
 
+        /// <summary>
+        /// Remove element at specified index in all of move coordinates lists.
+        /// </summary>
+        /// <param name="i"></param>
         public static void RemoveAt(int i)
         {
             final_x.RemoveAt(i);
@@ -58,44 +74,52 @@ namespace ShogiCheckersChess
 
         }
 
-        public static void ReplaceAt(int i)
+        /// <summary>
+        /// Replace element in all move coordinates list for -1.
+        /// </summary>
+        /// <param name="index">index of replacement</param>
+        public static void ReplaceAt(int index)
         {
-            final_x[i] = -1;
-            final_y[i] = -1;
+            final_x[index] = -1;
+            final_y[index] = -1;
 
-            start_x[i] = -1;
-            start_y[i] = -1;
+            start_x[index] = -1;
+            start_y[index] = -1;
 
         }
 
-        public static bool Equals(int i)
+        /// <summary>
+        /// Delete all occurences of value in move coordinates lists.
+        /// </summary>
+        /// <param name="index"></param>
+        public static void Delete(int index)
         {
-            if (i == -1)
-                return true;
-            else
-                return false;
-        }
+            final_x.RemoveAll(item => item == index);
+            final_y.RemoveAll(item => item == index);
 
-        public static void Delete(int i)
-        {
-            final_x.RemoveAll(item => item == i);
-            final_y.RemoveAll(item => item == i);
-
-            start_x.RemoveAll(item => item == i);
-            start_y.RemoveAll(item => item == i);
+            start_x.RemoveAll(item => item == index);
+            start_y.RemoveAll(item => item == index);
 
         }
 
-        public static void CoordinatesReturn(CoordinatesCopy cp)
+        /// <summary>
+        /// Return all coordinates from a specified copy of move coordinates to main lists.
+        /// </summary>
+        /// <param name="copy"></param>
+        public static void CoordinatesReturn(CoordinatesCopy copy)
         {
-            final_x.AddRange(cp.final_x);
-            final_y.AddRange(cp.final_y);
+            final_x.AddRange(copy.final_x);
+            final_y.AddRange(copy.final_y);
 
-            start_x.AddRange(cp.start_x);
-            start_y.AddRange(cp.start_y);
+            start_x.AddRange(copy.start_x);
+            start_y.AddRange(copy.start_y);
 
         }
 
+        /// <summary>
+        /// Make copy of move coordinates and empty main lists.
+        /// </summary>
+        /// <returns></returns>
         public static CoordinatesCopy MakeCopyEmptyCoordinates()
         {
             CoordinatesCopy cp = new CoordinatesCopy();
@@ -112,20 +136,35 @@ namespace ShogiCheckersChess
             return cp;
         }
 
+        /// <summary>
+        /// Indicates whether we already met an enemy figure while generating move across multiple fields. We can stop generating the move then.
+        /// </summary>
         public static bool enemyMet = false;
-        //okej, pokud bych pracovala s polem objektů, stačí poslední nulu asi přepsat na null
+        
+        /// <summary>
+        /// Checks whether we can generate a move to this field.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="chessboard"></param>
+        /// <returns></returns>
         public static bool ValidMove(int x, int y, Pieces[,] chessboard)
         {
-            //především pro "nekonečné" tahy figurek, co se zastaví, když potkají nepřátelskou figurku
+            
             if (enemyMet == true)
                 return false;
 
+
+            //check the boundaries of a given chessboard
             int height = chessboard.GetLength(0);
             int width = chessboard.GetLength(1);
+
             if ((x < 0) || (y < 0))
                 return false;
             if ((x >= height) || (y >= width))
                 return false;
+
+            //what to do when there is another piece in final destination
             if (chessboard[x, y] != null)
             {
                 if (enemyMet == false)
@@ -149,19 +188,14 @@ namespace ShogiCheckersChess
             return true;
         }
 
-        //nekonečno do každého směru
-        //možná z toho udělám třídy - definování custom figurek
-        //nebo taky ne, nevím moc co s tím, tohle se mi zdá srozumitelnější? Ifové/case podmínky na vytvoření custom figurky
         public static void ForwardInfinity(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
             int y_starting_pos = y;
 
-
             x--;
             while (Moves.ValidMove(x, y, chessboard))
             {
-                //konstruktor
                 final_x.Add(x);
                 final_y.Add(y);
                 start_x.Add(x_starting_pos);
@@ -305,8 +339,6 @@ namespace ShogiCheckersChess
             enemyMet = false;
         }
 
-
-        //jeden krok do každého směru
         public static void Forward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
@@ -444,7 +476,6 @@ namespace ShogiCheckersChess
         }
 
 
-        //tah pro koně - ten první je pro koně v shogi, po doplnění se zbytkem tahů se z toho stane kůň v šachách
         public static void HorseForward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
@@ -586,7 +617,6 @@ namespace ShogiCheckersChess
             bool enemy = false;
             enemyMet = false;
 
-            //funkční model, vypadá to
             if ((ValidMove(x + 1, y + 1, chessboard)) && (Board.board[x + 1, y + 1] != null))
             {
                 enemyMet = false;
@@ -634,7 +664,6 @@ namespace ShogiCheckersChess
             bool enemy = false;
             enemyMet = false;
 
-            //funkční model, vypadá to          
             if ((ValidMove(x - 1, y + 1, chessboard)) && (Board.board[x - 1, y + 1] != null))
             {
                 enemyMet = false;
@@ -645,8 +674,6 @@ namespace ShogiCheckersChess
 
                     final_x.Add(x - 2);
                     final_y.Add(y + 2);
-
-
 
                     enemy = true;
 
@@ -708,13 +735,9 @@ namespace ShogiCheckersChess
             }
             enemyMet = false;
 
-
-
             return enemy;
 
         }
-
-        //tahy žetonem dámou pouze
 
         public static bool WhiteChecker(int x, int y, Pieces[,] chessboard)
         {
@@ -752,13 +775,11 @@ namespace ShogiCheckersChess
 
         }
 
-        //vyhazování dolních pěšců
-        public static void SkewForward(int x, int y, Pieces[,] chessboard)
+        public static void PawnSkewForward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
             int y_starting_pos = y;
 
-            //somehow they don't add one side of skew, this might help?
             enemyMet = false;
 
             if (ValidMove(x - 1, y - 1, chessboard))
@@ -792,13 +813,11 @@ namespace ShogiCheckersChess
 
         }
 
-        //horních 
-        public static void SkewBackward(int x, int y, Pieces[,] chessboard)
+        public static void PawnSkewBackward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
             int y_starting_pos = y;
 
-            //somehow they don't add one side of skew, this might help?
             enemyMet = false;
 
             if (ValidMove(x + 1, y + 1, chessboard))
@@ -830,8 +849,7 @@ namespace ShogiCheckersChess
             enemyMet = false;
         }
 
-        // o dvě pole dopředu - pro první pozici pěšců
-        public static void TwoForward(int x, int y, Pieces[,] chessboard)
+        public static void PawnTwoForward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
             int y_starting_pos = y;
@@ -866,8 +884,8 @@ namespace ShogiCheckersChess
             enemyMet = false;
         }
 
-        // o dvě pole dopředu - pro první pozici pěšců (druhá strana)
-        public static void TwoBackward(int x, int y, Pieces[,] chessboard)
+
+        public static void PawnTwoBackward(int x, int y, Pieces[,] chessboard)
         {
             int x_starting_pos = x;
             int y_starting_pos = y;
@@ -901,7 +919,6 @@ namespace ShogiCheckersChess
         }
 
 
-        //rošáda
         public static void Castling(int x, int y, Pieces[,] chessboard)
         {
             if (chessboard[x, y].Moved)
@@ -914,7 +931,7 @@ namespace ShogiCheckersChess
                 return;
             }
 
-            //pro spodní velkou rošádu
+            //for bottom big castling
             if (x == 7 && y == 4
                     && chessboard[7, 0] != null
                     && chessboard[7, 0].Value == 50
@@ -929,7 +946,7 @@ namespace ShogiCheckersChess
                 final_y.Add(y - 2);
             }
 
-            //pro spodní malou rošádu
+            //for bottom small castling
             if (x == 7 && y == 4
                     && chessboard[7, 7] != null
                     && chessboard[7, 7].Value == 50
@@ -943,7 +960,7 @@ namespace ShogiCheckersChess
                 final_y.Add(y + 2);
             }
 
-            //pro vrchní rošády
+            //for upper big castling
             if (x == 0 && y == 4
                     && chessboard[0, 0] != null
                     && chessboard[0, 0].Value == 50
@@ -958,6 +975,7 @@ namespace ShogiCheckersChess
                 final_y.Add(y - 2);
             }
 
+            //for upper small castling
             if (x == 0 && y == 4
                     && chessboard[0, 7] != null
                     && chessboard[0, 7].Value == 50
