@@ -183,7 +183,7 @@ namespace ShogiCheckersChess
                         {
                             if (Board.board[i, j] == null)
                             {
-                                if (piece.Name == "Shogi pěšák")
+                                if (PiecesNumbers.IsShogiPawn(piece))
                                 {
                                     //koukni jestli ve sloupečku již není pěšák, můžeš to udělat tou funkcí co už máš
                                     if (PawnColumn(j))
@@ -303,7 +303,7 @@ namespace ShogiCheckersChess
         {
             for (int i = 0; i < Board.board.GetLength(1); i++)
             {
-                if ((Board.board[i, column] != null) && ((Board.board[i, column].GetNumber() == 40) || (Board.board[i, column].GetNumber() == 41)))
+                if (Board.board[i, column] != null && PiecesNumbers.IsShogiPawn(Board.board[i, column]))
                 {
                     return true;
                 }

@@ -189,6 +189,25 @@ namespace ShogiCheckersChess
             return value;
         }
 
+        /// <summary>
+        /// Since pieces are marked by number, and shogi pawns may have multiple numbers:
+        /// For the upper and bottom piece, for the normal and promoted one.
+        /// Here we return true when the number of given piece corresponds to shogi pawn in any form.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static bool IsShogiPawn(Pieces piece)
+        {
+            switch (piece.GetNumber())
+            {
+                case 40: return true;
+                case 41: return true;
+                case 19: return true;
+                case 20: return true;
+            }
+            return false;
+        }
+
 
 
 
