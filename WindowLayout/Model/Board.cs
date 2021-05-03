@@ -2,7 +2,14 @@
 {
     public static class Board
     {
+        /// <summary>
+        /// Base number of pieces written in code.
+        /// </summary>
         const int NUMBER_OF_PIECES = 42;
+
+        /// <summary>
+        /// Main game board for current game.
+        /// </summary>
         public static Pieces[,] board;
 
         /// <summary>
