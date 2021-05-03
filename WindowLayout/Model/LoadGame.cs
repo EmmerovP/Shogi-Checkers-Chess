@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-
-
-//třída primárně určena pro vizualizaci tahu figurkou na grafické šachovnici
-
-//pro model-view-controller nechat tuto třídu jako model, controller, tedy samotné to tlačítko bude v nějaké controller třídě
 
 namespace ShogiCheckersChess
 {
+
+    /// <summary>
+    /// Object used to represent a game defined by user.
+    /// </summary>
     public class CustomGame
     {
         public string TypeOfGame;
@@ -23,6 +21,12 @@ namespace ShogiCheckersChess
 
     public partial class MainGameWindow : Form
     {
+
+        /// <summary>
+        /// Loading custom game from JSON file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
             DialogResult result = LoadCustomGameDialog.ShowDialog();
@@ -33,14 +37,17 @@ namespace ShogiCheckersChess
 
                 string file = LoadCustomGameDialog.FileName;
 
-                //try
-                //{
+                try
+                {
                     customGame = JsonConvert.DeserializeObject<CustomGame>(File.ReadAllText(file));
-                //}
-                //catch(Exception)
-                //{
-                //   throw new Exception();
-                //}
+                }
+                catch
+                {
+                    //dialogové okno s chybou?
+                    return;
+                }
+               
+
 
                 Pieces.DefinedPieces = new List<DefinedPiece>();
 
@@ -77,7 +84,8 @@ namespace ShogiCheckersChess
                             newPiece.isWhite = true;
                         }
 
-                        newPiece.Value = newPiece.moves.Length * 3;
+                        newPiece.Value = GetPieceValue(newPiece);
+
                         string image = customGame.Pieces[i].Item3.Replace("\\\\", "\\");
                         GamePieces.Images.Add(Image.FromFile(image));
 
@@ -95,6 +103,18 @@ namespace ShogiCheckersChess
 
 
 
+        }
+
+
+        /// <summary>
+        /// Returns value of newly defined piece.
+        /// Currenty, the value is based on how many moves the piece can do.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static int GetPieceValue(DefinedPiece piece)
+        {
+            return piece.moves.Length * 3;
         }
     }
 
