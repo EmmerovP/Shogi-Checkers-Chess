@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using System.Threading;
 
 namespace ShogiCheckersChess
 {
 
     public class MonteCarlo
     {
-        public static int Nodeid;
 
         public class Node
         {
@@ -20,7 +15,7 @@ namespace ShogiCheckersChess
             public int numberOfSimulations;
             public int wins;
             public List<Node> children;
-            public bool WhitePlays; //zda tah generovaný po tomto uzlu je bílý
+            public bool WhitePlays; 
             public int id;
 
             public int start_x;
@@ -42,7 +37,6 @@ namespace ShogiCheckersChess
                 parent = null,
                 id = 0
             };
-            Nodeid++;
 
             var node = MonteCarloRoot(rootnode);
 
@@ -167,7 +161,6 @@ namespace ShogiCheckersChess
                     board = node.board.Clone() as Pieces[,],
                     numberOfSimulations = 0,
                     wins = 0,
-                    id = Nodeid,
                     parent = node,
 
                     final_x = Moves.final_x[i],
@@ -175,8 +168,6 @@ namespace ShogiCheckersChess
                     start_x = Moves.start_x[i],
                     start_y = Moves.start_y[i]
                 };
-
-                Nodeid++;
 
                 newnode.board[Moves.final_x[i], Moves.final_y[i]] = newnode.board[Moves.start_x[i], Moves.start_y[i]];
                 newnode.board[Moves.start_x[i], Moves.start_y[i]] = null;

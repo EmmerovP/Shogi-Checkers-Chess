@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShogiCheckersChess
+﻿namespace ShogiCheckersChess
 {
     public static class Board
     {
         const int NUMBER_OF_PIECES = 42;
         public static Pieces[,] board;
 
-        public static void AddPiece(int value, int x, int y)
+        /// <summary>
+        /// Adds piece, specified by its number, to main game board
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public static void AddPiece(int number, int x, int y)
         {
-            Pieces piece = new Pieces
+            Pieces piece;
+
+            switch (number)
             {
-                isWhite = false
-            };
-            switch (value)
-            {
+                //for bottom/white pieces
                 case 0:
                     piece = new King
                     {
@@ -145,7 +144,8 @@ namespace ShogiCheckersChess
                         isWhite = true
                     };
                     break;
-                //ještě černá, ale shogi má vlastně obrácené pohyby...
+
+                //for uper/black pieces
                 case 21:
                     piece = new King
                     {
@@ -272,26 +272,34 @@ namespace ShogiCheckersChess
                         isWhite = false
                     };
                     break;
-                //tohle bude custom figurka
                 default:
-                    MakeCustomPiece(value, x , y);
+                    MakeCustomPiece(number, x, y);
                     return;
 
             }
 
             board[x, y] = piece;
-            piece.SetNumber(value);
+            piece.SetNumber(number);
         }
 
+
+        /// <summary>
+        /// Adds custom piece on the board. This piece needs to already be in DefinedPieces list.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public static void MakeCustomPiece(int number, int x, int y)
         {
-            var piece = new Custom(Pieces.DefinedPieces[number - NUMBER_OF_PIECES].moves, 
-                Pieces.DefinedPieces[number - NUMBER_OF_PIECES].Name, Pieces. 
-                DefinedPieces[number - NUMBER_OF_PIECES].Value);
+            //index of custom piece in DefinedPieces list
+            int index = number - NUMBER_OF_PIECES;
 
-            piece.isWhite = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].isWhite;
+            var piece = new Custom(Pieces.DefinedPieces[index].moves, Pieces.DefinedPieces[index].Name, Pieces.DefinedPieces[index].Value)
+            {
+                isWhite = Pieces.DefinedPieces[number - NUMBER_OF_PIECES].isWhite
+            };
             board[x, y] = piece;
-            
+
 
         }
     }

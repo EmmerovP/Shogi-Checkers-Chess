@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ShogiCheckersChess
+﻿namespace ShogiCheckersChess
 {
     /// <summary>
     /// Class for applying and reapplying moves on a board.
