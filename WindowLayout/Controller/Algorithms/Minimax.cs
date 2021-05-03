@@ -256,9 +256,6 @@ namespace ShogiCheckersChess
             //set bool for signalizing of piece addition to default value
             isAddingPiece = false;
 
-            //set bool for signalizing of when piece has to take another one in checkers to default value 
-            Generating.CheckersTake = false;
-
             Moves.EmptyCoordinates();
 
             List<int> possibleMovesEvaluation = new List<int>();

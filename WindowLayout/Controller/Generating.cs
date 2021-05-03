@@ -19,11 +19,6 @@ namespace ShogiCheckersChess
         public static bool WhitePlays = true;
 
         /// <summary>
-        /// Marks whether we take a piece with checkers piece.
-        /// </summary>
-        public static bool CheckersTake = false;
-
-        /// <summary>
         /// Inner function, taking care of logic 
         /// </summary>
         /// <param name="piece"></param>
@@ -33,14 +28,12 @@ namespace ShogiCheckersChess
         /// <param name="Board"></param>
         public static void GenerateMoves(Pieces piece, bool delete, int x, int y, Pieces[,] Board)
         {
-            CheckersTake = false;
-
             //takes care of special movement of checker pieces
             if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (Gameclass.CurrentGame.MustTakeCheckersPiece(Board)))
             {
-                if (piece.Value == 10)
+                //for checkers piece, generate special moves for taking pieces
+                if (PiecesNumbers.IsCheckersPiece(piece))
                 {
-                    CheckersTake = true;
                     if (WhitePlays)
                     {
                         Moves.WhiteCheckersTake(x, y, Board);
@@ -52,6 +45,8 @@ namespace ShogiCheckersChess
 
                     return;
                 }
+
+                //for all other pieces, generate all their moves, then keep only the ones that take other pieces
                 else
                 {
                     piece.GenerateMoves(x, y, Board);
@@ -89,41 +84,37 @@ namespace ShogiCheckersChess
         /// <param name="Board"></param>
         public static void Generate(Pieces piece, bool delete, int x, int y, bool checkValidMoves, Pieces[,] Board)
         {
-            //nejprve si smaže seznam tahů
+            //when needed, deletes current move coordinates
             if (delete)
                 Moves.EmptyCoordinates();
 
-            int moves_start = Moves.final_x.Count;
+            //marks position
+            int movesStart = Moves.final_x.Count;
 
             GenerateMoves(piece, delete, x, y, Board);
 
-            //zamezíme tahům, které by nebyly validní, tzn. těm, co ohrozí vlastního krále
+            //we delete all the moves that would endanger a king in chess
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess && checkValidMoves)
-            //if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
             {
                 WhitePlays = !WhitePlays;
 
                 List<int> remove = new List<int>();
 
-                //pro Aičko by se to tady asi ani nemuselo brát od nuly...
-                for (int i = moves_start; i < Moves.final_x.Count; i++)
+                for (int i = movesStart; i < Moves.final_x.Count; i++)
                 {
                     Pieces takenpiece = Board[Moves.final_x[i], Moves.final_y[i]];
                     Board[Moves.final_x[i], Moves.final_y[i]] = Board[Moves.start_x[i], Moves.start_y[i]];
                     Board[Moves.start_x[i], Moves.start_y[i]] = null;
 
-                    //kontrola šachu - do seznamu remove dá ty tahy, jež mají šach
                     if (Gameclass.CurrentGame.KingCheck(Board))
                     {
                         remove.Add(i);
                     }
 
-
                     Board[Moves.start_x[i], Moves.start_y[i]] = Board[Moves.final_x[i], Moves.final_y[i]];
                     Board[Moves.final_x[i], Moves.final_y[i]] = takenpiece;
                 }
 
-                //removneme jak špatné tahy, tak jejich value pro aiščko
                 for (int i = 0; i < remove.Count; i++)
                 {
                     Moves.ReplaceAt(remove[i]);
@@ -137,6 +128,12 @@ namespace ShogiCheckersChess
 
         }
 
+        /// <summary>
+        /// Generates all possible moves for current side.
+        /// </summary>
+        /// <param name="Board"></param>
+        /// <param name="checkValidMoves"></param>
+        /// <param name="deleteMoves"></param>
         public static void GenerateAllMoves(Pieces[,] Board, bool checkValidMoves, bool deleteMoves)
         {
             for (int i = 0; i < Board.GetLength(0); i++)
@@ -151,16 +148,27 @@ namespace ShogiCheckersChess
             }
         }
 
-        public static bool UpperShogiPromotion(int x)
+        /// <summary>
+        /// Returns true when upper shogi piece can be promoted.
+        /// </summary>
+        /// <param name="row">row of piece</param>
+        /// <returns></returns>
+        public static bool UpperShogiPromotion(int row)
         {
-            if ((x == Board.board.GetLength(1) - 3) || (x == Board.board.GetLength(1) - 1) || (x == Board.board.GetLength(1) - 2))
+            if ((row == Board.board.GetLength(1) - 3) || (row == Board.board.GetLength(1) - 1) || (row == Board.board.GetLength(1) - 2))
                 return true;
             return false;
         }
 
-        public static bool BottomShogiPromotion(int x)
+
+        /// <summary>
+        /// Returns true when bottom shogi piece can be promoted.
+        /// </summary>
+        /// <param name="row">row of piece</param>
+        /// <returns></returns>
+        public static bool BottomShogiPromotion(int row)
         {
-            if ((x == 0) || (x == 1) || (x == 2))
+            if ((row == 0) || (row == 1) || (row == 2))
                 return true;
             return false;
         }
