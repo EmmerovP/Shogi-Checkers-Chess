@@ -36,7 +36,6 @@
             this.SelectShogiButton = new System.Windows.Forms.Button();
             this.SelectCustomGameButton = new System.Windows.Forms.Button();
             this.AboutGameButton = new System.Windows.Forms.Button();
-            this.CreditsButton = new System.Windows.Forms.Button();
             this.SelectSingleplayerButton = new System.Windows.Forms.Button();
             this.SelectLocMultiButton = new System.Windows.Forms.Button();
             this.GamePieces = new System.Windows.Forms.ImageList(this.components);
@@ -135,16 +134,6 @@
             this.AboutGameButton.Text = "O hře";
             this.AboutGameButton.UseVisualStyleBackColor = true;
             this.AboutGameButton.Click += new System.EventHandler(this.AboutGameButton_Click);
-            // 
-            // CreditsButton
-            // 
-            this.CreditsButton.Location = new System.Drawing.Point(307, 535);
-            this.CreditsButton.Margin = new System.Windows.Forms.Padding(2);
-            this.CreditsButton.Name = "CreditsButton";
-            this.CreditsButton.Size = new System.Drawing.Size(79, 43);
-            this.CreditsButton.TabIndex = 7;
-            this.CreditsButton.Text = "Credits";
-            this.CreditsButton.UseVisualStyleBackColor = true;
             // 
             // SelectSingleplayerButton
             // 
@@ -570,7 +559,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.SelectLocMultiButton);
             this.Controls.Add(this.SelectSingleplayerButton);
-            this.Controls.Add(this.CreditsButton);
             this.Controls.Add(this.AboutGameButton);
             this.Controls.Add(this.SelectCustomGameButton);
             this.Controls.Add(this.SelectShogiButton);
@@ -593,7 +581,6 @@
         private System.Windows.Forms.Button SelectShogiButton;
         private System.Windows.Forms.Button SelectCustomGameButton;
         private System.Windows.Forms.Button AboutGameButton;
-        private System.Windows.Forms.Button CreditsButton;
         private System.Windows.Forms.Button SelectSingleplayerButton;
         private System.Windows.Forms.Button SelectLocMultiButton;
         private System.Windows.Forms.ImageList GamePieces;

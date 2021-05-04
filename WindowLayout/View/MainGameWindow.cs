@@ -75,7 +75,6 @@ namespace ShogiCheckersChess
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
-            CreditsButton.Visible = false;
             label1.Visible = false;
         }
 
@@ -87,7 +86,6 @@ namespace ShogiCheckersChess
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
-            CreditsButton.Visible = false;
             label1.Visible = false;
 
             SelectSingleplayerButton.Visible = true;
@@ -254,8 +252,13 @@ namespace ShogiCheckersChess
                 for (int j = 0; j < pictureBoxes.GetLength(1); j++)
                 {
                     pictureBoxes[i, j].BackColor = Color.Transparent;
+                    pictureBoxes[i, j].Refresh();
                     if (piecesPictures[i, j] != null)
+                    {
                         piecesPictures[i, j].BackColor = Color.Transparent;
+                        piecesPictures[i, j].Refresh();
+                    }
+                        
                 }
             }
         }
