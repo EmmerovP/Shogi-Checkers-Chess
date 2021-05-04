@@ -36,7 +36,6 @@
             this.SelectShogiButton = new System.Windows.Forms.Button();
             this.SelectCustomGameButton = new System.Windows.Forms.Button();
             this.AboutGameButton = new System.Windows.Forms.Button();
-            this.AboutAuthorButton = new System.Windows.Forms.Button();
             this.CreditsButton = new System.Windows.Forms.Button();
             this.SelectSingleplayerButton = new System.Windows.Forms.Button();
             this.SelectLocMultiButton = new System.Windows.Forms.Button();
@@ -136,17 +135,6 @@
             this.AboutGameButton.Text = "O hře";
             this.AboutGameButton.UseVisualStyleBackColor = true;
             this.AboutGameButton.Click += new System.EventHandler(this.AboutGameButton_Click);
-            // 
-            // AboutAuthorButton
-            // 
-            this.AboutAuthorButton.Location = new System.Drawing.Point(307, 471);
-            this.AboutAuthorButton.Margin = new System.Windows.Forms.Padding(2);
-            this.AboutAuthorButton.Name = "AboutAuthorButton";
-            this.AboutAuthorButton.Size = new System.Drawing.Size(79, 43);
-            this.AboutAuthorButton.TabIndex = 6;
-            this.AboutAuthorButton.Text = "O autorce";
-            this.AboutAuthorButton.UseVisualStyleBackColor = true;
-            this.AboutAuthorButton.Click += new System.EventHandler(this.AboutAuthorButton_Click);
             // 
             // CreditsButton
             // 
@@ -584,7 +572,6 @@
             this.Controls.Add(this.SelectLocMultiButton);
             this.Controls.Add(this.SelectSingleplayerButton);
             this.Controls.Add(this.CreditsButton);
-            this.Controls.Add(this.AboutAuthorButton);
             this.Controls.Add(this.AboutGameButton);
             this.Controls.Add(this.SelectCustomGameButton);
             this.Controls.Add(this.SelectShogiButton);
@@ -607,7 +594,6 @@
         private System.Windows.Forms.Button SelectShogiButton;
         private System.Windows.Forms.Button SelectCustomGameButton;
         private System.Windows.Forms.Button AboutGameButton;
-        private System.Windows.Forms.Button AboutAuthorButton;
         private System.Windows.Forms.Button CreditsButton;
         private System.Windows.Forms.Button SelectSingleplayerButton;
         private System.Windows.Forms.Button SelectLocMultiButton;

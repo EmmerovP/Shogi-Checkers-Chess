@@ -307,6 +307,8 @@
             };
             board[x, y] = piece;
 
+            piece.SetNumber(PiecesNumbers.getNumber[piece.Name]);
+
 
         }
     }

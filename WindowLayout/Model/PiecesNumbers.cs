@@ -8,6 +8,9 @@ namespace ShogiCheckersChess
 {
     public class PiecesNumbers
     {
+        /// <summary>
+        /// When given number, returns full name of a piece.
+        /// </summary>
         public static Dictionary<int, string> getName = new Dictionary<int, string>()
         {
             { 0, "Bílý král"},
@@ -54,6 +57,9 @@ namespace ShogiCheckersChess
             { 41, "Povýšený vrchní shogi pěšák" }
         };
 
+        /// <summary>
+        /// When given full name oif a piece, returns a number of it.
+        /// </summary>
         public static Dictionary<string, int> getNumber = new Dictionary<string, int>()
         {
             { "Bílý král", 0},
@@ -100,8 +106,18 @@ namespace ShogiCheckersChess
             { "Povýšený vrchní shogi pěšák", 41 }
         };
 
+        /// <summary>
+        /// Given a name of a piece, returns number of piece corresponding to bottom/white side.
+        /// </summary>
         public static Dictionary<string, int> getBottomNumber = new Dictionary<string, int>()
         {
+            { "Král", 0},
+            { "Královna", 1 },
+            { "Věž", 2 },
+            {  "Kůň", 3 },
+            { "Střelec", 4 },
+            {  "Pěšec", 5 },
+            {  "Kámen", 6 },
             { "Shogi král", 7 },
             { "Shogi věž", 8 },
             { "Povýšená shogi věž", 9 },
@@ -115,25 +131,22 @@ namespace ShogiCheckersChess
             { "Kopiník", 17 },
             { "Povýšený kopiník", 18 },
             { "Shogi pěšák", 19 },
-            { "Povýšený shogi pěšák", 20 },
+            { "Povýšený shogi pěšák", 20 }
+
+        };
+
+        /// <summary>
+        /// Given a name of a piece, returns number of piece corresponding to upper/black side.
+        /// </summary>
+        public static Dictionary<string, int> getUpperNumber = new Dictionary<string, int>()
+        {
             { "Král", 21},
             { "Královna", 22 },
             { "Věž", 23 },
             { "Kůň", 24 },
             { "Střelec", 25 },
             { "Pěšec", 26 },
-            { "Kámen", 27 },          
-        };
-
-        public static Dictionary<string, int> getUpperNumber = new Dictionary<string, int>()
-        {
-            { "Král", 0},
-            { "Královna", 1 },
-            { "Věž", 2 },
-            {  "Kůň", 3 },
-            { "Střelec", 4 },
-            {  "Pěšec", 5 },
-            {  "Kámen", 6 },
+            { "Kámen", 27 },
             { "Shogi král", 28 },
             { "Shogi věž", 29 },
             { "Povýšená shogi věž", 30 },
@@ -148,9 +161,12 @@ namespace ShogiCheckersChess
             { "Povýšený kopiník", 39 },
             { "Shogi pěšák", 40 },
             { "Povýšený shogi pěšák", 41 }
+
         };
 
-
+        /// <summary>
+        /// List of all possible moves of pieces. 
+        /// </summary>
         public static Dictionary<int, Action<int, int, Pieces[,]>> getMovefromNumber = new Dictionary<int, Action<int, int, Pieces[,]>>()
         {
             { 1, Moves.Forward },
@@ -176,7 +192,12 @@ namespace ShogiCheckersChess
             { 21, Moves.PawnTwoBackward }
         };
 
-        public static int updatePiece(string name)
+        /// <summary>
+        /// Updates dictionaries containing pieces by a new piece.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static int UpdatePiece(string name)
         {
             int value = getNumber.Count();
 

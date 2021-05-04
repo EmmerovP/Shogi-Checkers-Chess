@@ -11,7 +11,7 @@ namespace ShogiCheckersChess
         //soubor    
 
         //základní rozestavení šachových figurek
-        
+
         public static int[,] chess = new int[,] {
         {23,24,25,22,21,25,24,23},
         {26,26,26,26,26,26,26,26},
@@ -73,7 +73,7 @@ namespace ShogiCheckersChess
         {6,-1,6,-1,6,-1,6,-1},
         {-1,6,-1,6,-1,6,-1,6},
         {6,-1,6,-1,6,-1,6,-1},
-        }; 
+        };
 
         /*
         //testové rozestavení figurek dámy
@@ -89,6 +89,9 @@ namespace ShogiCheckersChess
         };  */
     }
 
+    /// <summary>
+    /// Holds parameters needed for creation of a piece defined by user.
+    /// </summary>
     public class DefinedPiece
     {
         public int[] moves;
@@ -97,11 +100,16 @@ namespace ShogiCheckersChess
         public string Name;
     }
 
-    
 
+    /// <summary>
+    /// Class all pieces inherit from.
+    /// </summary>
     public class Pieces
     {
 
+        /// <summary>
+        /// Global list of pieces defined by user
+        /// </summary>
         public static List<DefinedPiece> DefinedPieces;
 
         public virtual void GenerateMoves(int x, int y, Pieces[,] chessboard)
@@ -128,9 +136,7 @@ namespace ShogiCheckersChess
         }
     }
 
-    //šachy
-    //nápady: číslo figurky je asi zbytečné, lepší je, na které straně je - white a !white, kvůli vyhazování
-    //nějaký public static na zjištění kdo je na tahu
+
     class Queen : Pieces
     {
         public override int Value { get; set; } = 90;
@@ -509,10 +515,12 @@ namespace ShogiCheckersChess
 
     }
 
-
+    /// <summary>
+    /// User defined piece.
+    /// </summary>
     class Custom : Pieces
-     {
-        Action<int, int, Pieces[,]>[] moves; 
+    {
+        readonly Action<int, int, Pieces[,]>[] moves;
 
         public override int Value { get; set; }
 
@@ -535,9 +543,9 @@ namespace ShogiCheckersChess
             foreach (var move in moves)
             {
                 move(x, y, chessboard);
-            }       
+            }
         }
 
 
-    } 
+    }
 }

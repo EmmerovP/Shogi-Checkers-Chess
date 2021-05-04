@@ -68,12 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\MoveController.cs" />
-    <Compile Include="View\AboutAuthor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\AboutAuthor.Designer.cs">
-      <DependentUpon>AboutAuthor.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\AboutGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,15 +75,6 @@
       <DependentUpon>AboutGame.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Board.cs" />
-    <Compile Include="View\Credits.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\Credits.Designer.cs">
-      <DependentUpon>Credits.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\CustomGameInit.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Controller\Generating.cs" />
     <Compile Include="Model\LoadGame.cs" />
     <Compile Include="View\MainGameWindow.cs">
@@ -130,17 +115,11 @@
     <Compile Include="View\ShogiPawnProblem.Designer.cs">
       <DependentUpon>ShogiPawnProblem.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\AboutAuthor.resx">
-      <DependentUpon>AboutAuthor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\AboutGame.aa.resx">
       <DependentUpon>AboutGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\AboutGame.resx">
       <DependentUpon>AboutGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Credits.resx">
-      <DependentUpon>Credits.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainGameWindow.resx">
       <DependentUpon>MainGameWindow.cs</DependentUpon>

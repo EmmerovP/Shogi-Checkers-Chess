@@ -91,8 +91,7 @@ namespace ShogiCheckersChess
 
                         Pieces.DefinedPieces.Add(newPiece);
 
-                        PiecesNumbers.getName.Add(PiecesNumbers.getName.Count, customGame.Pieces[i].Item1);
-                        PiecesNumbers.getNumber.Add(customGame.Pieces[i].Item1, PiecesNumbers.getName.Count);
+                        PiecesNumbers.UpdatePiece(newPiece.Name);
                     }
                 }
 

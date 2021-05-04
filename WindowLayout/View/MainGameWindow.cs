@@ -75,7 +75,6 @@ namespace ShogiCheckersChess
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
-            AboutAuthorButton.Visible = false;
             CreditsButton.Visible = false;
             label1.Visible = false;
         }
@@ -88,7 +87,6 @@ namespace ShogiCheckersChess
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
-            AboutAuthorButton.Visible = false;
             CreditsButton.Visible = false;
             label1.Visible = false;
 
@@ -106,17 +104,6 @@ namespace ShogiCheckersChess
             }
             popup.Dispose();
 
-        }
-
-        private void AboutAuthorButton_Click(object sender, EventArgs e)
-        {
-            AboutAuthor popup = new AboutAuthor();
-            DialogResult dialogresult = popup.ShowDialog();
-            if (dialogresult == DialogResult.Cancel)
-            {
-                Console.WriteLine("You clicked either Cancel or X button in the top right corner");
-            }
-            popup.Dispose();
         }
 
         private void CreditsButton_Click(object sender, EventArgs e)
