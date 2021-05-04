@@ -106,16 +106,6 @@ namespace ShogiCheckersChess
 
         }
 
-        private void CreditsButton_Click(object sender, EventArgs e)
-        {
-            Credits popup = new Credits();
-            DialogResult dialogresult = popup.ShowDialog();
-            if (dialogresult == DialogResult.Cancel)
-            {
-                Console.WriteLine("You clicked either Cancel or X button in the top right corner");
-            }
-            popup.Dispose();
-        }
 
         public void HidePlayerTypeButtons()
         {

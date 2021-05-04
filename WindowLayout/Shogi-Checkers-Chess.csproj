@@ -77,6 +77,9 @@
     <Compile Include="Model\Board.cs" />
     <Compile Include="Controller\Generating.cs" />
     <Compile Include="Model\LoadGame.cs" />
+    <Compile Include="View\CustomGameInit.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="View\MainGameWindow.cs">
       <SubType>Form</SubType>
     </Compile>

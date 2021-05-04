@@ -145,7 +145,6 @@
             this.CreditsButton.TabIndex = 7;
             this.CreditsButton.Text = "Credits";
             this.CreditsButton.UseVisualStyleBackColor = true;
-            this.CreditsButton.Click += new System.EventHandler(this.CreditsButton_Click);
             // 
             // SelectSingleplayerButton
             // 
