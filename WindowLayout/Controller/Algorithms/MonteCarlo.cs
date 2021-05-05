@@ -293,13 +293,23 @@ namespace ShogiCheckersChess
         {
             while (node != null)
             {
-                if (node.WhitePlays)
+                /*if (node.WhitePlays)
                 {
                     node.wins -= reward;
                 }
                 else
                 {
                     node.wins += reward;
+                }*/
+
+                if ((!node.WhitePlays) && (reward==1))
+                {
+                    node.wins += 1;
+                }
+
+                if ((node.WhitePlays) && (reward == -1))
+                {
+                    node.wins += 1;
                 }
 
                 node.numberOfSimulations++;
