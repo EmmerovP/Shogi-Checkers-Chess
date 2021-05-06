@@ -529,8 +529,6 @@ namespace ShogiCheckersChess
                 return true;
             }
 
-            //shogi - only one side works, second TODO
-
             //checkers - upper piece
             if ((piece.GetNumber() == 27) && (x == Board.board.GetLength(1) - 1))
             {

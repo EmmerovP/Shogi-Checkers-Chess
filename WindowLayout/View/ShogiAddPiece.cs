@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShogiCheckersChess
@@ -14,64 +7,77 @@ namespace ShogiCheckersChess
     public partial class MainGameWindow : Form
     {
 
-        public static string ShogiPieceName;
-
+        /// <summary>
+        /// When we click a button to add a piece for bottom player, this handles logic.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChooseShogiButtonBottom_Click(object sender, EventArgs e)
         {
+            //when we are already adding a piece, we return
             if (AddBottomShogiPiece)
             {
                 return;
             }
 
+            //when an opponent plays, we also return
             if (!Generating.WhitePlays)
             {
                 return;
             }
 
+            //gets piece we are getting from ComboBox
             string Piece = ChooseShogiBoxBottom.Text;
             PutShogiPieceLabelBottom.Visible = true;
-
             ShogiPiece = PiecesNumbers.getBottomNumber[Piece];
             AddBottomShogiPiece = true;
 
             ChooseShogiBoxBottom.Items.Remove(Piece);
-            ChooseShogiBoxBottom.Text = "";
-
-            ShogiPieceName = Piece;
         }
 
+        /// <summary>
+        /// When we click a button to add a piece for upper player, this handles logic.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChooseShogiButtonUpper_Click(object sender, EventArgs e)
         {
+            //when we are already adding a piece, we return
             if (AddUpperShogiPiece)
             {
                 return;
             }
 
+            //when an opponent plays, we also return
             if (Generating.WhitePlays)
             {
                 return;
             }
 
+            //gets piece we are getting from ComboBox
             string Piece = ChooseShogiBoxUpper.Text;
             PutShogiPieceLabelUpper.Visible = true;
-
             ShogiPiece = PiecesNumbers.getUpperNumber[Piece];
             AddUpperShogiPiece = true;
 
             ChooseShogiBoxUpper.Items.Remove(Piece);
-            ChooseShogiBoxUpper.Text = "";
 
-            ShogiPieceName = Piece;
         }
 
-
+        /// <summary>
+        /// After clicking on a board, adds specified piece we already have in our program in variable ShogiPiece.
+        /// </summary>
+        /// <param name="selected_x"></param>
+        /// <param name="selected_y"></param>
         private void AddBottomShogi(int selected_x, int selected_y)
         {
+            //we cannot add piece to a field that already has a piece
             if (Board.board[selected_x, selected_y] != null)
             {
                 return;
             }
 
+            //we cannot add shogi pawn to a column that already has a shogi pawn in it
             if (ShogiPiece == 19)
             {
                 for (int i = 0; i < Board.board.GetLength(1); i++)
