@@ -32,6 +32,11 @@ namespace ShogiCheckersChess
         /// </summary>
         public static bool IsPieceSelected = false;
 
+        /// <summary>
+        /// Variable with picture of piece we are moving with.
+        /// </summary>
+        public static PictureBox selectedPictureOfPiece;
+
 
         /// <summary>
         /// Called after a field on the board is clicked. Takes care of all the visualisation.
@@ -76,70 +81,76 @@ namespace ShogiCheckersChess
             }
 
             //indicate the meaning of a field with color
-            Color background;
+            Color backgroundColor;
 
 
             if (Board.board[selected_x, selected_y] == null)
             {
-                background = Color.Crimson;
+                backgroundColor = Color.Crimson;
             }
             else
             {
-                background = Color.DarkBlue;
+                backgroundColor = Color.DarkBlue;
             }
 
-
+            //we click on empty field or an enemy
             if (IsFieldNotUsable(selected_x, selected_y))
             {
                 return;
             }
 
-            //přesun figurky
-            if ((IsPieceSelected) && (CurrentMoving.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))
+            //we do an actual move
+            if (IsMove(selected_x, selected_y))
             {
                 isPlayer = true;
 
-                int piecePosition_x = GetX(CurrentMoving);
-                int piecePosition_y = GetY(CurrentMoving);
+                int piecePosition_x = GetX(selectedPictureOfPiece);
+                int piecePosition_y = GetY(selectedPictureOfPiece);
 
-                if (PieceMovement(piecePosition_x, piecePosition_y, selected_x, selected_y, CurrentMoving))
+                //move a piece
+                PieceMovement(piecePosition_x, piecePosition_y, selected_x, selected_y, selectedPictureOfPiece);
+
+
+                //check the end of the game
+                if (EndGame())
                 {
                     return;
                 }
 
+
+                //for chaining taking of pieces in shogi
                 if (CheckersTake)
                 {
                     Generating.WhitePlays = !Generating.WhitePlays;
                     return;
                 }
 
-
-                //hraje AIčko
-                if ((Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single) && (!musttakecheckers))
+                //when opponent is playing, we make the move
+                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
                 {
                     SinglerplayerPlay();
                 }
             }
 
-            //pokud je nějaké políčko selected, ale vybrané políčko není správný cíl vybrané figurky, stane se toto 
+            //else if we have selected piece, but we can't move the piece to the current selected
             else if (IsPieceSelected)
             {
                 DeleteHighlight();
-                CurrentMoving.BackColor = Color.Transparent;
+                selectedPictureOfPiece.BackColor = Color.Transparent;
                 IsPieceSelected = false;
             }
 
-            //uživatel klikne na políčko s figurkou, když není nic vybráno
+            //is clicked on piece, we remember it
             else if (!IsPieceSelected)
             {
                 DeleteHighlight();
-                picture.BackColor = background;
-                CurrentMoving = picture;
+                picture.BackColor = backgroundColor;
+                selectedPictureOfPiece = picture;
                 IsPieceSelected = true;
-                if (background == Color.DarkBlue)
+
+                if (backgroundColor == Color.DarkBlue)
                 {
                     Generating.Generate(GetPiece(picture), true, GetX(picture), GetY(picture), true, Board.board);
-
                     Highlight();
                 }
             }
@@ -159,13 +170,33 @@ namespace ShogiCheckersChess
                  
         }
 
+        /// <summary>
+        /// Returns true when the current click makes a move.
+        /// </summary>
+        /// <param name="selected_x"></param>
+        /// <param name="selected_y"></param>
+        /// <returns></returns>
+        public bool IsMove(int selected_x, int selected_y)
+        {
+            if ((IsPieceSelected) && (selectedPictureOfPiece.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Depending on selected algorithm, makes a move with it.
+        /// </summary>
         public void SinglerplayerPlay()
         {
-
-
             isPlayer = false;
+
             int move;
 
+            //remember who plays in case the algorithm changes it in its proccess
             bool whoPlays = Generating.WhitePlays;
 
             if (Gameclass.CurrentGame.algorithmType == Gameclass.AlgorithmType.minimax)
@@ -179,53 +210,30 @@ namespace ShogiCheckersChess
 
             Generating.WhitePlays = whoPlays;
          
-
+            //instead of move, we are adding a piece on the board
             if (Minimax.isAddingPiece)
             {
-                Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move]);
-
-
-                var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
-                {
-                    Name = Convert.ToString(Moves.start_x[move]),
-                    Size = new Size(50, 50),
-                    Location = location[Moves.final_x[move], Moves.final_y[move]],
-                    BackColor = Color.Transparent,
-                    Image = GamePieces.Images[Moves.start_x[move]],
-                    SizeMode = PictureBoxSizeMode.CenterImage,
-                };
-
-                this.Controls.Add(gamepiece);
-                gamepiece.Click += MoveGamePiece;
-
-                piecesPictures[Moves.final_x[move], Moves.final_y[move]] = gamepiece;
-
-                gamepiece.BringToFront();
-
-                shogiAIPieces.Remove(Board.board[Moves.final_x[move], Moves.final_y[move]]);
+                AddPieceToBoard(Moves.final_x[move], Moves.final_y[move], Moves.start_x[move]);             
 
                 Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;
 
                 Generating.WhitePlays = !Generating.WhitePlays;
-
-
-
-                
 
                 return;
 
             }
 
 
-
+            //there are no more moves for the opponent's side, user won
             if (move == -1)
             {
                 label2.Text = "Vyhráli jste!";
                 return;
             }
 
-            PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move],
-                piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
+
+            //move piece
+            PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
 
 
             isPlayer = true;

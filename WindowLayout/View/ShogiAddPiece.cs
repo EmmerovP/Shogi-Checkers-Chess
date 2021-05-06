@@ -113,7 +113,7 @@ namespace ShogiCheckersChess
 
             gamepiece.BringToFront();
 
-            ChooseShogiBoxBottom.Items.Remove(ShogiPieceName);
+            ChooseShogiBoxBottom.Items.Remove(ChooseShogiBoxBottom.SelectedItem);
 
             Generating.WhitePlays = !Generating.WhitePlays;
 
@@ -176,10 +176,16 @@ namespace ShogiCheckersChess
             Board.AddPiece(ShogiPiece, selected_x, selected_y);
 
             gamepiece.BringToFront();
-
-            ChooseShogiBoxBottom.Items.Remove(ShogiPieceName);
-
             Generating.WhitePlays = !Generating.WhitePlays;
+
+            if (!isPlayer)
+            {
+                return;
+            }
+
+            ChooseShogiBoxUpper.Items.Remove(ChooseShogiBoxUpper.SelectedItem);
+
+
 
         }
 

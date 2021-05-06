@@ -198,7 +198,6 @@ namespace ShogiCheckersChess
         public static Point[,] location;
         public static PictureBox[,] pictureBoxes;
 
-        public static PictureBox CurrentMoving;
 
 
         public Pieces GetPiece(PictureBox piece)
