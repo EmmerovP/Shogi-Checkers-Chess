@@ -126,7 +126,7 @@ namespace ShogiCheckersChess
                 }
 
                 //when opponent is playing, we make the move
-                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
+                if ((Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single) && (!isCheckersPieceSupposedToTake))
                 {
                     SinglerplayerPlay();
                 }
@@ -247,7 +247,7 @@ namespace ShogiCheckersChess
         /// <param name="final_y"></param>
         /// <param name="movingPicture"></param>
         /// <returns></returns>
-        public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
+        public void PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
         {
             isCheckersPieceSupposedToTake = false;
 
@@ -275,9 +275,6 @@ namespace ShogiCheckersChess
             //apply move to model
             MoveController.ApplyMove(start_x, start_y, final_x, final_y, Board.board);
 
-            //switch sides
-            Generating.WhitePlays = !Generating.WhitePlays;
-
             //we deselect a piece when we move a piece
             IsPieceSelected = false;
 
@@ -285,7 +282,7 @@ namespace ShogiCheckersChess
             MovePicture(movingPicture, final_x, final_y, start_x, start_y, piece);
 
 
-
+            //when move is castling, we need to move the rook too
             if (MoveController.isCastling)
             {
                 PictureBox rook = piecesPictures[MoveController.castling_x, MoveController.castling_y];
@@ -296,50 +293,77 @@ namespace ShogiCheckersChess
             }
 
 
-            //změna figurky
+            //change of piece - either promotion in shogi, or pawn coming to the end of the board
             if (ChangePiece(final_x, final_y, Board.board[final_x, final_y]))
+            {
                 movingPicture.Image = GamePieces.Images[Board.board[final_x, final_y].GetNumber()];
+            }
 
-            Invalidate();
+            //switch sides
+            Generating.WhitePlays = !Generating.WhitePlays;
 
+            //when there is a chain taking of pieces in checkers, we need to make another move
             if (isCheckersPieceSupposedToTake)
             {
                 Generating.WhitePlays = !Generating.WhitePlays;
-                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single && (!MainGameWindow.isPlayer))
+
+                if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single && (!isPlayer))
                 {
                     SinglerplayerPlay();
                 }
             }
 
-            return EndGame();
         }
 
+        /// <summary>
+        /// Changes locations of pictures during a move on board.
+        /// </summary>
+        /// <param name="movingPicture"></param>
+        /// <param name="final_x"></param>
+        /// <param name="final_y"></param>
+        /// <param name="start_x"></param>
+        /// <param name="start_y"></param>
+        /// <param name="piece"></param>
         public void MovePicture(PictureBox movingPicture, int final_x, int final_y, int start_x, int start_y, Pieces piece)
         {
-
             piecesPictures[start_x, start_y] = null;
 
-            //pokud se figurka vyhazuje, musíme její obrázek zrušit
+            //in case we take a piece, we need to dispose according pictureBox
             if (piecesPictures[final_x, final_y] != null)
             {
-                MainGameWindow.piecesPictures[final_x, final_y].Dispose();
+                piecesPictures[final_x, final_y].Dispose();
             }
 
-
+            //moving piece
             piecesPictures[final_x, final_y] = movingPicture;
 
-
+            //we need to delete some other piece, for example in checkers
             if (MoveController.delete_x != -1)
             {
                 piecesPictures[MoveController.delete_x, MoveController.delete_y].Dispose();
                 piecesPictures[MoveController.delete_x, MoveController.delete_y].Refresh();
 
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Gameclass.CurrentGame.MustTakeCheckersPiece(Board.board) && piece.Name == "Kámen")
+                //should we chain moves in checkers?
+                if (piece.isWhite && Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && piece.Name == "Kámen")
                 {
+                    if (Moves.WhiteCheckersTake(final_x, final_y, Board.board))
+                    {
 
-                    isCheckersPieceSupposedToTake = true;
+                        isCheckersPieceSupposedToTake = true;
 
+                    }
                 }
+                else
+                {
+                    if (Moves.BlackCheckersTake(final_x, final_y, Board.board))
+                    {
+
+                        isCheckersPieceSupposedToTake = true;
+
+                    }
+                }
+
+
             }
 
             if (isPlayer)
