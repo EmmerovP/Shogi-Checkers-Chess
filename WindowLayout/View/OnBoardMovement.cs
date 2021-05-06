@@ -231,11 +231,16 @@ namespace ShogiCheckersChess
             //move piece
             PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
 
+            //check whether the game has ended
+            EndGame();
+
             isPlayer = true;
 
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool isCheckersPieceSupposedToTake;
 
         /// <summary>

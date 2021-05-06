@@ -235,7 +235,7 @@ namespace ShogiCheckersChess
         }
     }
 
-    //ještě shogi... Ještě dáma...
+
     class ShogiKing : Pieces
     {
         public override int Value { get; set; } = 900;
