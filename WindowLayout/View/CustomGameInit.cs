@@ -1,36 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-
-//potřeba vytvořit controller classu odkazující do tohoto souboru
 
 namespace ShogiCheckersChess
 {
     public partial class MainGameWindow : Form
     {
+        /// <summary>
+        /// Maximum size of chessboard.
+        /// </summary>
         const int MAX_SIZE = 10;
+
+        /// <summary>
+        /// Minimum size of chessboard.
+        /// </summary>
         const int MIN_SIZE = 3;
 
+        /// <summary>
+        /// If true, then the game that is played is custom game created by user.
+        /// </summary>
         public bool isCustom = false;
 
-
+        /// <summary>
+        /// Method is called after CustomGameSizeButton is clicked, reads text from CustomGameSizeXTextbox and CustomGameSizeXTextbox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CustomGameSizeButton_Click(object sender, EventArgs e)
         {
-            string x = CustomGameSizeXTextbox.Text;
-            string y = CustomGameSizeYTextbox.Text;
+            string widthText = CustomGameSizeXTextbox.Text;
+            string heigthText = CustomGameSizeYTextbox.Text;
 
-            int number_x;
+            //try to read width
+            int width;
 
-            bool success = Int32.TryParse(x, out number_x);
+            bool success = Int32.TryParse(widthText, out width);
 
+            //check constraints
             if (!success)
             {
                 CustomGameSizeErrorLabel.Visible = true;
@@ -38,25 +43,26 @@ namespace ShogiCheckersChess
                 return;
             }
 
-            if (number_x < MIN_SIZE)
+            if (width < MIN_SIZE)
             {
                 CustomGameSizeErrorLabel.Text = "Souřadnice x je moc malá, musí být alespoň 3.";
                 CustomGameSizeErrorLabel.Visible = true;
                 return;
             }
 
-            if (number_x > MAX_SIZE)
+            if (width > MAX_SIZE)
             {
                 CustomGameSizeErrorLabel.Text = "Souřadnice x je moc velká, musí být maximálně 15.";
                 CustomGameSizeErrorLabel.Visible = true;
                 return;
             }
 
-            int number_y;
+            //try to read height
+            int height;
 
-            success = Int32.TryParse(y, out number_y);
+            success = Int32.TryParse(heigthText, out height);
 
-
+            //check constraints
             if (!success)
             {
                 CustomGameSizeErrorLabel.Visible = true;
@@ -64,30 +70,32 @@ namespace ShogiCheckersChess
                 return;
             }
 
-            if (number_y < MIN_SIZE)
+            if (height < MIN_SIZE)
             {
                 CustomGameSizeErrorLabel.Text = "Souřadnice y je moc malá, musí být alespoň 3.";
                 CustomGameSizeErrorLabel.Visible = true;
                 return;
             }
 
-            if (number_y > MAX_SIZE)
+            if (height > MAX_SIZE)
             {
                 CustomGameSizeErrorLabel.Text = "Souřadnice y je moc velká, musí být maximálně 15.";
                 CustomGameSizeErrorLabel.Visible = true;
                 return;
             }
 
-            chessboard = new int[number_x, number_y];
+            chessboard = new int[width, height];
 
-            for (int i = 0; i < number_x; i++)
+            //set all fields as empty
+            for (int i = 0; i < width; i++)
             {
-                for (int j = 0; j < number_y; j++)
+                for (int j = 0; j < height; j++)
                 {
-                    chessboard[i, j] = -1;
+                    SetFieldEmpty(i, j, chessboard);
                 }
             }
 
+            //show next field
             CustomGameSizeButton.Visible = false;
             CustomGameSizeLabel.Visible = false;
             CustomGameSizeXLabel.Visible = false;
@@ -102,6 +110,9 @@ namespace ShogiCheckersChess
             SelectShogiButton.Visible = true;
         }
 
+        /// <summary>
+        /// Draws chessboard so user can put their pieces on it as they wish.
+        /// </summary>
         private void DrawCustomChessboard()
         {           
             CustomGameTypeLabel.Visible = false;
@@ -118,56 +129,72 @@ namespace ShogiCheckersChess
         }
 
 
+        /// <summary>
+        /// Sets field on given integer board as empty
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="chessboard"></param>
+        private void SetFieldEmpty(int x, int y, int[,] board)
+        {
+            board[x, y] = -1;
+        }
+
+        /// <summary>
+        /// Checks if all needed pieces are put on board, and starts new game created by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             
-            //Koukni, zda je na šachovnici správná figurka pro danou hru
-            //Pro všechny - alespoň jedna figurka příslušné barvy
-            bool is_white = false;
-            bool is_black = false;
 
-            bool is_whiteking = false;
-            bool is_blackking = false;
+            bool isWhite = false;
+            bool isBlack = false;
 
-            bool uppershogiking = false;
-            bool bottomshogiking = false;
+            bool isWhiteKing = false;
+            bool isBlackKing = false;
 
+            bool upperShogiKing = false;
+            bool bottomShogiKing = false;
+
+            //checks what pieces are on board
             for (int i = 0; i < Board.board.GetLength(0); i++)
             {
                 for (int j = 0; j < Board.board.GetLength(1); j++)
-                {
+                {                    
                     if (Board.board[i, j] != null)
                     {
                         if (Board.board[i, j].isWhite)
                         {
-                            is_white = true;
+                            isWhite = true;
                         }
                         if (!Board.board[i, j].isWhite)
                         {
-                            is_black = true;
+                            isBlack = true;
                         }
                         if (Board.board[i, j].GetNumber() == 0)
                         {
-                            is_whiteking = true;
+                            isWhiteKing = true;
                         }
                         if (Board.board[i, j].GetNumber() == 21)
                         {
-                            is_blackking = true;
+                            isBlackKing = true;
                         }
                         if (Board.board[i, j].GetNumber() == 7)
                         {
-                            bottomshogiking = true;
+                            bottomShogiKing = true;
                         }
                         if (Board.board[i, j].GetNumber() == 28)
                         {
-                            uppershogiking = true;
+                            upperShogiKing = true;
                         }
                     }
 
                 }
             }
 
-            if (!(is_white && is_black))
+            if (!(isWhite && isBlack))
             {
                 CustomGameChooseErrorLabel.Text = "Na šachovnici musí být figurky obou stran pro zahájení hry.";
                 CustomGameChooseErrorLabel.Visible = true;
@@ -177,7 +204,7 @@ namespace ShogiCheckersChess
 
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
             {
-                if (!(is_whiteking && is_blackking))
+                if (!(isWhiteKing && isBlackKing))
                 {
                     CustomGameChooseErrorLabel.Text = "Na šachovnici musí být králové obou stran.";
                     CustomGameChooseErrorLabel.Visible = true;
@@ -187,7 +214,7 @@ namespace ShogiCheckersChess
 
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
             {
-                if (!(bottomshogiking && uppershogiking))
+                if (!(bottomShogiKing && upperShogiKing))
                 {
                     CustomGameChooseErrorLabel.Text = "Na šachovnici musí být králové obou stran.";
                     CustomGameChooseErrorLabel.Visible = true;
@@ -197,6 +224,7 @@ namespace ShogiCheckersChess
 
             AddPiece = false;
 
+            //start the game
             Gameclass.CurrentGame.GameEnded = false;
 
             CustomGameChooseCombobox.Visible = false;
@@ -205,56 +233,60 @@ namespace ShogiCheckersChess
             NewGameButton.Visible = false;
         }
 
-        private void AddPieceToBoard(int x, int y)
+        /// <summary>
+        /// Adds piece to a game that user creates.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="pieceNumber"></param>
+        private void AddPieceToGame(int x, int y, int pieceNumber)
         {
-
             if (Board.board[x, y] != null)
             {
                 return;
             }
 
-            var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
-            {
-                Name = Convert.ToString(AddPieceNumber),
-                Size = new Size(50, 50),
-                Location = location[x, y],
-                BackColor = Color.Transparent,
-                Image = GamePieces.Images[AddPieceNumber],
-                SizeMode = PictureBoxSizeMode.CenterImage,
-            };
+            AddPieceToBoard(x, y, pieceNumber);
 
-            this.Controls.Add(gamepiece);
-            gamepiece.Click += MoveGamePiece;
-
-            piecesPictures[x, y] = gamepiece;
-            Board.AddPiece(AddPieceNumber, x, y);
-
-            gamepiece.BringToFront();
-
-            if (AddPieceNumber == 0)
+            //game doesn't allow to have multiple kings in it - we can have multiple shogi kings in chess game and multiple chess kings in shogi game though
+            if (pieceNumber == 0)
             {
                 CustomGameChooseCombobox.Items.Remove("Bílý král");
             }
-            if (AddPieceNumber == 7)
+            if (pieceNumber == 7)
             {
                 CustomGameChooseCombobox.Items.Remove("Spodní shogi král");
             }
-            if (AddPieceNumber == 21)
+            if (pieceNumber == 21)
             {
                 CustomGameChooseCombobox.Items.Remove("Černý král");
             }
-            if (AddPieceNumber == 28)
+            if (pieceNumber == 28)
             {
                 CustomGameChooseCombobox.Items.Remove("Vrchní shogi král");
             }
         }
 
+        /// <summary>
+        /// Adds piece from CustomGameChooseCombobox to board.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         private void WhichPiece(int x, int y)
         {
             string piece = CustomGameChooseCombobox.Text;
+            
+            //check if text in comboBox is valid
+            try
+            {
+                int pieceNumber = PiecesNumbers.getNumber[piece];
+                AddPieceToGame(x, y, pieceNumber);
+            }
+            catch
+            {
+                return;
+            } 
 
-            AddPieceNumber = PiecesNumbers.getNumber[piece];
-            AddPieceToBoard(x, y);
         }
 
     }

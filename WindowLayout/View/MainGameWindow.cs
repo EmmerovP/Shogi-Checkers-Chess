@@ -15,7 +15,7 @@ namespace ShogiCheckersChess
         public static bool AddUpperShogiPiece = false;
 
         public static bool AddPiece = false;
-        public static int AddPieceNumber;
+       
 
         public static int ShogiPiece;
 
@@ -343,6 +343,32 @@ namespace ShogiCheckersChess
                 }
             BackgroundImage = chessboard;
             BackgroundImageLayout = ImageLayout.None;
+        }
+
+        /// <summary>
+        /// Adds piece on board to selected location.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private void AddPieceToBoard(int x, int y, int pieceNumber)
+        {
+            var gamepiece = new PictureBox
+            {
+                Name = Convert.ToString(pieceNumber),
+                Size = new Size(50, 50),
+                Location = location[x, y],
+                BackColor = Color.Transparent,
+                Image = GamePieces.Images[pieceNumber],
+                SizeMode = PictureBoxSizeMode.CenterImage,
+            };
+
+            this.Controls.Add(gamepiece);
+            gamepiece.Click += MoveGamePiece;
+            piecesPictures[x, y] = gamepiece;
+
+            Board.AddPiece(pieceNumber, x, y);
+
+            gamepiece.BringToFront();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
