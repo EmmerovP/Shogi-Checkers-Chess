@@ -214,11 +214,8 @@ namespace ShogiCheckersChess
             if (Minimax.isAddingPiece)
             {
                 AddPieceToBoard(Moves.final_x[move], Moves.final_y[move], Moves.start_x[move]);             
-
                 Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;
-
                 Generating.WhitePlays = !Generating.WhitePlays;
-
                 return;
 
             }
@@ -231,53 +228,60 @@ namespace ShogiCheckersChess
                 return;
             }
 
-
             //move piece
             PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
-
 
             isPlayer = true;
 
         }
 
 
-        public static bool musttakecheckers;
+        public static bool isCheckersPieceSupposedToTake;
 
+        /// <summary>
+        /// Moves piece visually on main board.
+        /// </summary>
+        /// <param name="start_x"></param>
+        /// <param name="start_y"></param>
+        /// <param name="final_x"></param>
+        /// <param name="final_y"></param>
+        /// <param name="movingPicture"></param>
+        /// <returns></returns>
         public bool PieceMovement(int start_x, int start_y, int final_x, int final_y, PictureBox movingPicture)
         {
-            musttakecheckers = false;
+            isCheckersPieceSupposedToTake = false;
 
             Pieces piece = Board.board[start_x, start_y];
 
+            //when we take a piece in shogi, we remember it so we can put it back on board again later
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[final_x, final_y] != null)
             {
                 if (!isPlayer)
                 {
                     shogiAIPieces.Add(Board.board[final_x, final_y]);
                 }
-                else if ((isPlayer) && (Generating.WhitePlays))
+                else if (isPlayer && Generating.WhitePlays)
                 {
                     ShowBottomShogiAddon();
                     ChooseShogiBoxBottom.Items.Add(Board.board[final_x, final_y].Name);
                 }
-                else if ((isPlayer) && (!Generating.WhitePlays))
+                else if (isPlayer && !Generating.WhitePlays)
                 {
                     ShowUpperShogiAddon();
                     ChooseShogiBoxUpper.Items.Add(Board.board[final_x, final_y].Name);
                 }
             }
 
-
+            //apply move to model
             MoveController.ApplyMove(start_x, start_y, final_x, final_y, Board.board);
 
-
-
-
-
+            //switch sides
             Generating.WhitePlays = !Generating.WhitePlays;
 
+            //we deselect a piece when we move a piece
             IsPieceSelected = false;
 
+            //Move piece visually
             MovePicture(movingPicture, final_x, final_y, start_x, start_y, piece);
 
 
@@ -298,7 +302,7 @@ namespace ShogiCheckersChess
 
             Invalidate();
 
-            if (musttakecheckers)
+            if (isCheckersPieceSupposedToTake)
             {
                 Generating.WhitePlays = !Generating.WhitePlays;
                 if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single && (!MainGameWindow.isPlayer))
@@ -333,7 +337,7 @@ namespace ShogiCheckersChess
                 if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Gameclass.CurrentGame.MustTakeCheckersPiece(Board.board) && piece.Name == "Kámen")
                 {
 
-                    musttakecheckers = true;
+                    isCheckersPieceSupposedToTake = true;
 
                 }
             }
