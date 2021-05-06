@@ -8,14 +8,19 @@ namespace ShogiCheckersChess
 {
     public partial class MainGameWindow : Form
     {
-        public static int[,] chessboard;
+        /// <summary>
+        /// Current gameboard represented by integer numbers. Used only for loading game, actual game is played on board.
+        /// </summary>
+        public static int[,] baseBoard;
 
+
+        /// <summary>
+        /// True when human player plays, false when algorithm plays.
+        /// </summary>
         public static bool isPlayer;
-        public static bool AddBottomShogiPiece = false;
-        public static bool AddUpperShogiPiece = false;
 
-        public static bool AddPiece = false;
-       
+
+
 
         public static int ShogiPiece;
 
@@ -33,7 +38,7 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
             if (!isCustom)
             {
-                chessboard = GameStarts.chess;
+                baseBoard = GameStarts.chess;
             }
             ChooseTypeOfGame();
         }
@@ -43,7 +48,7 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
             if (!isCustom)
             {
-                chessboard = GameStarts.checkers;
+                baseBoard = GameStarts.checkers;
             }
             ChooseTypeOfGame();
         }
@@ -53,7 +58,7 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
             if (!isCustom)
             {
-                chessboard = GameStarts.shogi;
+                baseBoard = GameStarts.shogi;
             }
             ChooseTypeOfGame();
         }
@@ -194,7 +199,7 @@ namespace ShogiCheckersChess
         public static PictureBox[,] pictureBoxes;
 
         public static PictureBox CurrentMoving;
-        public static bool selected = false;
+
 
         public Pieces GetPiece(PictureBox piece)
         {
@@ -274,8 +279,8 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.GameEnded = false;
 
             int boxsize = 50;
-            int dimension_x = MainGameWindow.chessboard.GetLength(0);
-            int dimension_y = MainGameWindow.chessboard.GetLength(1);
+            int dimension_x = MainGameWindow.baseBoard.GetLength(0);
+            int dimension_y = MainGameWindow.baseBoard.GetLength(1);
             int border = 1;
             location = new Point[dimension_x, dimension_y];
             piecesPictures = new PictureBox[dimension_x, dimension_y];
@@ -295,7 +300,7 @@ namespace ShogiCheckersChess
 
                         location[a, b] = new Point(j * boxsize, i * boxsize);
 
-                        int piece = MainGameWindow.chessboard[a, b];
+                        int piece = MainGameWindow.baseBoard[a, b];
                         if (piece != -1)
                         {
                             var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy

@@ -66,7 +66,7 @@ namespace ShogiCheckersChess
                         throw new Exception();
                 }
 
-                MainGameWindow.chessboard = customGame.Board;
+                MainGameWindow.baseBoard = customGame.Board;
 
                 if (customGame.Pieces != null)
                 {

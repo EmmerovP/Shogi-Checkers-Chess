@@ -84,14 +84,14 @@ namespace ShogiCheckersChess
                 return;
             }
 
-            chessboard = new int[width, height];
+            baseBoard = new int[width, height];
 
             //set all fields as empty
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
                 {
-                    SetFieldEmpty(i, j, chessboard);
+                    SetFieldEmpty(i, j, baseBoard);
                 }
             }
 
@@ -272,7 +272,7 @@ namespace ShogiCheckersChess
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        private void WhichPiece(int x, int y)
+        private void GetPieceNumberFromUserAndAdd(int x, int y)
         {
             string piece = CustomGameChooseCombobox.Text;
             

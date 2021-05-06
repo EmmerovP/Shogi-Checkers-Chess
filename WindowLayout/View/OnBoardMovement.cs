@@ -1,62 +1,83 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-//třída primárně určena pro vizualizaci tahu figurkou na grafické šachovnici
 namespace ShogiCheckersChess
 {
     public partial class MainGameWindow : Form
     {
-
+        /// <summary>
+        /// True when we are supposed to take another piece in the same move after we have already taken one.
+        /// </summary>
         public static bool CheckersTake;
 
-        public void MoveGamePiece(object sender, EventArgs e)    //poté, co se klikne na políčko šachovnice, najde se v poli příslušný PictureBox, na který se kliklo
-        {
+        /// <summary>
+        /// True when we are trying to add piece on board in next move.
+        /// </summary>
+        public static bool AddPiece = false;
 
-            //zvýraznit tahy nejdřív a podívat se, zda jsou všechny napsané správně
+        /// <summary>
+        /// Signalizes that next click on the board adds shogi piece for bottom player.
+        /// </summary>
+        public static bool AddBottomShogiPiece = false;
+
+        /// <summary>
+        /// Signalizes that next click on the board adds shogi piece for upper player.
+        /// </summary>
+        public static bool AddUpperShogiPiece = false;
+
+        /// <summary>
+        /// True when the user alredy clicked on a piece on board and tht piece is selected.
+        /// </summary>
+        public static bool IsPieceSelected = false;
+
+
+        /// <summary>
+        /// Called after a field on the board is clicked. Takes care of all the visualisation.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void MoveGamePiece(object sender, EventArgs e)
+        {
+            //picture user has clicked on
             PictureBox picture = (PictureBox)sender;
 
-            //dostaneme souřadnice, na které jsme klikli, asi nevím jak to udělat elegantněji než projít celou šachovnici
+
+            //get coordinates of picture
             int selected_x = GetX(picture);
             int selected_y = GetY(picture);
 
-
+            //when we are adding piece to board
             if (AddPiece)
             {
-                WhichPiece(selected_x, selected_y);
+                GetPieceNumberFromUserAndAdd(selected_x, selected_y);
                 return;
             }
 
+            //if game ended, we aren't playing anymore
             if (Gameclass.CurrentGame.GameEnded)
                 return;
 
+
+            //when we are adding bottom shogi piece
             if (AddBottomShogiPiece)
             {
-
                 AddBottomShogi(selected_x, selected_y);
 
                 return;
             }
 
-
+            //when we are adding upper shogi piece
             if (AddUpperShogiPiece)
             {
-
                 AddUpperShogi(selected_x, selected_y);
-
                 return;
             }
 
-
+            //indicate the meaning of a field with color
             Color background;
+
 
             if (Board.board[selected_x, selected_y] == null)
             {
@@ -68,13 +89,13 @@ namespace ShogiCheckersChess
             }
 
 
-            if (Board.board[selected_x, selected_y] != null && Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays && (!selected))
+            if (IsFieldNotUsable(selected_x, selected_y))
             {
                 return;
             }
 
             //přesun figurky
-            if ((selected) && (CurrentMoving.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))
+            if ((IsPieceSelected) && (CurrentMoving.BackColor != Color.Crimson) && (pictureBoxes[selected_x, selected_y].BackColor != Color.Transparent))
             {
                 isPlayer = true;
 
@@ -101,20 +122,20 @@ namespace ShogiCheckersChess
             }
 
             //pokud je nějaké políčko selected, ale vybrané políčko není správný cíl vybrané figurky, stane se toto 
-            else if (selected)
+            else if (IsPieceSelected)
             {
                 DeleteHighlight();
                 CurrentMoving.BackColor = Color.Transparent;
-                selected = false;
+                IsPieceSelected = false;
             }
 
             //uživatel klikne na políčko s figurkou, když není nic vybráno
-            else if (!selected)
+            else if (!IsPieceSelected)
             {
                 DeleteHighlight();
                 picture.BackColor = background;
                 CurrentMoving = picture;
-                selected = true;
+                IsPieceSelected = true;
                 if (background == Color.DarkBlue)
                 {
                     Generating.Generate(GetPiece(picture), true, GetX(picture), GetY(picture), true, Board.board);
@@ -122,6 +143,20 @@ namespace ShogiCheckersChess
                     Highlight();
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns true when given field is not the one to be interacted with.
+        /// </summary>
+        public bool IsFieldNotUsable(int selected_x, int selected_y)
+        {
+            if ((Board.board[selected_x, selected_y] != null) && Board.board[selected_x, selected_y].isWhite != Generating.WhitePlays && (!IsPieceSelected))
+            {
+                return true;
+            }
+
+            return false;
+                 
         }
 
         public void SinglerplayerPlay()
@@ -233,7 +268,7 @@ namespace ShogiCheckersChess
 
             Generating.WhitePlays = !Generating.WhitePlays;
 
-            selected = false;
+            IsPieceSelected = false;
 
             MovePicture(movingPicture, final_x, final_y, start_x, start_y, piece);
 

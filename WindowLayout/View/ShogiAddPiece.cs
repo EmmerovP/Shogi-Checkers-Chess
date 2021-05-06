@@ -16,6 +16,55 @@ namespace ShogiCheckersChess
 
         public static string ShogiPieceName;
 
+        private void ChooseShogiButtonBottom_Click(object sender, EventArgs e)
+        {
+            if (AddBottomShogiPiece)
+            {
+                return;
+            }
+
+            if (!Generating.WhitePlays)
+            {
+                return;
+            }
+
+            string Piece = ChooseShogiBoxBottom.Text;
+            PutShogiPieceLabelBottom.Visible = true;
+
+            ShogiPiece = PiecesNumbers.getBottomNumber[Piece];
+            AddBottomShogiPiece = true;
+
+            ChooseShogiBoxBottom.Items.Remove(Piece);
+            ChooseShogiBoxBottom.Text = "";
+
+            ShogiPieceName = Piece;
+        }
+
+        private void ChooseShogiButtonUpper_Click(object sender, EventArgs e)
+        {
+            if (AddUpperShogiPiece)
+            {
+                return;
+            }
+
+            if (Generating.WhitePlays)
+            {
+                return;
+            }
+
+            string Piece = ChooseShogiBoxUpper.Text;
+            PutShogiPieceLabelUpper.Visible = true;
+
+            ShogiPiece = PiecesNumbers.getUpperNumber[Piece];
+            AddUpperShogiPiece = true;
+
+            ChooseShogiBoxUpper.Items.Remove(Piece);
+            ChooseShogiBoxUpper.Text = "";
+
+            ShogiPieceName = Piece;
+        }
+
+
         private void AddBottomShogi(int selected_x, int selected_y)
         {
             if (Board.board[selected_x, selected_y] != null)
@@ -134,52 +183,5 @@ namespace ShogiCheckersChess
 
         }
 
-        private void ChooseShogiButtonBottom_Click(object sender, EventArgs e)
-        {
-            if (AddBottomShogiPiece)
-            {
-                return;
-            }
-
-            if (!Generating.WhitePlays)
-            {
-                return;
-            }
-
-            string Piece = ChooseShogiBoxBottom.Text;
-            PutShogiPieceLabelBottom.Visible = true;
-            
-            ShogiPiece = PiecesNumbers.getBottomNumber[Piece];
-            AddBottomShogiPiece = true;
-
-            ChooseShogiBoxBottom.Items.Remove(Piece);
-            ChooseShogiBoxBottom.Text = "";
-
-            ShogiPieceName = Piece;
-        }
-
-        private void ChooseShogiButtonUpper_Click(object sender, EventArgs e)
-        {
-            if (AddUpperShogiPiece)
-            {
-                return;
-            }
-
-            if (Generating.WhitePlays)
-            {
-                return;
-            }
-
-            string Piece = ChooseShogiBoxUpper.Text;
-            PutShogiPieceLabelUpper.Visible = true;
-            
-            ShogiPiece = PiecesNumbers.getUpperNumber[Piece];
-            AddUpperShogiPiece = true;
-
-            ChooseShogiBoxUpper.Items.Remove(Piece);
-            ChooseShogiBoxUpper.Text = "";
-
-            ShogiPieceName = Piece;
-        }
     }
 }
