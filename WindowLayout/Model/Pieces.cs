@@ -139,7 +139,7 @@ namespace ShogiCheckersChess
 
     class Queen : Pieces
     {
-        public override int Value { get; set; } = 90;
+        public override int Value { get; set; } = 500;
 
         public override string Name { get; protected set; } = "Dáma";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)

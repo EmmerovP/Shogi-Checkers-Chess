@@ -67,7 +67,7 @@ namespace ShogiCheckersChess
                 return EvaluateChessboard();
             }
 
-            Generating.GenerateAllMoves(Board.board, false, false);
+            Generating.GenerateAllMoves(Board.board, false);
 
             //when we can't make a move, we return evaluated chessboard
             if (Moves.GetCount() == 0)
@@ -256,7 +256,7 @@ namespace ShogiCheckersChess
 
             List<int> possibleMovesEvaluation = new List<int>();
 
-            Generating.GenerateAllMoves(Board.board, true, false);
+            Generating.GenerateAllMoves(Board.board, true);
 
             //switch sides for nex move
             Generating.WhitePlays = !Generating.WhitePlays;

@@ -224,7 +224,7 @@ namespace ShogiCheckersChess
             //there are no more moves for the opponent's side, user won
             if (move == -1)
             {
-                label2.Text = "Vyhráli jste!";
+                GameStateLabel.Text = "Vyhráli jste!";
                 return;
             }
 
@@ -371,6 +371,7 @@ namespace ShogiCheckersChess
 
             }
 
+            //when we move piece, we delete its highlight
             if (isPlayer)
             {
                 movingPicture.BackColor = Color.Transparent;
@@ -380,77 +381,85 @@ namespace ShogiCheckersChess
             movingPicture.BringToFront();
             DeleteHighlight();
 
+            //refresh board so the changes are instant
             movingPicture.Refresh();
         }
 
+        public void SignalEndGame()
+        {
+            GameStateLabel.Text = "Konec hry.";
+            GameStateLabel.Visible = true;
+            Gameclass.CurrentGame.GameEnded = true;
+        }
+
+        /// <summary>
+        /// Check whether the game has ended. Returns true if it did.
+        /// </summary>
+        /// <returns></returns>
         public bool EndGame()
         {
+            //set isPlayer as true, remember current state
             bool player = isPlayer;
             isPlayer = true;
 
-            label2.Visible = false;
-            //konec hry dáma
+            //hide label showing game state. When there is needed to show some game state, it will reappear again
+            GameStateLabel.Visible = false;
+
+            //checkers end when we can't make any move
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
             {
                 if (Gameclass.CurrentGame.CheckersEnd(Board.board))
                 {
-                    label2.Text = "Konec hry.";
-                    label2.Visible = true;
-                    Gameclass.CurrentGame.GameEnded = true;
+                    SignalEndGame();
                     return true;
                 }
             }
 
-            //konec hry shogi
+            //shogi ends when the opponent takes king's piece
             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
             {
                 if (Gameclass.CurrentGame.KingOut(Board.board))
                 {
-                    label2.Text = "Konec hry.";
-                    label2.Visible = true;
-                    Gameclass.CurrentGame.GameEnded = true;
+                    SignalEndGame();
                     return true;
                 }
             }
 
-            //tady by se mělo zkontrolovat, zda se neudělá šach TÍMTO tahem?
+            //in chess, first, we look if we have check, then look if it isn't checkmate
+            //for this, we need to switch sides
             Generating.WhitePlays = !Generating.WhitePlays;
+
             if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck(Board.board)))
             {
-                label2.Text = "Šach!";
-                label2.Visible = true;
+                GameStateLabel.Text = "Šach!";
+                GameStateLabel.Visible = true;
                 if (Gameclass.CurrentGame.CheckMate(Board.board))
                 {
-                    label2.Text = "Šach mat! Konec!";
+                    GameStateLabel.Text = "Šach mat! Konec!";
                     Gameclass.CurrentGame.GameEnded = true;
                     return true;
                 }
             }
+
             Generating.WhitePlays = !Generating.WhitePlays;
 
-            //může protějšek udělat tah?
             Moves.EmptyCoordinates();
-            for (int i = 0; i < Board.board.GetLength(0); i++)
-            {
-                for (int j = 0; j < Board.board.GetLength(1); j++)
-                {
-                    if ((Board.board[i, j] != null) && (Board.board[i, j].isWhite == Generating.WhitePlays))
-                    {
-                        Generating.Generate(Board.board[i, j], false, i, j, true, Board.board);
-                    }
-                }
-            }
+
+            //when player can't make any move, the game also ends
+            Generating.GenerateAllMoves(Board.board, true);
 
             if (Moves.final_x.Count == 0)
             {
-                label2.Text = "Nelze udělat tah, konec.";
-                label2.Visible = true;
+                GameStateLabel.Text = "Nelze udělat tah, konec.";
+                GameStateLabel.Visible = true;
                 Moves.EmptyCoordinates();
                 return true;
             }
 
+            //revert changes
             isPlayer = player;
             Moves.EmptyCoordinates();
+
             return false;
         }
 
@@ -618,7 +627,13 @@ namespace ShogiCheckersChess
 
         }
 
-
+        /// <summary>
+        /// Asks player if they want to propagate shogi piece. Propagates it.
+        /// </summary>
+        /// <param name="PieceNumber"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool Propagate(int PieceNumber, int x, int y)
         {
             if (isPlayer)

@@ -80,7 +80,7 @@ namespace ShogiCheckersChess
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
-            label1.Visible = false;
+            WelcomeTextLabel.Visible = false;
         }
 
         public void ChooseTypeOfGame()
@@ -91,7 +91,7 @@ namespace ShogiCheckersChess
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
-            label1.Visible = false;
+            WelcomeTextLabel.Visible = false;
 
             SelectSingleplayerButton.Visible = true;
             SelectLocMultiButton.Visible = true;

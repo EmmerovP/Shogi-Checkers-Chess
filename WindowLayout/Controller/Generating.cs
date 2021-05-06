@@ -129,7 +129,7 @@ namespace ShogiCheckersChess
         /// <param name="Board"></param>
         /// <param name="checkValidMoves"></param>
         /// <param name="deleteMoves"></param>
-        public static void GenerateAllMoves(Pieces[,] Board, bool checkValidMoves, bool deleteMoves)
+        public static void GenerateAllMoves(Pieces[,] Board, bool checkValidMoves)
         {
             for (int i = 0; i < Board.GetLength(0); i++)
             {
@@ -137,7 +137,7 @@ namespace ShogiCheckersChess
                 {
                     if ((Board[i, j] != null) && (Board[i, j].isWhite == Generating.WhitePlays))
                     {
-                        Generating.Generate(Board[i, j], deleteMoves, i, j, checkValidMoves, Board);
+                        Generating.Generate(Board[i, j], false, i, j, checkValidMoves, Board);
                     }
                 }
             }
