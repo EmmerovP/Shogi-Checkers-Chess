@@ -41,9 +41,9 @@ namespace ShogiCheckersChess
                 {
                     customGame = JsonConvert.DeserializeObject<CustomGame>(File.ReadAllText(file));
                 }
-                catch
+                catch (Exception exception)
                 {
-                    //dialogové okno s chybou?
+                    MessageBox.Show("Zadaný soubor není validní: " + exception.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                
@@ -86,8 +86,17 @@ namespace ShogiCheckersChess
 
                         newPiece.Value = GetPieceValue(newPiece);
 
-                        string image = customGame.Pieces[i].Item3.Replace("\\\\", "\\");
-                        GamePieces.Images.Add(Image.FromFile(image));
+                        try
+                        {
+                            string image = customGame.Pieces[i].Item3.Replace("\\\\", "\\");
+                            GamePieces.Images.Add(Image.FromFile(image));
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Nelze načíst obrázek figurky.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
 
                         Pieces.DefinedPieces.Add(newPiece);
 
