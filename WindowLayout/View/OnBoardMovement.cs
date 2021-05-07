@@ -167,7 +167,7 @@ namespace ShogiCheckersChess
             }
 
             return false;
-                 
+
         }
 
         /// <summary>
@@ -209,11 +209,11 @@ namespace ShogiCheckersChess
             }
 
             Generating.WhitePlays = whoPlays;
-         
+
             //instead of move, we are adding a piece on the board
             if (Minimax.isAddingPiece)
             {
-                AddPieceToBoard(Moves.final_x[move], Moves.final_y[move], Moves.start_x[move]);             
+                AddPieceToBoard(Moves.final_x[move], Moves.final_y[move], Moves.start_x[move]);
                 Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;
                 Generating.WhitePlays = !Generating.WhitePlays;
                 return;
@@ -297,9 +297,8 @@ namespace ShogiCheckersChess
                 rook.BringToFront();
             }
 
-
-            //change of piece - either promotion in shogi, or pawn coming to the end of the board
-            if (ChangePiece(final_x, final_y, Board.board[final_x, final_y]))
+            //change of piece
+            if (MoveController.pieceChanged || IsPawnAtTheEndOfBoard(final_x, final_y, piece) || Propagate(piece, final_x, final_y))
             {
                 movingPicture.Image = GamePieces.Images[Board.board[final_x, final_y].GetNumber()];
             }
@@ -463,48 +462,47 @@ namespace ShogiCheckersChess
             return false;
         }
 
-
-
-
-        //měnění figurek - logika
-        public bool ChangePiece(int x, int y, Pieces piece)
+        /// <summary>
+        /// When the pawn in chess comes to an end of a board, we ask player what piece they want to switch it to.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public bool IsPawnAtTheEndOfBoard(int x, int y, Pieces piece)
         {
+            if (!isPlayer)
+            {
+                return false;
+            }
 
-            //upperpawn
             if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(0) - 1))
             {
-                if (isPlayer)
-                {
-                    PawnChange popup = new PawnChange();
-                    DialogResult dialogresult = popup.ShowDialog();
-                    switch (dialogresult)
-                    {
-                        case DialogResult.OK:
-                            Board.AddPiece(22, x, y);
-                            break;
-                        case DialogResult.Cancel:
-                            Board.AddPiece(23, x, y);
-                            break;
-                        case DialogResult.Abort:
-                            Board.AddPiece(25, x, y);
-                            break;
-                        case DialogResult.Retry:
-                            Board.AddPiece(24, x, y);
-                            break;
 
-                    }
-                    popup.Dispose();
-                    return true;
-                }
-                else
+                PawnChange popup = new PawnChange();
+                DialogResult dialogresult = popup.ShowDialog();
+                switch (dialogresult)
                 {
-                    Board.AddPiece(22, x, y);
-                    return true;
+                    case DialogResult.OK:
+                        Board.AddPiece(22, x, y);
+                        break;
+                    case DialogResult.Cancel:
+                        Board.AddPiece(23, x, y);
+                        break;
+                    case DialogResult.Abort:
+                        Board.AddPiece(25, x, y);
+                        break;
+                    case DialogResult.Retry:
+                        Board.AddPiece(24, x, y);
+                        break;
+
                 }
+                popup.Dispose();
+                return true;
 
             }
 
-            //bottompawn
+
             if ((piece.GetNumber() == 5) && (x == 0))
             {
                 PawnChange popup = new PawnChange();
@@ -529,101 +527,9 @@ namespace ShogiCheckersChess
                 return true;
             }
 
-            //checkers - upper piece
-            if ((piece.GetNumber() == 27) && (x == Board.board.GetLength(1) - 1))
-            {
-                Board.AddPiece(22, x, y);
-                return true;
-            }
-
-            //checkers - bottom piece
-            if ((piece.GetNumber() == 6) && (x == 0))
-            {
-                Board.AddPiece(1, x, y);
-                return true;
-            }
-
-            //upper shogi rooks
-            if ((piece.GetNumber() == 29) && (Generating.UpperShogiPromotion(x)))
-            {
-                Propagate(30, x, y);
-            }
-
-            //bottom shogi rook promotion
-            if ((piece.GetNumber() == 8) && (Generating.BottomShogiPromotion(x)))
-            {
-                Propagate(9, x, y);
-            }
-
-
-            //bishop promotion
-            //upper bishop 
-            if ((piece.GetNumber() == 31) && (Generating.UpperShogiPromotion(x)))
-            {
-                Propagate(32, x, y);
-            }
-
-            //bottom bishop
-            if ((piece.GetNumber() == 10) && (Generating.BottomShogiPromotion(x)))
-            {
-                Propagate(11, x, y);
-            }
-
-            //silver general promotion
-            //upper 
-            if ((piece.GetNumber() == 34) && (Generating.UpperShogiPromotion(x)))
-            {
-                Propagate(35, x, y);
-            }
-
-            //bottom
-            if ((piece.GetNumber() == 13) && (Generating.BottomShogiPromotion(x)))
-            {
-                Propagate(14, x, y);
-            }
-
-            //horse promotion
-            //upper
-            if ((piece.GetNumber() == 36) && (Generating.UpperShogiPromotion(x)))
-            {
-                Propagate(37, x, y);
-            }
-
-            //bottom
-            if ((piece.GetNumber() == 15) && (Generating.BottomShogiPromotion(x)))
-            {
-                Propagate(16, x, y);
-            }
-
-            //lance promotion
-            //upper
-            if ((piece.GetNumber() == 38) && (Generating.UpperShogiPromotion(x)))
-            {
-                Propagate(39, x, y);
-            }
-
-            //bottom
-            if ((piece.GetNumber() == 17) && (Generating.BottomShogiPromotion(x)))
-            {
-                Propagate(18, x, y);
-            }
-
-            //pawn promotion
-            //upper
-            if ((piece.GetNumber() == 40) && (Generating.UpperShogiPromotion(x)))
-            {
-                Propagate(41, x, y);
-            }
-
-            //bottom
-            if ((piece.GetNumber() == 19) && (Generating.BottomShogiPromotion(x)))
-            {
-                Propagate(20, x, y);
-            }
-
             return false;
-
         }
+
 
         /// <summary>
         /// Asks player if they want to propagate shogi piece. Propagates it.
@@ -632,27 +538,36 @@ namespace ShogiCheckersChess
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public bool Propagate(int PieceNumber, int x, int y)
+        public bool Propagate(Pieces piece, int x, int y)
         {
-            if (isPlayer)
+            if (!isPlayer)
             {
-                Propagation popup = new Propagation();
-                DialogResult result = popup.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    Board.AddPiece(PieceNumber, x, y);
-                    popup.Dispose();
-                    return true;
-                }
-                popup.Dispose();
                 return false;
             }
-            else
-            {
-                Board.AddPiece(PieceNumber, x, y);
-                return true;
-            }
 
+            if ((Generating.UpperShogiPromotion(x) && (!piece.isWhite)) || (Generating.BottomShogiPromotion(x) && piece.isWhite))
+            {
+                foreach (var pieceNumber in PiecesNumbers.canPropagate)
+                {
+                    if (pieceNumber == piece.GetNumber())
+                    {
+                        Propagation popup = new Propagation();
+                        DialogResult result = popup.ShowDialog();
+                        if (result == DialogResult.OK)
+                        {
+                            Board.AddPiece(piece.GetNumber() + 1, x, y);
+                            popup.Dispose();
+                            return true;
+                        }
+                        popup.Dispose();
+                        return false;
+                    }
+
+                }
+
+                
+            }
+            return false;
         }
 
     }

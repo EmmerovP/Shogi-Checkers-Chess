@@ -46,6 +46,81 @@
         /// </summary>
         public static Pieces moved;
 
+        /// <summary>
+        /// True if the move changed the piece into another piece.
+        /// </summary>
+        public static bool pieceChanged;
+
+        /// <summary>
+        /// When piece changes, this variable remembers the state of it before it happened.
+        /// </summary>
+        public static Pieces previousPiece;
+
+        /// <summary>
+        /// Changing pieces.
+        /// Chess pawns can be changed when they are on the end of the board. They don't change automatically for user player, only when algorithm plays.
+        /// Checker pieces change into queen at the end of the board automatically.
+        /// Shogi pieces can be promoted. They don't change automatically for user player, only when algorithm plays.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static void ChangePiece(int x, int y, Pieces piece)
+        {
+            pieceChanged = false;
+
+            if (!MainGameWindow.isPlayer)
+            {
+                //black pawn changes into black queen
+                if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(0) - 1))
+                {
+                    previousPiece = piece;
+                    Board.AddPiece(22, x, y);
+                    pieceChanged = true;
+                }
+
+                //white pawn changes into white queen
+                if ((piece.GetNumber() == 5) && (x == 0))
+                {
+                    previousPiece = piece;
+                    Board.AddPiece(1, x, y);
+                    pieceChanged = true;
+                }
+
+                //shogi promotions
+                if ((Generating.UpperShogiPromotion(x) && (!piece.isWhite)) || (Generating.BottomShogiPromotion(x) && piece.isWhite))
+                {
+                    foreach (var pieceNumber in PiecesNumbers.canPropagate)
+                    {
+                        if (pieceNumber == piece.GetNumber())
+                        {
+                            previousPiece = piece;
+                            Board.AddPiece(pieceNumber + 1, x, y);
+                            pieceChanged = true;
+                        }
+                    }
+                }
+
+            }
+
+            //checkers change into queen
+            if ((piece.GetNumber() == 27) && (x == Board.board.GetLength(1) - 1))
+            {
+                previousPiece = piece;
+                Board.AddPiece(22, x, y);
+                pieceChanged = true;
+               
+            }
+
+            if ((piece.GetNumber() == 6) && (x == 0))
+            {
+                previousPiece = piece;
+                Board.AddPiece(1, x, y);
+                pieceChanged = true;
+            }
+        }
+
 
         /// <summary>
         /// Checks whether the move is bottom enpassante, and makes correct changes on the board.
@@ -309,6 +384,8 @@
             Board[final_x, final_y] = piece;
             Board[start_x, start_y] = null;
 
+            //look if there are some pieces changing
+            ChangePiece(final_x, final_y, piece);
 
 
             //mark kinh as moved when we move him
@@ -360,8 +437,13 @@
         /// <param name="isCastling"></param>
         /// <param name="MovedPiece"></param>
         /// <param name="Board"></param>
-        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces MovedPiece, Pieces[,] Board)
+        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces MovedPiece, Pieces[,] Board, Pieces pieceChanged)
         {
+            if (pieceChanged != null)
+            {
+                piece = pieceChanged;
+            }
+
             if (isCastling)
             {
                 if (start_x == final_x && start_y == final_y + 2)

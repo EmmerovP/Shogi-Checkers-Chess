@@ -103,6 +103,7 @@ namespace ShogiCheckersChess
                 int taken_y = MoveController.taken_y;
                 bool isCastling = MoveController.isCastling;
                 var movedPiece = MoveController.moved;
+                var changedPiece = MoveController.previousPiece;
 
                 //depending on whether we are in the maxing or minimazing state, get according evaluation
                 if (isMaxing)
@@ -115,7 +116,7 @@ namespace ShogiCheckersChess
                 }
 
                 //revert move
-                MoveController.ReapplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
+                MoveController.ReapplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece, Board.board, changedPiece);
 
 
                 //alpha-beta pruning
@@ -279,12 +280,13 @@ namespace ShogiCheckersChess
                 int taken_y = MoveController.taken_y;
                 bool isCastling = MoveController.isCastling;
                 var movedPiece = MoveController.moved;
+                var changedPiece = MoveController.previousPiece;
 
                 //run minimax algorithm for each move
                 possibleMovesEvaluation.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
 
                 //depending on whether we are in the maxing or minimazing state, get according evaluation
-                MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, movedPiece, Board.board);
+                MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, movedPiece, Board.board, changedPiece);
 
             }
 

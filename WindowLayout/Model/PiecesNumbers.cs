@@ -107,6 +107,11 @@ namespace ShogiCheckersChess
         };
 
         /// <summary>
+        /// List of all shogi pieces we can propagate. To propagate, it is enough to increment its number by one.
+        /// </summary>
+        public static int[] canPropagate = {8, 10, 13, 15, 17, 19, 29, 31, 34, 36, 38, 40};
+
+        /// <summary>
         /// Given a name of a piece, returns number of piece corresponding to bottom/white side.
         /// </summary>
         public static Dictionary<string, int> getBottomNumber = new Dictionary<string, int>()
