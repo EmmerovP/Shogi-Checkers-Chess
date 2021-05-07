@@ -373,6 +373,9 @@ namespace ShogiCheckersChess
             Board.AddPiece(pieceNumber, x, y);
 
             gamepiece.BringToFront();
+
+            //show the piece instantly on board
+            gamepiece.Refresh();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
