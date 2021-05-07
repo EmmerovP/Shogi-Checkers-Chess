@@ -546,7 +546,7 @@ namespace ShogiCheckersChess
                 return false;
             }
 
-            if ((Generating.UpperShogiPromotion(x) && (!piece.isWhite)) || (Generating.BottomShogiPromotion(x) && piece.isWhite))
+            if ((Generating.UpperShogiPromotion(x, Board.board) && (!piece.isWhite)) || (Generating.BottomShogiPromotion(x) && piece.isWhite))
             {
                 foreach (var pieceNumber in PiecesNumbers.canPropagate)
                 {

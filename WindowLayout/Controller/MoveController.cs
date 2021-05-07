@@ -97,7 +97,7 @@
                         if (pieceNumber == piece.GetNumber())
                         {
                             previousPiece = piece.GetNumber();
-                            Board.AddPiece(pieceNumber + 1, x, y, Board.board);
+                            Board.AddPiece(pieceNumber + 1, x, y, board);
                             pieceChanged = true;
                         }
                     }
@@ -106,10 +106,10 @@
             }
 
             //checkers change into queen
-            if ((piece.GetNumber() == 27) && (x == Board.board.GetLength(1) - 1))
+            if ((piece.GetNumber() == 27) && (x == board.GetLength(1) - 1))
             {
                 previousPiece = piece.GetNumber();
-                Board.AddPiece(22, x, y, Board.board);
+                Board.AddPiece(22, x, y, board);
                 pieceChanged = true;
                
             }
@@ -117,7 +117,7 @@
             if ((piece.GetNumber() == 6) && (x == 0))
             {
                 previousPiece = piece.GetNumber();
-                Board.AddPiece(1, x, y, Board.board);
+                Board.AddPiece(1, x, y, board);
                 pieceChanged = true;
             }
         }
@@ -386,7 +386,7 @@
             Board[start_x, start_y] = null;
 
             //look if there are some pieces changing
-            ChangePiece(final_x, final_y, piece);
+            ChangePiece(final_x, final_y, piece, Board);
 
 
             //mark kinh as moved when we move him
