@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace ShogiCheckersChess
@@ -65,7 +64,7 @@ namespace ShogiCheckersChess
         }
 
         /// <summary>
-        /// After clicking on a board, adds specified piece we already have in our program in variable ShogiPiece.
+        /// After clicking on a board, adds specified piece as bottom piece we already have in our program in variable ShogiPiece.
         /// </summary>
         /// <param name="selected_x"></param>
         /// <param name="selected_y"></param>
@@ -85,7 +84,7 @@ namespace ShogiCheckersChess
                     if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == 19))
                     {
                         ShogiPawnProblem popup = new ShogiPawnProblem();
-                        DialogResult dialogresult = popup.ShowDialog();
+                        popup.ShowDialog();
                         popup.Dispose();
 
                         PutShogiPieceLabelBottom.Visible = false;
@@ -97,50 +96,41 @@ namespace ShogiCheckersChess
                 }
             }
 
+            //hide label telling user to put piece on board
             PutShogiPieceLabelBottom.Visible = false;
+
+            //signal that we have added a piece to board
             AddBottomShogiPiece = false;
 
+            AddPieceToBoard(selected_x, selected_y, ShogiPiece);
 
-            var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
-            {
-                Name = Convert.ToString(ShogiPiece),
-                Size = new Size(50, 50),
-                Location = location[selected_x, selected_y],
-                BackColor = Color.Transparent,
-                Image = GamePieces.Images[ShogiPiece],
-                SizeMode = PictureBoxSizeMode.CenterImage,
-            };
-
-            this.Controls.Add(gamepiece);
-            gamepiece.Click += MoveGamePiece;
-
-            piecesPictures[selected_x, selected_y] = gamepiece;
-            Board.AddPiece(ShogiPiece, selected_x, selected_y);
-
-            gamepiece.BringToFront();
-
+            //removes piece from list of available pieces
             ChooseShogiBoxBottom.Items.Remove(ChooseShogiBoxBottom.SelectedItem);
-
             Generating.WhitePlays = !Generating.WhitePlays;
 
-
+            //if the game is singleplayer, enemy should play
             if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
             {
-
                 SinglerplayerPlay();
-
             }
-
 
         }
 
+
+        /// <summary>
+        /// After clicking on a board, adds specified piece as upper piece we already have in our program in variable ShogiPiece.
+        /// </summary>
+        /// <param name="selected_x"></param>
+        /// <param name="selected_y"></param>
         private void AddUpperShogi(int selected_x, int selected_y)
         {
+            //we cannot add piece to a field that already has a piece
             if (Board.board[selected_x, selected_y] != null)
             {
                 return;
             }
 
+            //we cannot add shogi pawn to a column that already has a shogi pawn in it
             if (ShogiPiece == 40)
             {
                 for (int i = 0; i < Board.board.GetLength(1); i++)
@@ -148,7 +138,7 @@ namespace ShogiCheckersChess
                     if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == 40))
                     {
                         ShogiPawnProblem popup = new ShogiPawnProblem();
-                        DialogResult dialogresult = popup.ShowDialog();
+                        popup.ShowDialog();
                         popup.Dispose();
 
                         PutShogiPieceLabelUpper.Visible = false;
@@ -162,26 +152,14 @@ namespace ShogiCheckersChess
                 }
             }
 
+            //hide label telling user to put piece on board
             PutShogiPieceLabelUpper.Visible = false;
+
+            //signal that we have added a piece to board
             AddUpperShogiPiece = false;
 
-            var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
-            {
-                Name = Convert.ToString(ShogiPiece),
-                Size = new Size(50, 50),
-                Location = location[selected_x, selected_y],
-                BackColor = Color.Transparent,
-                Image = GamePieces.Images[ShogiPiece],
-                SizeMode = PictureBoxSizeMode.CenterImage,
-            };
+            AddPieceToBoard(selected_x, selected_y, ShogiPiece);
 
-            this.Controls.Add(gamepiece);
-            gamepiece.Click += MoveGamePiece;
-
-            piecesPictures[selected_x, selected_y] = gamepiece;
-            Board.AddPiece(ShogiPiece, selected_x, selected_y);
-
-            gamepiece.BringToFront();
             Generating.WhitePlays = !Generating.WhitePlays;
 
             if (!isPlayer)
@@ -189,6 +167,7 @@ namespace ShogiCheckersChess
                 return;
             }
 
+            //removes piece from list of available pieces
             ChooseShogiBoxUpper.Items.Remove(ChooseShogiBoxUpper.SelectedItem);
 
 
