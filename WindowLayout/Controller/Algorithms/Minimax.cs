@@ -210,7 +210,6 @@ namespace ShogiCheckersChess
                     {
                         if (Board.board[i, j] == null)
                         {
-
                             //we can't put another shogi pawn to the column where there already is
                             if (PiecesNumbers.IsShogiPawn(piece))
                             {
@@ -222,8 +221,7 @@ namespace ShogiCheckersChess
                             }
 
                             //add piece on board
-                            //TODO: asi se přidávají špatně...
-                            Board.board[i, j] = piece;
+                            Board.AddPiece(PiecesNumbers.getUpperNumber[piece.Name], i, j);
                             Board.board[i, j].isWhite = false;
                             MainGameWindow.shogiAIPieces.Remove(piece);
 
