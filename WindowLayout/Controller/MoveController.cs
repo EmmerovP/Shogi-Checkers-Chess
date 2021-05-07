@@ -54,7 +54,7 @@
         /// <summary>
         /// When piece changes, this variable remembers the state of it before it happened.
         /// </summary>
-        public static Pieces previousPiece;
+        public static int previousPiece;
 
         /// <summary>
         /// Changing pieces.
@@ -69,14 +69,14 @@
         public static void ChangePiece(int x, int y, Pieces piece)
         {
             pieceChanged = false;
-            previousPiece = null;
+            previousPiece = -1;
 
             if (!MainGameWindow.isPlayer)
             {
                 //black pawn changes into black queen
                 if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(0) - 1))
                 {
-                    previousPiece = piece;
+                    previousPiece = piece.GetNumber();
                     Board.AddPiece(22, x, y);
                     pieceChanged = true;
                 }
@@ -84,7 +84,7 @@
                 //white pawn changes into white queen
                 if ((piece.GetNumber() == 5) && (x == 0))
                 {
-                    previousPiece = piece;
+                    previousPiece = piece.GetNumber();
                     Board.AddPiece(1, x, y);
                     pieceChanged = true;
                 }
@@ -96,7 +96,7 @@
                     {
                         if (pieceNumber == piece.GetNumber())
                         {
-                            previousPiece = piece;
+                            previousPiece = piece.GetNumber();
                             Board.AddPiece(pieceNumber + 1, x, y);
                             pieceChanged = true;
                         }
@@ -108,7 +108,7 @@
             //checkers change into queen
             if ((piece.GetNumber() == 27) && (x == Board.board.GetLength(1) - 1))
             {
-                previousPiece = piece;
+                previousPiece = piece.GetNumber();
                 Board.AddPiece(22, x, y);
                 pieceChanged = true;
                
@@ -116,7 +116,7 @@
 
             if ((piece.GetNumber() == 6) && (x == 0))
             {
-                previousPiece = piece;
+                previousPiece = piece.GetNumber();
                 Board.AddPiece(1, x, y);
                 pieceChanged = true;
             }
@@ -437,13 +437,9 @@
         /// <param name="local_taken_y"></param>
         /// <param name="isCastling"></param>
         /// <param name="MovedPiece"></param>
-        /// <param name="Board"></param>
-        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, Pieces piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces MovedPiece, Pieces[,] Board, Pieces pieceChanged)
+        /// <param name="board"></param>
+        public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, int piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces[,] board, int previousPiece)
         {
-            if (pieceChanged != null)
-            {
-                piece = pieceChanged;
-            }
 
             if (isCastling)
             {
@@ -452,14 +448,14 @@
                     //upper castling
                     if (start_x == 0)
                     {
-                        Board[0, 0] = Board[0, 3];
-                        Board[0, 3] = null;
+                        board[0, 0] = board[0, 3];
+                        board[0, 3] = null;
                     }
                     //bottom castling
                     else if (start_x == 7)
                     {
-                        Board[7, 0] = Board[7, 3];
-                        Board[7, 3] = null;
+                        board[7, 0] = board[7, 3];
+                        board[7, 3] = null;
                     }
                 }
                 else if (start_x == final_x && start_y == final_y - 2)
@@ -467,32 +463,38 @@
                     //upper castling
                     if (start_x == 0)
                     {
-                        Board[0, 7] = Board[0, 5];
-                        Board[0, 5] = null;
+                        board[0, 7] = board[0, 5];
+                        board[0, 5] = null;
                     }
                     //bottom castling
                     else if (start_x == 7)
                     {
-                        Board[7, 7] = Board[7, 5];
-                        Board[7, 5] = null;
+                        board[7, 7] = board[7, 5];
+                        board[7, 5] = null;
                     }
                 }
             }
 
             //reapply move
-            Board[start_x, start_y] = Board[final_x, final_y];
-            Board[final_x, final_y] = null;
+            board[start_x, start_y] = board[final_x, final_y];
+            board[final_x, final_y] = null;
 
             //put back taken piece
             if (local_taken_x != -1)
             {
-                Board[local_taken_x, local_taken_y] = piece;
+                Board.AddPiece(piece, local_taken_x, local_taken_y);
             }
 
-            //switch back movement flag on the king piece
-            if (MovedPiece != null)
+            if (previousPiece != -1)
             {
-                MovedPiece.Moved = false;
+                Board.AddPiece(previousPiece, start_x, start_y);
+            }
+
+
+            //switch back movement flag on the king piece
+            if (PiecesNumbers.IsKing(board[start_x, start_y]))
+            {
+                board[start_x, start_y].Moved = false;
             }
 
         }

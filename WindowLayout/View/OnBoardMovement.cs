@@ -301,6 +301,7 @@ namespace ShogiCheckersChess
             if (MoveController.pieceChanged || IsPawnAtTheEndOfBoard(final_x, final_y, piece) || Propagate(piece, final_x, final_y))
             {
                 movingPicture.Image = GamePieces.Images[Board.board[final_x, final_y].GetNumber()];
+                movingPicture.Refresh();
             }
 
             //switch sides

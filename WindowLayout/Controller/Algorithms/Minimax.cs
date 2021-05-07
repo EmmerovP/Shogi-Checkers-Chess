@@ -98,21 +98,16 @@ namespace ShogiCheckersChess
 
                 //apply given move and remember parameters needed to re-do the move
                 MoveController.ApplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], Board.board);
-                var piece = MoveController.takenPiece;
+                int piece = -1;
+                if (MoveController.takenPiece != null)
+                {
+                    piece = MoveController.takenPiece.GetNumber();
+                }
                 int taken_x = MoveController.taken_x;
                 int taken_y = MoveController.taken_y;
                 bool isCastling = MoveController.isCastling;
-                var movedPiece = MoveController.moved;
-                Pieces changedPiece;
+                int previousPiece = MoveController.previousPiece;
 
-                if (MoveController.pieceChanged)
-                {
-                    changedPiece = MoveController.previousPiece;
-                }
-                else
-                {
-                    changedPiece = null;
-                }
 
                 //depending on whether we are in the maxing or minimazing state, get according evaluation
                 if (isMaxing)
@@ -125,7 +120,7 @@ namespace ShogiCheckersChess
                 }
 
                 //revert move
-                MoveController.ReapplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], piece, taken_x, taken_y, isCastling, movedPiece, Board.board, changedPiece);
+                MoveController.ReapplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], piece, taken_x, taken_y, isCastling, Board.board, previousPiece);
 
 
                 //alpha-beta pruning
@@ -284,27 +279,22 @@ namespace ShogiCheckersChess
             {
                 //apply given move and remember parameters needed to re-do the move
                 MoveController.ApplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], Board.board);
-                var piece = MoveController.takenPiece;
+
+                int piece = -1;
+                if (MoveController.takenPiece != null)
+                {
+                    piece = MoveController.takenPiece.GetNumber();
+                }
                 int taken_x = MoveController.taken_x;
                 int taken_y = MoveController.taken_y;
                 bool isCastling = MoveController.isCastling;
-                var movedPiece = MoveController.moved;
-                Pieces changedPiece;
-
-                if (MoveController.pieceChanged)
-                {
-                     changedPiece = MoveController.previousPiece;
-                }
-                else
-                {
-                    changedPiece = null;
-                }
+                int previousPiece = MoveController.previousPiece;
 
                 //run minimax algorithm for each move
                 possibleMovesEvaluation.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
 
                 //depending on whether we are in the maxing or minimazing state, get according evaluation
-                MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, movedPiece, Board.board, changedPiece);
+                MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, Board.board, previousPiece);
 
             }
 
