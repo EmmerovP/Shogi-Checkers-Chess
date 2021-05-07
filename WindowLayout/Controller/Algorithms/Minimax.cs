@@ -103,7 +103,16 @@ namespace ShogiCheckersChess
                 int taken_y = MoveController.taken_y;
                 bool isCastling = MoveController.isCastling;
                 var movedPiece = MoveController.moved;
-                var changedPiece = MoveController.previousPiece;
+                Pieces changedPiece;
+
+                if (MoveController.pieceChanged)
+                {
+                    changedPiece = MoveController.previousPiece;
+                }
+                else
+                {
+                    changedPiece = null;
+                }
 
                 //depending on whether we are in the maxing or minimazing state, get according evaluation
                 if (isMaxing)
@@ -280,7 +289,16 @@ namespace ShogiCheckersChess
                 int taken_y = MoveController.taken_y;
                 bool isCastling = MoveController.isCastling;
                 var movedPiece = MoveController.moved;
-                var changedPiece = MoveController.previousPiece;
+                Pieces changedPiece;
+
+                if (MoveController.pieceChanged)
+                {
+                     changedPiece = MoveController.previousPiece;
+                }
+                else
+                {
+                    changedPiece = null;
+                }
 
                 //run minimax algorithm for each move
                 possibleMovesEvaluation.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));

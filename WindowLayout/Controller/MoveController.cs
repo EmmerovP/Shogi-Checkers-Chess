@@ -69,6 +69,7 @@
         public static void ChangePiece(int x, int y, Pieces piece)
         {
             pieceChanged = false;
+            previousPiece = null;
 
             if (!MainGameWindow.isPlayer)
             {
