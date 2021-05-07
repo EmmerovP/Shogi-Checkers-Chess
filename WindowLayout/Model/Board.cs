@@ -18,7 +18,7 @@
         /// <param name="number"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public static void AddPiece(int number, int x, int y)
+        public static void AddPiece(int number, int x, int y, Pieces[,] gameboard)
         {
             Pieces piece;
 
@@ -285,7 +285,7 @@
 
             }
 
-            board[x, y] = piece;
+            gameboard[x, y] = piece;
             piece.SetNumber(number);
         }
 

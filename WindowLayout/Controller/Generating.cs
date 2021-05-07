@@ -148,9 +148,9 @@ namespace ShogiCheckersChess
         /// </summary>
         /// <param name="row">row of piece</param>
         /// <returns></returns>
-        public static bool UpperShogiPromotion(int row)
+        public static bool UpperShogiPromotion(int row, Pieces[,] Board)
         {
-            if ((row == Board.board.GetLength(1) - 3) || (row == Board.board.GetLength(1) - 1) || (row == Board.board.GetLength(1) - 2))
+            if ((row == Board.GetLength(1) - 3) || (row == Board.GetLength(1) - 1) || (row == Board.GetLength(1) - 2))
                 return true;
             return false;
         }

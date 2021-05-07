@@ -485,16 +485,16 @@ namespace ShogiCheckersChess
                 switch (dialogresult)
                 {
                     case DialogResult.OK:
-                        Board.AddPiece(22, x, y);
+                        Board.AddPiece(22, x, y, Board.board);
                         break;
                     case DialogResult.Cancel:
-                        Board.AddPiece(23, x, y);
+                        Board.AddPiece(23, x, y, Board.board);
                         break;
                     case DialogResult.Abort:
-                        Board.AddPiece(25, x, y);
+                        Board.AddPiece(25, x, y, Board.board);
                         break;
                     case DialogResult.Retry:
-                        Board.AddPiece(24, x, y);
+                        Board.AddPiece(24, x, y, Board.board);
                         break;
 
                 }
@@ -511,16 +511,16 @@ namespace ShogiCheckersChess
                 switch (dialogresult)
                 {
                     case DialogResult.OK:
-                        Board.AddPiece(1, x, y);
+                        Board.AddPiece(1, x, y, Board.board);
                         break;
                     case DialogResult.Cancel:
-                        Board.AddPiece(2, x, y);
+                        Board.AddPiece(2, x, y, Board.board);
                         break;
                     case DialogResult.Abort:
-                        Board.AddPiece(4, x, y);
+                        Board.AddPiece(4, x, y, Board.board);
                         break;
                     case DialogResult.Retry:
-                        Board.AddPiece(3, x, y);
+                        Board.AddPiece(3, x, y, Board.board);
                         break;
 
                 }
@@ -556,7 +556,7 @@ namespace ShogiCheckersChess
                         DialogResult result = popup.ShowDialog();
                         if (result == DialogResult.OK)
                         {
-                            Board.AddPiece(piece.GetNumber() + 1, x, y);
+                            Board.AddPiece(piece.GetNumber() + 1, x, y, Board.board);
                             popup.Dispose();
                             return true;
                         }

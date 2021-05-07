@@ -316,7 +316,7 @@ namespace ShogiCheckersChess
                             gamepiece.Click += MoveGamePiece;
 
                             piecesPictures[a, b] = gamepiece;
-                            Board.AddPiece(piece, a, b);
+                            Board.AddPiece(piece, a, b, Board.board);
                         }
 
 
@@ -370,7 +370,7 @@ namespace ShogiCheckersChess
             gamepiece.Click += MoveGamePiece;
             piecesPictures[x, y] = gamepiece;
 
-            Board.AddPiece(pieceNumber, x, y);
+            Board.AddPiece(pieceNumber, x, y, Board.board);
 
             gamepiece.BringToFront();
 

@@ -221,7 +221,7 @@ namespace ShogiCheckersChess
                             }
 
                             //add piece on board
-                            Board.AddPiece(PiecesNumbers.getUpperNumber[piece.Name], i, j);
+                            Board.AddPiece(PiecesNumbers.getUpperNumber[piece.Name], i, j, Board.board);
                             Board.board[i, j].isWhite = false;
                             MainGameWindow.shogiAIPieces.Remove(piece);
 

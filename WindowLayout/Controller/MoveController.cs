@@ -66,7 +66,7 @@
         /// <param name="y"></param>
         /// <param name="piece"></param>
         /// <returns></returns>
-        public static void ChangePiece(int x, int y, Pieces piece)
+        public static void ChangePiece(int x, int y, Pieces piece, Pieces[,] board)
         {
             pieceChanged = false;
             previousPiece = -1;
@@ -74,10 +74,10 @@
             if (!MainGameWindow.isPlayer)
             {
                 //black pawn changes into black queen
-                if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(0) - 1))
+                if ((piece.GetNumber() == 26) && (x == board.GetLength(0) - 1))
                 {
                     previousPiece = piece.GetNumber();
-                    Board.AddPiece(22, x, y);
+                    Board.AddPiece(22, x, y, board);
                     pieceChanged = true;
                 }
 
@@ -85,19 +85,19 @@
                 if ((piece.GetNumber() == 5) && (x == 0))
                 {
                     previousPiece = piece.GetNumber();
-                    Board.AddPiece(1, x, y);
+                    Board.AddPiece(1, x, y, board);
                     pieceChanged = true;
                 }
 
                 //shogi promotions
-                if ((Generating.UpperShogiPromotion(x) && (!piece.isWhite)) || (Generating.BottomShogiPromotion(x) && piece.isWhite))
+                if ((Generating.UpperShogiPromotion(x, board) && (!piece.isWhite)) || (Generating.BottomShogiPromotion(x) && piece.isWhite))
                 {
                     foreach (var pieceNumber in PiecesNumbers.canPropagate)
                     {
                         if (pieceNumber == piece.GetNumber())
                         {
                             previousPiece = piece.GetNumber();
-                            Board.AddPiece(pieceNumber + 1, x, y);
+                            Board.AddPiece(pieceNumber + 1, x, y, Board.board);
                             pieceChanged = true;
                         }
                     }
@@ -109,7 +109,7 @@
             if ((piece.GetNumber() == 27) && (x == Board.board.GetLength(1) - 1))
             {
                 previousPiece = piece.GetNumber();
-                Board.AddPiece(22, x, y);
+                Board.AddPiece(22, x, y, Board.board);
                 pieceChanged = true;
                
             }
@@ -117,7 +117,7 @@
             if ((piece.GetNumber() == 6) && (x == 0))
             {
                 previousPiece = piece.GetNumber();
-                Board.AddPiece(1, x, y);
+                Board.AddPiece(1, x, y, Board.board);
                 pieceChanged = true;
             }
         }
@@ -482,12 +482,12 @@
             //put back taken piece
             if (local_taken_x != -1)
             {
-                Board.AddPiece(piece, local_taken_x, local_taken_y);
+                Board.AddPiece(piece, local_taken_x, local_taken_y, board);
             }
 
             if (previousPiece != -1)
             {
-                Board.AddPiece(previousPiece, start_x, start_y);
+                Board.AddPiece(previousPiece, start_x, start_y, board);
             }
 
 
