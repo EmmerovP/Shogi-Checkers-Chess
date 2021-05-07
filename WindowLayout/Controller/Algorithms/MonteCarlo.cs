@@ -61,6 +61,7 @@ namespace ShogiCheckersChess
             int steps = 0;
 
             while (time.ElapsedMilliseconds < MAXTIME)
+            //while (steps<2000)
             {
                 Node highest_UCB = Selection(Root);
                 Node leaf = Expansion(highest_UCB);
@@ -212,9 +213,6 @@ namespace ShogiCheckersChess
                 //tady udělat na šachovnici tah
                 int move = FindRandomMove(board);
 
-
-
-
                 //nenašel se žádný tah
                 if (move == -1)
                 {
@@ -282,11 +280,11 @@ namespace ShogiCheckersChess
                 {
                     if (board[i, j] != null && board[i, j].GetNumber() == pieceNumber)
                     {
-                        return true;
+                        return false;
                     }
                 }
             }
-            return false;
+            return true;
         }
 
         public static void Backpropagation(Node node, int reward)

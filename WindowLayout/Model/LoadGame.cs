@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace ShogiCheckersChess
 {
-
     /// <summary>
     /// Object used to represent a game defined by user.
     /// </summary>
