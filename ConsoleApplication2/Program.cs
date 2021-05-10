@@ -40,6 +40,9 @@ namespace ConsoleApplication2
                         break;
                 }
 
+                MainGameWindow.whiteShogiAIPieces = new List<Pieces>();
+                MainGameWindow.shogiAIPieces = new List<Pieces>();
+
                 Gameclass.CurrentGame.GameEnded = false;
 
                 game.CreateChessBoard(chessboard);
@@ -67,6 +70,7 @@ namespace ConsoleApplication2
                             Gameclass.CurrentGame.GameEnded = true;
                         }
                     }
+
                 }
                 sw.Stop();
                 Console.WriteLine();
@@ -93,21 +97,16 @@ namespace ConsoleApplication2
                         Board.AddPiece(chessboard[i, j], i, j, Board.board);
                 }
             }
+           
         }
 
         public void MakeMove()
         {
-            int move = MonteCarlo.FindRandomMove(Board.board);
-            /*
-            if (Generating.WhitePlays)
-            {
-                move = Minimax.GetNextMove();
-            }
-            else
-            {
-                move = MonteCarlo.FindRandomMove(Board.board);
-            }*/
+            bool player = Generating.WhitePlays;
 
+            Moves.EmptyCoordinates();
+
+            int move = Minimax.GetNextMove();
 
             if (move == -1)
             {
@@ -115,13 +114,50 @@ namespace ConsoleApplication2
                 return;
             }
 
-            MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], Board.board);
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[Moves.final_x[move], Moves.final_y[move]] != null)
+            {
+                if (player)
+                {
+                    MainGameWindow.whiteShogiAIPieces.Add(Board.board[Moves.final_x[move], Moves.final_y[move]]);
+                }
+                else
+                {
+                    MainGameWindow.shogiAIPieces.Add(Board.board[Moves.final_x[move], Moves.final_y[move]]);
+                }
+            }
+
+
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Minimax.isAddingPiece)
+            {
+                Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move], Board.board);
+            }
+            else
+            {
+                MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], Board.board);
+            }
+
+
+
+
+            /*
+            int move;
+            
+            if (Generating.WhitePlays)
+            {
+                move = Minimax.GetNextMove();
+            }
+            else
+            {
+                move =  MonteCarlo.MonteCarloMove(player);
+            }*/
+
+            Generating.WhitePlays = player;
 
             Minimax.WhiteSide = !Minimax.WhiteSide;
 
             Generating.WhitePlays = !Generating.WhitePlays;
 
-
+            Minimax.isAddingPiece = false;
         }
 
         public void DrawBoard()
@@ -132,7 +168,7 @@ namespace ConsoleApplication2
                 {
                     if (Board.board[i, j] == null)
                     {
-                        Console.Write("| |");
+                        Console.Write("|  |");
                     }
                     else
                     {
@@ -180,6 +216,15 @@ namespace ConsoleApplication2
                                 break;
                             case 27:
                                 Console.Write("|\x265F|");
+                                break;
+                            case 7: 
+                                Console.Write("|07|");
+                                break;
+                            case 8:
+                                Console.Write("|08|");
+                                break;
+                            case 9:
+                                Console.Write("|09|");
                                 break;
                             default: Console.Write("|"+ number +"|");
                                 break;

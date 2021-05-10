@@ -24,13 +24,13 @@ namespace ShogiCheckersChess
             public int final_y;
         }
 
-        public static int MonteCarloMove()
+        public static int MonteCarloMove(bool isWhite)
         {
 
             var rootnode = new Node
             {
                 children = new List<Node>(),
-                WhitePlays = false,
+                WhitePlays = isWhite,
                 board = Board.board.Clone() as Pieces[,],
                 numberOfSimulations = 1,
                 wins = 0,
@@ -55,7 +55,7 @@ namespace ShogiCheckersChess
         }
 
 
-        const float MAXTIME = 3000.0F;
+        const float MAXTIME = 6000.0F;
         const int LOOPS = 2000;
 
         public static Node MonteCarloRoot(Node Root)
@@ -151,16 +151,7 @@ namespace ShogiCheckersChess
                 checkValidMoves = true;
             }
 
-            for (int i = 0; i < node.board.GetLength(0); i++)
-            {
-                for (int j = 0; j < node.board.GetLength(1); j++)
-                {
-                    if (node.board[i, j] != null && node.board[i, j].isWhite == node.WhitePlays)
-                    {
-                        Generating.Generate(node.board[i, j], false, i, j, checkValidMoves, node.board);
-                    }
-                }
-            }
+            Generating.GenerateAllMoves(node.board, checkValidMoves);
 
             for (int i = 0; i < Moves.final_x.Count; i++)
 
@@ -191,16 +182,7 @@ namespace ShogiCheckersChess
 
         public static int FindRandomMove(Pieces[,] board)
         {
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    if (board[i, j] != null && board[i, j].isWhite == Generating.WhitePlays)
-                    {
-                        Generating.Generate(board[i, j], false, i, j, false, board);
-                    }
-                }
-            }
+            Generating.GenerateAllMoves(board, false);
 
             Random rnd = new Random();
 

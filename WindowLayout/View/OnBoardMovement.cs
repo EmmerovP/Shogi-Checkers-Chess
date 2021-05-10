@@ -205,7 +205,7 @@ namespace ShogiCheckersChess
             }
             else
             {
-                move = MonteCarlo.MonteCarloMove();
+                move = MonteCarlo.MonteCarloMove(false);
             }
 
             Generating.WhitePlays = whoPlays;

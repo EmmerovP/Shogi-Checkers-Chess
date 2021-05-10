@@ -8,6 +8,10 @@ namespace ShogiCheckersChess
     /// </summary>
     public class Minimax
     {
+
+        /// <summary>
+        /// Whether currently plays white or black side. When white plays, it's true.
+        /// </summary>
         public static bool WhiteSide = false;
 
         /// <summary>
@@ -193,14 +197,22 @@ namespace ShogiCheckersChess
         /// <param name="removePieces"></param>
         public static void TryToAddPiece(List<int> choice, Moves.CoordinatesCopy moves, List<Pieces> removePieces)
         {
-            if (MainGameWindow.shogiAIPieces.Count == 0)
+            if (((MainGameWindow.shogiAIPieces.Count == 0)&&(!WhiteSide)) || ((MainGameWindow.whiteShogiAIPieces.Count == 0) && (WhiteSide)))
             {
                 return;
             }
 
             //create copy of available pieces we can put on a board, so we don't have an inconsistency during going through the list
             List<Pieces> availablePieces = new List<Pieces>();
-            availablePieces.AddRange(MainGameWindow.shogiAIPieces);
+
+            if (WhiteSide)
+            {
+                availablePieces.AddRange(MainGameWindow.whiteShogiAIPieces);
+            }
+            else
+            {
+                availablePieces.AddRange(MainGameWindow.shogiAIPieces);
+            }           
 
             foreach (var piece in availablePieces)
             {
@@ -213,7 +225,7 @@ namespace ShogiCheckersChess
                             //we can't put another shogi pawn to the column where there already is
                             if (PiecesNumbers.IsShogiPawn(piece))
                             {
-                                if (PawnColumn(j))
+                                if (PawnColumn(j, WhiteSide))
                                 {
                                     break;
                                 }
@@ -221,19 +233,42 @@ namespace ShogiCheckersChess
                             }
 
                             //add piece on board
-                            Board.AddPiece(PiecesNumbers.getUpperNumber[piece.Name], i, j, Board.board);
-                            Board.board[i, j].isWhite = false;
-                            MainGameWindow.shogiAIPieces.Remove(piece);
+                            if (WhiteSide)
+                            {
+                                Board.AddPiece(PiecesNumbers.getBottomNumber[piece.Name], i, j, Board.board);
+                                Board.board[i, j].isWhite = true;
+                                MainGameWindow.whiteShogiAIPieces.Remove(piece);
+                            }
+                            else
+                            {
+                                Board.AddPiece(PiecesNumbers.getUpperNumber[piece.Name], i, j, Board.board);
+                                Board.board[i, j].isWhite = false;
+                                MainGameWindow.shogiAIPieces.Remove(piece);
+                            }
+
+
 
                             choice.Add(Minimax.OneStep(2, Int32.MinValue, Int32.MaxValue, false));
 
                             moves.final_x.Add(i);
                             moves.final_y.Add(j);
 
-                            moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
-                            removePieces.Add(piece);
 
-                            MainGameWindow.shogiAIPieces.Add(piece);
+                            if (WhiteSide)
+                            {
+                                moves.start_x.Add(PiecesNumbers.getBottomNumber[piece.Name]);
+                                removePieces.Add(piece);
+
+                                MainGameWindow.whiteShogiAIPieces.Add(piece);
+                            }
+                            else
+                            {
+                                moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
+                                removePieces.Add(piece);
+
+                                MainGameWindow.shogiAIPieces.Add(piece);
+                            }
+
                             Board.board[i, j] = null;
                         }
                     }
@@ -289,7 +324,7 @@ namespace ShogiCheckersChess
                 int previousPiece = MoveController.previousPiece;
 
                 //run minimax algorithm for each move
-                possibleMovesEvaluation.Add(Minimax.OneStep(4, Int32.MinValue, Int32.MaxValue, false));
+                possibleMovesEvaluation.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
 
                 //depending on whether we are in the maxing or minimazing state, get according evaluation
                 MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, Board.board, previousPiece);
@@ -320,7 +355,16 @@ namespace ShogiCheckersChess
             if (IsTryingToAddPiece(randomIndexOfHighestValue))
             {
                 isAddingPiece = true;
-                MainGameWindow.shogiAIPieces.Remove(removePieces[randomIndexOfHighestValue - Moves.start_y.Count]);
+
+                if (WhiteSide)
+                {
+                    MainGameWindow.whiteShogiAIPieces.Remove(removePieces[randomIndexOfHighestValue - Moves.start_y.Count]);
+                }
+                else
+                {
+                    MainGameWindow.shogiAIPieces.Remove(removePieces[randomIndexOfHighestValue - Moves.start_y.Count]);
+                }
+                
             }
 
             return randomIndexOfHighestValue;
@@ -348,11 +392,11 @@ namespace ShogiCheckersChess
         /// </summary>
         /// <param name="column"></param>
         /// <returns></returns>
-        public static bool PawnColumn(int column)
+        public static bool PawnColumn(int column, bool isWhite)
         {
             for (int i = 0; i < Board.board.GetLength(1); i++)
             {
-                if (Board.board[i, column] != null && PiecesNumbers.IsShogiPawn(Board.board[i, column]))
+                if (Board.board[i, column] != null && PiecesNumbers.IsShogiPawn(Board.board[i, column]) && Board.board[i, column].isWhite == isWhite)
                 {
                     return true;
                 }

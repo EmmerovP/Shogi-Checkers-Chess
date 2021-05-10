@@ -436,7 +436,6 @@
         /// <param name="local_taken_x"></param>
         /// <param name="local_taken_y"></param>
         /// <param name="isCastling"></param>
-        /// <param name="MovedPiece"></param>
         /// <param name="board"></param>
         public static void ReapplyMove(int start_x, int start_y, int final_x, int final_y, int piece, int local_taken_x, int local_taken_y, bool isCastling, Pieces[,] board, int previousPiece)
         {

@@ -24,8 +24,15 @@ namespace ShogiCheckersChess
 
         public static int ShogiPiece;
 
-        public static List<Pieces> shogiPlayerPieces = new List<Pieces>();
+        /// <summary>
+        /// List of all pieces player or upper player has taken.
+        /// </summary>
         public static List<Pieces> shogiAIPieces = new List<Pieces>();
+
+        /// <summary>
+        /// In case of two computer algorithms playing against each other, we use second array of pieces
+        /// </summary>
+        public static List<Pieces> whiteShogiAIPieces = new List<Pieces>();
 
         public MainGameWindow()
         {
