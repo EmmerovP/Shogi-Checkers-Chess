@@ -15,6 +15,7 @@ namespace ConsoleApplication2
         static void Main(string[] args)
         {
             Game game = new Game();
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             while (true)
             {
                 Console.WriteLine("Choose a type of game (chess, shogi, checkers): ");
@@ -47,19 +48,21 @@ namespace ConsoleApplication2
                 Stopwatch sw = new Stopwatch();
 
                 sw.Start();
+
+                Generating.WhitePlays = true;
+                Minimax.WhiteSide = true;
+
                 while (!Gameclass.CurrentGame.GameEnded)
                 {
                     game.MakeMove();
                     steps++;
 
-                    if (steps%10 == 0)
-                    {
-                        game.DrawBoard();
-                    }                  
+                    game.DrawBoard();
+                 
 
                     if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                     {
-                        if (Gameclass.CurrentGame.KingOut())
+                        if (Gameclass.CurrentGame.KingOut(Board.board))
                         {
                             Gameclass.CurrentGame.GameEnded = true;
                         }
@@ -87,57 +90,34 @@ namespace ConsoleApplication2
                 for (int j = 0; j < dimension; j++)
                 {
                     if (chessboard[i, j] != -1)
-                        Board.AddPiece(chessboard[i, j], i, j);
+                        Board.AddPiece(chessboard[i, j], i, j, Board.board);
                 }
             }
         }
 
         public void MakeMove()
         {
-            
+            int move = MonteCarlo.FindRandomMove(Board.board);
+            /*
+            if (Generating.WhitePlays)
+            {
+                move = Minimax.GetNextMove();
+            }
+            else
+            {
+                move = MonteCarlo.FindRandomMove(Board.board);
+            }*/
 
-            int move = RandomMoveGen.FindPiece();
+
             if (move == -1)
             {
                 Gameclass.CurrentGame.GameEnded = true;
                 return;
             }
 
-            int start_x = Moves.start_x[move];
-            int start_y = Moves.start_y[move];
+            MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], Board.board);
 
-            int final_x = Moves.final_x[move];
-            int final_y = Moves.final_y[move];
-
-
-            Pieces piece = Board.board[start_x, start_y];
-            //dáma
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && Board.board[start_x, start_y].Value == 10 &&
-                    (start_x == final_x - 2 || start_x == final_x + 2))
-            {
-                int xpiece, ypiece;
-                if (final_x > start_x)
-                {
-                    xpiece = start_x + 1;
-                }
-                else
-                {
-                    xpiece = final_x + 1;
-                }
-
-                if (final_y > start_y)
-                {
-                    ypiece = start_y + 1;
-                }
-                else
-                {
-                    ypiece = final_y + 1;
-                }
-                Board.board[xpiece, ypiece] = null;
-            }
-
-            Board.board[final_x, final_y] = piece;
-            Board.board[start_x, start_y] = null;
+            Minimax.WhiteSide = !Minimax.WhiteSide;
 
             Generating.WhitePlays = !Generating.WhitePlays;
 
@@ -152,16 +132,68 @@ namespace ConsoleApplication2
                 {
                     if (Board.board[i, j] == null)
                     {
-                        Console.Write("|O|");
+                        Console.Write("| |");
                     }
                     else
                     {
-                        Console.Write("|" + Board.board[i, j].GetNumber() + "|");
+                        int number = Board.board[i, j].GetNumber();
+                         switch (number)
+                        {
+                            case 0: 
+                                Console.Write("|♔|");
+                                break;
+                            case 1:
+                                Console.Write("|♕|");
+                                break;
+                            case 2:
+                                Console.Write("|♖|");
+                                break;
+                            case 3:
+                                Console.Write("|♘|");
+                                break;
+                            case 4:
+                                Console.Write("|♗|");
+                                break;
+                            case 5:
+                                Console.Write("|♙|");
+                                break;
+                            case 6:
+                                Console.Write("|♙|");
+                                break;
+                            case 21:
+                                Console.Write("|♚|");
+                                break;
+                            case 22:
+                                Console.Write("|♛|");
+                                break;
+                            case 23:
+                                Console.Write("|♜|");
+                                break;
+                            case 24:
+                                Console.Write("|♞|");
+                                break;
+                            case 25:
+                                Console.Write("|♝|");
+                                break;
+                            case 26:
+                                Console.Write("|\x265F|");
+                                break;
+                            case 27:
+                                Console.Write("|\x265F|");
+                                break;
+                            default: Console.Write("|"+ number +"|");
+                                break;
+                        }
+                        
+
+                        
                     }
                 }
                 Console.WriteLine();
             }
             Console.WriteLine();
+
+            //System.Threading.Thread.Sleep(500);
         }
     }
 }

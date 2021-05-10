@@ -40,6 +40,11 @@ namespace ShogiCheckersChess
 
             var node = MonteCarloRoot(rootnode);
 
+            if (node == null)
+            {
+                return -1;
+            }
+
             Moves.final_x.Add(node.final_x);
             Moves.final_y.Add(node.final_y);
             Moves.start_x.Add(node.start_x);
@@ -69,6 +74,11 @@ namespace ShogiCheckersChess
                 Backpropagation(leaf, reward);
 
                 steps++;
+            }
+
+            if (Root.children.Count == 0)
+            {
+                return null;
             }
 
             return BestChild(Root);

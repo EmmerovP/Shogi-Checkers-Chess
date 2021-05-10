@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shogi-Checkers-Chess", "WindowLayout\Shogi-Checkers-Chess.csproj", "{9CD0E195-ADFB-4960-9B3D-619F63034AFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{F3424665-FF67-409D-87E3-F0691E124DC8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTester", "ConsoleApplication2\GameTester.csproj", "{6D7876F0-D91A-4E26-824B-5C99DA43F5DC}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{9CD0E195-ADFB-4960-9B3D-619F63034AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CD0E195-ADFB-4960-9B3D-619F63034AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CD0E195-ADFB-4960-9B3D-619F63034AFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3424665-FF67-409D-87E3-F0691E124DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3424665-FF67-409D-87E3-F0691E124DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3424665-FF67-409D-87E3-F0691E124DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3424665-FF67-409D-87E3-F0691E124DC8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D7876F0-D91A-4E26-824B-5C99DA43F5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D7876F0-D91A-4E26-824B-5C99DA43F5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D7876F0-D91A-4E26-824B-5C99DA43F5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
