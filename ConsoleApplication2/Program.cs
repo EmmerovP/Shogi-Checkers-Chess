@@ -108,6 +108,8 @@ namespace ConsoleApplication2
 
             int move = Minimax.GetNextMove();
 
+            //int move = MonteCarlo.MonteCarloMove(player);
+
             if (move == -1)
             {
                 Gameclass.CurrentGame.GameEnded = true;
@@ -168,7 +170,15 @@ namespace ConsoleApplication2
                 {
                     if (Board.board[i, j] == null)
                     {
-                        Console.Write("|  |");
+                        if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+                        {
+                            Console.Write("|  |");
+                        }
+                        else
+                        {
+                            Console.Write("| |");
+                        }
+                        
                     }
                     else
                     {

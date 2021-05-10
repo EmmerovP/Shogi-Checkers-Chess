@@ -69,9 +69,7 @@
                                     Moves.CoordinatesReturn(cp);
                                     return true;
                                 }
-                            }
-                            
-
+                            }                          
                         }
                     }
                 }

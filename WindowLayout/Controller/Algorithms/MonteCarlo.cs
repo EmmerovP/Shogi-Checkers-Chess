@@ -55,7 +55,7 @@ namespace ShogiCheckersChess
         }
 
 
-        const float MAXTIME = 6000.0F;
+        const float MAXTIME = 3000.0F;
         const int LOOPS = 2000;
 
         public static Node MonteCarloRoot(Node Root)
