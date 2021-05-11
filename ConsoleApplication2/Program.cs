@@ -38,6 +38,8 @@ namespace ConsoleApplication2
                         chessboard = GameStarts.shogi;
                         Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
                         break;
+                    default: Main(args);
+                        break;
                 }
 
                 MainGameWindow.whiteShogiAIPieces = new List<Pieces>();
@@ -61,7 +63,7 @@ namespace ConsoleApplication2
                     steps++;
 
                     game.DrawBoard();
-                 
+
 
                     if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                     {
@@ -86,6 +88,16 @@ namespace ConsoleApplication2
     {
         public void CreateChessBoard(int[,] chessboard)
         {
+            chessboard = new int[,] {
+        {-1,-1,-1,-1,-1,1,1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,1},
+        {-1,-1,-1,-1,-1,-1,-1,1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {22,-1,-1,-1,-1,-1,-1,-1},
+        {22,-1,-1,-1,-1,-1,-1,-1},
+        {-1,22,22,-1,-1,-1,-1,-1},
+        };
             int dimension = chessboard.GetLength(0);
             Board.board = new Pieces[dimension, dimension];
 
@@ -97,7 +109,7 @@ namespace ConsoleApplication2
                         Board.AddPiece(chessboard[i, j], i, j, Board.board);
                 }
             }
-           
+
         }
 
         public void MakeMove()
@@ -105,10 +117,22 @@ namespace ConsoleApplication2
             bool player = Generating.WhitePlays;
 
             Moves.EmptyCoordinates();
-
-            int move = Minimax.GetNextMove();
-
             //int move = MonteCarlo.MonteCarloMove(player);
+
+            //int move = Minimax.GetNextMove();
+
+            int move;
+            
+            if (player)
+            {
+                move = Minimax.GetNextMove();
+            }
+            else
+            {
+                move = MonteCarlo.MonteCarloMove(player);               
+            }
+            
+            //int move = MonteCarlo.FindRandomMove(Board.board);
 
             if (move == -1)
             {
@@ -178,14 +202,14 @@ namespace ConsoleApplication2
                         {
                             Console.Write("| |");
                         }
-                        
+
                     }
                     else
                     {
                         int number = Board.board[i, j].GetNumber();
-                         switch (number)
+                        switch (number)
                         {
-                            case 0: 
+                            case 0:
                                 Console.Write("|♔|");
                                 break;
                             case 1:
@@ -227,7 +251,7 @@ namespace ConsoleApplication2
                             case 27:
                                 Console.Write("|\x265F|");
                                 break;
-                            case 7: 
+                            case 7:
                                 Console.Write("|07|");
                                 break;
                             case 8:
@@ -236,19 +260,20 @@ namespace ConsoleApplication2
                             case 9:
                                 Console.Write("|09|");
                                 break;
-                            default: Console.Write("|"+ number +"|");
+                            default:
+                                Console.Write("|" + number + "|");
                                 break;
                         }
-                        
 
-                        
+
+
                     }
                 }
                 Console.WriteLine();
             }
             Console.WriteLine();
 
-            //System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }

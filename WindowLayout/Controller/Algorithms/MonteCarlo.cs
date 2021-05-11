@@ -8,6 +8,8 @@ namespace ShogiCheckersChess
     public class MonteCarlo
     {
 
+        public static bool whitePlays;
+
         public class Node
         {
             public Pieces[,] board;
@@ -15,7 +17,7 @@ namespace ShogiCheckersChess
             public int numberOfSimulations;
             public int wins;
             public List<Node> children;
-            public bool WhitePlays; 
+            public bool WhitePlays;
             public int id;
 
             public int start_x;
@@ -38,6 +40,8 @@ namespace ShogiCheckersChess
                 id = 0
             };
 
+            whitePlays = isWhite;
+
             var node = MonteCarloRoot(rootnode);
 
             if (node == null)
@@ -56,7 +60,7 @@ namespace ShogiCheckersChess
 
 
         const float MAXTIME = 3000.0F;
-        const int LOOPS = 2000;
+        const int LOOPS = 200;
 
         public static Node MonteCarloRoot(Node Root)
         {
@@ -65,8 +69,8 @@ namespace ShogiCheckersChess
 
             int steps = 0;
 
-            while (time.ElapsedMilliseconds < MAXTIME)
-            //while (steps<2000)
+            //while (time.ElapsedMilliseconds < MAXTIME)
+            while (steps<4000)
             {
                 Node highest_UCB = Selection(Root);
                 Node leaf = Expansion(highest_UCB);
@@ -151,7 +155,7 @@ namespace ShogiCheckersChess
                 checkValidMoves = true;
             }
 
-            Generating.GenerateAllMoves(node.board, checkValidMoves);
+            Generating.GenerateAllMoves(node.board, true);
 
             for (int i = 0; i < Moves.final_x.Count; i++)
 
@@ -182,7 +186,7 @@ namespace ShogiCheckersChess
 
         public static int FindRandomMove(Pieces[,] board)
         {
-            Generating.GenerateAllMoves(board, false);
+            Generating.GenerateAllMoves(board, true);
 
             Random rnd = new Random();
 
@@ -208,10 +212,22 @@ namespace ShogiCheckersChess
                 //nenašel se žádný tah
                 if (move == -1)
                 {
+                    if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+                    {
+                        if ((whitePlays && node.WhitePlays) || (!whitePlays && !node.WhitePlays))
+                        {
+                            return -1;
+                        }
+                        else
+                        {
+                            return 1;
+                        }
+                    }
+
                     if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
                     {
 
-                        if (Generating.WhitePlays)
+                        if ((whitePlays && node.WhitePlays) || (!whitePlays && !node.WhitePlays))
                         {
                             return -1;
                         }
@@ -227,20 +243,6 @@ namespace ShogiCheckersChess
                 MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], board);
 
                 Moves.EmptyCoordinates();
-
-                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
-                {
-                    //zda skončila hra
-                    if (IsMissing(0, board))
-                    {
-                        return 1;
-                    }
-
-                    if (IsMissing(21, board))
-                    {
-                        return -1;
-                    }
-                }
 
 
                 if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
@@ -291,16 +293,18 @@ namespace ShogiCheckersChess
                 {
                     node.wins += reward;
                 }*/
-
-                if ((!node.WhitePlays) && (reward==1))
+                
+                if ((node.WhitePlays == whitePlays) && (reward == 1))
                 {
                     node.wins += 1;
                 }
 
-                if ((node.WhitePlays) && (reward == -1))
+                if ((node.WhitePlays != whitePlays) && (reward == -1))
                 {
                     node.wins += 1;
                 }
+                
+
 
                 node.numberOfSimulations++;
                 node = node.parent;
