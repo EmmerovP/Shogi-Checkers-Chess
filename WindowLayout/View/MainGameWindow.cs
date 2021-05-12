@@ -212,7 +212,7 @@ namespace ShogiCheckersChess
         {
             Gameclass.CurrentGame.playerType = Gameclass.PlayerType.single;
             HidePlayerTypeButtons();
-            ShowChooseAlgorithmButtons(); 
+            ShowChooseAlgorithmButtons();
         }
 
         /// <summary>
@@ -361,13 +361,13 @@ namespace ShogiCheckersChess
                         piecesPictures[i, j].BackColor = Color.Transparent;
                         piecesPictures[i, j].Refresh();
                     }
-                        
+
                 }
             }
         }
 
-       
-       
+
+
 
 
         /// <summary>
@@ -375,20 +375,36 @@ namespace ShogiCheckersChess
         /// </summary>
         public void DrawChessboard()
         {
+            //make the game playable
             Gameclass.CurrentGame.GameEnded = false;
 
+            //size of one field - can be changed
             int boxsize = 50;
+
+            //how big the board is
             int dimension_x = baseBoard.GetLength(0);
             int dimension_y = baseBoard.GetLength(1);
+
+            //how far should the board be from the edges
             int border = 1;
+
+            //ćreate new array for locations of the pictureboxes
             location = new Point[dimension_x, dimension_y];
+
+            //create new array for pictures of pieces
             piecesPictures = new PictureBox[dimension_x, dimension_y];
+
+            //create new array of pictureboxes of blank fields
             pictureBoxes = new PictureBox[dimension_x, dimension_y];
+
+            //creates a board for model representation of pieces
             Board.board = new Pieces[dimension_x, dimension_y];
+
+            //create bitmap in the size of the chessboard
             Bitmap chessboard = new Bitmap(boxsize * dimension_y + border * boxsize, boxsize * dimension_x + border * boxsize);
             Graphics graphics = Graphics.FromImage(chessboard);
             using (SolidBrush blackBrush = new SolidBrush(Color.DarkGray))
-            using (SolidBrush whiteBrush = new SolidBrush(Color.White))  //na vykreslení bílých i černých polí
+            using (SolidBrush whiteBrush = new SolidBrush(Color.White))
 
                 for (int j = border; j < dimension_y + border; j++)
                 {
@@ -399,29 +415,16 @@ namespace ShogiCheckersChess
 
                         location[a, b] = new Point(j * boxsize, i * boxsize);
 
-                        int piece = MainGameWindow.baseBoard[a, b];
+                        int piece = baseBoard[a, b];
+
+                        //create pieces
                         if (piece != -1)
                         {
-                            var gamepiece = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
-                            {
-                                Name = Convert.ToString(piece),
-                                Size = new Size(boxsize, boxsize),
-                                Location = location[a, b],
-                                BackColor = Color.Transparent,
-                                Image = GamePieces.Images[piece],
-                                SizeMode = PictureBoxSizeMode.CenterImage,
-                            };
-                            gamepiece.BringToFront();
-                            this.Controls.Add(gamepiece);
-                            gamepiece.Click += MoveGamePiece;
-
-                            piecesPictures[a, b] = gamepiece;
-                            Board.AddPiece(piece, a, b, Board.board);
+                            AddPieceToBoard(a, b, piece);
                         }
 
-
-
-                        var backpicture = new PictureBox                 //za běhu vytvoří příslušné pictureboxy
+                        //create blank fields
+                        var backpicture = new PictureBox                
                         {
                             Name = "Blank" + a + b,
                             Size = new Size(boxsize, boxsize),
@@ -429,6 +432,7 @@ namespace ShogiCheckersChess
                             BackColor = Color.Transparent,
                             SizeMode = PictureBoxSizeMode.CenterImage
                         };
+
                         pictureBoxes[a, b] = backpicture;
                         this.Controls.Add(backpicture);
                         backpicture.Click += MoveGamePiece;
@@ -445,6 +449,7 @@ namespace ShogiCheckersChess
                         }
                     }
                 }
+
             BackgroundImage = chessboard;
             BackgroundImageLayout = ImageLayout.None;
         }
@@ -478,6 +483,11 @@ namespace ShogiCheckersChess
             gamepiece.Refresh();
         }
 
+        /// <summary>
+        /// Restarts the game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewGameInstanceButton_Click(object sender, EventArgs e)
         {
             Application.Restart();
