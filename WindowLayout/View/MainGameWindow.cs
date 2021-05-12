@@ -19,10 +19,26 @@ namespace ShogiCheckersChess
         /// </summary>
         public static bool isPlayer;
 
+        /// <summary>
+        /// Array of pictures of pieces.
+        /// </summary>
+        public static PictureBox[,] piecesPictures;
+
+        /// <summary>
+        /// Locations of pictureboxes.
+        /// </summary>
+        public static Point[,] location;
+
+        /// <summary>
+        /// Board represented by pictureBoxes.
+        /// </summary>
+        public static PictureBox[,] pictureBoxes;
 
 
-
-        public static int ShogiPiece;
+        /// <summary>
+        /// Holds piece which we want to add to board
+        /// </summary>
+        public static int pieceBeingAddedToBoard;
 
         /// <summary>
         /// List of all pieces player or upper player has taken.
@@ -39,7 +55,11 @@ namespace ShogiCheckersChess
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// Method for selecting chess as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectChessButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
@@ -50,6 +70,11 @@ namespace ShogiCheckersChess
             ChooseTypeOfGame();
         }
 
+        /// <summary>
+        /// Method for selecting checkers as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectCheckersButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
@@ -60,6 +85,11 @@ namespace ShogiCheckersChess
             ChooseTypeOfGame();
         }
 
+        /// <summary>
+        /// Method for selecting shogi as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectShogiButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
@@ -70,6 +100,11 @@ namespace ShogiCheckersChess
             ChooseTypeOfGame();
         }
 
+        /// <summary>
+        /// Method for selecting custom game, in which user selects parameters themselves.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectCustomGameButton_Click(object sender, EventArgs e)
         {
             isCustom = true;
@@ -90,6 +125,9 @@ namespace ShogiCheckersChess
             WelcomeTextLabel.Visible = false;
         }
 
+        /// <summary>
+        /// Method for hiding buttons which select types of games and showing buttons for selection of singleplayer/multiplayer mode
+        /// </summary>
         public void ChooseTypeOfGame()
         {
             SelectChessButton.Visible = false;
@@ -104,6 +142,11 @@ namespace ShogiCheckersChess
             SelectLocMultiButton.Visible = true;
         }
 
+        /// <summary>
+        /// Shows a popup window with informations about a game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AboutGameButton_Click(object sender, EventArgs e)
         {
             AboutGame popup = new AboutGame();
@@ -116,13 +159,18 @@ namespace ShogiCheckersChess
 
         }
 
-
+        /// <summary>
+        /// Hides buttons for choosing singleplayer or multiplayer mode.
+        /// </summary>
         public void HidePlayerTypeButtons()
         {
             SelectSingleplayerButton.Visible = false;
             SelectLocMultiButton.Visible = false;
         }
 
+        /// <summary>
+        /// Show buttons for choosing algorithm.
+        /// </summary>
         public void ShowChooseAlgorithmButtons()
         {
             ChooseAlgorithmLabel.Visible = true;
@@ -130,6 +178,9 @@ namespace ShogiCheckersChess
             MonteCarloButton.Visible = true;
         }
 
+        /// <summary>
+        /// Hides labels for choosing algorithms.   
+        /// </summary>
         public void HideChooseAlgorithmButtons()
         {
             ChooseAlgorithmLabel.Visible = false;
@@ -137,6 +188,9 @@ namespace ShogiCheckersChess
             MonteCarloButton.Visible = false;
         }
 
+        /// <summary>
+        /// Chooses which chessboard we want to draw, and calls according function.
+        /// </summary>
         public void CreateChessboard()
         {
             if (isCustom)
@@ -149,6 +203,11 @@ namespace ShogiCheckersChess
             }
         }
 
+        /// <summary>
+        /// Selects singleplayer mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectSingleplayerButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.playerType = Gameclass.PlayerType.single;
@@ -156,6 +215,11 @@ namespace ShogiCheckersChess
             ShowChooseAlgorithmButtons(); 
         }
 
+        /// <summary>
+        /// Selects minimax algorithm.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MinimaxButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.minimax;
@@ -163,6 +227,11 @@ namespace ShogiCheckersChess
             CreateChessboard();
         }
 
+        /// <summary>
+        /// Selects montecarlo algorithm.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MonteCarloButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.montecarlo;
@@ -170,6 +239,11 @@ namespace ShogiCheckersChess
             CreateChessboard();
         }
 
+        /// <summary>
+        /// Selects multiplayer mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectLocMultiButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.playerType = Gameclass.PlayerType.localmulti;
@@ -184,6 +258,9 @@ namespace ShogiCheckersChess
             }
         }
 
+        /// <summary>
+        /// Shows bottom interface for adding a piece during shogi game.
+        /// </summary>
         private void ShowBottomShogiAddon()
         {
             ChooseShogiBoxBottom.Visible = true;
@@ -191,6 +268,9 @@ namespace ShogiCheckersChess
             ChooseShogiLabelBottom.Visible = true;
         }
 
+        /// <summary>
+        /// Shows upper interface for adding a piece during shogi game.
+        /// </summary>
         private void ShowUpperShogiAddon()
         {
             ChooseShogiBoxUpper.Visible = true;
@@ -198,15 +278,11 @@ namespace ShogiCheckersChess
             ChooseShogiLabelUpper.Visible = true;
         }
 
-
-        //reprezentace figurek bude intem
-        //public static List<PictureBox> piecesPictures = new List<PictureBox>();
-        public static PictureBox[,] piecesPictures;
-        public static Point[,] location;
-        public static PictureBox[,] pictureBoxes;
-
-
-
+        /// <summary>
+        /// Gets picturebox of a piece, returns its piece representation in Board.board
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public Pieces GetPiece(PictureBox piece)
         {
             for (int i = 0; i < Board.board.GetLength(0); i++)
@@ -220,6 +296,11 @@ namespace ShogiCheckersChess
             return null;
         }
 
+        /// <summary>
+        /// Get x coordinate of piece represented by a picturebox
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public int GetX(PictureBox piece)
         {
             for (int i = 0; i < Board.board.GetLength(0); i++)
@@ -233,6 +314,11 @@ namespace ShogiCheckersChess
             return -1;
         }
 
+        /// <summary>
+        /// Get x coordinate of piece represented by a picturebox
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public int GetY(PictureBox piece)
         {
             for (int i = 0; i < Board.board.GetLength(0); i++)
@@ -246,6 +332,9 @@ namespace ShogiCheckersChess
             return -1;
         }
 
+        /// <summary>
+        /// Highlitghts all fields where we can move with a piece with yellow color.
+        /// </summary>
         public void Highlight()
         {
             for (int i = 0; i < Moves.final_x.Count; i++)
@@ -256,6 +345,9 @@ namespace ShogiCheckersChess
             }
         }
 
+        /// <summary>
+        /// Deletes all highlight from the board.
+        /// </summary>
         public void DeleteHighlight()
         {
             for (int i = 0; i < pictureBoxes.GetLength(0); i++)
@@ -278,15 +370,16 @@ namespace ShogiCheckersChess
        
 
 
-        //mysli na to, že (velikost rozměrová) velikost šachovnice podle počtu políček se bude měnit
-        //rozměr šachovnice - neměla by asi být fixní, každý má jinak velký monitor
-        public void DrawChessboard()             //vykreslí na pozadí formuláře šachovnici
+        /// <summary>
+        /// Draws a chessboard on a screen
+        /// </summary>
+        public void DrawChessboard()
         {
             Gameclass.CurrentGame.GameEnded = false;
 
             int boxsize = 50;
-            int dimension_x = MainGameWindow.baseBoard.GetLength(0);
-            int dimension_y = MainGameWindow.baseBoard.GetLength(1);
+            int dimension_x = baseBoard.GetLength(0);
+            int dimension_y = baseBoard.GetLength(1);
             int border = 1;
             location = new Point[dimension_x, dimension_y];
             piecesPictures = new PictureBox[dimension_x, dimension_y];
@@ -383,11 +476,6 @@ namespace ShogiCheckersChess
 
             //show the piece instantly on board
             gamepiece.Refresh();
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
         }
 
         private void NewGameInstanceButton_Click(object sender, EventArgs e)

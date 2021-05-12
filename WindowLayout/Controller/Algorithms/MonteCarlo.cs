@@ -60,7 +60,7 @@ namespace ShogiCheckersChess
 
 
         const float MAXTIME = 3000.0F;
-        const int LOOPS = 200;
+        const int LOOPS = 700;
 
         public static Node MonteCarloRoot(Node Root)
         {
@@ -69,8 +69,8 @@ namespace ShogiCheckersChess
 
             int steps = 0;
 
-            //while (time.ElapsedMilliseconds < MAXTIME)
-            while (steps<4000)
+            while (time.ElapsedMilliseconds < MAXTIME)
+            //while (steps<4000)
             {
                 Node highest_UCB = Selection(Root);
                 Node leaf = Expansion(highest_UCB);
@@ -294,12 +294,12 @@ namespace ShogiCheckersChess
                     node.wins += reward;
                 }*/
                 
-                if ((node.WhitePlays == whitePlays) && (reward == 1))
+                if ((node.WhitePlays == whitePlays) && (reward != -1))
                 {
                     node.wins += 1;
                 }
 
-                if ((node.WhitePlays != whitePlays) && (reward == -1))
+                if ((node.WhitePlays != whitePlays) && (reward != 1))
                 {
                     node.wins += 1;
                 }
@@ -319,7 +319,7 @@ namespace ShogiCheckersChess
 
             for (int i = 1; i < root.children.Count; i++)
             {
-                if (root.children[i].wins < bestnode.wins)
+                if (root.children[i].wins > bestnode.wins)
                 {
                     bestnode = root.children[i];
                 }

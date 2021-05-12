@@ -324,7 +324,7 @@ namespace ShogiCheckersChess
                 int previousPiece = MoveController.previousPiece;
 
                 //run minimax algorithm for each move
-                possibleMovesEvaluation.Add(Minimax.OneStep(3, Int32.MinValue, Int32.MaxValue, false));
+                possibleMovesEvaluation.Add(Minimax.OneStep(4   , Int32.MinValue, Int32.MaxValue, false));
 
                 //depending on whether we are in the maxing or minimazing state, get according evaluation
                 MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, Board.board, previousPiece);

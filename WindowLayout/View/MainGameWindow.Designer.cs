@@ -475,11 +475,6 @@
             this.LoadGameButton.UseVisualStyleBackColor = true;
             this.LoadGameButton.Click += new System.EventHandler(this.LoadGameButton_Click);
             // 
-            // LoadCustomGameDialog
-            // 
-            this.LoadCustomGameDialog.FileName = "openFileDialog1";
-            this.LoadCustomGameDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
             // MinimaxButton
             // 
             this.MinimaxButton.Location = new System.Drawing.Point(252, 217);

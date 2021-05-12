@@ -38,7 +38,8 @@ namespace ConsoleApplication2
                         chessboard = GameStarts.shogi;
                         Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
                         break;
-                    default: Main(args);
+                    default:
+                        Main(args);
                         break;
                 }
 
@@ -86,9 +87,14 @@ namespace ConsoleApplication2
 
     class Game
     {
+        const bool CUSTOMCHESSBOARD = false;
+
+
         public void CreateChessBoard(int[,] chessboard)
         {
-            chessboard = new int[,] {
+            if (CUSTOMCHESSBOARD)
+            {
+                chessboard = new int[,] {
         {-1,-1,-1,-1,-1,1,1,-1},
         {-1,-1,-1,-1,-1,-1,-1,1},
         {-1,-1,-1,-1,-1,-1,-1,1},
@@ -98,6 +104,10 @@ namespace ConsoleApplication2
         {22,-1,-1,-1,-1,-1,-1,-1},
         {-1,22,22,-1,-1,-1,-1,-1},
         };
+            }
+
+
+
             int dimension = chessboard.GetLength(0);
             Board.board = new Pieces[dimension, dimension];
 
@@ -120,18 +130,19 @@ namespace ConsoleApplication2
             //int move = MonteCarlo.MonteCarloMove(player);
 
             //int move = Minimax.GetNextMove();
-
-            int move;
             
+            int move;
+
             if (player)
             {
-                move = Minimax.GetNextMove();
+                move = MonteCarlo.MonteCarloMove(player);
+
             }
             else
             {
-                move = MonteCarlo.MonteCarloMove(player);               
+                move = Minimax.GetNextMove();
             }
-            
+
             //int move = MonteCarlo.FindRandomMove(Board.board);
 
             if (move == -1)
@@ -272,7 +283,6 @@ namespace ConsoleApplication2
                 Console.WriteLine();
             }
             Console.WriteLine();
-
             System.Threading.Thread.Sleep(1000);
         }
     }

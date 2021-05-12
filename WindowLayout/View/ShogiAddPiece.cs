@@ -28,7 +28,7 @@ namespace ShogiCheckersChess
             //gets piece we are getting from ComboBox
             string Piece = ChooseShogiBoxBottom.Text;
             PutShogiPieceLabelBottom.Visible = true;
-            ShogiPiece = PiecesNumbers.getBottomNumber[Piece];
+            pieceBeingAddedToBoard = PiecesNumbers.getBottomNumber[Piece];
             AddBottomShogiPiece = true;
 
             ChooseShogiBoxBottom.Items.Remove(Piece);
@@ -56,7 +56,7 @@ namespace ShogiCheckersChess
             //gets piece we are getting from ComboBox
             string Piece = ChooseShogiBoxUpper.Text;
             PutShogiPieceLabelUpper.Visible = true;
-            ShogiPiece = PiecesNumbers.getUpperNumber[Piece];
+            pieceBeingAddedToBoard = PiecesNumbers.getUpperNumber[Piece];
             AddUpperShogiPiece = true;
 
             ChooseShogiBoxUpper.Items.Remove(Piece);
@@ -77,7 +77,7 @@ namespace ShogiCheckersChess
             }
 
             //we cannot add shogi pawn to a column that already has a shogi pawn in it
-            if (ShogiPiece == 19)
+            if (pieceBeingAddedToBoard == 19)
             {
                 for (int i = 0; i < Board.board.GetLength(1); i++)
                 {
@@ -102,7 +102,7 @@ namespace ShogiCheckersChess
             //signal that we have added a piece to board
             AddBottomShogiPiece = false;
 
-            AddPieceToBoard(selected_x, selected_y, ShogiPiece);
+            AddPieceToBoard(selected_x, selected_y, pieceBeingAddedToBoard);
 
             //removes piece from list of available pieces
             ChooseShogiBoxBottom.Items.Remove(ChooseShogiBoxBottom.SelectedItem);
@@ -131,7 +131,7 @@ namespace ShogiCheckersChess
             }
 
             //we cannot add shogi pawn to a column that already has a shogi pawn in it
-            if (ShogiPiece == 40)
+            if (pieceBeingAddedToBoard == 40)
             {
                 for (int i = 0; i < Board.board.GetLength(1); i++)
                 {
@@ -158,7 +158,7 @@ namespace ShogiCheckersChess
             //signal that we have added a piece to board
             AddUpperShogiPiece = false;
 
-            AddPieceToBoard(selected_x, selected_y, ShogiPiece);
+            AddPieceToBoard(selected_x, selected_y, pieceBeingAddedToBoard);
 
             Generating.WhitePlays = !Generating.WhitePlays;
 
