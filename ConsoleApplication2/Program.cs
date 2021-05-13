@@ -87,7 +87,7 @@ namespace ConsoleApplication2
 
     class Game
     {
-        const bool CUSTOMCHESSBOARD = false;
+        const bool CUSTOMCHESSBOARD = true;
 
 
         public void CreateChessBoard(int[,] chessboard)
@@ -127,10 +127,10 @@ namespace ConsoleApplication2
             bool player = Generating.WhitePlays;
 
             Moves.EmptyCoordinates();
-            //int move = MonteCarlo.MonteCarloMove(player);
+            int move = MonteCarlo.MonteCarloMove(player);
 
             //int move = Minimax.GetNextMove();
-            
+            /*
             int move;
 
             if (player)
@@ -142,7 +142,7 @@ namespace ConsoleApplication2
             {
                 move = Minimax.GetNextMove();
             }
-
+            */
             //int move = MonteCarlo.FindRandomMove(Board.board);
 
             if (move == -1)

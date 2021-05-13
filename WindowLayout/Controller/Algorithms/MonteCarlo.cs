@@ -49,6 +49,8 @@ namespace ShogiCheckersChess
                 return -1;
             }
 
+            Moves.EmptyCoordinates();
+
             Moves.final_x.Add(node.final_x);
             Moves.final_y.Add(node.final_y);
             Moves.start_x.Add(node.start_x);
@@ -285,25 +287,15 @@ namespace ShogiCheckersChess
         {
             while (node != null)
             {
-                /*if (node.WhitePlays)
-                {
-                    node.wins -= reward;
-                }
-                else
-                {
-                    node.wins += reward;
-                }*/
-                
-                if ((node.WhitePlays == whitePlays) && (reward != -1))
+                if ((node.WhitePlays == whitePlays) && (reward == 1))
                 {
                     node.wins += 1;
                 }
 
-                if ((node.WhitePlays != whitePlays) && (reward != 1))
+                if ((node.WhitePlays != whitePlays) && (reward == -1))
                 {
                     node.wins += 1;
                 }
-                
 
 
                 node.numberOfSimulations++;
@@ -319,7 +311,7 @@ namespace ShogiCheckersChess
 
             for (int i = 1; i < root.children.Count; i++)
             {
-                if (root.children[i].wins > bestnode.wins)
+                if (root.children[i].wins < bestnode.wins)
                 {
                     bestnode = root.children[i];
                 }
