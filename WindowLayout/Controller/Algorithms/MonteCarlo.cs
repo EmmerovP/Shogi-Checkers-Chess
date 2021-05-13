@@ -150,13 +150,6 @@ namespace ShogiCheckersChess
         {
             Generating.WhitePlays = node.WhitePlays;
 
-            bool checkValidMoves = false;
-
-            if (node.parent == null)
-            {
-                checkValidMoves = true;
-            }
-
             Generating.GenerateAllMoves(node.board, true);
 
             for (int i = 0; i < Moves.final_x.Count; i++)
@@ -186,9 +179,39 @@ namespace ShogiCheckersChess
             Moves.EmptyCoordinates();
         }
 
+        public static void FindRandomPiece(Pieces[,] board)
+        {
+            List<int> x = new List<int>();
+            List<int> y = new List<int>();
+
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    if (board[i,j] != null && board[i,j].isWhite == Generating.WhitePlays)
+                    {
+                        x.Add(i);
+                        y.Add(j);
+                    }
+                }
+            }
+
+            int counter = 0;
+            Random rnd = new Random();
+
+            while (Moves.GetCount()==0 && counter<x.Count)
+            {
+                var position = rnd.Next(x.Count);
+
+                var piece = board[x[position], y[position]];
+
+                piece.GenerateMoves(x[position], y[position], board);
+            }
+        }
+
         public static int FindRandomMove(Pieces[,] board)
         {
-            Generating.GenerateAllMoves(board, true);
+            FindRandomPiece(board);
 
             Random rnd = new Random();
 
