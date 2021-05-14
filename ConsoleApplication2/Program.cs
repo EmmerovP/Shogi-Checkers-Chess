@@ -87,7 +87,7 @@ namespace ConsoleApplication2
 
     class Game
     {
-        const bool CUSTOMCHESSBOARD = true;
+        const bool CUSTOMCHESSBOARD = false;
 
 
         public void CreateChessBoard(int[,] chessboard)

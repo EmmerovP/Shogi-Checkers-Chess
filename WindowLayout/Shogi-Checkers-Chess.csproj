@@ -90,7 +90,7 @@
     <Compile Include="Controller\Algorithms\Minimax.cs" />
     <Compile Include="Controller\Algorithms\MonteCarlo.cs" />
     <Compile Include="Model\Moves.cs" />
-    <Compile Include="View\OnBoardMovement.cs">
+    <Compile Include="View\BoardMovement.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\PawnChange.cs">

@@ -61,7 +61,7 @@ namespace ShogiCheckersChess
         }
 
 
-        const float MAXTIME = 3000.0F;
+        const float MAXTIME = 4000.0F;
         const int LOOPS = 700;
 
         public static Node MonteCarloRoot(Node Root)
@@ -206,6 +206,8 @@ namespace ShogiCheckersChess
                 var piece = board[x[position], y[position]];
 
                 piece.GenerateMoves(x[position], y[position], board);
+
+                counter++;
             }
         }
 

@@ -278,94 +278,7 @@ namespace ShogiCheckersChess
             ChooseShogiLabelUpper.Visible = true;
         }
 
-        /// <summary>
-        /// Gets picturebox of a piece, returns its piece representation in Board.board
-        /// </summary>
-        /// <param name="piece"></param>
-        /// <returns></returns>
-        public Pieces GetPiece(PictureBox piece)
-        {
-            for (int i = 0; i < Board.board.GetLength(0); i++)
-            {
-                for (int j = 0; j < Board.board.GetLength(1); j++)
-                {
-                    if (location[i, j] == piece.Location)
-                        return Board.board[i, j];
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Get x coordinate of piece represented by a picturebox
-        /// </summary>
-        /// <param name="piece"></param>
-        /// <returns></returns>
-        public int GetX(PictureBox piece)
-        {
-            for (int i = 0; i < Board.board.GetLength(0); i++)
-            {
-                for (int j = 0; j < Board.board.GetLength(1); j++)
-                {
-                    if (location[i, j] == piece.Location)
-                        return i;
-                }
-            }
-            return -1;
-        }
-
-        /// <summary>
-        /// Get x coordinate of piece represented by a picturebox
-        /// </summary>
-        /// <param name="piece"></param>
-        /// <returns></returns>
-        public int GetY(PictureBox piece)
-        {
-            for (int i = 0; i < Board.board.GetLength(0); i++)
-            {
-                for (int j = 0; j < Board.board.GetLength(1); j++)
-                {
-                    if (location[i, j] == piece.Location)
-                        return j;
-                }
-            }
-            return -1;
-        }
-
-        /// <summary>
-        /// Highlitghts all fields where we can move with a piece with yellow color.
-        /// </summary>
-        public void Highlight()
-        {
-            for (int i = 0; i < Moves.final_x.Count; i++)
-            {
-                pictureBoxes[Moves.final_x[i], Moves.final_y[i]].BackColor = Color.Yellow;
-                if (piecesPictures[Moves.final_x[i], Moves.final_y[i]] != null)
-                    piecesPictures[Moves.final_x[i], Moves.final_y[i]].BackColor = Color.Yellow;
-            }
-        }
-
-        /// <summary>
-        /// Deletes all highlight from the board.
-        /// </summary>
-        public void DeleteHighlight()
-        {
-            for (int i = 0; i < pictureBoxes.GetLength(0); i++)
-            {
-                for (int j = 0; j < pictureBoxes.GetLength(1); j++)
-                {
-                    pictureBoxes[i, j].BackColor = Color.Transparent;
-                    pictureBoxes[i, j].Refresh();
-                    if (piecesPictures[i, j] != null)
-                    {
-                        piecesPictures[i, j].BackColor = Color.Transparent;
-                        piecesPictures[i, j].Refresh();
-                    }
-
-                }
-            }
-        }
-
+        
 
 
 
@@ -392,7 +305,7 @@ namespace ShogiCheckersChess
             location = new Point[dimension_x, dimension_y];
 
             //create new array for pictures of pieces
-            piecesPictures = new PictureBox[dimension_x, dimension_y];
+            pictureBoxes = new PictureBox[dimension_x, dimension_y];
 
             //create new array of pictureboxes of blank fields
             pictureBoxes = new PictureBox[dimension_x, dimension_y];
