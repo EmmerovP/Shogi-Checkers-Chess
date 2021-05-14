@@ -13,7 +13,6 @@ namespace ShogiCheckersChess
         /// </summary>
         public static int[,] baseBoard;
 
-
         /// <summary>
         /// True when human player plays, false when algorithm plays.
         /// </summary>
@@ -33,7 +32,6 @@ namespace ShogiCheckersChess
         /// Board represented by pictureBoxes.
         /// </summary>
         public static PictureBox[,] pictureBoxes;
-
 
         /// <summary>
         /// Holds piece which we want to add to board
@@ -65,7 +63,7 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
             if (!isCustom)
             {
-                baseBoard = GameStarts.chess;
+                baseBoard = GameStart.chess;
             }
             ChooseTypeOfGame();
         }
@@ -80,7 +78,7 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
             if (!isCustom)
             {
-                baseBoard = GameStarts.checkers;
+                baseBoard = GameStart.checkers;
             }
             ChooseTypeOfGame();
         }
@@ -95,7 +93,7 @@ namespace ShogiCheckersChess
             Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
             if (!isCustom)
             {
-                baseBoard = GameStarts.shogi;
+                baseBoard = GameStart.shogi;
             }
             ChooseTypeOfGame();
         }
@@ -277,11 +275,6 @@ namespace ShogiCheckersChess
             ChooseShogiButtonUpper.Visible = true;
             ChooseShogiLabelUpper.Visible = true;
         }
-
-        
-
-
-
 
         /// <summary>
         /// Draws a chessboard on a screen

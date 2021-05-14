@@ -27,15 +27,15 @@ namespace ConsoleApplication2
                 switch (TypeOfGame)
                 {
                     case "chess":
-                        chessboard = GameStarts.chess;
+                        chessboard = GameStart.chess;
                         Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
                         break;
                     case "checkers":
-                        chessboard = GameStarts.checkers;
+                        chessboard = GameStart.checkers;
                         Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
                         break;
                     case "shogi":
-                        chessboard = GameStarts.shogi;
+                        chessboard = GameStart.shogi;
                         Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
                         break;
                     default:

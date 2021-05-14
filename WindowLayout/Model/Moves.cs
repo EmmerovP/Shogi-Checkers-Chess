@@ -91,14 +91,14 @@ namespace ShogiCheckersChess
         /// <summary>
         /// Delete all occurences of value in move coordinates lists.
         /// </summary>
-        /// <param name="index"></param>
-        public static void Delete(int index)
+        /// <param name="value"></param>
+        public static void Delete(int value)
         {
-            final_x.RemoveAll(item => item == index);
-            final_y.RemoveAll(item => item == index);
+            final_x.RemoveAll(item => item == value);
+            final_y.RemoveAll(item => item == value);
 
-            start_x.RemoveAll(item => item == index);
-            start_y.RemoveAll(item => item == index);
+            start_x.RemoveAll(item => item == value);
+            start_y.RemoveAll(item => item == value);
 
         }
 

@@ -1,7 +1,58 @@
 ﻿namespace ShogiCheckersChess
 {
+    /// <summary>
+    /// Contains starting boards for basic three games.
+    /// </summary>
+    public static class GameStart
+    {
+        /// <summary>
+        /// Starting board for playing chess.
+        /// </summary>
+        public static int[,] chess = new int[,] {
+        {23,24,25,22,21,25,24,23},
+        {26,26,26,26,26,26,26,26},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {5,5,5,5,5,5,5,5},
+        {2,3,4,1,0,4,3,2}
+        };
+
+        /// <summary>
+        /// Starting board for playing shogi.
+        /// </summary>
+        public static int[,] shogi = new int[,] {
+        {38,36,34,33,28,33,34,36,38},
+        {-1,29,-1,-1,-1,-1,-1,31,-1},
+        {40,40,40,40,40,40,40,40,40},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        {19,19,19,19,19,19,19,19,19},
+        {-1,10,-1,-1,-1,-1,-1,8,-1},
+        {17,15,13,12,7,12,13,15,17}
+        };
+
+        /// <summary>
+        /// Starting board for playing checkers.
+        /// </summary>
+        public static int[,] checkers = new int[,] {
+        {-1,27,-1,27,-1,27,-1,27},
+        {27,-1,27,-1,27,-1,27,-1},
+        {-1,27,-1,27,-1,27,-1,27},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {-1,-1,-1,-1,-1,-1,-1,-1},
+        {6,-1,6,-1,6,-1,6,-1},
+        {-1,6,-1,6,-1,6,-1,6},
+        {6,-1,6,-1,6,-1,6,-1},
+        };
+
+    }
+
     public static class Board
     {
+       
         /// <summary>
         /// Base number of pieces written in code.
         /// </summary>

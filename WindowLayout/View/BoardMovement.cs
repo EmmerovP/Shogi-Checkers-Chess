@@ -474,6 +474,9 @@ namespace ShogiCheckersChess
             movingPicture.Refresh();
         }
 
+        /// <summary>
+        /// Shows a label signalizing the end of a game.
+        /// </summary>
         public void SignalEndGame()
         {
             GameStateLabel.Text = "Konec hry.";

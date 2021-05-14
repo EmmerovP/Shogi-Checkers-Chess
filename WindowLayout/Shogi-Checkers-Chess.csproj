@@ -102,11 +102,11 @@
     <Compile Include="Model\Pieces.cs" />
     <Compile Include="Model\PiecesNumbers.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="View\propagation.cs">
+    <Compile Include="View\Propagation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\propagation.Designer.cs">
-      <DependentUpon>propagation.cs</DependentUpon>
+    <Compile Include="View\Propagation.Designer.cs">
+      <DependentUpon>Propagation.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\ShogiAddPiece.cs">
@@ -130,8 +130,8 @@
     <EmbeddedResource Include="View\PawnChange.resx">
       <DependentUpon>PawnChange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\propagation.resx">
-      <DependentUpon>propagation.cs</DependentUpon>
+    <EmbeddedResource Include="View\Propagation.resx">
+      <DependentUpon>Propagation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

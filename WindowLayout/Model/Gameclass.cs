@@ -9,7 +9,6 @@
             /// </summary>
             public static GameType gameType;
 
-
             /// <summary>
             /// Type of player - singleplayer or multiplayer.
             /// </summary>
@@ -20,12 +19,10 @@
             /// </summary>
             public static AlgorithmType algorithmType;
 
-
             /// <summary>
             /// Signalizes whether the game has come to an end.
             /// </summary>
             public static bool GameEnded;
-
 
             /// <summary>
             /// Returns true when we have to take a piece in checker games.
@@ -77,8 +74,7 @@
                 Moves.CoordinatesReturn(cp);
 
                 return false;
-            }
-           
+            }         
 
             /// <summary>
             /// Returns true when the game of checkers ended. The game ends when there are no possible moves.
@@ -186,8 +182,7 @@
                 Moves.CoordinatesReturn(copyOfCoordinates);
 
                 return false;
-            }
-            
+            }            
 
             /// <summary>
             /// Returns true in case of checkmate to current player's king.
