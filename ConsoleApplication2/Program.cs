@@ -14,11 +14,14 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            Game game = new Game();
+
             Console.OutputEncoding = System.Text.Encoding.Unicode;
+
             while (true)
             {
-                Console.WriteLine("Choose a type of game (chess, shogi, checkers): ");
+                Game game = new Game();
+
+                Console.WriteLine("Choose a type of game (chess, shogi, checkers, other): ");
 
                 int[,] chessboard = new int[8, 8];
 
@@ -38,8 +41,60 @@ namespace ConsoleApplication2
                         chessboard = GameStart.shogi;
                         Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
                         break;
+                    case "other":
+                        GetCustomGame();
+                        break;
                     default:
                         Main(args);
+                        break;
+                }
+
+                Console.WriteLine("Choose playing algorithm for white side (minimax, montecarlo):");
+
+                var algorithm = Console.ReadLine();
+
+                switch (algorithm)
+                {
+                    case "minimax":
+                        game.whiteMinimax = true;
+                        break;
+                    case "montecarlo":
+                        game.whiteMinimax = false;
+                        break;
+                    default: Main(args);
+                        break;
+                }
+
+                Console.WriteLine("Choose playing algorithm for black side (minimax, montecarlo):");
+
+                algorithm = Console.ReadLine();
+
+                switch (algorithm)
+                {
+                    case "minimax":
+                        game.blackMinimax = true;
+                        break;
+                    case "montecarlo":
+                        game.blackMinimax = false;
+                        break;
+                    default:
+                        Main(args);
+                        break;
+                }
+
+                Console.WriteLine("Should the progress of a game be visualized? (yes/no):");
+
+                var answer = Console.ReadLine();
+
+                bool visualize = false;
+
+                switch (answer)
+                {
+                    case "yes": visualize = true;
+                        break;
+                    case "no": visualize = false;
+                        break;
+                    default: Main(args);
                         break;
                 }
 
@@ -63,8 +118,11 @@ namespace ConsoleApplication2
                     game.MakeMove();
                     steps++;
 
-                    game.DrawBoard();
-
+                    if (visualize)
+                    {
+                        game.DrawBoard();
+                    }
+                
 
                     if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                     {
@@ -83,11 +141,25 @@ namespace ConsoleApplication2
             }
 
         }
+
+        public static void GetCustomGame()
+        {
+            Console.WriteLine("Specify the filepath to the file with game:");
+
+            string file = Console.ReadLine();
+
+            LoadGame.GetGame(file);
+
+
+        }
     }
 
     class Game
     {
         const bool CUSTOMCHESSBOARD = false;
+
+        public bool whiteMinimax;
+        public bool blackMinimax;
 
 
         public void CreateChessBoard(int[,] chessboard)
@@ -95,14 +167,14 @@ namespace ConsoleApplication2
             if (CUSTOMCHESSBOARD)
             {
                 chessboard = new int[,] {
-        {-1,-1,-1,-1,-1,1,1,7},
+        {-1,-1,-1,-1,-1,1,1,-1},
         {-1,-1,-1,-1,-1,-1,-1,1},
         {-1,-1,-1,-1,-1,-1,-1,1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {22,-1,-1,-1,-1,-1,-1,-1},
         {22,-1,-1,-1,-1,-1,-1,-1},
-        {28,22,22,-1,-1,-1,-1,-1},
+        {-1,22,22,-1,-1,-1,-1,-1}
         };
             }
 
@@ -127,23 +199,19 @@ namespace ConsoleApplication2
             bool player = Generating.WhitePlays;
 
             Moves.EmptyCoordinates();
-            int move = MonteCarlo.GetNextMove(player);
 
-            //int move = Minimax.GetNextMove();
-            /*
             int move;
 
-            if (player)
+            if ((player && whiteMinimax) || (!player && blackMinimax))
             {
-                move = MonteCarlo.MonteCarloMove(player);
+                move = Minimax.GetNextMove();
 
             }
             else
             {
-                move = Minimax.GetNextMove();
+                move = MonteCarlo.GetNextMove(player);
             }
-            */
-            //int move = MonteCarlo.FindRandomMove(Board.board);
+
 
             if (move == -1)
             {
@@ -172,21 +240,6 @@ namespace ConsoleApplication2
             {
                 MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], Board.board);
             }
-
-
-
-
-            /*
-            int move;
-            
-            if (Generating.WhitePlays)
-            {
-                move = Minimax.GetNextMove();
-            }
-            else
-            {
-                move =  MonteCarlo.MonteCarloMove(player);
-            }*/
 
             Generating.WhitePlays = player;
 
@@ -283,7 +336,7 @@ namespace ConsoleApplication2
                 Console.WriteLine();
             }
             Console.WriteLine();
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
         }
     }
 }

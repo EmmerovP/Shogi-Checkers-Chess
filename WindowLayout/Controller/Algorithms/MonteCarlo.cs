@@ -21,6 +21,7 @@ namespace ShogiCheckersChess
             public List<Node> children;
             public bool WhitePlays;
             public int id;
+            public Pieces piece;
 
             public List<Pieces> piecesTakenFromWhite;
             public List<Pieces> piecesTakenFromBlack;
@@ -72,6 +73,15 @@ namespace ShogiCheckersChess
             if (node.start_y == -1)
             {
                 isAddingPiece = true;
+
+                if (whitePlays)
+                {
+                    MainGameWindow.whiteShogiAIPieces.Remove(node.piece);
+                }
+                else
+                {
+                    MainGameWindow.shogiAIPieces.Remove(node.piece);
+                }
             }
 
             return 0;
@@ -194,8 +204,7 @@ namespace ShogiCheckersChess
                 newnode.piecesTakenFromWhite.AddRange(node.piecesTakenFromWhite);
                 newnode.piecesTakenFromBlack.AddRange(node.piecesTakenFromBlack);
 
-                newnode.board[Moves.final_x[i], Moves.final_y[i]] = newnode.board[Moves.start_x[i], Moves.start_y[i]];
-                newnode.board[Moves.start_x[i], Moves.start_y[i]] = null;
+                MoveController.ApplyMove(Moves.start_x[i], Moves.start_y[i], Moves.final_x[i], Moves.final_y[i], newnode.board);
 
                 node.children.Add(newnode);
             }
@@ -209,7 +218,7 @@ namespace ShogiCheckersChess
             //create copy of available pieces we can put on a board, so we don't have an inconsistency during going through the list
             List<Pieces> availablePieces = new List<Pieces>();
 
-            if (whitePlays)
+            if (node.WhitePlays)
             {
                 availablePieces.AddRange(node.piecesTakenFromBlack);
             }
@@ -246,13 +255,13 @@ namespace ShogiCheckersChess
                                 numberOfSimulations = 0,
                                 wins = 0,
                                 parent = node,
+                                piece = piece,
 
                                 piecesTakenFromWhite = new List<Pieces>(),
                                 piecesTakenFromBlack = new List<Pieces>(),
 
                                 final_x = i,
                                 final_y = j,
-                                start_x = piece.GetNumber(),
                                 start_y = -1
                             };
 
@@ -264,11 +273,13 @@ namespace ShogiCheckersChess
                             if(node.WhitePlays)
                             {
                                 Board.AddPiece(PiecesNumbers.getBottomNumber[piece.Name], i, j, newnode.board);
+                                newnode.start_x = PiecesNumbers.getBottomNumber[piece.Name];
                                 newnode.piecesTakenFromBlack.Remove(piece);
                             }
                             else
                             {
                                 Board.AddPiece(PiecesNumbers.getUpperNumber[piece.Name], i, j, newnode.board);
+                                newnode.start_x = PiecesNumbers.getUpperNumber[piece.Name];
                                 newnode.piecesTakenFromWhite.Remove(piece);
                             }
 
@@ -298,17 +309,6 @@ namespace ShogiCheckersChess
 
             }
             return false;
-        }
-
-        /// <summary>
-        /// Tries to add piece to see what happens in minimax algorithm.
-        /// </summary>
-        /// <param name="choice"></param>
-        /// <param name="moves"></param>
-        /// <param name="removePieces"></param>
-        public static void TryToAddPiece(List<int> choice, Moves.CoordinatesCopy moves, List<Pieces> removePieces, Pieces[,] Board)
-        {
-            
         }
 
         public static void FindRandomPiece(Pieces[,] board)

@@ -18,6 +18,86 @@ namespace ShogiCheckersChess
 
     }
 
+    public static class LoadGame
+    {
+        public static CustomGame GetGame(string file)
+        {
+            CustomGame customGame;
+
+            try
+            {
+                customGame = JsonConvert.DeserializeObject<CustomGame>(File.ReadAllText(file));
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Zadaný soubor není validní: " + exception.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+
+            Pieces.DefinedPieces = new List<DefinedPiece>();
+
+            switch (customGame.TypeOfGame)
+            {
+                case "chess":
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
+                    break;
+                case "checkers":
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
+                    break;
+                case "shogi":
+                    Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
+                    break;
+                default:
+                    throw new Exception();
+            }
+
+            MainGameWindow.baseBoard = customGame.Board;
+
+            if (customGame.Pieces != null)
+            {
+                for (int i = 0; i < customGame.Pieces.Length; i++)
+                {
+                    DefinedPiece newPiece = new DefinedPiece
+                    {
+                        moves = customGame.Pieces[i].Item4,
+                        Name = customGame.Pieces[i].Item1
+
+                    };
+
+                    if (customGame.Pieces[i].Item2 == "white")
+                    {
+                        newPiece.isWhite = true;
+                    }
+
+                    newPiece.Value = GetPieceValue(newPiece);
+
+
+
+
+                    Pieces.DefinedPieces.Add(newPiece);
+
+                    PiecesNumbers.UpdatePiece(newPiece.Name);
+                }
+            }
+
+            return customGame;
+        }
+
+        /// <summary>
+        /// Returns value of newly defined piece.
+        /// Currenty, the value is based on how many moves the piece can do.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static int GetPieceValue(DefinedPiece piece)
+        {
+            return piece.moves.Length * 3;
+        }
+
+
+    }
+
     public partial class MainGameWindow : Form
     {
 
@@ -32,80 +112,24 @@ namespace ShogiCheckersChess
 
             if (result == DialogResult.OK)
             {
-                CustomGame customGame;
+                var customgame = LoadGame.GetGame(LoadCustomGameDialog.FileName);
 
-                string file = LoadCustomGameDialog.FileName;
-
-                try
+                for (int i = 0; i < customgame.Pieces.Length; i++)
                 {
-                    customGame = JsonConvert.DeserializeObject<CustomGame>(File.ReadAllText(file));
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Zadaný soubor není validní: " + exception.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-               
-
-
-                Pieces.DefinedPieces = new List<DefinedPiece>();
-
-                switch (customGame.TypeOfGame)
-                {
-                    case "chess":
-                        Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
-                        break;
-                    case "checkers":
-                        Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
-                        break;
-                    case "shogi":
-                        Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
-                        break;
-                    default:
-                        throw new Exception();
-                }
-
-                MainGameWindow.baseBoard = customGame.Board;
-
-                if (customGame.Pieces != null)
-                {
-                    for (int i = 0; i < customGame.Pieces.Length; i++)
+                    try
                     {
-                        DefinedPiece newPiece = new DefinedPiece
-                        {
-                            moves = customGame.Pieces[i].Item4,
-                            Name = customGame.Pieces[i].Item1
-
-                        };
-
-                        if (customGame.Pieces[i].Item2 == "white")
-                        {
-                            newPiece.isWhite = true;
-                        }
-
-                        newPiece.Value = GetPieceValue(newPiece);
-
-                        try
-                        {
-                            string image = customGame.Pieces[i].Item3.Replace("\\\\", "\\");
-                            GamePieces.Images.Add(Image.FromFile(image));
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Nelze načíst obrázek figurky.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-
-                        Pieces.DefinedPieces.Add(newPiece);
-
-                        PiecesNumbers.UpdatePiece(newPiece.Name);
+                        string image = customgame.Pieces[i].Item3.Replace("\\\\", "\\");
+                        GamePieces.Images.Add(Image.FromFile(image));
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Nelze načíst obrázek figurky.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
                 }
 
 
                 ChooseTypeOfGame();
-
             }
 
 
@@ -113,16 +137,7 @@ namespace ShogiCheckersChess
         }
 
 
-        /// <summary>
-        /// Returns value of newly defined piece.
-        /// Currenty, the value is based on how many moves the piece can do.
-        /// </summary>
-        /// <param name="piece"></param>
-        /// <returns></returns>
-        public static int GetPieceValue(DefinedPiece piece)
-        {
-            return piece.moves.Length * 3;
-        }
+
     }
 
 }
