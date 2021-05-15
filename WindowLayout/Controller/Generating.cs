@@ -155,7 +155,6 @@ namespace ShogiCheckersChess
             return false;
         }
 
-
         /// <summary>
         /// Returns true when bottom shogi piece can be promoted.
         /// </summary>

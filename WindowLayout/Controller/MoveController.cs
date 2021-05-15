@@ -122,7 +122,6 @@
             }
         }
 
-
         /// <summary>
         /// Checks whether the move is bottom enpassante, and makes correct changes on the board.
         /// </summary>

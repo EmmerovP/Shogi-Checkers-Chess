@@ -15,6 +15,11 @@ namespace ShogiCheckersChess
         public static bool WhiteSide = false;
 
         /// <summary>
+        /// Signalizes whether minimax generated a move where we only add a piece to the board.
+        /// </summary>
+        public static bool isAddingPiece;
+
+        /// <summary>
         /// Returns highest number of a list of integers.
         /// </summary>
         /// <param name="list"></param>
@@ -52,8 +57,6 @@ namespace ShogiCheckersChess
 
             return indexes;
         }
-
-
 
         /// <summary>
         /// One step of a minimax algorithm.
@@ -150,7 +153,6 @@ namespace ShogiCheckersChess
             return evaluation;
         }
 
-
         /// <summary>
         /// Evaluates chessboard for minimax algorithm.
         /// </summary>
@@ -182,12 +184,6 @@ namespace ShogiCheckersChess
 
             return evaluation;
         }
-
-        /// <summary>
-        /// Signalizes whether minimax generated a move where we only add a piece to the board.
-        /// </summary>
-        public static bool isAddingPiece;
-
 
         /// <summary>
         /// Tries to add piece to see what happens in minimax algorithm.
@@ -276,7 +272,6 @@ namespace ShogiCheckersChess
                 }
             }
         }
-
 
         /// <summary>
         /// Gets a next move for minimax algorithm.
@@ -385,7 +380,6 @@ namespace ShogiCheckersChess
 
             return false;
         }
-
 
         /// <summary>
         /// Check whether it is okay to put a shogi pawn in specified column.
