@@ -298,7 +298,7 @@ namespace ShogiCheckersChess
             location = new Point[dimension_x, dimension_y];
 
             //create new array for pictures of pieces
-            pictureBoxes = new PictureBox[dimension_x, dimension_y];
+            piecesPictures = new PictureBox[dimension_x, dimension_y];
 
             //create new array of pictureboxes of blank fields
             pictureBoxes = new PictureBox[dimension_x, dimension_y];
