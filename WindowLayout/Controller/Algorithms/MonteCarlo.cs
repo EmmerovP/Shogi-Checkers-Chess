@@ -10,6 +10,8 @@ namespace ShogiCheckersChess
 
         public static bool whitePlays;
 
+        public static bool isAddingPiece;
+
         public class Node
         {
             public Pieces[,] board;
@@ -20,14 +22,19 @@ namespace ShogiCheckersChess
             public bool WhitePlays;
             public int id;
 
+            public List<Pieces> piecesTakenFromWhite;
+            public List<Pieces> piecesTakenFromBlack;
+
             public int start_x;
             public int start_y;
             public int final_x;
             public int final_y;
         }
 
-        public static int MonteCarloMove(bool isWhite)
+        public static int GetNextMove(bool isWhite)
         {
+
+            isAddingPiece = false;
 
             var rootnode = new Node
             {
@@ -37,8 +44,14 @@ namespace ShogiCheckersChess
                 numberOfSimulations = 1,
                 wins = 0,
                 parent = null,
-                id = 0
+                id = 0,
+
+                piecesTakenFromWhite = new List<Pieces>(),
+                piecesTakenFromBlack = new List<Pieces>()
             };
+
+            rootnode.piecesTakenFromBlack.AddRange(MainGameWindow.whiteShogiAIPieces);
+            rootnode.piecesTakenFromWhite.AddRange(MainGameWindow.shogiAIPieces);
 
             whitePlays = isWhite;
 
@@ -56,6 +69,11 @@ namespace ShogiCheckersChess
             Moves.start_x.Add(node.start_x);
             Moves.start_y.Add(node.start_y);
 
+            if (node.start_y == -1)
+            {
+                isAddingPiece = true;
+            }
+
             return 0;
 
         }
@@ -71,8 +89,8 @@ namespace ShogiCheckersChess
 
             int steps = 0;
 
-            while (time.ElapsedMilliseconds < MAXTIME)
-            //while (steps<4000)
+            //while (time.ElapsedMilliseconds < MAXTIME)
+            while (steps<4000)
             {
                 Node highest_UCB = Selection(Root);
                 Node leaf = Expansion(highest_UCB);
@@ -164,11 +182,17 @@ namespace ShogiCheckersChess
                     wins = 0,
                     parent = node,
 
+                    piecesTakenFromWhite = new List<Pieces>(),
+                    piecesTakenFromBlack = new List<Pieces>(),
+
                     final_x = Moves.final_x[i],
                     final_y = Moves.final_y[i],
                     start_x = Moves.start_x[i],
                     start_y = Moves.start_y[i]
                 };
+
+                newnode.piecesTakenFromWhite.AddRange(node.piecesTakenFromWhite);
+                newnode.piecesTakenFromBlack.AddRange(node.piecesTakenFromBlack);
 
                 newnode.board[Moves.final_x[i], Moves.final_y[i]] = newnode.board[Moves.start_x[i], Moves.start_y[i]];
                 newnode.board[Moves.start_x[i], Moves.start_y[i]] = null;
@@ -176,7 +200,115 @@ namespace ShogiCheckersChess
                 node.children.Add(newnode);
             }
 
+
+            if (((MainGameWindow.shogiAIPieces.Count == 0) && (!whitePlays)) || ((MainGameWindow.whiteShogiAIPieces.Count == 0) && (whitePlays)))
+            {
+                return;
+            }
+
+            //create copy of available pieces we can put on a board, so we don't have an inconsistency during going through the list
+            List<Pieces> availablePieces = new List<Pieces>();
+
+            if (whitePlays)
+            {
+                availablePieces.AddRange(node.piecesTakenFromBlack);
+            }
+            else
+            {
+                availablePieces.AddRange(node.piecesTakenFromWhite);
+            }
+
             Moves.EmptyCoordinates();
+
+            foreach (var piece in availablePieces)
+            {
+                for (int i = 0; i < node.board.GetLength(0); i++)
+                {
+                    for (int j = 0; j < node.board.GetLength(1); j++)
+                    {
+                        if (node.board[i, j] == null)
+                        {
+                            //we can't put another shogi pawn to the column where there already is
+                            if (PiecesNumbers.IsShogiPawn(piece))
+                            {
+                                if (PawnColumn(j, whitePlays, node.board))
+                                {
+                                    break;
+                                }
+
+                            }
+
+                            Node newnode = new Node
+                            {
+                                children = new List<Node>(),
+                                WhitePlays = !node.WhitePlays,
+                                board = node.board.Clone() as Pieces[,],
+                                numberOfSimulations = 0,
+                                wins = 0,
+                                parent = node,
+
+                                piecesTakenFromWhite = new List<Pieces>(),
+                                piecesTakenFromBlack = new List<Pieces>(),
+
+                                final_x = i,
+                                final_y = j,
+                                start_x = piece.GetNumber(),
+                                start_y = -1
+                            };
+
+                            newnode.piecesTakenFromWhite.AddRange(node.piecesTakenFromWhite);
+                            newnode.piecesTakenFromBlack.AddRange(node.piecesTakenFromBlack);
+
+                            
+
+                            if(node.WhitePlays)
+                            {
+                                Board.AddPiece(PiecesNumbers.getBottomNumber[piece.Name], i, j, newnode.board);
+                                newnode.piecesTakenFromBlack.Remove(piece);
+                            }
+                            else
+                            {
+                                Board.AddPiece(PiecesNumbers.getUpperNumber[piece.Name], i, j, newnode.board);
+                                newnode.piecesTakenFromWhite.Remove(piece);
+                            }
+
+                            node.children.Add(newnode);
+                        }
+                    }
+
+                }
+            }
+
+            
+        }
+
+        /// <summary>
+        /// Check whether it is okay to put a shogi pawn in specified column.
+        /// </summary>
+        /// <param name="column"></param>
+        /// <returns></returns>
+        public static bool PawnColumn(int column, bool isWhite, Pieces[,] Board)
+        {
+            for (int i = 0; i < Board.GetLength(1); i++)
+            {
+                if (Board[i, column] != null && PiecesNumbers.IsShogiPawn(Board[i, column]) && Board[i, column].isWhite == isWhite)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to add piece to see what happens in minimax algorithm.
+        /// </summary>
+        /// <param name="choice"></param>
+        /// <param name="moves"></param>
+        /// <param name="removePieces"></param>
+        public static void TryToAddPiece(List<int> choice, Moves.CoordinatesCopy moves, List<Pieces> removePieces, Pieces[,] Board)
+        {
+            
         }
 
         public static void FindRandomPiece(Pieces[,] board)
@@ -233,6 +365,8 @@ namespace ShogiCheckersChess
 
             for (int i = 0; i < LOOPS; i++)
             {
+                Moves.EmptyCoordinates();
+
                 //tady udělat na šachovnici tah
                 int move = FindRandomMove(board);
 

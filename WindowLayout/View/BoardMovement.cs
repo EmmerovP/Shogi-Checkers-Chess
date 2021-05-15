@@ -294,13 +294,13 @@ namespace ShogiCheckersChess
             }
             else
             {
-                move = MonteCarlo.MonteCarloMove(false);
+                move = MonteCarlo.GetNextMove(false);
             }
 
             Generating.WhitePlays = whoPlays;
 
             //instead of move, we are adding a piece on the board
-            if (Minimax.isAddingPiece)
+            if ((Minimax.isAddingPiece)||(MonteCarlo.isAddingPiece))
             {
                 AddPieceToBoard(Moves.final_x[move], Moves.final_y[move], Moves.start_x[move]);
                 Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;

@@ -95,14 +95,14 @@ namespace ConsoleApplication2
             if (CUSTOMCHESSBOARD)
             {
                 chessboard = new int[,] {
-        {-1,-1,-1,-1,-1,1,1,-1},
+        {-1,-1,-1,-1,-1,1,1,7},
         {-1,-1,-1,-1,-1,-1,-1,1},
         {-1,-1,-1,-1,-1,-1,-1,1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {22,-1,-1,-1,-1,-1,-1,-1},
         {22,-1,-1,-1,-1,-1,-1,-1},
-        {-1,22,22,-1,-1,-1,-1,-1},
+        {28,22,22,-1,-1,-1,-1,-1},
         };
             }
 
@@ -127,7 +127,7 @@ namespace ConsoleApplication2
             bool player = Generating.WhitePlays;
 
             Moves.EmptyCoordinates();
-            int move = MonteCarlo.MonteCarloMove(player);
+            int move = MonteCarlo.GetNextMove(player);
 
             //int move = Minimax.GetNextMove();
             /*
@@ -164,7 +164,7 @@ namespace ConsoleApplication2
             }
 
 
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Minimax.isAddingPiece)
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && (Minimax.isAddingPiece|| MonteCarlo.isAddingPiece))
             {
                 Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move], Board.board);
             }
