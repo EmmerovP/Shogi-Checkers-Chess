@@ -89,7 +89,7 @@ namespace ShogiCheckersChess
         }
 
 
-        const float MAXTIME = 4000.0F;
+        const float MAXTIME = 12000.0F;
         const int LOOPS = 700;
 
         public static Node MonteCarloRoot(Node Root)
@@ -99,8 +99,7 @@ namespace ShogiCheckersChess
 
             int steps = 0;
 
-            //while (time.ElapsedMilliseconds < MAXTIME)
-            while (steps<4000)
+            while (time.ElapsedMilliseconds < MAXTIME)
             {
                 Node highest_UCB = Selection(Root);
                 Node leaf = Expansion(highest_UCB);

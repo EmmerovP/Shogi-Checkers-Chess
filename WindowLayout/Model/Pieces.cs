@@ -435,6 +435,21 @@ namespace ShogiCheckersChess
 
     }
 
+    class CheckersQueen : Pieces
+    {
+        public override int Value { get; set; } = 90;
+
+        public override string Name { get; protected set; } = "Dáma";
+
+        public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
+        {
+            Moves.BackRightInfinity(x, y, chessboard);
+            Moves.BackLeftInfinity(x, y, chessboard);
+            Moves.ForwardLeftInfinity(x, y, chessboard);
+            Moves.ForwardRightInfinity(x, y, chessboard);
+        }
+    }
+
     /// <summary>
     /// User defined piece.
     /// </summary>

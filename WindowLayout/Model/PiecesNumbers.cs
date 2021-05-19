@@ -20,41 +20,43 @@ namespace ShogiCheckersChess
             { 4, "Bílý střelec" },
             { 5, "Bílý pěšec" },
             { 6, "Bílý kámen" },
-            { 7, "Spodní shogi král" },
-            { 8, "Spodní shogi věž" },
-            { 9, "Povýšená spodní shogi věž" },
-            { 10, "Spodní shogi střelec" },
-            { 11, "Povýšený spodní shogi střelec" },
-            { 12, "Spodní zlatý generál" },
-            { 13, "Spodní stříbrný generál" },
-            { 14, "Povýšený spodní stříbrný generál" },
-            { 15, "Spodní shogi kůň" },
-            { 16, "Povýšený spodní shogi kůň" },
-            { 17, "Spodní kopiník" },
-            { 18, "Povýšený spodní kopiník" },
-            { 19, "Spodní shogi pěšák" },
-            { 20, "Povýšený spodní shogi pěšák" },
-            { 21, "Černý král"},
-            { 22, "Černá královna" },
-            { 23, "Černá věž" },
-            { 24, "Černý kůň" },
-            { 25, "Černý střelec" },
-            { 26, "Černý pěšec" },
-            { 27, "Černý kámen" },
-            { 28, "Vrchní shogi král" },
-            { 29, "Vrchní shogi věž" },
-            { 30, "Povýšená vrchní shogi věž" },
-            { 31, "Vrchní shogi střelec" },
-            { 32, "Povýšený vrchní shogi střelec" },
-            { 33, "Vrchní zlatý generál" },
-            { 34, "Vrchní stříbrný generál" },
-            { 35, "Povýšený vrchní stříbrný generál" },
-            { 36, "Vrchní shogi kůň" },
-            { 37, "Povýšený vrchní shogi kůň" },
-            { 38, "Vrchní kopiník" },
-            { 39, "Povýšený vrchní kopiník" },
-            { 40, "Vrchní shogi pěšák" },
-            { 41, "Povýšený vrchní shogi pěšák" }
+            { 7, "Bílá dáma" },
+            { 8, "Spodní shogi král" },
+            { 9, "Spodní shogi věž" },
+            { 10, "Povýšená spodní shogi věž" },
+            { 11, "Spodní shogi střelec" },
+            { 12, "Povýšený spodní shogi střelec" },
+            { 13, "Spodní zlatý generál" },
+            { 14, "Spodní stříbrný generál" },
+            { 15, "Povýšený spodní stříbrný generál" },
+            { 16, "Spodní shogi kůň" },
+            { 17, "Povýšený spodní shogi kůň" },
+            { 18, "Spodní kopiník" },
+            { 19, "Povýšený spodní kopiník" },
+            { 20, "Spodní shogi pěšák" },
+            { 21, "Povýšený spodní shogi pěšák" },
+            { 22, "Černý král"},
+            { 23, "Černá královna" },
+            { 24, "Černá věž" },
+            { 25, "Černý kůň" },
+            { 26, "Černý střelec" },
+            { 27, "Černý pěšec" },
+            { 28, "Černý kámen" },
+            { 29, "Černá dáma" },
+            { 30, "Vrchní shogi král" },
+            { 31, "Vrchní shogi věž" },
+            { 32, "Povýšená vrchní shogi věž" },
+            { 33, "Vrchní shogi střelec" },
+            { 34, "Povýšený vrchní shogi střelec" },
+            { 35, "Vrchní zlatý generál" },
+            { 36, "Vrchní stříbrný generál" },
+            { 37, "Povýšený vrchní stříbrný generál" },
+            { 38, "Vrchní shogi kůň" },
+            { 39, "Povýšený vrchní shogi kůň" },
+            { 40, "Vrchní kopiník" },
+            { 41, "Povýšený vrchní kopiník" },
+            { 42, "Vrchní shogi pěšák" },
+            { 43, "Povýšený vrchní shogi pěšák" }
         };
 
         /// <summary>
@@ -69,47 +71,49 @@ namespace ShogiCheckersChess
             { "Bílý střelec", 4 },
             {  "Bílý pěšec", 5 },
             {  "Bílý kámen", 6 },
-            { "Spodní shogi král", 7 },
-            { "Spodní shogi věž", 8 },
-            { "Povýšená spodní shogi věž", 9 },
-            { "Spodní shogi střelec", 10 },
-            { "Povýšený spodní shogi střelec", 11 },
-            { "Spodní zlatý generál", 12 },
-            { "Spodní stříbrný generál", 13 },
-            { "Povýšený spodní stříbrný generál", 14 },
-            { "Spodní shogi kůň", 15 },
-            { "Povýšený spodní shogi kůň", 16 },
-            { "Spodní kopiník", 17 },
-            { "Povýšený spodní kopiník", 18 },
-            { "Spodní shogi pěšák", 19 },
-            { "Povýšený spodní shogi pěšák", 20 },
-            { "Černý král", 21},
-            { "Černá královna", 22 },
-            { "Černá věž", 23 },
-            { "Černý kůň", 24 },
-            { "Černý střelec", 25 },
-            { "Černý pěšec", 26 },
-            { "Černý kámen", 27 },
-            { "Vrchní shogi král", 28 },
-            { "Vrchní shogi věž", 29 },
-            { "Povýšená vrchní shogi věž", 30 },
-            { "Vrchní shogi střelec", 31 },
-            { "Povýšený vrchní shogi střelec", 32 },
-            { "Vrchní zlatý generál", 33 },
-            { "Vrchní stříbrný generál", 34 },
-            { "Povýšený vrchní stříbrný generál", 35 },
-            { "Vrchní shogi kůň", 36 },
-            { "Povýšený vrchní shogi kůň", 37 },
-            { "Vrchní kopiník", 38 },
-            { "Povýšený vrchní kopiník", 39 },
-            { "Vrchní shogi pěšák", 40 },
-            { "Povýšený vrchní shogi pěšák", 41 }
+            {  "Bílá dáma", 7 },
+            { "Spodní shogi král", 8 },
+            { "Spodní shogi věž", 9 },
+            { "Povýšená spodní shogi věž", 10 },
+            { "Spodní shogi střelec", 11 },
+            { "Povýšený spodní shogi střelec", 12 },
+            { "Spodní zlatý generál", 13 },
+            { "Spodní stříbrný generál", 14 },
+            { "Povýšený spodní stříbrný generál", 15 },
+            { "Spodní shogi kůň", 16 },
+            { "Povýšený spodní shogi kůň", 17 },
+            { "Spodní kopiník", 18 },
+            { "Povýšený spodní kopiník", 19 },
+            { "Spodní shogi pěšák", 20 },
+            { "Povýšený spodní shogi pěšák", 21 },
+            { "Černý král", 22 },
+            { "Černá královna", 23 },
+            { "Černá věž", 24 },
+            { "Černý kůň", 25 },
+            { "Černý střelec", 26 },
+            { "Černý pěšec", 27 },
+            { "Černý kámen", 28 },
+            { "Černá dáma", 29 },
+            { "Vrchní shogi král", 30 },
+            { "Vrchní shogi věž", 31 },
+            { "Povýšená vrchní shogi věž", 32 },
+            { "Vrchní shogi střelec", 33 },
+            { "Povýšený vrchní shogi střelec", 34 },
+            { "Vrchní zlatý generál", 35 },
+            { "Vrchní stříbrný generál", 36 },
+            { "Povýšený vrchní stříbrný generál", 37 },
+            { "Vrchní shogi kůň", 38 },
+            { "Povýšený vrchní shogi kůň", 39 },
+            { "Vrchní kopiník", 40 },
+            { "Povýšený vrchní kopiník", 41 },
+            { "Vrchní shogi pěšák", 42 },
+            { "Povýšený vrchní shogi pěšák", 43 }
         };
 
         /// <summary>
         /// List of all shogi pieces we can propagate. To propagate, it is enough to increment its number by one.
         /// </summary>
-        public static int[] canPropagate = {8, 10, 13, 15, 17, 19, 29, 31, 34, 36, 38, 40};
+        public static int[] canPropagate = {9, 11, 14, 16, 18, 20, 31, 33, 36, 38, 40, 42};
 
         /// <summary>
         /// Given a name of a piece, returns number of piece corresponding to bottom/white side.
@@ -123,20 +127,21 @@ namespace ShogiCheckersChess
             { "Střelec", 4 },
             {  "Pěšec", 5 },
             {  "Kámen", 6 },
-            { "Shogi král", 7 },
-            { "Shogi věž", 8 },
-            { "Povýšená shogi věž", 9 },
-            { "Shogi střelec", 10 },
-            { "Povýšený shogi střelec", 11 },
-            { "Zlatý generál", 12 },
-            { "Stříbrný generál", 13 },
-            { "Povýšený stříbrný generál", 14 },
-            { "Shogi kůň", 15 },
-            { "Povýšený shogi kůň", 16 },
-            { "Kopiník", 17 },
-            { "Povýšený kopiník", 18 },
-            { "Shogi pěšák", 19 },
-            { "Povýšený shogi pěšák", 20 }
+            { "Dáma", 7 },
+            { "Shogi král", 8 },
+            { "Shogi věž", 9 },
+            { "Povýšená shogi věž", 10 },
+            { "Shogi střelec", 11 },
+            { "Povýšený shogi střelec", 12 },
+            { "Zlatý generál", 13 },
+            { "Stříbrný generál", 14 },
+            { "Povýšený stříbrný generál", 15 },
+            { "Shogi kůň", 16 },
+            { "Povýšený shogi kůň", 17 },
+            { "Kopiník", 18 },
+            { "Povýšený kopiník", 19 },
+            { "Shogi pěšák", 20 },
+            { "Povýšený shogi pěšák", 21 }
 
         };
 
@@ -145,27 +150,28 @@ namespace ShogiCheckersChess
         /// </summary>
         public static Dictionary<string, int> getUpperNumber = new Dictionary<string, int>()
         {
-            { "Král", 21},
-            { "Královna", 22 },
-            { "Věž", 23 },
-            { "Kůň", 24 },
-            { "Střelec", 25 },
-            { "Pěšec", 26 },
-            { "Kámen", 27 },
-            { "Shogi král", 28 },
-            { "Shogi věž", 29 },
-            { "Povýšená shogi věž", 30 },
-            { "Shogi střelec", 31 },
-            { "Povýšený shogi střelec", 32 },
-            { "Zlatý generál", 33 },
-            { "Stříbrný generál", 34 },
-            { "Povýšený stříbrný generál", 35 },
-            { "Shogi kůň", 36 },
-            { "Povýšený shogi kůň", 37 },
-            { "Kopiník", 38 },
-            { "Povýšený kopiník", 39 },
-            { "Shogi pěšák", 40 },
-            { "Povýšený shogi pěšák", 41 }
+            { "Král", 22 },
+            { "Královna", 23 },
+            { "Věž", 24 },
+            { "Kůň", 25 },
+            { "Střelec", 26 },
+            { "Pěšec", 27 },
+            { "Kámen", 28 },
+            { "Dáma", 29 },
+            { "Shogi král", 30 },
+            { "Shogi věž", 31 },
+            { "Povýšená shogi věž", 32 },
+            { "Shogi střelec", 33 },
+            { "Povýšený shogi střelec", 34 },
+            { "Zlatý generál", 35 },
+            { "Stříbrný generál", 36 },
+            { "Povýšený stříbrný generál", 37 },
+            { "Shogi kůň", 38 },
+            { "Povýšený shogi kůň", 39 },
+            { "Kopiník", 40 },
+            { "Povýšený kopiník", 41 },
+            { "Shogi pěšák", 42 },
+            { "Povýšený shogi pěšák", 43 }
 
         };
 
@@ -226,10 +232,10 @@ namespace ShogiCheckersChess
         {
             switch (piece.GetNumber())
             {
-                case 40: return true;
-                case 41: return true;
-                case 19: return true;
+                case 42: return true;
+                case 43: return true;
                 case 20: return true;
+                case 21: return true;
             }
             return false;
         }
@@ -243,7 +249,7 @@ namespace ShogiCheckersChess
         {
             switch (piece.GetNumber())
             {
-                case 27: return true;
+                case 28: return true;
                 case 6: return true;
             }
             return false;
@@ -259,7 +265,7 @@ namespace ShogiCheckersChess
             switch (piece.GetNumber())
             {
                 case 0: return true;
-                case 21: return true;
+                case 22: return true;
             }
             return false;
         }
@@ -271,7 +277,7 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static bool IsUpperShogiKing(Pieces piece)
         {
-            if (piece.GetNumber() == 28)
+            if (piece.GetNumber() == 30)
             {
                 return true;
             }
@@ -286,7 +292,7 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static bool IsBottomShogiKing(Pieces piece)
         {
-            if (piece.GetNumber() == 7)
+            if (piece.GetNumber() == 8)
             {
                 return true;
             }

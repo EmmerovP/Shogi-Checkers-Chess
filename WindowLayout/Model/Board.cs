@@ -9,8 +9,8 @@
         /// Starting board for playing chess.
         /// </summary>
         public static int[,] chess = new int[,] {
-        {23,24,25,22,21,25,24,23},
-        {26,26,26,26,26,26,26,26},
+        {24,25,26,23,22,26,25,24},
+        {27,27,27,27,27,27,27,27},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
@@ -23,24 +23,24 @@
         /// Starting board for playing shogi.
         /// </summary>
         public static int[,] shogi = new int[,] {
-        {38,36,34,33,28,33,34,36,38},
-        {-1,29,-1,-1,-1,-1,-1,31,-1},
-        {40,40,40,40,40,40,40,40,40},
+        {40,38,36,35,30,35,36,38,40},
+        {-1,31,-1,-1,-1,-1,-1,33,-1},
+        {42,42,42,42,42,42,42,42,42},
         {-1,-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1,-1},
-        {19,19,19,19,19,19,19,19,19},
-        {-1,10,-1,-1,-1,-1,-1,8,-1},
-        {17,15,13,12,7,12,13,15,17}
+        {20,20,20,20,20,20,20,20,20},
+        {-1,11,-1,-1,-1,-1,-1,9,-1},
+        {18,16,14,13,8,13,14,16,18}
         };
 
         /// <summary>
         /// Starting board for playing checkers.
         /// </summary>
         public static int[,] checkers = new int[,] {
-        {-1,27,-1,27,-1,27,-1,27},
-        {27,-1,27,-1,27,-1,27,-1},
-        {-1,27,-1,27,-1,27,-1,27},
+        {-1,28,-1,28,-1,28,-1,28},
+        {28,-1,28,-1,28,-1,28,-1},
+        {-1,28,-1,28,-1,28,-1,28},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {-1,-1,-1,-1,-1,-1,-1,-1},
         {6,-1,6,-1,6,-1,6,-1},
@@ -56,7 +56,7 @@
         /// <summary>
         /// Base number of pieces written in code.
         /// </summary>
-        const int NUMBER_OF_PIECES = 42;
+        const int NUMBER_OF_PIECES = 44;
 
         /// <summary>
         /// Main game board for current game.
@@ -119,84 +119,90 @@
                     };
                     break;
                 case 7:
-                    piece = new ShogiKing
+                    piece = new CheckersQueen
                     {
                         isWhite = true
                     };
                     break;
                 case 8:
-                    piece = new ShogiRook
+                    piece = new ShogiKing
                     {
                         isWhite = true
                     };
                     break;
                 case 9:
-                    piece = new PromotedShogiRook
+                    piece = new ShogiRook
                     {
                         isWhite = true
                     };
                     break;
                 case 10:
-                    piece = new ShogiBishop
+                    piece = new PromotedShogiRook
                     {
                         isWhite = true
                     };
                     break;
                 case 11:
-                    piece = new PromotedShogiBishop
+                    piece = new ShogiBishop
                     {
                         isWhite = true
                     };
                     break;
                 case 12:
-                    piece = new BottomGoldGeneral
+                    piece = new PromotedShogiBishop
                     {
                         isWhite = true
                     };
                     break;
                 case 13:
-                    piece = new BottomSilverGeneral
+                    piece = new BottomGoldGeneral
                     {
                         isWhite = true
                     };
                     break;
                 case 14:
-                    piece = new BottomPromotedSilverGeneral
+                    piece = new BottomSilverGeneral
                     {
                         isWhite = true
                     };
                     break;
                 case 15:
-                    piece = new BottomShogiHorse
+                    piece = new BottomPromotedSilverGeneral
                     {
                         isWhite = true
                     };
                     break;
                 case 16:
-                    piece = new BottomPromotedKnight
+                    piece = new BottomShogiHorse
                     {
                         isWhite = true
                     };
                     break;
                 case 17:
-                    piece = new BottomLance
+                    piece = new BottomPromotedKnight
                     {
                         isWhite = true
                     };
                     break;
                 case 18:
-                    piece = new BottomPromotedLance
+                    piece = new BottomLance
                     {
                         isWhite = true
                     };
                     break;
                 case 19:
-                    piece = new ShogiBottomPawn
+                    piece = new BottomPromotedLance
                     {
                         isWhite = true
                     };
                     break;
                 case 20:
+                    piece = new ShogiBottomPawn
+                    {
+                        isWhite = true
+                    };
+                    break;
+                case 21:
                     piece = new BottomPromotedPawn
                     {
                         isWhite = true
@@ -204,127 +210,133 @@
                     break;
 
                 //for uper/black pieces
-                case 21:
+                case 22:
                     piece = new King
                     {
                         isWhite = false
                     };
                     break;
-                case 22:
+                case 23:
                     piece = new Queen
                     {
                         isWhite = false
                     };
                     break;
-                case 23:
+                case 24:
                     piece = new Rook
                     {
                         isWhite = false
                     };
                     break;
-                case 24:
+                case 25:
                     piece = new Horse
                     {
                         isWhite = false
                     };
                     break;
-                case 25:
+                case 26:
                     piece = new Bishop
                     {
                         isWhite = false
                     };
                     break;
-                case 26:
+                case 27:
                     piece = new UpperPawn
                     {
                         isWhite = false
                     };
                     break;
-                case 27:
+                case 28:
                     piece = new BlackCheckersPiece
                     {
                         isWhite = false
                     };
                     break;
-                case 28:
-                    piece = new ShogiKing
-                    {
-                        isWhite = false
-                    };
-                    break;
                 case 29:
-                    piece = new ShogiRook
+                    piece = new CheckersQueen
                     {
                         isWhite = false
                     };
                     break;
                 case 30:
-                    piece = new PromotedShogiRook
+                    piece = new ShogiKing
                     {
                         isWhite = false
                     };
                     break;
                 case 31:
-                    piece = new ShogiBishop
+                    piece = new ShogiRook
                     {
                         isWhite = false
                     };
                     break;
                 case 32:
-                    piece = new PromotedShogiBishop
+                    piece = new PromotedShogiRook
                     {
                         isWhite = false
                     };
                     break;
                 case 33:
-                    piece = new UpperGoldGeneral
+                    piece = new ShogiBishop
                     {
                         isWhite = false
                     };
                     break;
                 case 34:
-                    piece = new UpperSilverGeneral
+                    piece = new PromotedShogiBishop
                     {
                         isWhite = false
                     };
                     break;
                 case 35:
-                    piece = new UpperPromotedSilverGeneral
+                    piece = new UpperGoldGeneral
                     {
                         isWhite = false
                     };
                     break;
                 case 36:
-                    piece = new UpperShogiHorse
+                    piece = new UpperSilverGeneral
                     {
                         isWhite = false
                     };
                     break;
                 case 37:
-                    piece = new UpperPromotedKnight
+                    piece = new UpperPromotedSilverGeneral
                     {
                         isWhite = false
                     };
                     break;
                 case 38:
-                    piece = new UpperLance
+                    piece = new UpperShogiHorse
                     {
                         isWhite = false
                     };
                     break;
                 case 39:
-                    piece = new UpperPromotedLance
+                    piece = new UpperPromotedKnight
                     {
                         isWhite = false
                     };
                     break;
                 case 40:
-                    piece = new ShogiUpperPawn
+                    piece = new UpperLance
                     {
                         isWhite = false
                     };
                     break;
                 case 41:
+                    piece = new UpperPromotedLance
+                    {
+                        isWhite = false
+                    };
+                    break;
+                case 42:
+                    piece = new ShogiUpperPawn
+                    {
+                        isWhite = false
+                    };
+                    break;
+                case 43:
                     piece = new UpperPromotedPawn
                     {
                         isWhite = false

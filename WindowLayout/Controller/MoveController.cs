@@ -74,10 +74,10 @@
             if (!MainGameWindow.isPlayer)
             {
                 //black pawn changes into black queen
-                if ((piece.GetNumber() == 26) && (x == board.GetLength(0) - 1))
+                if ((piece.GetNumber() == 27) && (x == board.GetLength(0) - 1))
                 {
                     previousPiece = piece.GetNumber();
-                    Board.AddPiece(22, x, y, board);
+                    Board.AddPiece(23, x, y, board);
                     pieceChanged = true;
                 }
 
@@ -106,10 +106,10 @@
             }
 
             //checkers change into queen
-            if ((piece.GetNumber() == 27) && (x == board.GetLength(1) - 1))
+            if ((piece.GetNumber() == 28) && (x == board.GetLength(1) - 1))
             {
                 previousPiece = piece.GetNumber();
-                Board.AddPiece(22, x, y, board);
+                Board.AddPiece(29, x, y, board);
                 pieceChanged = true;
                
             }
@@ -117,7 +117,7 @@
             if ((piece.GetNumber() == 6) && (x == 0))
             {
                 previousPiece = piece.GetNumber();
-                Board.AddPiece(1, x, y, board);
+                Board.AddPiece(07, x, y, board);
                 pieceChanged = true;
             }
         }

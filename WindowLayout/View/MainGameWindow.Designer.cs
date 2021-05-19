@@ -205,6 +205,8 @@
             this.GamePieces.Images.SetKeyName(39, "40.gif");
             this.GamePieces.Images.SetKeyName(40, "41.gif");
             this.GamePieces.Images.SetKeyName(41, "42.gif");
+            this.GamePieces.Images.SetKeyName(42, "43.gif");
+            this.GamePieces.Images.SetKeyName(43, "44.gif");
             // 
             // GameStateLabel
             // 
