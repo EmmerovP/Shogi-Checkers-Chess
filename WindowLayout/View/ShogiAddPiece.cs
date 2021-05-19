@@ -77,11 +77,11 @@ namespace ShogiCheckersChess
             }
 
             //we cannot add shogi pawn to a column that already has a shogi pawn in it
-            if (pieceBeingAddedToBoard == 19)
+            if (pieceBeingAddedToBoard == 20)
             {
                 for (int i = 0; i < Board.board.GetLength(1); i++)
                 {
-                    if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == 19))
+                    if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == 20))
                     {
                         ShogiPawnProblem popup = new ShogiPawnProblem();
                         popup.ShowDialog();
@@ -131,11 +131,11 @@ namespace ShogiCheckersChess
             }
 
             //we cannot add shogi pawn to a column that already has a shogi pawn in it
-            if (pieceBeingAddedToBoard == 40)
+            if (pieceBeingAddedToBoard == 42)
             {
                 for (int i = 0; i < Board.board.GetLength(1); i++)
                 {
-                    if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == 40))
+                    if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == 42))
                     {
                         ShogiPawnProblem popup = new ShogiPawnProblem();
                         popup.ShowDialog();
