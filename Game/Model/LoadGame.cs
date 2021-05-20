@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ShogiCheckersChess
@@ -24,9 +25,19 @@ namespace ShogiCheckersChess
         {
             CustomGame customGame;
 
+            string fileWithGame = File.ReadAllText(file);
+
+            var words = string.Join("|", PiecesNumbers.getNumber.Keys);
+
+            //???
+            fileWithGame = Regex.Replace(fileWithGame, $@"\b({words})\b", delegate (Match m)
+            {
+                return PiecesNumbers.getNumber[m.Value].ToString();
+            });
+
             try
             {
-                customGame = JsonConvert.DeserializeObject<CustomGame>(File.ReadAllText(file));
+                customGame = JsonConvert.DeserializeObject<CustomGame>(fileWithGame);
             }
             catch (Exception exception)
             {
@@ -114,20 +125,27 @@ namespace ShogiCheckersChess
             {
                 var customgame = LoadGame.GetGame(LoadCustomGameDialog.FileName);
 
-                for (int i = 0; i < customgame.Pieces.Length; i++)
+                if (customgame == null)
                 {
-                    try
-                    {
-                        string image = customgame.Pieces[i].Item3.Replace("\\\\", "\\");
-                        GamePieces.Images.Add(Image.FromFile(image));
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Nelze načíst obrázek figurky.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                    return;
                 }
 
+                if (customgame.Pieces != null)
+                {
+                    for (int i = 0; i < customgame.Pieces.Length; i++)
+                    {
+                        try
+                        {
+                            string image = customgame.Pieces[i].Item3.Replace("\\\\", "\\");
+                            GamePieces.Images.Add(Image.FromFile(image));
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Nelze načíst obrázek figurky.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
 
                 ChooseTypeOfGame();
             }
