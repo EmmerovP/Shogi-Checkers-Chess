@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shogi-Checkers-Chess", "WindowLayout\Shogi-Checkers-Chess.csproj", "{9CD0E195-ADFB-4960-9B3D-619F63034AFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shogi-Checkers-Chess", "Game\Shogi-Checkers-Chess.csproj", "{9CD0E195-ADFB-4960-9B3D-619F63034AFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTester", "ConsoleApplication2\GameTester.csproj", "{6D7876F0-D91A-4E26-824B-5C99DA43F5DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTester", "GameTester\GameTester.csproj", "{6D7876F0-D91A-4E26-824B-5C99DA43F5DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

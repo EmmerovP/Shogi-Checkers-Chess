@@ -7,7 +7,7 @@
     <ProjectGuid>{9CD0E195-ADFB-4960-9B3D-619F63034AFE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ShogiCheckersChess</RootNamespace>
-    <AssemblyName>WindowLayout</AssemblyName>
+    <AssemblyName>Game</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
