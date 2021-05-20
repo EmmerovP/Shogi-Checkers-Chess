@@ -140,7 +140,7 @@ namespace ShogiCheckersChess
         /// Indicates whether we already met an enemy figure while generating move across multiple fields. We can stop generating the move then.
         /// </summary>
         public static bool enemyMet = false;
-        
+
         /// <summary>
         /// Checks whether we can generate a move to this field.
         /// </summary>
@@ -150,7 +150,7 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static bool ValidMove(int x, int y, Pieces[,] chessboard)
         {
-            
+
             if (enemyMet == true)
                 return false;
 
@@ -700,6 +700,204 @@ namespace ShogiCheckersChess
             return enemy;
         }
 
+        public static void CheckersQueen(int x, int y, Pieces[,] chessboard)
+        {
+            int x_starting_pos = x;
+            int y_starting_pos = y;
+
+            enemyMet = false;
+
+            x--;
+            y--;
+
+            while (ValidMove(x, y, chessboard) && chessboard[x, y] == null)
+            {
+                final_x.Add(x);
+                final_y.Add(y);
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+
+                x--;
+                y--;
+            }
+
+            enemyMet = false;
+
+            x = x_starting_pos;
+            y = y_starting_pos;
+
+            x++;
+            y++;
+
+
+            while (ValidMove(x, y, chessboard) && chessboard[x, y] == null)
+            {
+                final_x.Add(x);
+                final_y.Add(y);
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+
+                x++;
+                y++;
+            }
+
+            x = x_starting_pos;
+            y = y_starting_pos;
+
+            x--;
+            y++;
+
+
+            while (ValidMove(x, y, chessboard) && chessboard[x, y] == null)
+            {
+                final_x.Add(x);
+                final_y.Add(y);
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+
+                x--;
+                y++;
+            }
+
+            x = x_starting_pos;
+            y = y_starting_pos;
+
+            x++;
+            y--;
+
+
+            while (ValidMove(x, y, chessboard) && chessboard[x, y] == null)
+            {
+                final_x.Add(x);
+                final_y.Add(y);
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+
+                x++;
+                y--;
+            }
+        }
+
+        public static bool CheckersQueenTake(int x, int y, Pieces[,] chessboard)
+        {
+            int x_starting_pos = x;
+            int y_starting_pos = y;
+
+            enemyMet = false;
+
+            bool take = false;
+
+            x--;
+            y--;
+
+            while (ValidMove(x, y, chessboard))
+            {
+                x--;
+                y--;
+            }
+
+            enemyMet = false;
+
+            while (ValidMove(x, y, chessboard) && chessboard[x, y] == null)
+            {
+                take = true;
+
+                final_x.Add(x);
+                final_y.Add(y);
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+                x--;
+                y--;
+            }
+
+            x = x_starting_pos;
+            y = y_starting_pos;
+
+            enemyMet = false;
+
+            x++;
+            y--;
+
+            while (ValidMove(x, y, chessboard))
+            {
+                x++;
+                y--;
+            }
+
+            enemyMet = false;
+
+            while (ValidMove(x, y, chessboard) && chessboard[x, y] == null)
+            {
+                take = true;
+
+                final_x.Add(x);
+                final_y.Add(y);
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+                x++;
+                y--;
+            }
+
+            x = x_starting_pos;
+            y = y_starting_pos;
+
+            enemyMet = false;
+
+            x++;
+            y++;
+
+            while (ValidMove(x, y, chessboard))
+            {
+                x++;
+                y++;
+            }
+
+            enemyMet = false;
+
+            while (ValidMove(x, y, chessboard) && chessboard[x, y] == null)
+            {
+                take = true;
+
+                final_x.Add(x);
+                final_y.Add(y);
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+                x++;
+                y++;
+            }
+
+            enemyMet = false;
+
+            x = x_starting_pos;
+            y = y_starting_pos;
+
+            x--;
+            y++;
+
+            while (ValidMove(x, y, chessboard))
+            {
+                x--;
+                y++;
+            }
+
+            enemyMet = false;
+
+            while (ValidMove(x, y, chessboard) && chessboard[x, y] == null)
+            {
+                take = true;
+
+                final_x.Add(x);
+                final_y.Add(y);
+                start_x.Add(x_starting_pos);
+                start_y.Add(y_starting_pos);
+                x--;
+                y++;
+            }
+
+
+            return take;
+        }
+
         public static bool BlackChecker(int x, int y, Pieces[,] chessboard)
         {
 
@@ -1022,7 +1220,7 @@ namespace ShogiCheckersChess
 
             if (x == chessboard.GetLength(0) - 4)
             {
-                if (x < chessboard.GetLength(0) - 1 && y<chessboard.GetLength(1) - 1 && chessboard[x, y + 1] != null && chessboard[x, y + 1].GetNumber() == 5)
+                if (x < chessboard.GetLength(0) - 1 && y < chessboard.GetLength(1) - 1 && chessboard[x, y + 1] != null && chessboard[x, y + 1].GetNumber() == 5)
                 {
                     start_x.Add(x);
                     start_y.Add(y);
@@ -1030,7 +1228,7 @@ namespace ShogiCheckersChess
                     final_y.Add(y + 1);
                 }
 
-                if (x < chessboard.GetLength(0) - 1 && y>0 && chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 5)
+                if (x < chessboard.GetLength(0) - 1 && y > 0 && chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 5)
                 {
                     start_x.Add(x);
                     start_y.Add(y);

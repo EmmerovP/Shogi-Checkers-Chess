@@ -39,7 +39,7 @@
         /// <summary>
         /// y coordinate of taken piece, if none was taken, -1 is the value
         /// </summary>
-        public static int taken_y; 
+        public static int taken_y;
 
         /// <summary>
         /// Which piece was moved
@@ -111,7 +111,7 @@
                 previousPiece = piece.GetNumber();
                 Board.AddPiece(29, x, y, board);
                 pieceChanged = true;
-               
+
             }
 
             if ((piece.GetNumber() == 6) && (x == 0))
@@ -132,7 +132,7 @@
         /// <param name="Board"></param>
         public static void BottomEnpassante(int start_x, int start_y, int final_x, int final_y, Pieces[,] Board)
         {
-           
+
             if (Board[final_x, final_y] != null)
             {
                 return;
@@ -224,7 +224,7 @@
             {
                 return false;
             }
-           
+
             if (start_x == final_x && start_y == final_y + 2)
             {
                 //upper castling
@@ -317,6 +317,15 @@
             takenPiece = null;
             moved = null;
 
+            if (Board[start_x, start_y] == null)
+            {
+
+
+                int a = start_y;
+                Board[start_x, start_y] = null;
+                return;
+            }
+
             //get moving piece
             Pieces piece = Board[start_x, start_y];
 
@@ -367,6 +376,81 @@
                 taken_x = x_position;
                 taken_y = y_position;
 
+                if (piece.isWhite)
+                {
+                    if (Moves.WhiteCheckersTake(final_x, final_y, Board))
+                    {
+
+                        MainGameWindow.isCheckersPieceSupposedToTake = true;
+
+                    }
+                }
+                else
+                {
+                    if (Moves.BlackCheckersTake(final_x, final_y, Board))
+                    {
+
+                        MainGameWindow.isCheckersPieceSupposedToTake = true;
+
+                    }
+                }
+
+
+            }
+
+            if (PiecesNumbers.IsCheckersQueen(piece))
+            {
+                int x_position = start_x;
+                int y_position = start_y;
+
+                int x_value;
+                int y_value;
+
+                if (start_x < final_x)
+                {
+                    x_value = 1;
+                }
+                else
+                {
+                    x_value = -1;
+                }
+
+                if (start_y < final_y)
+                {
+                    y_value = 1;
+                }
+                else
+                {
+                    y_value = -1;
+                }
+
+                while (x_position != final_x && y_position != final_y)
+                {
+                    x_position += x_value;
+                    y_position += y_value;
+
+                    if (Board[x_position, y_position] != null)
+                    {
+                        takenPiece = Board[x_position, y_position];
+                        Board[x_position, y_position] = null;
+
+                        delete_x = x_position;
+                        delete_y = y_position;
+
+                        taken_x = x_position;
+                        taken_y = y_position;
+
+                        if (Moves.CheckersQueenTake(final_x, final_y, Board))
+                        {
+
+                            MainGameWindow.isCheckersPieceSupposedToTake = true;
+
+                        }
+
+                        break;
+
+                    }
+                }
 
             }
 

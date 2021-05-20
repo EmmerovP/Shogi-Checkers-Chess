@@ -41,6 +41,12 @@ namespace ShogiCheckersChess
                     return;
                 }
 
+                else if (PiecesNumbers.IsCheckersQueen(piece))
+                {
+                    Moves.CheckersQueenTake(x, y, Board);
+                    return;
+                }
+
                 //for all other pieces, generate all their moves, then keep only the ones that take other pieces
                 else
                 {

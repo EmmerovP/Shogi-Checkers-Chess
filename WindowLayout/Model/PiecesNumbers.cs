@@ -300,6 +300,16 @@ namespace ShogiCheckersChess
             return false;
         }
 
+        public static bool IsCheckersQueen(Pieces piece)
+        {
+            if (piece.GetNumber() == 7 || piece.GetNumber() == 29)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
 
 
 

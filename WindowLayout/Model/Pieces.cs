@@ -443,10 +443,7 @@ namespace ShogiCheckersChess
 
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
-            Moves.BackRightInfinity(x, y, chessboard);
-            Moves.BackLeftInfinity(x, y, chessboard);
-            Moves.ForwardLeftInfinity(x, y, chessboard);
-            Moves.ForwardRightInfinity(x, y, chessboard);
+            Moves.CheckersQueen(x, y, chessboard);
         }
     }
 

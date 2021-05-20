@@ -436,28 +436,6 @@ namespace ShogiCheckersChess
             {
                 piecesPictures[MoveController.delete_x, MoveController.delete_y].Dispose();
                 piecesPictures[MoveController.delete_x, MoveController.delete_y].Refresh();
-
-                //should we chain moves in checkers?
-                if (piece.isWhite && Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && piece.Name == "Kámen")
-                {
-                    if (Moves.WhiteCheckersTake(final_x, final_y, Board.board))
-                    {
-
-                        isCheckersPieceSupposedToTake = true;
-
-                    }
-                }
-                else
-                {
-                    if (Moves.BlackCheckersTake(final_x, final_y, Board.board))
-                    {
-
-                        isCheckersPieceSupposedToTake = true;
-
-                    }
-                }
-
-
             }
 
             //when we move piece, we delete its highlight

@@ -54,6 +54,16 @@
                             }                         
                         }
 
+                        else if ((Board[i, j] != null) && (Generating.WhitePlays == Board[i, j].isWhite) && PiecesNumbers.IsCheckersQueen(Board[i, j]))
+                        {
+                            if (Moves.CheckersQueenTake(i, j, Board))
+                            {
+                                Moves.EmptyCoordinates();
+                                Moves.CoordinatesReturn(cp);
+                                return true;
+                            }
+                        }
+
                         //in case of other piece
                         else if ((Board[i, j] != null) && (Generating.WhitePlays == Board[i, j].isWhite))
                         {
