@@ -102,9 +102,9 @@ namespace ShogiCheckersChess
             //iterate through generated moves
             for (int k = 0; k < moves.GetCount(); k++)
             {
-
                 //apply given move and remember parameters needed to re-do the move
                 MoveController.ApplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], Board.board);
+
                 int piece = -1;
                 if (MoveController.takenPiece != null)
                 {
@@ -128,7 +128,7 @@ namespace ShogiCheckersChess
 
                 //revert move
                 MoveController.ReapplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], piece, taken_x, taken_y, isCastling, Board.board, previousPiece);
-
+                
 
                 //alpha-beta pruning
                 if (isMaxing)

@@ -141,9 +141,9 @@ namespace ShogiCheckersChess
             {
                 for (int j = 0; j < Board.GetLength(1); j++)
                 {
-                    if ((Board[i, j] != null) && (Board[i, j].isWhite == Generating.WhitePlays))
+                    if ((Board[i, j] != null) && (Board[i, j].isWhite == WhitePlays))
                     {
-                        Generating.Generate(Board[i, j], false, i, j, checkValidMoves, Board);
+                        Generate(Board[i, j], false, i, j, checkValidMoves, Board);
                     }
                 }
             }

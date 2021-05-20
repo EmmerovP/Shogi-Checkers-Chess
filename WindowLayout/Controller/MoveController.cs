@@ -317,15 +317,6 @@
             takenPiece = null;
             moved = null;
 
-            if (Board[start_x, start_y] == null)
-            {
-
-
-                int a = start_y;
-                Board[start_x, start_y] = null;
-                return;
-            }
-
             //get moving piece
             Pieces piece = Board[start_x, start_y];
 
@@ -376,13 +367,17 @@
                 taken_x = x_position;
                 taken_y = y_position;
 
+                var copy = Moves.MakeCopyEmptyCoordinates();
+
+
                 if (piece.isWhite)
                 {
                     if (Moves.WhiteCheckersTake(final_x, final_y, Board))
                     {
 
                         MainGameWindow.isCheckersPieceSupposedToTake = true;
-
+                        Moves.EmptyCoordinates();
+                        Moves.CoordinatesReturn(copy);
                     }
                 }
                 else
@@ -391,13 +386,14 @@
                     {
 
                         MainGameWindow.isCheckersPieceSupposedToTake = true;
-
+                        Moves.EmptyCoordinates();
+                        Moves.CoordinatesReturn(copy);
                     }
                 }
 
 
             }
-
+            
             if (PiecesNumbers.IsCheckersQueen(piece))
             {
                 int x_position = start_x;
@@ -440,11 +436,13 @@
                         taken_x = x_position;
                         taken_y = y_position;
 
+                        var copy = Moves.MakeCopyEmptyCoordinates();
+
                         if (Moves.CheckersQueenTake(final_x, final_y, Board))
                         {
-
                             MainGameWindow.isCheckersPieceSupposedToTake = true;
-
+                            Moves.EmptyCoordinates();
+                            Moves.CoordinatesReturn(copy);
                         }
 
                         break;

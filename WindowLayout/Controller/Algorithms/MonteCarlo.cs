@@ -408,6 +408,7 @@ namespace ShogiCheckersChess
                 if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                 {
                     //zda skončila hra
+                    //TODO
                     if (IsMissing(7, board))
                     {
                         return 1;
