@@ -200,7 +200,34 @@ namespace ShogiCheckersChess
             { 18, Moves.HorseForward },
             { 19, Moves.HorseBackward },
             { 20, Moves.PawnTwoForward },
-            { 21, Moves.PawnTwoBackward }
+            { 21, Moves.PawnTwoBackward },
+            { 22, Moves.CheckersQueen }
+        };
+
+        public static Dictionary<string, int> getMoveName = new Dictionary<string, int>()
+        {
+            { "Dopředu", 1 },
+            { "Dopředu vpravo", 2 },
+            {  "Vpravo", 3 },
+            { "Dozadu vpravo", 4 },
+            { "Dozadu", 5 } /*,
+            { 6, Moves.BackLeft },
+            { 7, Moves.Left },
+            { 8, Moves.ForwardLeft },
+            { 9, Moves.ForwardInfinity },
+            { 10, Moves.ForwardRightInfinity },
+            { 11, Moves.RightInfinity },
+            { 12, Moves.BackRightInfinity },
+            { 13, Moves.BackInfinity },
+            { 14, Moves.BackLeftInfinity },
+            { 15, Moves.LeftInfinity},
+            { 16, Moves.ForwardLeftInfinity },
+            { 17, Moves.Horse },
+            { 18, Moves.HorseForward },
+            { 19, Moves.HorseBackward },
+            { 20, Moves.PawnTwoForward },
+            { 21, Moves.PawnTwoBackward },
+            { 22, Moves.CheckersQueen }*/
         };
 
         /// <summary>

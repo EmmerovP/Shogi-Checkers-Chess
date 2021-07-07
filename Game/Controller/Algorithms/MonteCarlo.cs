@@ -89,7 +89,7 @@ namespace ShogiCheckersChess
         }
 
 
-        const float MAXTIME = 3000.0F;
+        const float MAXTIME = 100.0F;
         const int LOOPS = 700;
 
         public static Node MonteCarloRoot(Node Root)
@@ -407,16 +407,29 @@ namespace ShogiCheckersChess
 
                 if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                 {
-                    //zda skončila hra
-                    //TODO
+
                     if (IsMissing(7, board))
                     {
-                        return 1;
+                        if (whitePlays)
+                        {
+                            return -1;
+                        }
+                        else
+                        {
+                            return 1;
+                        }
                     }
 
                     if (IsMissing(28, board))
                     {
-                        return -1;
+                        if (whitePlays)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return -1;
+                        }
                     }
                 }
 

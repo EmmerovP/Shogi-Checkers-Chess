@@ -175,7 +175,7 @@
                         for (int j = 0; j < Moves.GetCount(); j++)
                         {
                             Pieces isKing = Board[Moves.final_x[j], Moves.final_y[j]];
-                            if ((isKing != null) && (PiecesNumbers.IsKing(piece)) && (Generating.WhitePlays != isKing.isWhite))
+                            if ((isKing != null) && (PiecesNumbers.IsKing(isKing)) && (Generating.WhitePlays != isKing.isWhite))
                             {
                                 Moves.EmptyCoordinates();
                                 Moves.CoordinatesReturn(copyOfCoordinates);

@@ -29,11 +29,18 @@ namespace ShogiCheckersChess
 
             var words = string.Join("|", PiecesNumbers.getNumber.Keys);
 
-            //???
+
             fileWithGame = Regex.Replace(fileWithGame, $@"\b({words})\b", delegate (Match m)
             {
                 return PiecesNumbers.getNumber[m.Value].ToString();
             });
+
+            /*words = string.Join("|", PiecesNumbers.getMoveName.Keys);
+
+            fileWithGame = Regex.Replace(fileWithGame, $@"\b({words})\b", delegate (Match m)
+            {
+                return PiecesNumbers.getMoveName[m.Value].ToString();
+            });*/
 
             try
             {

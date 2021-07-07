@@ -125,8 +125,6 @@ namespace ShogiCheckersChess
 
                 WhitePlays = !WhitePlays;
             }
-
-
         }
 
         /// <summary>
