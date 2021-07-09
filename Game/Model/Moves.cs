@@ -1120,6 +1120,7 @@ namespace ShogiCheckersChess
                 return;
             }
 
+            //we do castling only on chessboard of desired size
             if (!(chessboard.GetLength(0) == 8 && chessboard.GetLength(1) == 8))
             {
                 return;
@@ -1128,7 +1129,7 @@ namespace ShogiCheckersChess
             //for bottom big castling
             if (x == 7 && y == 4
                     && chessboard[7, 0] != null
-                    && chessboard[7, 0].Value == 50
+                    && PiecesNumbers.IsWhiteRook(chessboard[7, 0])
                     && chessboard[7, 0].isWhite == chessboard[x, y].isWhite
                     && chessboard[7, 1] == null
                     && chessboard[7, 2] == null
@@ -1143,7 +1144,7 @@ namespace ShogiCheckersChess
             //for bottom small castling
             if (x == 7 && y == 4
                     && chessboard[7, 7] != null
-                    && chessboard[7, 7].Value == 50
+                    && PiecesNumbers.IsWhiteRook(chessboard[7, 7])
                     && chessboard[7, 7].isWhite == chessboard[x, y].isWhite
                     && chessboard[7, 6] == null
                     && chessboard[7, 5] == null)
@@ -1157,7 +1158,7 @@ namespace ShogiCheckersChess
             //for upper big castling
             if (x == 0 && y == 4
                     && chessboard[0, 0] != null
-                    && chessboard[0, 0].Value == 50
+                    && PiecesNumbers.IsBlackRook(chessboard[0, 0])
                     && chessboard[0, 0].isWhite == chessboard[x, y].isWhite
                     && chessboard[0, 1] == null
                     && chessboard[0, 2] == null
@@ -1172,7 +1173,7 @@ namespace ShogiCheckersChess
             //for upper small castling
             if (x == 0 && y == 4
                     && chessboard[0, 7] != null
-                    && chessboard[0, 7].Value == 50
+                    && PiecesNumbers.IsBlackRook(chessboard[0, 7])
                     && chessboard[0, 7].isWhite == chessboard[x, y].isWhite
                     && chessboard[0, 6] == null
                     && chessboard[0, 5] == null)
@@ -1193,7 +1194,7 @@ namespace ShogiCheckersChess
 
             if (x == 3)
             {
-                if (y < chessboard.GetLength(1) - 1 && x > 0 && chessboard[x, y + 1] != null && chessboard[x, y + 1].GetNumber() == 26)
+                if (y < chessboard.GetLength(1) - 1 && x > 0 && chessboard[x, y + 1] != null && PiecesNumbers.IsUpperPawn(chessboard[x, y + 1]))
                 {
                     start_x.Add(x);
                     start_y.Add(y);
@@ -1201,7 +1202,7 @@ namespace ShogiCheckersChess
                     final_y.Add(y + 1);
                 }
 
-                if (y > 0 && x > 0 && chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 26)
+                if (y > 0 && x > 0 && chessboard[x, y - 1] != null && PiecesNumbers.IsUpperPawn(chessboard[x, y - 1]))
                 {
                     start_x.Add(x);
                     start_y.Add(y);
@@ -1220,7 +1221,7 @@ namespace ShogiCheckersChess
 
             if (x == chessboard.GetLength(0) - 4)
             {
-                if (x < chessboard.GetLength(0) - 1 && y < chessboard.GetLength(1) - 1 && chessboard[x, y + 1] != null && chessboard[x, y + 1].GetNumber() == 5)
+                if (x < chessboard.GetLength(0) - 1 && y < chessboard.GetLength(1) - 1 && chessboard[x, y + 1] != null && PiecesNumbers.IsBottomPawn(chessboard[x, y + 1]))
                 {
                     start_x.Add(x);
                     start_y.Add(y);
@@ -1228,7 +1229,7 @@ namespace ShogiCheckersChess
                     final_y.Add(y + 1);
                 }
 
-                if (x < chessboard.GetLength(0) - 1 && y > 0 && chessboard[x, y - 1] != null && chessboard[x, y - 1].GetNumber() == 5)
+                if (x < chessboard.GetLength(0) - 1 && y > 0 && chessboard[x, y - 1] != null && PiecesNumbers.IsBottomPawn(chessboard[x, y - 1]))
                 {
                     start_x.Add(x);
                     start_y.Add(y);

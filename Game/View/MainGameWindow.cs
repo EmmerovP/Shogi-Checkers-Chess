@@ -120,7 +120,6 @@ namespace ShogiCheckersChess
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
-            WelcomeTextLabel.Visible = false;
         }
 
         /// <summary>
@@ -134,7 +133,6 @@ namespace ShogiCheckersChess
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
-            WelcomeTextLabel.Visible = false;
 
             SelectSingleplayerButton.Visible = true;
             SelectLocMultiButton.Visible = true;

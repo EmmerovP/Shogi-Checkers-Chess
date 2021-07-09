@@ -68,7 +68,7 @@
                         else if ((Board[i, j] != null) && (Generating.WhitePlays == Board[i, j].isWhite))
                         {
                             Board[i, j].GenerateMoves(i, j, Board);
-                            for (int k = 0; k < Moves.start_x.Count; k++)
+                            for (int k = 0; k < Moves.GetCount(); k++)
                             {
                                 if (Board[Moves.final_x[k], Moves.final_y[k]] != null && Board[Moves.final_x[k], Moves.final_y[k]].isWhite != Board[i,j].isWhite)
                                 {
@@ -102,7 +102,7 @@
                             Generating.Generate(Board[i, j], true, i, j, true, Board);
 
                             //when we can make a move, the game has not ended yet
-                            if (Moves.final_x.Count != 0)
+                            if (Moves.GetCount() != 0)
                             {
                                 return false;
                             }
@@ -215,7 +215,7 @@
                             Generating.Generate(Board[i, j], true, i, j, true, Board);
 
                             //there is a way to escape the check
-                            if (Moves.final_x.Count != 0)
+                            if (Moves.GetCount() != 0)
                             {
                                 Generating.WhitePlays = !Generating.WhitePlays;
                                 

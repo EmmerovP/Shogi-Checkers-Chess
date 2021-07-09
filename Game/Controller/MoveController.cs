@@ -74,18 +74,18 @@
             if (!MainGameWindow.isPlayer)
             {
                 //black pawn changes into black queen
-                if ((piece.GetNumber() == 27) && (x == board.GetLength(0) - 1))
+                if (PiecesNumbers.IsUpperPawn(piece) && x == board.GetLength(0) - 1)
                 {
                     previousPiece = piece.GetNumber();
-                    Board.AddPiece(23, x, y, board);
+                    Board.AddPiece(PiecesNumbers.getNumber["Černá královna"], x, y, board);
                     pieceChanged = true;
                 }
 
                 //white pawn changes into white queen
-                if ((piece.GetNumber() == 5) && (x == 0))
+                if (PiecesNumbers.IsBottomPawn(piece) && x == 0)
                 {
                     previousPiece = piece.GetNumber();
-                    Board.AddPiece(1, x, y, board);
+                    Board.AddPiece(PiecesNumbers.getNumber["Bílá královna"], x, y, board);
                     pieceChanged = true;
                 }
 
@@ -106,18 +106,18 @@
             }
 
             //checkers change into queen
-            if ((piece.GetNumber() == 28) && (x == board.GetLength(1) - 1))
+            if (PiecesNumbers.IsBlackCheckersPiece(piece) && (x == board.GetLength(1) - 1))
             {
                 previousPiece = piece.GetNumber();
-                Board.AddPiece(29, x, y, board);
+                Board.AddPiece(PiecesNumbers.getNumber["Černá dáma"], x, y, board);
                 pieceChanged = true;
 
             }
 
-            if ((piece.GetNumber() == 6) && (x == 0))
+            if (PiecesNumbers.IsWhiteCheckersPiece(piece) && (x == 0))
             {
                 previousPiece = piece.GetNumber();
-                Board.AddPiece(07, x, y, board);
+                Board.AddPiece(PiecesNumbers.getNumber["Bílá dáma"], x, y, board);
                 pieceChanged = true;
             }
         }
@@ -322,11 +322,11 @@
 
 
             //en passante check
-            if (piece.GetNumber() == 5)
+            if (PiecesNumbers.IsBottomPawn(piece))
             {
                 BottomEnpassante(start_x, start_y, final_x, final_y, Board);
             }
-            else if (piece.GetNumber() == 26)
+            else if (PiecesNumbers.IsUpperPawn(piece))
             {
                 UpperEnpassante(start_x, start_y, final_x, final_y, Board);
             }

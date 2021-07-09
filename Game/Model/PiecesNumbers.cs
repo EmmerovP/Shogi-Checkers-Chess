@@ -282,6 +282,44 @@ namespace ShogiCheckersChess
             return false;
         }
 
+        public static bool IsWhiteCheckersPiece(Pieces piece)
+        {
+            switch (piece.GetNumber())
+            {
+                case 6: return true;
+            }
+            return false;
+        }
+
+        public static bool IsBlackCheckersPiece(Pieces piece)
+        {
+            switch (piece.GetNumber())
+            {
+                case 28: return true;
+            }
+            return false;
+        }
+
+        public static bool IsBottomPawn(Pieces piece)
+        {
+            if (piece.GetNumber() == 5)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsUpperPawn(Pieces piece)
+        {
+            if (piece.GetNumber() == 27)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Returns true when given piece is checkers piece.
         /// </summary>
@@ -330,6 +368,26 @@ namespace ShogiCheckersChess
         public static bool IsCheckersQueen(Pieces piece)
         {
             if (piece.GetNumber() == 7 || piece.GetNumber() == 29)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsWhiteRook(Pieces piece)
+        {
+            if (piece.GetNumber() == 2)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsBlackRook(Pieces piece)
+        {
+            if (piece.GetNumber() == 24)
             {
                 return true;
             }

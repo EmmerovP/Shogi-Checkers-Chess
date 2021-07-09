@@ -547,7 +547,7 @@ namespace ShogiCheckersChess
                 return false;
             }
 
-            if ((piece.GetNumber() == 26) && (x == Board.board.GetLength(0) - 1))
+            if (PiecesNumbers.IsUpperPawn(piece) && (x == Board.board.GetLength(0) - 1))
             {
 
                 PawnChange popup = new PawnChange();
@@ -555,16 +555,16 @@ namespace ShogiCheckersChess
                 switch (dialogresult)
                 {
                     case DialogResult.OK:
-                        Board.AddPiece(22, x, y, Board.board);
+                        Board.AddPiece(PiecesNumbers.getNumber["Černá královna"], x, y, Board.board);
                         break;
                     case DialogResult.Cancel:
-                        Board.AddPiece(23, x, y, Board.board);
+                        Board.AddPiece(PiecesNumbers.getNumber["Černá věž"], x, y, Board.board);
                         break;
                     case DialogResult.Abort:
-                        Board.AddPiece(25, x, y, Board.board);
+                        Board.AddPiece(PiecesNumbers.getNumber["Černý střelec"], x, y, Board.board);
                         break;
                     case DialogResult.Retry:
-                        Board.AddPiece(24, x, y, Board.board);
+                        Board.AddPiece(PiecesNumbers.getNumber["Černý kůň"], x, y, Board.board);
                         break;
 
                 }
@@ -574,23 +574,23 @@ namespace ShogiCheckersChess
             }
 
 
-            if ((piece.GetNumber() == 5) && (x == 0))
+            if (PiecesNumbers.IsBottomPawn(piece) && (x == 0))
             {
                 PawnChange popup = new PawnChange();
                 DialogResult dialogresult = popup.ShowDialog();
                 switch (dialogresult)
                 {
                     case DialogResult.OK:
-                        Board.AddPiece(1, x, y, Board.board);
+                        Board.AddPiece(PiecesNumbers.getNumber["Bílá královna"], x, y, Board.board);
                         break;
                     case DialogResult.Cancel:
-                        Board.AddPiece(2, x, y, Board.board);
+                        Board.AddPiece(PiecesNumbers.getNumber["Bílá věž"], x, y, Board.board);
                         break;
                     case DialogResult.Abort:
-                        Board.AddPiece(4, x, y, Board.board);
+                        Board.AddPiece(PiecesNumbers.getNumber["Bílý střelec"], x, y, Board.board);
                         break;
                     case DialogResult.Retry:
-                        Board.AddPiece(3, x, y, Board.board);
+                        Board.AddPiece(PiecesNumbers.getNumber["Bílý kůň"], x, y, Board.board);
                         break;
 
                 }

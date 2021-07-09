@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainGameWindow));
             this.SelectChessButton = new System.Windows.Forms.Button();
             this.SelectCheckersButton = new System.Windows.Forms.Button();
-            this.WelcomeTextLabel = new System.Windows.Forms.Label();
             this.SelectShogiButton = new System.Windows.Forms.Button();
             this.SelectCustomGameButton = new System.Windows.Forms.Button();
             this.AboutGameButton = new System.Windows.Forms.Button();
@@ -92,16 +91,6 @@
             this.SelectCheckersButton.UseVisualStyleBackColor = true;
             this.SelectCheckersButton.Click += new System.EventHandler(this.SelectCheckersButton_Click);
             // 
-            // WelcomeTextLabel
-            // 
-            this.WelcomeTextLabel.Location = new System.Drawing.Point(233, 44);
-            this.WelcomeTextLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.WelcomeTextLabel.Name = "WelcomeTextLabel";
-            this.WelcomeTextLabel.Size = new System.Drawing.Size(238, 78);
-            this.WelcomeTextLabel.TabIndex = 2;
-            this.WelcomeTextLabel.Text = resources.GetString("WelcomeTextLabel.Text");
-            this.WelcomeTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // SelectShogiButton
             // 
             this.SelectShogiButton.Location = new System.Drawing.Point(425, 153);
@@ -115,7 +104,7 @@
             // 
             // SelectCustomGameButton
             // 
-            this.SelectCustomGameButton.Location = new System.Drawing.Point(249, 276);
+            this.SelectCustomGameButton.Location = new System.Drawing.Point(259, 40);
             this.SelectCustomGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCustomGameButton.Name = "SelectCustomGameButton";
             this.SelectCustomGameButton.Size = new System.Drawing.Size(79, 49);
@@ -126,18 +115,18 @@
             // 
             // AboutGameButton
             // 
-            this.AboutGameButton.Location = new System.Drawing.Point(306, 406);
+            this.AboutGameButton.Location = new System.Drawing.Point(307, 489);
             this.AboutGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.AboutGameButton.Name = "AboutGameButton";
             this.AboutGameButton.Size = new System.Drawing.Size(79, 43);
             this.AboutGameButton.TabIndex = 5;
-            this.AboutGameButton.Text = "O hře";
+            this.AboutGameButton.Text = "O programu";
             this.AboutGameButton.UseVisualStyleBackColor = true;
             this.AboutGameButton.Click += new System.EventHandler(this.AboutGameButton_Click);
             // 
             // SelectSingleplayerButton
             // 
-            this.SelectSingleplayerButton.Location = new System.Drawing.Point(249, 340);
+            this.SelectSingleplayerButton.Location = new System.Drawing.Point(250, 347);
             this.SelectSingleplayerButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectSingleplayerButton.Name = "SelectSingleplayerButton";
             this.SelectSingleplayerButton.Size = new System.Drawing.Size(76, 46);
@@ -149,7 +138,7 @@
             // 
             // SelectLocMultiButton
             // 
-            this.SelectLocMultiButton.Location = new System.Drawing.Point(364, 340);
+            this.SelectLocMultiButton.Location = new System.Drawing.Point(365, 347);
             this.SelectLocMultiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectLocMultiButton.Name = "SelectLocMultiButton";
             this.SelectLocMultiButton.Size = new System.Drawing.Size(80, 46);
@@ -389,9 +378,9 @@
             this.CustomGameTypeLabel.AutoSize = true;
             this.CustomGameTypeLabel.Location = new System.Drawing.Point(306, 122);
             this.CustomGameTypeLabel.Name = "CustomGameTypeLabel";
-            this.CustomGameTypeLabel.Size = new System.Drawing.Size(80, 13);
+            this.CustomGameTypeLabel.Size = new System.Drawing.Size(93, 13);
             this.CustomGameTypeLabel.TabIndex = 28;
-            this.CustomGameTypeLabel.Text = "Vyberte typ hry.";
+            this.CustomGameTypeLabel.Text = "Již připravené hry:";
             this.CustomGameTypeLabel.Visible = false;
             // 
             // CustomGameChooseCombobox
@@ -468,7 +457,7 @@
             // 
             // LoadGameButton
             // 
-            this.LoadGameButton.Location = new System.Drawing.Point(355, 276);
+            this.LoadGameButton.Location = new System.Drawing.Point(365, 40);
             this.LoadGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.LoadGameButton.Name = "LoadGameButton";
             this.LoadGameButton.Size = new System.Drawing.Size(79, 49);
@@ -479,7 +468,7 @@
             // 
             // MinimaxButton
             // 
-            this.MinimaxButton.Location = new System.Drawing.Point(252, 217);
+            this.MinimaxButton.Location = new System.Drawing.Point(259, 280);
             this.MinimaxButton.Margin = new System.Windows.Forms.Padding(2);
             this.MinimaxButton.Name = "MinimaxButton";
             this.MinimaxButton.Size = new System.Drawing.Size(76, 44);
@@ -491,7 +480,7 @@
             // 
             // MonteCarloButton
             // 
-            this.MonteCarloButton.Location = new System.Drawing.Point(358, 217);
+            this.MonteCarloButton.Location = new System.Drawing.Point(365, 280);
             this.MonteCarloButton.Margin = new System.Windows.Forms.Padding(2);
             this.MonteCarloButton.Name = "MonteCarloButton";
             this.MonteCarloButton.Size = new System.Drawing.Size(76, 44);
@@ -559,7 +548,6 @@
             this.Controls.Add(this.AboutGameButton);
             this.Controls.Add(this.SelectCustomGameButton);
             this.Controls.Add(this.SelectShogiButton);
-            this.Controls.Add(this.WelcomeTextLabel);
             this.Controls.Add(this.SelectCheckersButton);
             this.Controls.Add(this.SelectChessButton);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -574,7 +562,6 @@
 
         private System.Windows.Forms.Button SelectChessButton;
         private System.Windows.Forms.Button SelectCheckersButton;
-        private System.Windows.Forms.Label WelcomeTextLabel;
         private System.Windows.Forms.Button SelectShogiButton;
         private System.Windows.Forms.Button SelectCustomGameButton;
         private System.Windows.Forms.Button AboutGameButton;
