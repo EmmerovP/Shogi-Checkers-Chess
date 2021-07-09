@@ -61,6 +61,8 @@ namespace ShogiCheckersChess
         private void SelectChessButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
+            Gameclass.CurrentGame.blackGameType = Gameclass.GameType.shogi;
+            Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.chess;
             if (!isCustom)
             {
                 baseBoard = GameStart.chess;
@@ -76,6 +78,8 @@ namespace ShogiCheckersChess
         private void SelectCheckersButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
+            Gameclass.CurrentGame.blackGameType = Gameclass.GameType.checkers;
+            Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.checkers;
             if (!isCustom)
             {
                 baseBoard = GameStart.checkers;
@@ -91,6 +95,8 @@ namespace ShogiCheckersChess
         private void SelectShogiButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
+            Gameclass.CurrentGame.blackGameType = Gameclass.GameType.shogi;
+            Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.shogi;
             if (!isCustom)
             {
                 baseBoard = GameStart.shogi;
@@ -127,6 +133,7 @@ namespace ShogiCheckersChess
         /// </summary>
         public void ChooseTypeOfGame()
         {
+            NewGameInstanceButton.Visible = true;
             SelectChessButton.Visible = false;
             SelectCheckersButton.Visible = false;
             SelectShogiButton.Visible = false;

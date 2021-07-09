@@ -10,6 +10,16 @@
             public static GameType gameType;
 
             /// <summary>
+            /// Type of current game - chess, checkers or shogi.
+            /// </summary>
+            public static GameType whiteGameType;
+
+            /// <summary>
+            /// Type of current game - chess, checkers or shogi.
+            /// </summary>
+            public static GameType blackGameType;
+
+            /// <summary>
             /// Type of player - singleplayer or multiplayer.
             /// </summary>
             public static PlayerType playerType;
@@ -239,32 +249,18 @@
             /// <returns></returns>
             public static bool KingOut(Pieces[,] Board)
             {
-                bool isBottomShogiKing = false;
-                bool isUpperShogiKing = false;
-
                 for (int i = 0; i < Board.GetLength(0); i++)
                 {
                     for (int j = 0; j < Board.GetLength(1); j++)
                     {
-                        if (Board[i, j] != null && PiecesNumbers.IsBottomShogiKing(Board[i,j]))
+                        if (Board[i, j] != null && PiecesNumbers.IsShogiKing(Board[i,j]) && Board[i,j].isWhite == Generating.WhitePlays)
                         {
-                            isBottomShogiKing = true;
-                        }
-                        if (Board[i, j] != null && PiecesNumbers.IsUpperShogiKing(Board[i, j]))
-                        {
-                            isUpperShogiKing = true;
+                            return false;
                         }
                     }
                 }
 
-                if ((!isBottomShogiKing)||(!isUpperShogiKing))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
 
 

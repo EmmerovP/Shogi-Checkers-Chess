@@ -110,12 +110,13 @@ namespace ShogiCheckersChess
                 //move a piece
                 PieceMovement(piecePosition_x, piecePosition_y, selected_x, selected_y, selectedPictureOfPiece);
 
-
+                
                 //check the end of the game
-                if (EndGame())
+                if (EndGame(Generating.WhitePlays))
                 {
                     return;
                 }
+                
 
 
                 //for chaining taking of pieces in shogi
@@ -321,7 +322,7 @@ namespace ShogiCheckersChess
             PieceMovement(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], piecesPictures[Moves.start_x[move], Moves.start_y[move]]);
 
             //check whether the game has ended
-            EndGame();
+            EndGame(Generating.WhitePlays);
 
             isPlayer = true;
 
@@ -348,7 +349,9 @@ namespace ShogiCheckersChess
             Pieces piece = Board.board[start_x, start_y];
 
             //when we take a piece in shogi, we remember it so we can put it back on board again later
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[final_x, final_y] != null)
+            if (((Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.shogi && Generating.WhitePlays) ||
+                (Gameclass.CurrentGame.blackGameType == Gameclass.GameType.shogi && !Generating.WhitePlays)) &&
+                Board.board[final_x, final_y] != null)
             {
                 if (!isPlayer)
                 {
@@ -466,8 +469,36 @@ namespace ShogiCheckersChess
         /// Check whether the game has ended. Returns true if it did.
         /// </summary>
         /// <returns></returns>
-        public bool EndGame()
+        public bool EndGame(bool WhitePlays)
         {
+            //the game has ended
+            if (Gameclass.CurrentGame.GameEnded)
+            {
+                return true;
+            }
+
+            Gameclass.GameType gameType;
+
+            if (WhitePlays)
+            {
+                gameType = Gameclass.CurrentGame.whiteGameType;
+            }
+            else
+            {
+                gameType = Gameclass.CurrentGame.blackGameType;
+            }
+
+            Gameclass.GameType opponentGameType;
+
+            if (WhitePlays)
+            {
+                opponentGameType = Gameclass.CurrentGame.blackGameType;
+            }
+            else
+            {
+                opponentGameType = Gameclass.CurrentGame.whiteGameType;
+            }
+
             //set isPlayer as true, remember current state
             bool player = isPlayer;
             isPlayer = true;
@@ -476,7 +507,7 @@ namespace ShogiCheckersChess
             GameStateLabel.Visible = false;
 
             //checkers end when we can't make any move
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers)
+            if (gameType == Gameclass.GameType.checkers)
             {
                 if (Gameclass.CurrentGame.CheckersEnd(Board.board))
                 {
@@ -486,7 +517,7 @@ namespace ShogiCheckersChess
             }
 
             //shogi ends when the opponent takes king's piece
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+            if (gameType == Gameclass.GameType.shogi)
             {
                 if (Gameclass.CurrentGame.KingOut(Board.board))
                 {
@@ -499,7 +530,7 @@ namespace ShogiCheckersChess
             //for this, we need to switch sides
             Generating.WhitePlays = !Generating.WhitePlays;
 
-            if ((Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck(Board.board)))
+            if ((gameType == Gameclass.GameType.chess) && (Gameclass.CurrentGame.KingCheck(Board.board)))
             {
                 GameStateLabel.Text = "Šach!";
                 GameStateLabel.Visible = true;

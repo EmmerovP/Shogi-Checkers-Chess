@@ -336,28 +336,13 @@ namespace ShogiCheckersChess
         }
 
         /// <summary>
-        /// Returns true when given piece is upper shogi king.
+        /// Returns true when given piece is shogi king.
         /// </summary>
         /// <param name="piece"></param>
         /// <returns></returns>
-        public static bool IsUpperShogiKing(Pieces piece)
+        public static bool IsShogiKing(Pieces piece)
         {
-            if (piece.GetNumber() == 30)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Returns true when given piece is bottom shogi king.
-        /// </summary>
-        /// <param name="piece"></param>
-        /// <returns></returns>
-        public static bool IsBottomShogiKing(Pieces piece)
-        {
-            if (piece.GetNumber() == 8)
+            if (piece.GetNumber() == 30 || piece.GetNumber() == 8)
             {
                 return true;
             }

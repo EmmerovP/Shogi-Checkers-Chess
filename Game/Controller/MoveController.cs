@@ -484,6 +484,19 @@
                 IsCastling(start_x, start_y, final_x, final_y, Board);
             }
 
+            //in case there are different types of play on the board, switch them 
+            if (Gameclass.CurrentGame.whiteGameType != Gameclass.CurrentGame.blackGameType)
+            {
+                if (Gameclass.CurrentGame.gameType == Gameclass.CurrentGame.blackGameType)
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.whiteGameType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.blackGameType;
+                }
+            }
+
 
             return;
         }
@@ -575,6 +588,19 @@
             if (PiecesNumbers.IsKing(board[start_x, start_y]))
             {
                 board[start_x, start_y].Moved = false;
+            }
+
+            //in case there are different types of play on the board, switch them 
+            if (Gameclass.CurrentGame.whiteGameType != Gameclass.CurrentGame.blackGameType)
+            {
+                if (Gameclass.CurrentGame.gameType == Gameclass.CurrentGame.blackGameType)
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.whiteGameType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.blackGameType;
+                }
             }
 
         }

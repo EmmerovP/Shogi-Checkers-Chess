@@ -103,7 +103,6 @@ namespace ShogiCheckersChess
             CustomGameSizeYLabel.Visible = false;
             CustomGameSizeYTextbox.Visible = false;
             CustomGameSizeErrorLabel.Visible = false;
-            CustomGameTypeLabel.Visible = true;
 
             SelectCheckersButton.Visible = true;
             SelectChessButton.Visible = true;
@@ -115,7 +114,6 @@ namespace ShogiCheckersChess
         /// </summary>
         private void DrawCustomChessboard()
         {           
-            CustomGameTypeLabel.Visible = false;
             SelectCustomGameButton.Visible = false;
 
             DrawChessboard();
