@@ -497,6 +497,18 @@
                 }
             }
 
+            if (Gameclass.CurrentGame.whitePlayType != Gameclass.CurrentGame.blackPlayType)
+            {
+                if (Gameclass.CurrentGame.playType == Gameclass.CurrentGame.blackPlayType)
+                {
+                    Gameclass.CurrentGame.playType = Gameclass.CurrentGame.whitePlayType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.playType = Gameclass.CurrentGame.blackPlayType;
+                }
+            }
+
 
             return;
         }
@@ -600,6 +612,18 @@
                 else
                 {
                     Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.blackGameType;
+                }
+            }
+
+            if (Gameclass.CurrentGame.whitePlayType != Gameclass.CurrentGame.blackPlayType)
+            {
+                if (Gameclass.CurrentGame.playType == Gameclass.CurrentGame.blackPlayType)
+                {
+                    Gameclass.CurrentGame.playType = Gameclass.CurrentGame.whitePlayType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.playType = Gameclass.CurrentGame.blackPlayType;
                 }
             }
 

@@ -24,7 +24,7 @@ namespace ShogiCheckersChess
         public static void GenerateMoves(Pieces piece, bool delete, int x, int y, Pieces[,] Board)
         {
             //takes care of special movement of checker pieces
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers && (Gameclass.CurrentGame.MustTakeCheckersPiece(Board)))
+            if (Gameclass.CurrentGame.playType == Gameclass.GameType.checkers && (Gameclass.CurrentGame.MustTakeCheckersPiece(Board)))
             {
                 //for checkers piece, generate special moves for taking pieces
                 if (PiecesNumbers.IsCheckersPiece(piece))

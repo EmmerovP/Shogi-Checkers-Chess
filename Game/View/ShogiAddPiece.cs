@@ -121,6 +121,18 @@ namespace ShogiCheckersChess
                 }
             }
 
+            if (Gameclass.CurrentGame.whitePlayType != Gameclass.CurrentGame.blackPlayType)
+            {
+                if (Gameclass.CurrentGame.playType == Gameclass.CurrentGame.blackPlayType)
+                {
+                    Gameclass.CurrentGame.playType = Gameclass.CurrentGame.whitePlayType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.playType = Gameclass.CurrentGame.blackPlayType;
+                }
+            }
+
             //if the game is singleplayer, enemy should play
             if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
             {
@@ -185,6 +197,18 @@ namespace ShogiCheckersChess
                 else
                 {
                     Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.blackGameType;
+                }
+            }
+
+            if (Gameclass.CurrentGame.whitePlayType != Gameclass.CurrentGame.blackPlayType)
+            {
+                if (Gameclass.CurrentGame.playType == Gameclass.CurrentGame.blackPlayType)
+                {
+                    Gameclass.CurrentGame.playType = Gameclass.CurrentGame.whitePlayType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.playType = Gameclass.CurrentGame.blackPlayType;
                 }
             }
 

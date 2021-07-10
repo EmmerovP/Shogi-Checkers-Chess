@@ -366,8 +366,8 @@ namespace ShogiCheckersChess
             Pieces piece = Board.board[start_x, start_y];
 
             //when we take a piece in shogi, we remember it so we can put it back on board again later
-            if (((Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.shogi && Generating.WhitePlays) ||
-                (Gameclass.CurrentGame.blackGameType == Gameclass.GameType.shogi && !Generating.WhitePlays)) &&
+            if (((Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi && Generating.WhitePlays) ||
+                (Gameclass.CurrentGame.blackPlayType == Gameclass.GameType.shogi && !Generating.WhitePlays)) &&
                 Board.board[final_x, final_y] != null)
             {
                 if (!isPlayer)

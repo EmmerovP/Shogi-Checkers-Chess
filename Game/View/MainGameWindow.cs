@@ -61,8 +61,13 @@ namespace ShogiCheckersChess
         private void SelectChessButton_Click(object sender, EventArgs e)
         {
             Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
-            Gameclass.CurrentGame.blackGameType = Gameclass.GameType.shogi;
+            Gameclass.CurrentGame.blackGameType = Gameclass.GameType.checkers;
             Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.chess;
+
+            Gameclass.CurrentGame.playType = Gameclass.GameType.chess;
+            Gameclass.CurrentGame.blackPlayType = Gameclass.GameType.checkers;
+            Gameclass.CurrentGame.whitePlayType = Gameclass.GameType.chess;
+
             if (!isCustom)
             {
                 baseBoard = GameStart.chess;

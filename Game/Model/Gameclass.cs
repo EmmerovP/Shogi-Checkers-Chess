@@ -21,6 +21,26 @@ namespace ShogiCheckersChess
             /// </summary>
             public static GameType blackGameType;
 
+
+
+            /// <summary>
+            /// Type of current game - chess, checkers or shogi.
+            /// </summary>
+            public static GameType playType;
+
+            /// <summary>
+            /// Type of current game - chess, checkers or shogi.
+            /// </summary>
+            public static GameType whitePlayType;
+
+            /// <summary>
+            /// Type of current game - chess, checkers or shogi.
+            /// </summary>
+            public static GameType blackPlayType;
+
+
+
+
             /// <summary>
             /// Type of player - singleplayer or multiplayer.
             /// </summary>
@@ -275,8 +295,7 @@ namespace ShogiCheckersChess
         {
             chess,
             checkers,
-            shogi,
-            other
+            shogi
         }
 
         /// <summary>
