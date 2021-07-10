@@ -108,6 +108,19 @@ namespace ShogiCheckersChess
             ChooseShogiBoxBottom.Items.Remove(ChooseShogiBoxBottom.SelectedItem);
             Generating.WhitePlays = !Generating.WhitePlays;
 
+            //in case there are different types of play on the board, switch them 
+            if (Gameclass.CurrentGame.whiteGameType != Gameclass.CurrentGame.blackGameType)
+            {
+                if (Gameclass.CurrentGame.gameType == Gameclass.CurrentGame.blackGameType)
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.whiteGameType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.blackGameType;
+                }
+            }
+
             //if the game is singleplayer, enemy should play
             if (Gameclass.CurrentGame.playerType == Gameclass.PlayerType.single)
             {
@@ -161,6 +174,19 @@ namespace ShogiCheckersChess
             AddPieceToBoard(selected_x, selected_y, pieceBeingAddedToBoard);
 
             Generating.WhitePlays = !Generating.WhitePlays;
+
+            //in case there are different types of play on the board, switch them 
+            if (Gameclass.CurrentGame.whiteGameType != Gameclass.CurrentGame.blackGameType)
+            {
+                if (Gameclass.CurrentGame.gameType == Gameclass.CurrentGame.blackGameType)
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.whiteGameType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.blackGameType;
+                }
+            }
 
             if (!isPlayer)
             {

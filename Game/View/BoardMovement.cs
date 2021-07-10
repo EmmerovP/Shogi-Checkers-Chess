@@ -77,6 +77,7 @@ namespace ShogiCheckersChess
             if (AddUpperShogiPiece)
             {
                 AddUpperShogi(selected_x, selected_y);
+
                 return;
             }
 
@@ -288,6 +289,7 @@ namespace ShogiCheckersChess
 
             //remember who plays in case the algorithm changes it in its proccess
             bool whoPlays = Generating.WhitePlays;
+            Gameclass.GameType currentType = Gameclass.CurrentGame.gameType;
 
             if (Gameclass.CurrentGame.algorithmType == Gameclass.AlgorithmType.minimax)
             {
@@ -298,6 +300,7 @@ namespace ShogiCheckersChess
                 move = MonteCarlo.GetNextMove(false);
             }
 
+            Gameclass.CurrentGame.gameType = currentType;
             Generating.WhitePlays = whoPlays;
 
             //instead of move, we are adding a piece on the board
@@ -306,6 +309,20 @@ namespace ShogiCheckersChess
                 AddPieceToBoard(Moves.final_x[move], Moves.final_y[move], Moves.start_x[move]);
                 Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;
                 Generating.WhitePlays = !Generating.WhitePlays;
+
+                //in case there are different types of play on the board, switch them 
+                if (Gameclass.CurrentGame.whiteGameType != Gameclass.CurrentGame.blackGameType)
+                {
+                    if (Gameclass.CurrentGame.gameType == Gameclass.CurrentGame.blackGameType)
+                    {
+                        Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.whiteGameType;
+                    }
+                    else
+                    {
+                        Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.blackGameType;
+                    }
+                }
+
                 return;
 
             }

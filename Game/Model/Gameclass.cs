@@ -1,4 +1,6 @@
-﻿namespace ShogiCheckersChess
+﻿using System.Collections.Generic;
+
+namespace ShogiCheckersChess
 {
     public class Gameclass
     {
@@ -267,13 +269,14 @@
         }
 
         /// <summary>
-        /// Marks the type of the game, which signalizes how the game ends. Chess, checkers of shogi.
+        /// Marks the type of the game, which signalizes how the game ends. Chess, checkers, shogi or other.
         /// </summary>
         public enum GameType
         {
             chess,
             checkers,
-            shogi
+            shogi,
+            other
         }
 
         /// <summary>
