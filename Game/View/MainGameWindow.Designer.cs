@@ -516,6 +516,7 @@
             this.SelectBlackHordeChessButton.TabIndex = 43;
             this.SelectBlackHordeChessButton.Text = "Horde šachy (černá horda)";
             this.SelectBlackHordeChessButton.UseVisualStyleBackColor = true;
+            this.SelectBlackHordeChessButton.Click += new System.EventHandler(this.SelectBlackHordeChessButton_Click);
             // 
             // SelectWhiteHordeChessButton
             // 
@@ -538,6 +539,7 @@
             this.SelectChess960Button.TabIndex = 41;
             this.SelectChess960Button.Text = "Chess960";
             this.SelectChess960Button.UseVisualStyleBackColor = true;
+            this.SelectChess960Button.Click += new System.EventHandler(this.SelectChess960Button_Click);
             // 
             // SelectAlmostChessButton
             // 
@@ -548,6 +550,7 @@
             this.SelectAlmostChessButton.TabIndex = 46;
             this.SelectAlmostChessButton.Text = "Skorošachy";
             this.SelectAlmostChessButton.UseVisualStyleBackColor = true;
+            this.SelectAlmostChessButton.Click += new System.EventHandler(this.SelectAlmostChessButton_Click);
             // 
             // SelectCrazyhouseButton
             // 
@@ -559,6 +562,7 @@
             this.SelectCrazyhouseButton.TabIndex = 45;
             this.SelectCrazyhouseButton.Text = "Crazyhouse";
             this.SelectCrazyhouseButton.UseVisualStyleBackColor = true;
+            this.SelectCrazyhouseButton.Click += new System.EventHandler(this.SelectCrazyhouseButton_Click);
             // 
             // SelectInternationalCheckersButton
             // 

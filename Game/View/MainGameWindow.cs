@@ -17,6 +17,10 @@ namespace ShogiCheckersChess
 
         const string WHITEHORDE = "Boards\\whitehorde.json";
 
+        const string BLACKHORDE = "Boards\\blackhorde.json";
+
+        const string CRAZYHOUSE = "Boards\\crazyhouse.json";
+
 
         /// <summary>
         /// Current gameboard represented by integer numbers. Used only for loading game, actual game is played on board.
@@ -80,6 +84,26 @@ namespace ShogiCheckersChess
             ChooseTypeOfGame();
         }
 
+
+        private void SelectBlackHordeChessButton_Click(object sender, EventArgs e)
+        {
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, BLACKHORDE));
+            ChooseTypeOfGame();
+        }
+
+        private void SelectCrazyhouseButton_Click(object sender, EventArgs e)
+        {
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, CRAZYHOUSE));
+            ChooseTypeOfGame();
+        }
+
+        //TODO zrandomizuj
+        private void SelectChess960Button_Click(object sender, EventArgs e)
+        {
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, CHESS));
+            ChooseTypeOfGame();
+        }
+
         /// <summary>
         /// Method for selecting checkers as a type of game.
         /// </summary>
@@ -101,6 +125,8 @@ namespace ShogiCheckersChess
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, SHOGI));
             ChooseTypeOfGame();
         }
+
+
 
         /// <summary>
         /// Method for selecting custom game, in which user selects parameters themselves.
@@ -411,6 +437,9 @@ namespace ShogiCheckersChess
             Environment.Exit(0);
         }
 
+        private void SelectAlmostChessButton_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
