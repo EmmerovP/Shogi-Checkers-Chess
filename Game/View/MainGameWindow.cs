@@ -15,6 +15,8 @@ namespace ShogiCheckersChess
 
         const string CHECKERS = "Boards\\checkers.json";
 
+        const string WHITEHORDE = "Boards\\whitehorde.json";
+
 
         /// <summary>
         /// Current gameboard represented by integer numbers. Used only for loading game, actual game is played on board.
@@ -72,6 +74,12 @@ namespace ShogiCheckersChess
             ChooseTypeOfGame();
         }
 
+        private void SelectWhiteHordeChessButton_Click(object sender, EventArgs e)
+        {
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, WHITEHORDE));
+            ChooseTypeOfGame();
+        }
+
         /// <summary>
         /// Method for selecting checkers as a type of game.
         /// </summary>
@@ -123,14 +131,22 @@ namespace ShogiCheckersChess
         /// </summary>
         public void ChooseTypeOfGame()
         {
-            NewGameInstanceButton.Visible = true;
             SelectChessButton.Visible = false;
             SelectCheckersButton.Visible = false;
             SelectShogiButton.Visible = false;
+            SelectAlmostChessButton.Visible = false;
+            SelectChess960Button.Visible = false;
+            SelectCrazyhouseButton.Visible = false;
+            SelectWhiteHordeChessButton.Visible = false;
+            SelectBlackHordeChessButton.Visible = false;
+            SelectInternationalCheckersButton.Visible = false;
+            SelectMinishogiButton.Visible = false;
+            
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
 
+            NewGameInstanceButton.Visible = true;
             SelectSingleplayerButton.Visible = true;
             SelectLocMultiButton.Visible = true;
         }
@@ -394,5 +410,7 @@ namespace ShogiCheckersChess
             Application.Restart();
             Environment.Exit(0);
         }
+
+
     }
 }
