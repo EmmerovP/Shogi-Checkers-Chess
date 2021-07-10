@@ -171,19 +171,19 @@ namespace ShogiCheckersChess
                         {
                             isBlack = true;
                         }
-                        if (Board.board[i, j].GetNumber() == 0)
+                        if (PiecesNumbers.IsWhiteKing(Board.board[i, j]))
                         {
                             isWhiteKing = true;
                         }
-                        if (Board.board[i, j].GetNumber() == 21)
+                        if (PiecesNumbers.IsBlackKing(Board.board[i, j]))
                         {
                             isBlackKing = true;
                         }
-                        if (Board.board[i, j].GetNumber() == 7)
+                        if (PiecesNumbers.IsBottomShogiKing(Board.board[i, j]))
                         {
                             bottomShogiKing = true;
                         }
-                        if (Board.board[i, j].GetNumber() == 28)
+                        if (PiecesNumbers.IsUpperShogiKing(Board.board[i, j]))
                         {
                             upperShogiKing = true;
                         }
@@ -246,12 +246,13 @@ namespace ShogiCheckersChess
 
             AddPieceToBoard(x, y, pieceNumber);
 
+            /* //TODO
             //game doesn't allow to have multiple kings in it - we can have multiple shogi kings in chess game and multiple chess kings in shogi game though
-            if (pieceNumber == 0)
+            if (PiecesNumbers.getNumber["Bílý král"] == pieceNumber)
             {
                 CustomGameChooseCombobox.Items.Remove("Bílý král");
             }
-            if (pieceNumber == 7)
+            if (PiecesNumbers.getNumber["Černý král"] == pieceNumber)
             {
                 CustomGameChooseCombobox.Items.Remove("Spodní shogi král");
             }
@@ -263,6 +264,7 @@ namespace ShogiCheckersChess
             {
                 CustomGameChooseCombobox.Items.Remove("Vrchní shogi král");
             }
+            */ //pro double chess-potřebuju ozkoušet jestli funguje, jinak to tady nechám 
         }
 
         /// <summary>

@@ -336,6 +336,35 @@ namespace ShogiCheckersChess
         }
 
         /// <summary>
+        /// Returns true when given piece is checkers piece.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static bool IsWhiteKing(Pieces piece)
+        {
+            if (piece.GetNumber() == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Returns true when given piece is checkers piece.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static bool IsBlackKing(Pieces piece)
+        {
+            if (piece.GetNumber() == 22)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Returns true when given piece is shogi king.
         /// </summary>
         /// <param name="piece"></param>
@@ -343,6 +372,36 @@ namespace ShogiCheckersChess
         public static bool IsShogiKing(Pieces piece)
         {
             if (piece.GetNumber() == 30 || piece.GetNumber() == 8)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true when given piece is shogi king.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static bool IsUpperShogiKing(Pieces piece)
+        {
+            if (piece.GetNumber() == 30)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true when given piece is shogi king.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static bool IsBottomShogiKing(Pieces piece)
+        {
+            if (piece.GetNumber() == 8)
             {
                 return true;
             }
