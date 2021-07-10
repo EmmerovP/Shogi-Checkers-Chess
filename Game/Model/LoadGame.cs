@@ -14,6 +14,7 @@ namespace ShogiCheckersChess
         public string side;
         public string file;
         public int[] moves;
+        public int weight;
     }
 
 
@@ -123,10 +124,14 @@ namespace ShogiCheckersChess
                         newPiece.isWhite = true;
                     }
 
-                    newPiece.Value = GetPieceValue(newPiece);
-
-
-
+                    if (customGame.Pieces[i].weight != 0)
+                    {
+                        newPiece.Value = customGame.Pieces[i].weight;
+                    }
+                    else
+                    {
+                        newPiece.Value = GetPieceValue(newPiece);
+                    }
 
                     Pieces.DefinedPieces.Add(newPiece);
 
@@ -236,47 +241,56 @@ namespace ShogiCheckersChess
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
             DialogResult result = LoadCustomGameDialog.ShowDialog();
-            LoadGame loadGame = new LoadGame();
 
             if (result == DialogResult.OK)
             {
-                CustomGame customgame;
-
-                try
+                if (LoadGame(LoadCustomGameDialog.FileName))
                 {
-                    customgame = loadGame.GetGame(LoadCustomGameDialog.FileName);
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Zadaný soubor není validní: " + exception.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (customgame == null)
-                {
-                    return;
+                    ChooseTypeOfGame();
                 }
                 
-                if (customgame.Pieces != null)
-                {
-                    for (int i = 0; i < customgame.Pieces.Count; i++)
-                    {
-                        try
-                        {
-                            string image = customgame.Pieces[i].file.Replace("\\\\", "\\");
-                            GamePieces.Images.Add(Image.FromFile(image));
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Nelze načíst obrázek figurky.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-                }
-                
-                ChooseTypeOfGame();
             }
 
+        }
+
+        public bool LoadGame(string FileName)
+        {
+            LoadGame loadGame = new LoadGame();
+            CustomGame customgame;
+
+            try
+            {
+                customgame = loadGame.GetGame(FileName);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Zadaný soubor není validní: " + exception.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (customgame == null)
+            {
+                return false;
+            }
+
+            if (customgame.Pieces != null)
+            {
+                for (int i = 0; i < customgame.Pieces.Count; i++)
+                {
+                    try
+                    {
+                        string image = customgame.Pieces[i].file.Replace("\\\\", "\\");
+                        GamePieces.Images.Add(Image.FromFile(image));
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Nelze načíst obrázek figurky.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
 

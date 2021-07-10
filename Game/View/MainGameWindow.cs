@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ShogiCheckersChess
 {
     public partial class MainGameWindow : Form
     {
+        const string CHESS = "Boards\\chess.json";
+
+        const string SHOGI = "Boards\\shogi.json";
+
+        const string CHECKERS = "Boards\\checkers.json";
+
+
         /// <summary>
         /// Current gameboard represented by integer numbers. Used only for loading game, actual game is played on board.
         /// </summary>
@@ -60,18 +68,7 @@ namespace ShogiCheckersChess
         /// <param name="e"></param>
         private void SelectChessButton_Click(object sender, EventArgs e)
         {
-            Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
-            Gameclass.CurrentGame.blackGameType = Gameclass.GameType.shogi;
-            Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.chess;
-
-            Gameclass.CurrentGame.playType = Gameclass.GameType.chess;
-            Gameclass.CurrentGame.blackPlayType = Gameclass.GameType.checkers;
-            Gameclass.CurrentGame.whitePlayType = Gameclass.GameType.chess;
-
-            if (!isCustom)
-            {
-                baseBoard = GameStart.chess;
-            }
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, CHESS));
             ChooseTypeOfGame();
         }
 
@@ -82,13 +79,7 @@ namespace ShogiCheckersChess
         /// <param name="e"></param>
         private void SelectCheckersButton_Click(object sender, EventArgs e)
         {
-            Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
-            Gameclass.CurrentGame.blackGameType = Gameclass.GameType.checkers;
-            Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.checkers;
-            if (!isCustom)
-            {
-                baseBoard = GameStart.checkers;
-            }
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, CHECKERS));
             ChooseTypeOfGame();
         }
 
@@ -99,17 +90,7 @@ namespace ShogiCheckersChess
         /// <param name="e"></param>
         private void SelectShogiButton_Click(object sender, EventArgs e)
         {
-            Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
-            Gameclass.CurrentGame.blackGameType = Gameclass.GameType.shogi;
-            Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.shogi;
-
-            Gameclass.CurrentGame.playType = Gameclass.GameType.shogi;
-            Gameclass.CurrentGame.blackPlayType = Gameclass.GameType.shogi;
-            Gameclass.CurrentGame.whitePlayType = Gameclass.GameType.shogi;
-            if (!isCustom)
-            {
-                baseBoard = GameStart.shogi;
-            }
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, SHOGI));
             ChooseTypeOfGame();
         }
 
