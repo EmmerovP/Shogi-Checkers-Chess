@@ -202,6 +202,7 @@ namespace ShogiCheckersChess
             { 20, Moves.PawnTwoForward },
             { 21, Moves.PawnTwoBackward },
             { 22, Moves.CheckersQueen }
+
         };
 
         public static Dictionary<string, int> getMoveName = new Dictionary<string, int>()
@@ -246,6 +247,27 @@ namespace ShogiCheckersChess
             getUpperNumber.Add(name, value);
 
             return value;
+        }
+
+        /// <summary>
+        /// Updates dictionaries containing pieces by a new piece.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static void UpdatePiece(string name, string uppername, string bottomname)
+        {
+            int bottomValue = getNumber.Count(); 
+            int upperValue = bottomValue + 1;
+
+            getName.Add(upperValue, uppername);
+            getName.Add(bottomValue, bottomname);
+
+            getNumber.Add(uppername, upperValue);
+            getNumber.Add(bottomname, bottomValue);
+
+            getBottomNumber.Add(name, bottomValue);
+            getUpperNumber.Add(name, upperValue);
+
         }
 
         /// <summary>

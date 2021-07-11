@@ -1,0 +1,21 @@
+{
+  "gameType": "chess",
+  "Board": [
+    [24,25,26,"Vrchní kancléř",22,26,25,24],
+    [27,27,27,27,27,27,27,27],
+    [-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1],
+    [-1,-1,-1,-1,-1,-1,-1,-1],
+    [5,5,5,5,5,5,5,5],
+    [2,3,4,"Spodní kancléř",0,4,3,2]
+  ],
+    "Pieces": [
+        {
+		"name":"kancléř", 
+		"upperPieceFile":"C:\\Users\\42072\\Documents\\Bakalarka 2\\Shogi-Checkers-Chess\\PiecesImages\\blackchancellor.gif", 
+		"bottomPieceFile":"C:\\Users\\42072\\Documents\\Bakalarka 2\\Shogi-Checkers-Chess\\PiecesImages\\whitechancellor.gif", 
+		"moves":[9,10,11,12,13,14,15,16,17,18,19],
+		"value":100
+        }]
+}

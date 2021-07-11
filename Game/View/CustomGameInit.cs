@@ -31,9 +31,8 @@ namespace ShogiCheckersChess
             string heigthText = CustomGameSizeYTextbox.Text;
 
             //try to read width
-            int width;
 
-            bool success = Int32.TryParse(widthText, out width);
+            bool success = Int32.TryParse(widthText, out int width);
 
             //check constraints
             if (!success)
@@ -58,9 +57,8 @@ namespace ShogiCheckersChess
             }
 
             //try to read height
-            int height;
 
-            success = Int32.TryParse(heigthText, out height);
+            success = Int32.TryParse(heigthText, out int height);
 
             //check constraints
             if (!success)

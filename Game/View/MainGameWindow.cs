@@ -191,18 +191,10 @@ namespace ShogiCheckersChess
             CustomGameSizeYLabel.Visible = true;
             CustomGameSizeYTextbox.Visible = true;
 
-            SelectChessButton.Visible = false;
-            SelectCheckersButton.Visible = false;
-            SelectShogiButton.Visible = false;
-            SelectCustomGameButton.Visible = false;
-            LoadGameButton.Visible = false;
-            AboutGameButton.Visible = false;
+            HideGameButtons();
         }
 
-        /// <summary>
-        /// Method for hiding buttons which select types of games and showing buttons for selection of singleplayer/multiplayer mode
-        /// </summary>
-        public void ChooseTypeOfGame()
+        public void HideGameButtons()
         {
             SelectChessButton.Visible = false;
             SelectCheckersButton.Visible = false;
@@ -214,14 +206,23 @@ namespace ShogiCheckersChess
             SelectBlackHordeChessButton.Visible = false;
             SelectInternationalCheckersButton.Visible = false;
             SelectMinishogiButton.Visible = false;
-            
+
             SelectCustomGameButton.Visible = false;
             LoadGameButton.Visible = false;
             AboutGameButton.Visible = false;
+        }
+
+        /// <summary>
+        /// Method for hiding buttons which select types of games and showing buttons for selection of singleplayer/multiplayer mode
+        /// </summary>
+        public void ChooseTypeOfGame()
+        {
+            HideGameButtons();
 
             NewGameInstanceButton.Visible = true;
-            SelectSingleplayerButton.Visible = true;
-            SelectLocMultiButton.Visible = true;
+            PlayerTypePanel.Visible = true;
+            AlgorithmTypePanel.Visible = true;
+            OKbutton.Visible = true;
         }
 
         /// <summary>
@@ -246,90 +247,32 @@ namespace ShogiCheckersChess
         /// </summary>
         public void HidePlayerTypeButtons()
         {
-            SelectSingleplayerButton.Visible = false;
-            SelectLocMultiButton.Visible = false;
+            AlgorithmTypePanel.Visible = false;
+            PlayerTypePanel.Visible = false;
         }
 
-        /// <summary>
-        /// Show buttons for choosing algorithm.
-        /// </summary>
-        public void ShowChooseAlgorithmButtons()
+        private void OKbutton_Click(object sender, EventArgs e)
         {
-            ChooseAlgorithmLabel.Visible = true;
-            MinimaxButton.Visible = true;
-            MonteCarloButton.Visible = true;
-        }
-
-        /// <summary>
-        /// Hides labels for choosing algorithms.   
-        /// </summary>
-        public void HideChooseAlgorithmButtons()
-        {
-            ChooseAlgorithmLabel.Visible = false;
-            MinimaxButton.Visible = false;
-            MonteCarloButton.Visible = false;
-        }
-
-        /// <summary>
-        /// Chooses which chessboard we want to draw, and calls according function.
-        /// </summary>
-        public void CreateChessboard()
-        {
-            if (isCustom)
+            HidePlayerTypeButtons();
+            if (MultiplayerRadioButton.Checked)
             {
-                DrawCustomChessboard();
+                Gameclass.CurrentGame.playerType = Gameclass.PlayerType.localmulti;
             }
             else
             {
-                DrawChessboard();
+                Gameclass.CurrentGame.playerType = Gameclass.PlayerType.single;
+
+                if (MinimaxRadioButton.Checked)
+                {
+                    Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.minimax;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.montecarlo;
+                }
+
             }
-        }
 
-        /// <summary>
-        /// Selects singleplayer mode.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SelectSingleplayerButton_Click(object sender, EventArgs e)
-        {
-            Gameclass.CurrentGame.playerType = Gameclass.PlayerType.single;
-            HidePlayerTypeButtons();
-            ShowChooseAlgorithmButtons();
-        }
-
-        /// <summary>
-        /// Selects minimax algorithm.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MinimaxButton_Click(object sender, EventArgs e)
-        {
-            Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.minimax;
-            HideChooseAlgorithmButtons();
-            CreateChessboard();
-        }
-
-        /// <summary>
-        /// Selects montecarlo algorithm.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MonteCarloButton_Click(object sender, EventArgs e)
-        {
-            Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.montecarlo;
-            HideChooseAlgorithmButtons();
-            CreateChessboard();
-        }
-
-        /// <summary>
-        /// Selects multiplayer mode.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SelectLocMultiButton_Click(object sender, EventArgs e)
-        {
-            Gameclass.CurrentGame.playerType = Gameclass.PlayerType.localmulti;
-            HidePlayerTypeButtons();
             if (isCustom)
             {
                 DrawCustomChessboard();
@@ -484,5 +427,25 @@ namespace ShogiCheckersChess
             Environment.Exit(0);
         }
 
+        private void MinimaxRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SingleplayerRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SingleplayerRadioButton.Checked)
+            {
+                AlgorithmTypePanel.Visible = true;
+            }
+        }
+
+        private void MultiplayerRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MultiplayerRadioButton.Checked)
+            {
+                AlgorithmTypePanel.Visible = false;
+            }
+        }
     }
 }

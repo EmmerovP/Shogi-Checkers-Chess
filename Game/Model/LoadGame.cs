@@ -13,8 +13,12 @@ namespace ShogiCheckersChess
         public string name;
         public string side;
         public string file;
+
+        public string upperPieceFile;
+        public string bottomPieceFile;
+
         public int[] moves;
-        public int weight;
+        public int value;
     }
 
 
@@ -94,30 +98,68 @@ namespace ShogiCheckersChess
             {
                 for (int i = 0; i < customGame.Pieces.Count; i++)
                 {
-                    DefinedPiece newPiece = new DefinedPiece
+                    if (customGame.Pieces[i].side == null)
                     {
-                        moves = customGame.Pieces[i].moves,
-                        Name = customGame.Pieces[i].name
+                        DefinedPiece upperPiece = new DefinedPiece
+                        {
+                            moves = customGame.Pieces[i].moves,
+                            Name = customGame.Pieces[i].name
+                        };
 
-                    };
+                        DefinedPiece bottomPiece = new DefinedPiece
+                        {
+                            moves = customGame.Pieces[i].moves,
+                            Name = customGame.Pieces[i].name
+                        };
 
-                    if (customGame.Pieces[i].side == "white")
-                    {
-                        newPiece.isWhite = true;
+
+                        if (customGame.Pieces[i].value != 0)
+                        {
+                            upperPiece.Value = customGame.Pieces[i].value;
+                            bottomPiece.Value = customGame.Pieces[i].value;
+
+                        }
+                        else
+                        {
+                            upperPiece.Value = GetPieceValue(upperPiece);
+                            bottomPiece.Value = GetPieceValue(bottomPiece);
+                        }
+
+                        PiecesNumbers.UpdatePiece(customGame.Pieces[i].name, "Vrchní " + customGame.Pieces[i].name, "Spodní " + customGame.Pieces[i].name);
+
+                        upperPiece.isWhite = false;
+                        bottomPiece.isWhite = true;
+
+                        Pieces.DefinedPieces.Add(bottomPiece);
+                        Pieces.DefinedPieces.Add(upperPiece);
+
                     }
-
-                    if (customGame.Pieces[i].weight != 0)
+                    else 
                     {
-                        newPiece.Value = customGame.Pieces[i].weight;
-                    }
-                    else
-                    {
-                        newPiece.Value = GetPieceValue(newPiece);
-                    }
+                        DefinedPiece newPiece = new DefinedPiece
+                        {
+                            moves = customGame.Pieces[i].moves,
+                            Name = customGame.Pieces[i].name
+                        };
 
-                    Pieces.DefinedPieces.Add(newPiece);
 
-                    PiecesNumbers.UpdatePiece(newPiece.Name);
+                        if (customGame.Pieces[i].value != 0)
+                        {
+                            newPiece.Value = customGame.Pieces[i].value;
+                        }
+                        else
+                        {
+                            newPiece.Value = GetPieceValue(newPiece);
+                        }
+
+                        if (customGame.Pieces[i].side == "white")
+                        {
+                            newPiece.isWhite = true;
+                        }
+
+                        PiecesNumbers.UpdatePiece(newPiece.Name);
+                        Pieces.DefinedPieces.Add(newPiece);
+                    }
                 }
             }
 
@@ -139,14 +181,14 @@ namespace ShogiCheckersChess
                         }
                         catch
                         {
-                            throw new Exception("Figurka se jménem " + customGame.Board[i, j].ToString() + "neexistuje.");
+                            throw new Exception("Figurka se jménem " + customGame.Board[i, j].ToString() + " neexistuje.");
                         }
                     }
                     else
                     {
                         if ((MainGameWindow.baseBoard[i, j] < -1) || (MainGameWindow.baseBoard[i, j] >= PiecesNumbers.getName.Count))
                         {
-                            throw new Exception("Figurka s číslem" + MainGameWindow.baseBoard[i, j].ToString() + "neexistuje.");
+                            throw new Exception("Figurka s číslem" + MainGameWindow.baseBoard[i, j].ToString() + " neexistuje.");
                         }
                     }
                 }
@@ -295,8 +337,19 @@ namespace ShogiCheckersChess
                 {
                     try
                     {
-                        string image = customgame.Pieces[i].file.Replace("\\\\", "\\");
-                        GamePieces.Images.Add(Image.FromFile(image));
+                        if (customgame.Pieces[i].file == null)
+                        {
+                            string image = customgame.Pieces[i].bottomPieceFile.Replace("\\\\", "\\");
+                            GamePieces.Images.Add(Image.FromFile(image));
+
+                            image = customgame.Pieces[i].upperPieceFile.Replace("\\\\", "\\");
+                            GamePieces.Images.Add(Image.FromFile(image));
+                        }
+                        else
+                        {
+                            string image = customgame.Pieces[i].file.Replace("\\\\", "\\");
+                            GamePieces.Images.Add(Image.FromFile(image));
+                        }
                     }
                     catch
                     {
