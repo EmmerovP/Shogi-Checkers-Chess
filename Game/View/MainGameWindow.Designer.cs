@@ -583,6 +583,7 @@
             this.SelectMinishogiButton.TabIndex = 47;
             this.SelectMinishogiButton.Text = "Minišogi";
             this.SelectMinishogiButton.UseVisualStyleBackColor = true;
+            this.SelectMinishogiButton.Click += new System.EventHandler(this.SelectMinishogiButton_Click);
             // 
             // MainGameWindow
             // 

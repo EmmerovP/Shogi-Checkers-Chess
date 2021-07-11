@@ -23,7 +23,7 @@ namespace ShogiCheckersChess
     /// </summary>
     public class CustomGame
     {
-        public int[,] Board;
+        public object[,] Board;
         public List<NewPiece> Pieces;
 
         public string gameType;
@@ -42,21 +42,6 @@ namespace ShogiCheckersChess
             CustomGame customGame;
 
             string fileWithGame = File.ReadAllText(file);
-
-            var words = string.Join("|", PiecesNumbers.getNumber.Keys);
-
-
-            fileWithGame = Regex.Replace(fileWithGame, $@"\b({words})\b", delegate (Match m)
-            {
-                return PiecesNumbers.getNumber[m.Value].ToString();
-            });
-
-            /*words = string.Join("|", PiecesNumbers.getMoveName.Keys);
-
-            fileWithGame = Regex.Replace(fileWithGame, $@"\b({words})\b", delegate (Match m)
-            {
-                return PiecesNumbers.getMoveName[m.Value].ToString();
-            });*/
 
             customGame = JsonConvert.DeserializeObject<CustomGame>(fileWithGame);
 
@@ -104,10 +89,7 @@ namespace ShogiCheckersChess
                 GetGameType(customGame);
             }
 
-            MainGameWindow.baseBoard = customGame.Board;
 
-            CheckGameRules();
-            
             if (customGame.Pieces != null)
             {
                 for (int i = 0; i < customGame.Pieces.Count; i++)
@@ -138,6 +120,40 @@ namespace ShogiCheckersChess
                     PiecesNumbers.UpdatePiece(newPiece.Name);
                 }
             }
+
+
+
+            MainGameWindow.baseBoard = new int[customGame.Board.GetLength(0), customGame.Board.GetLength(1)];
+
+            for (int i = 0; i < customGame.Board.GetLength(0); i++)
+            {
+                for (int j = 0; j < customGame.Board.GetLength(1); j++)
+                {
+                    bool succes = Int32.TryParse(customGame.Board[i, j].ToString(), out MainGameWindow.baseBoard[i, j]);       
+
+                    if (!succes)
+                    {
+                        try
+                        {
+                            MainGameWindow.baseBoard[i, j] = PiecesNumbers.getNumber[customGame.Board[i, j].ToString()];
+                        }
+                        catch
+                        {
+                            throw new Exception("Figurka se jménem " + customGame.Board[i, j].ToString() + "neexistuje.");
+                        }
+                    }
+                    else
+                    {
+                        if ((MainGameWindow.baseBoard[i, j] < -1) || (MainGameWindow.baseBoard[i, j] >= PiecesNumbers.getName.Count))
+                        {
+                            throw new Exception("Figurka s číslem" + MainGameWindow.baseBoard[i, j].ToString() + "neexistuje.");
+                        }
+                    }
+                }
+            }
+
+            CheckGameRules();
+
 
             return customGame;
         }

@@ -21,6 +21,11 @@ namespace ShogiCheckersChess
 
         const string CRAZYHOUSE = "Boards\\crazyhouse.json";
 
+        const string ALMOSTCHESS = "Boards\\almostchess.json";
+
+        const string INTERNATIONALCHECKERS = "Boards\\internationalcheckers.json";
+
+        const string MINISHOGI = "Boards\\minishogi.json";
 
         /// <summary>
         /// Current gameboard represented by integer numbers. Used only for loading game, actual game is played on board.
@@ -101,6 +106,42 @@ namespace ShogiCheckersChess
         private void SelectChess960Button_Click(object sender, EventArgs e)
         {
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, CHESS));
+            Randomize960Chess();
+            ChooseTypeOfGame();
+        }
+
+        private void Randomize960Chess()
+        {
+            int[] pieces = new int[baseBoard.GetLength(0)];
+
+            for (int i = 0; i < pieces.Length; i++)
+            {
+                pieces[i] = baseBoard[0,i];
+            }
+
+            //Fisher-Yates shuffle
+            Random rng = new Random();
+            int n = pieces.Length;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                int value = pieces[k];
+                pieces[k] = pieces[n];
+                pieces[n] = value;
+            }
+
+            for (int i = 0; i < pieces.Length; i++)
+            {
+                baseBoard[0, i] = pieces[i];
+
+                baseBoard[baseBoard.GetLength(0) - 1, i] = pieces[i] - PiecesNumbers.getUpperNumber.Count;
+            }
+        }
+
+        private void SelectAlmostChessButton_Click(object sender, EventArgs e)
+        {
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, ALMOSTCHESS));
             ChooseTypeOfGame();
         }
 
@@ -126,6 +167,12 @@ namespace ShogiCheckersChess
             ChooseTypeOfGame();
         }
 
+
+        private void SelectMinishogiButton_Click(object sender, EventArgs e)
+        {
+            LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, MINISHOGI));
+            ChooseTypeOfGame();
+        }
 
 
         /// <summary>
@@ -437,9 +484,5 @@ namespace ShogiCheckersChess
             Environment.Exit(0);
         }
 
-        private void SelectAlmostChessButton_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
