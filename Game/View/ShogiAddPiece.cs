@@ -83,9 +83,7 @@ namespace ShogiCheckersChess
                 {
                     if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == PiecesNumbers.getNumber["Spodní shogi pěšák"]))
                     {
-                        ShogiPawnProblem popup = new ShogiPawnProblem();
-                        popup.ShowDialog();
-                        popup.Dispose();
+                        MessageBox.Show("Shogi pěšec nesmí být vložen do sloupce, v němž již shogi pěšec je.", "Figurka nelze vložit", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         PutShogiPieceLabelBottom.Visible = false;
                         AddBottomShogiPiece = false;
@@ -162,10 +160,8 @@ namespace ShogiCheckersChess
                 {
                     if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == PiecesNumbers.getNumber["Vrchní shogi pěšák"]))
                     {
-                        ShogiPawnProblem popup = new ShogiPawnProblem();
-                        popup.ShowDialog();
-                        popup.Dispose();
-
+                        MessageBox.Show("Shogi pěšec nesmí být vložen do sloupce, v němž již shogi pěšec je.", "Figurka nelze vložit", MessageBoxButtons.OK, MessageBoxIcon.Error);
+   
                         PutShogiPieceLabelUpper.Visible = false;
                         AddUpperShogiPiece = false;
                         ChooseShogiBoxUpper.Items.Add("Shogi pěšák");
