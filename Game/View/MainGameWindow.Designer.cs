@@ -52,7 +52,6 @@
             this.CustomGameSizeXLabel = new System.Windows.Forms.Label();
             this.CustomGameSizeYLabel = new System.Windows.Forms.Label();
             this.CustomGameSizeButton = new System.Windows.Forms.Button();
-            this.CustomGameSizeErrorLabel = new System.Windows.Forms.Label();
             this.CustomGameChooseCombobox = new System.Windows.Forms.ComboBox();
             this.CustomGameChooseLabel = new System.Windows.Forms.Label();
             this.CustomGameChooseErrorLabel = new System.Windows.Forms.Label();
@@ -69,6 +68,11 @@
             this.SelectInternationalCheckersButton = new System.Windows.Forms.Button();
             this.SelectMinishogiButton = new System.Windows.Forms.Button();
             this.AlgorithmTypePanel = new System.Windows.Forms.Panel();
+            this.MCTSTimeLabel = new System.Windows.Forms.Label();
+            this.MCTSTimeUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AlphabetaCheckBox = new System.Windows.Forms.CheckBox();
+            this.DepthLabel = new System.Windows.Forms.Label();
+            this.DepthUpDown = new System.Windows.Forms.NumericUpDown();
             this.MCTSRadioButton = new System.Windows.Forms.RadioButton();
             this.MinimaxRadioButton = new System.Windows.Forms.RadioButton();
             this.PlayerTypePanel = new System.Windows.Forms.Panel();
@@ -76,6 +80,8 @@
             this.SingleplayerRadioButton = new System.Windows.Forms.RadioButton();
             this.MultiplayerRadioButton = new System.Windows.Forms.RadioButton();
             this.AlgorithmTypePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MCTSTimeUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DepthUpDown)).BeginInit();
             this.PlayerTypePanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -251,7 +257,7 @@
             // 
             // PutShogiPieceLabelUpper
             // 
-            this.PutShogiPieceLabelUpper.Location = new System.Drawing.Point(563, 153);
+            this.PutShogiPieceLabelUpper.Location = new System.Drawing.Point(607, 159);
             this.PutShogiPieceLabelUpper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.PutShogiPieceLabelUpper.Name = "PutShogiPieceLabelUpper";
             this.PutShogiPieceLabelUpper.Size = new System.Drawing.Size(118, 48);
@@ -349,16 +355,6 @@
             this.CustomGameSizeButton.UseVisualStyleBackColor = true;
             this.CustomGameSizeButton.Visible = false;
             this.CustomGameSizeButton.Click += new System.EventHandler(this.CustomGameSizeButton_Click);
-            // 
-            // CustomGameSizeErrorLabel
-            // 
-            this.CustomGameSizeErrorLabel.AutoSize = true;
-            this.CustomGameSizeErrorLabel.Location = new System.Drawing.Point(-3, 65);
-            this.CustomGameSizeErrorLabel.Name = "CustomGameSizeErrorLabel";
-            this.CustomGameSizeErrorLabel.Size = new System.Drawing.Size(176, 13);
-            this.CustomGameSizeErrorLabel.TabIndex = 27;
-            this.CustomGameSizeErrorLabel.Text = "Chyba - nebylo zadáno platné číslo.";
-            this.CustomGameSizeErrorLabel.Visible = false;
             // 
             // CustomGameChooseCombobox
             // 
@@ -544,6 +540,11 @@
             // 
             // AlgorithmTypePanel
             // 
+            this.AlgorithmTypePanel.Controls.Add(this.MCTSTimeLabel);
+            this.AlgorithmTypePanel.Controls.Add(this.MCTSTimeUpDown);
+            this.AlgorithmTypePanel.Controls.Add(this.AlphabetaCheckBox);
+            this.AlgorithmTypePanel.Controls.Add(this.DepthLabel);
+            this.AlgorithmTypePanel.Controls.Add(this.DepthUpDown);
             this.AlgorithmTypePanel.Controls.Add(this.MCTSRadioButton);
             this.AlgorithmTypePanel.Controls.Add(this.MinimaxRadioButton);
             this.AlgorithmTypePanel.Location = new System.Drawing.Point(337, 49);
@@ -551,6 +552,66 @@
             this.AlgorithmTypePanel.Size = new System.Drawing.Size(216, 121);
             this.AlgorithmTypePanel.TabIndex = 48;
             this.AlgorithmTypePanel.Visible = false;
+            // 
+            // MCTSTimeLabel
+            // 
+            this.MCTSTimeLabel.AutoSize = true;
+            this.MCTSTimeLabel.Location = new System.Drawing.Point(10, 91);
+            this.MCTSTimeLabel.Name = "MCTSTimeLabel";
+            this.MCTSTimeLabel.Size = new System.Drawing.Size(128, 13);
+            this.MCTSTimeLabel.TabIndex = 52;
+            this.MCTSTimeLabel.Text = "Čas prohledávání stromu:";
+            this.MCTSTimeLabel.Visible = false;
+            // 
+            // MCTSTimeUpDown
+            // 
+            this.MCTSTimeUpDown.Location = new System.Drawing.Point(141, 89);
+            this.MCTSTimeUpDown.Name = "MCTSTimeUpDown";
+            this.MCTSTimeUpDown.Size = new System.Drawing.Size(32, 20);
+            this.MCTSTimeUpDown.TabIndex = 50;
+            this.MCTSTimeUpDown.Visible = false;
+            // 
+            // AlphabetaCheckBox
+            // 
+            this.AlphabetaCheckBox.AutoSize = true;
+            this.AlphabetaCheckBox.Location = new System.Drawing.Point(12, 42);
+            this.AlphabetaCheckBox.Name = "AlphabetaCheckBox";
+            this.AlphabetaCheckBox.Size = new System.Drawing.Size(138, 17);
+            this.AlphabetaCheckBox.TabIndex = 51;
+            this.AlphabetaCheckBox.Text = "Alpha-beta prořezávání";
+            this.AlphabetaCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // DepthLabel
+            // 
+            this.DepthLabel.AutoSize = true;
+            this.DepthLabel.Location = new System.Drawing.Point(9, 23);
+            this.DepthLabel.Name = "DepthLabel";
+            this.DepthLabel.Size = new System.Drawing.Size(162, 13);
+            this.DepthLabel.TabIndex = 50;
+            this.DepthLabel.Text = "Hloubka prohledávacího stromu:";
+            // 
+            // DepthUpDown
+            // 
+            this.DepthUpDown.Location = new System.Drawing.Point(179, 21);
+            this.DepthUpDown.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.DepthUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.DepthUpDown.Name = "DepthUpDown";
+            this.DepthUpDown.Size = new System.Drawing.Size(29, 20);
+            this.DepthUpDown.TabIndex = 50;
+            this.DepthUpDown.TabStop = false;
+            this.DepthUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // MCTSRadioButton
             // 
@@ -561,6 +622,7 @@
             this.MCTSRadioButton.TabIndex = 1;
             this.MCTSRadioButton.Text = "Monte Carlo Tree Search";
             this.MCTSRadioButton.UseVisualStyleBackColor = true;
+            this.MCTSRadioButton.CheckedChanged += new System.EventHandler(this.MCTSRadioButton_CheckedChanged);
             // 
             // MinimaxRadioButton
             // 
@@ -582,7 +644,6 @@
             this.PlayerTypePanel.Controls.Add(this.AlgorithmTypePanel);
             this.PlayerTypePanel.Controls.Add(this.SingleplayerRadioButton);
             this.PlayerTypePanel.Controls.Add(this.MultiplayerRadioButton);
-            this.PlayerTypePanel.Controls.Add(this.CustomGameSizeErrorLabel);
             this.PlayerTypePanel.Location = new System.Drawing.Point(49, 111);
             this.PlayerTypePanel.Name = "PlayerTypePanel";
             this.PlayerTypePanel.Size = new System.Drawing.Size(616, 228);
@@ -604,13 +665,11 @@
             // SingleplayerRadioButton
             // 
             this.SingleplayerRadioButton.AutoSize = true;
-            this.SingleplayerRadioButton.Checked = true;
             this.SingleplayerRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SingleplayerRadioButton.Location = new System.Drawing.Point(337, 26);
             this.SingleplayerRadioButton.Name = "SingleplayerRadioButton";
             this.SingleplayerRadioButton.Size = new System.Drawing.Size(95, 17);
             this.SingleplayerRadioButton.TabIndex = 1;
-            this.SingleplayerRadioButton.TabStop = true;
             this.SingleplayerRadioButton.Text = "SinglePlayer";
             this.SingleplayerRadioButton.UseVisualStyleBackColor = true;
             this.SingleplayerRadioButton.CheckedChanged += new System.EventHandler(this.SingleplayerRadioButton_CheckedChanged);
@@ -618,11 +677,13 @@
             // MultiplayerRadioButton
             // 
             this.MultiplayerRadioButton.AutoSize = true;
+            this.MultiplayerRadioButton.Checked = true;
             this.MultiplayerRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MultiplayerRadioButton.Location = new System.Drawing.Point(26, 21);
             this.MultiplayerRadioButton.Name = "MultiplayerRadioButton";
             this.MultiplayerRadioButton.Size = new System.Drawing.Size(86, 17);
             this.MultiplayerRadioButton.TabIndex = 0;
+            this.MultiplayerRadioButton.TabStop = true;
             this.MultiplayerRadioButton.Text = "Multiplayer";
             this.MultiplayerRadioButton.UseVisualStyleBackColor = true;
             this.MultiplayerRadioButton.CheckedChanged += new System.EventHandler(this.MultiplayerRadioButton_CheckedChanged);
@@ -678,6 +739,8 @@
             this.Text = "Obecné hry na šachovnici";
             this.AlgorithmTypePanel.ResumeLayout(false);
             this.AlgorithmTypePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MCTSTimeUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DepthUpDown)).EndInit();
             this.PlayerTypePanel.ResumeLayout(false);
             this.PlayerTypePanel.PerformLayout();
             this.ResumeLayout(false);
@@ -709,7 +772,6 @@
         private System.Windows.Forms.Label CustomGameSizeXLabel;
         private System.Windows.Forms.Label CustomGameSizeYLabel;
         private System.Windows.Forms.Button CustomGameSizeButton;
-        private System.Windows.Forms.Label CustomGameSizeErrorLabel;
         private System.Windows.Forms.ComboBox CustomGameChooseCombobox;
         private System.Windows.Forms.Label CustomGameChooseLabel;
         private System.Windows.Forms.Label CustomGameChooseErrorLabel;
@@ -732,6 +794,11 @@
         private System.Windows.Forms.RadioButton SingleplayerRadioButton;
         private System.Windows.Forms.RadioButton MultiplayerRadioButton;
         private System.Windows.Forms.Button OKbutton;
+        private System.Windows.Forms.NumericUpDown DepthUpDown;
+        private System.Windows.Forms.Label DepthLabel;
+        private System.Windows.Forms.CheckBox AlphabetaCheckBox;
+        private System.Windows.Forms.Label MCTSTimeLabel;
+        private System.Windows.Forms.NumericUpDown MCTSTimeUpDown;
     }
 }
 

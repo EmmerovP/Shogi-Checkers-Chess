@@ -221,7 +221,6 @@ namespace ShogiCheckersChess
 
             NewGameInstanceButton.Visible = true;
             PlayerTypePanel.Visible = true;
-            AlgorithmTypePanel.Visible = true;
             OKbutton.Visible = true;
         }
 
@@ -264,10 +263,18 @@ namespace ShogiCheckersChess
 
                 if (MinimaxRadioButton.Checked)
                 {
+                    Minimax.treeSearchDepth = Convert.ToInt32(DepthUpDown.Value);
+                    if (AlphabetaCheckBox.Checked)
+                    {
+                        Minimax.useAlphaBetaPruning = true;
+                    }
+
                     Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.minimax;
                 }
                 else
                 {
+                    MonteCarlo.maxTime = (float)MCTSTimeUpDown.Value;
+
                     Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.montecarlo;
                 }
 
@@ -429,7 +436,29 @@ namespace ShogiCheckersChess
 
         private void MinimaxRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            if (MinimaxRadioButton.Checked)
+            {
+                DepthLabel.Visible = true;
+                DepthUpDown.Visible = true;
+                AlphabetaCheckBox.Visible = true;
 
+                MCTSTimeLabel.Visible = false;
+                MCTSTimeUpDown.Visible = false;
+            }
+        }
+
+
+        private void MCTSRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MCTSRadioButton.Checked)
+            {
+                DepthLabel.Visible = false;
+                DepthUpDown.Visible = false;
+                AlphabetaCheckBox.Visible = false;
+
+                MCTSTimeLabel.Visible = true;
+                MCTSTimeUpDown.Visible = true;
+            }
         }
 
         private void SingleplayerRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -447,5 +476,6 @@ namespace ShogiCheckersChess
                 AlgorithmTypePanel.Visible = false;
             }
         }
+
     }
 }

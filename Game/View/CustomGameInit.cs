@@ -8,7 +8,7 @@ namespace ShogiCheckersChess
         /// <summary>
         /// Maximum size of chessboard.
         /// </summary>
-        const int MAX_SIZE = 10;
+        const int MAX_SIZE = 15;
 
         /// <summary>
         /// Minimum size of chessboard.
@@ -27,6 +27,8 @@ namespace ShogiCheckersChess
         /// <param name="e"></param>
         private void CustomGameSizeButton_Click(object sender, EventArgs e)
         {
+            NewGameInstanceButton.Visible = true;
+
             string widthText = CustomGameSizeXTextbox.Text;
             string heigthText = CustomGameSizeYTextbox.Text;
 
@@ -37,22 +39,19 @@ namespace ShogiCheckersChess
             //check constraints
             if (!success)
             {
-                CustomGameSizeErrorLabel.Visible = true;
-                CustomGameSizeErrorLabel.Text = "Chyba - nebylo zadáno platné číslo.";
+                MessageBox.Show("Chyba - nebylo zadáno platné číslo.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (width < MIN_SIZE)
             {
-                CustomGameSizeErrorLabel.Text = "Souřadnice x je moc malá, musí být alespoň 3.";
-                CustomGameSizeErrorLabel.Visible = true;
+                MessageBox.Show("Souřadnice x je moc malá, musí být alespoň 3.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (width > MAX_SIZE)
             {
-                CustomGameSizeErrorLabel.Text = "Souřadnice x je moc velká, musí být maximálně 15.";
-                CustomGameSizeErrorLabel.Visible = true;
+                MessageBox.Show("Souřadnice x je moc velká, musí být maximálně 15.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -63,22 +62,19 @@ namespace ShogiCheckersChess
             //check constraints
             if (!success)
             {
-                CustomGameSizeErrorLabel.Visible = true;
-                CustomGameSizeErrorLabel.Text = "Chyba - nebylo zadáno platné číslo.";
+                MessageBox.Show("Chyba - nebylo zadáno platné číslo.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (height < MIN_SIZE)
             {
-                CustomGameSizeErrorLabel.Text = "Souřadnice y je moc malá, musí být alespoň 3.";
-                CustomGameSizeErrorLabel.Visible = true;
+                MessageBox.Show("Souřadnice y je moc malá, musí být alespoň 3.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (height > MAX_SIZE)
             {
-                CustomGameSizeErrorLabel.Text = "Souřadnice y je moc velká, musí být maximálně 15.";
-                CustomGameSizeErrorLabel.Visible = true;
+                MessageBox.Show("Souřadnice y je moc velká, musí být maximálně 15.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -100,11 +96,9 @@ namespace ShogiCheckersChess
             CustomGameSizeXTextbox.Visible = false;
             CustomGameSizeYLabel.Visible = false;
             CustomGameSizeYTextbox.Visible = false;
-            CustomGameSizeErrorLabel.Visible = false;
 
-            SelectCheckersButton.Visible = true;
-            SelectChessButton.Visible = true;
-            SelectShogiButton.Visible = true;
+            PlayerTypePanel.Visible = true;
+            OKbutton.Visible = true;
         }
 
         /// <summary>

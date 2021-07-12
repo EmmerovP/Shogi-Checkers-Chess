@@ -12,7 +12,7 @@ namespace ShogiCheckersChess
         /// <summary>
         /// How long does the tree building and search run
         /// </summary>
-        const float MAXTIME = 1000.0F;
+        public static float maxTime;
 
         /// <summary>
         /// For how long should a game be played in tree search before it is pronounced a draw
@@ -135,7 +135,7 @@ namespace ShogiCheckersChess
             time.Start();
 
             //do until there is time set left
-            while (time.ElapsedMilliseconds < MAXTIME)
+            while (time.ElapsedMilliseconds < maxTime)
             {
                 //Step 1: Selection
                 Node highest_UCB = Selection(Root);

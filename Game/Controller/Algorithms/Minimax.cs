@@ -9,6 +9,10 @@ namespace ShogiCheckersChess
     public class Minimax
     {
 
+        public static int treeSearchDepth;
+
+        public static bool useAlphaBetaPruning;
+
         /// <summary>
         /// Whether currently plays white or black side. When white plays, it's true.
         /// </summary>
@@ -129,22 +133,26 @@ namespace ShogiCheckersChess
                 //revert move
                 MoveController.ReapplyMove(moves.start_x[k], moves.start_y[k], moves.final_x[k], moves.final_y[k], piece, taken_x, taken_y, isCastling, Board.board, previousPiece);
                 
-
-                //alpha-beta pruning
-                if (isMaxing)
+                if (useAlphaBetaPruning)
                 {
-                    alpha = Math.Max(alpha, evaluation);
-                }
-                else
-                {
-                    beta = Math.Min(beta, evaluation);
-                }
+
+                    //alpha-beta pruning
+                    if (isMaxing)
+                    {
+                        alpha = Math.Max(alpha, evaluation);
+                    }
+                    else
+                    {
+                        beta = Math.Min(beta, evaluation);
+                    }
 
 
-                if (beta <= alpha)
-                {
-                    break;
+                    if (beta <= alpha)
+                    {
+                        break;
+                    }
                 }
+
 
             }
 
@@ -319,7 +327,7 @@ namespace ShogiCheckersChess
                 int previousPiece = MoveController.previousPiece;
 
                 //run minimax algorithm for each move
-                possibleMovesEvaluation.Add(Minimax.OneStep(4, Int32.MinValue, Int32.MaxValue, false));
+                possibleMovesEvaluation.Add(Minimax.OneStep(treeSearchDepth, Int32.MinValue, Int32.MaxValue, false));
 
                 //depending on whether we are in the maxing or minimazing state, get according evaluation
                 MoveController.ReapplyMove(moves.start_x[i], moves.start_y[i], moves.final_x[i], moves.final_y[i], piece, taken_x, taken_y, isCastling, Board.board, previousPiece);
