@@ -214,6 +214,8 @@ namespace ShogiCheckersChess
             CustomGameSizeYLabel.Visible = true;
             CustomGameSizeYTextbox.Visible = true;
 
+            NewGameInstanceButton.Visible = true;
+
             HideGameButtons();
         }
 
@@ -520,6 +522,6 @@ namespace ShogiCheckersChess
             }
         }
 
-
+        
     }
 }

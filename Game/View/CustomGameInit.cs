@@ -27,8 +27,6 @@ namespace ShogiCheckersChess
         /// <param name="e"></param>
         private void CustomGameSizeButton_Click(object sender, EventArgs e)
         {
-            NewGameInstanceButton.Visible = true;
-
             string widthText = CustomGameSizeXTextbox.Text;
             string heigthText = CustomGameSizeYTextbox.Text;
 
@@ -95,11 +93,87 @@ namespace ShogiCheckersChess
             CustomGameSizeXLabel.Visible = false;
             CustomGameSizeXTextbox.Visible = false;
             CustomGameSizeYLabel.Visible = false;
-            CustomGameSizeYTextbox.Visible = false;
+            CustomGameSizeYTextbox.Visible = false;           
 
-            PlayerTypePanel.Visible = true;
-            OKbutton.Visible = true;
+            SetGamePropertiesPanel.Visible = true;
         }
+
+
+        private void GameParametersButton_Click(object sender, EventArgs e)
+        {
+            switch (UpperEndgameComboBox.Text)
+            {
+                case "Šach mat krále (šachy)":
+                    Gameclass.CurrentGame.blackGameType = Gameclass.GameType.chess;
+                    break;
+                case "Sebrání krále (shogi)": 
+                    Gameclass.CurrentGame.blackGameType = Gameclass.GameType.shogi;
+                    break;
+                case "Nemožnost tahu":
+                    Gameclass.CurrentGame.blackGameType = Gameclass.GameType.checkers;
+                    break;
+                default:
+                    MessageBox.Show("Nebyl zvolen konec hry pro černou/vrchní stranu.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+            }
+
+            switch (UpperSpecialActionsComboBox.Text)
+            {
+                case "Žádná":
+                    Gameclass.CurrentGame.blackPlayType = Gameclass.GameType.chess;
+                    break;
+                case "Přidávání vyhozených figur zpět do hry":
+                    Gameclass.CurrentGame.blackPlayType = Gameclass.GameType.shogi;
+                    break;
+                case "Nutnost sebrat figurku, je-li to možné":
+                    Gameclass.CurrentGame.blackPlayType = Gameclass.GameType.checkers;
+                    break;
+                default:
+                    MessageBox.Show("Nebyla zvolena žádná speciální akce pro černou/vrchní stranu.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+            }
+
+            switch (BottomEndgameComboBox.Text)
+            {
+                case "Šach mat krále (šachy)":
+                    Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.chess;
+                    break;
+                case "Sebrání krále (shogi)":
+                    Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.shogi;
+                    break;
+                case "Nemožnost tahu":
+                    Gameclass.CurrentGame.whiteGameType = Gameclass.GameType.checkers;
+                    break;
+                default:
+                    MessageBox.Show("Nebyl zvolen konec hry pro bílou/spodní stranu.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+            }
+
+            switch (BottomSpecialActionsComboBox.Text)
+            {
+                case "Žádná":
+                    Gameclass.CurrentGame.whitePlayType = Gameclass.GameType.chess;
+                    break;
+                case "Přidávání vyhozených figur zpět do hry":
+                    Gameclass.CurrentGame.whitePlayType = Gameclass.GameType.shogi;
+                    break;
+                case "Nutnost sebrat figurku, je-li to možné":
+                    Gameclass.CurrentGame.whitePlayType = Gameclass.GameType.checkers;
+                    break;
+                default:
+                    MessageBox.Show("Nebyla zvolena žádná speciální akce pro bílou/spodní stranu.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+            }
+
+            Gameclass.CurrentGame.playType = Gameclass.CurrentGame.whitePlayType;
+            Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.whiteGameType;
+
+
+            SetGamePropertiesPanel.Visible = false;
+
+            ChooseTypeOfGame();
+        }
+
 
         /// <summary>
         /// Draws chessboard so user can put their pieces on it as they wish.
@@ -192,21 +266,41 @@ namespace ShogiCheckersChess
 
             }
 
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+            if (Gameclass.CurrentGame.blackGameType == Gameclass.GameType.chess)
             {
-                if (!(isWhiteKing && isBlackKing))
+                if (!isBlackKing)
                 {
-                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být králové obou stran.";
+                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být černý šachový král.";
                     CustomGameChooseErrorLabel.Visible = true;
                     return;
                 }
             }
 
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+            if (Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.chess)
             {
-                if (!(bottomShogiKing && upperShogiKing))
+                if (!isWhiteKing)
                 {
-                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být králové obou stran.";
+                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být bílý šachový král.";
+                    CustomGameChooseErrorLabel.Visible = true;
+                    return;
+                }
+            }
+
+            if (Gameclass.CurrentGame.blackGameType == Gameclass.GameType.shogi)
+            {
+                if (!upperShogiKing)
+                {
+                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být vrchní shogi král.";
+                    CustomGameChooseErrorLabel.Visible = true;
+                    return;
+                }
+            }
+
+            if (Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.shogi)
+            {
+                if (!bottomShogiKing)
+                {
+                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být spodní shogi král.";
                     CustomGameChooseErrorLabel.Visible = true;
                     return;
                 }

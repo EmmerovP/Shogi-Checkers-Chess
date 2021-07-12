@@ -79,10 +79,24 @@
             this.SingleplayerRadioButton = new System.Windows.Forms.RadioButton();
             this.MultiplayerRadioButton = new System.Windows.Forms.RadioButton();
             this.AboutGamesButton = new System.Windows.Forms.Button();
+            this.SetGamePropertiesPanel = new System.Windows.Forms.Panel();
+            this.GameParametersButton = new System.Windows.Forms.Button();
+            this.BottomSpecialActionsLabel = new System.Windows.Forms.Label();
+            this.BottomEndGameLabel = new System.Windows.Forms.Label();
+            this.UpperSpecialActionsLabel = new System.Windows.Forms.Label();
+            this.UpperEndGameLabel = new System.Windows.Forms.Label();
+            this.WhiteBottomLabel = new System.Windows.Forms.Label();
+            this.BaclUpperLabel = new System.Windows.Forms.Label();
+            this.SelectRulesLabel = new System.Windows.Forms.Label();
+            this.BottomSpecialActionsComboBox = new System.Windows.Forms.ComboBox();
+            this.BottomEndgameComboBox = new System.Windows.Forms.ComboBox();
+            this.UpperSpecialActionsComboBox = new System.Windows.Forms.ComboBox();
+            this.UpperEndgameComboBox = new System.Windows.Forms.ComboBox();
             this.AlgorithmTypePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MCTSTimeUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DepthUpDown)).BeginInit();
             this.PlayerTypePanel.SuspendLayout();
+            this.SetGamePropertiesPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // SelectChessButton
@@ -91,8 +105,7 @@
             this.SelectChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectChessButton.Name = "SelectChessButton";
             this.SelectChessButton.Size = new System.Drawing.Size(76, 44);
-            this.SelectChessButton.TabIndex = 0;
-            this.SelectChessButton.TabStop = false;
+            this.SelectChessButton.TabIndex = 3;
             this.SelectChessButton.Text = "Šachy";
             this.SelectChessButton.UseVisualStyleBackColor = true;
             this.SelectChessButton.Click += new System.EventHandler(this.SelectChessButton_Click);
@@ -104,8 +117,7 @@
             this.SelectCheckersButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCheckersButton.Name = "SelectCheckersButton";
             this.SelectCheckersButton.Size = new System.Drawing.Size(79, 44);
-            this.SelectCheckersButton.TabIndex = 1;
-            this.SelectCheckersButton.TabStop = false;
+            this.SelectCheckersButton.TabIndex = 9;
             this.SelectCheckersButton.Text = "Česká dáma";
             this.SelectCheckersButton.UseVisualStyleBackColor = true;
             this.SelectCheckersButton.Click += new System.EventHandler(this.SelectCheckersButton_Click);
@@ -116,8 +128,7 @@
             this.SelectShogiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectShogiButton.Name = "SelectShogiButton";
             this.SelectShogiButton.Size = new System.Drawing.Size(79, 44);
-            this.SelectShogiButton.TabIndex = 3;
-            this.SelectShogiButton.TabStop = false;
+            this.SelectShogiButton.TabIndex = 11;
             this.SelectShogiButton.Text = "Šogi";
             this.SelectShogiButton.UseVisualStyleBackColor = true;
             this.SelectShogiButton.Click += new System.EventHandler(this.SelectShogiButton_Click);
@@ -128,8 +139,7 @@
             this.SelectCustomGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCustomGameButton.Name = "SelectCustomGameButton";
             this.SelectCustomGameButton.Size = new System.Drawing.Size(79, 49);
-            this.SelectCustomGameButton.TabIndex = 4;
-            this.SelectCustomGameButton.TabStop = false;
+            this.SelectCustomGameButton.TabIndex = 1;
             this.SelectCustomGameButton.Text = "Vlastní hra";
             this.SelectCustomGameButton.UseVisualStyleBackColor = true;
             this.SelectCustomGameButton.Click += new System.EventHandler(this.SelectCustomGameButton_Click);
@@ -140,8 +150,7 @@
             this.AboutGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.AboutGameButton.Name = "AboutGameButton";
             this.AboutGameButton.Size = new System.Drawing.Size(79, 43);
-            this.AboutGameButton.TabIndex = 5;
-            this.AboutGameButton.TabStop = false;
+            this.AboutGameButton.TabIndex = 13;
             this.AboutGameButton.Text = "O programu";
             this.AboutGameButton.UseVisualStyleBackColor = true;
             this.AboutGameButton.Click += new System.EventHandler(this.AboutGameButton_Click);
@@ -443,8 +452,7 @@
             this.LoadGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.LoadGameButton.Name = "LoadGameButton";
             this.LoadGameButton.Size = new System.Drawing.Size(79, 49);
-            this.LoadGameButton.TabIndex = 36;
-            this.LoadGameButton.TabStop = false;
+            this.LoadGameButton.TabIndex = 2;
             this.LoadGameButton.Text = "Načíst hru";
             this.LoadGameButton.UseVisualStyleBackColor = true;
             this.LoadGameButton.Click += new System.EventHandler(this.LoadGameButton_Click);
@@ -467,8 +475,7 @@
             this.SelectBlackHordeChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectBlackHordeChessButton.Name = "SelectBlackHordeChessButton";
             this.SelectBlackHordeChessButton.Size = new System.Drawing.Size(79, 44);
-            this.SelectBlackHordeChessButton.TabIndex = 43;
-            this.SelectBlackHordeChessButton.TabStop = false;
+            this.SelectBlackHordeChessButton.TabIndex = 5;
             this.SelectBlackHordeChessButton.Text = "Horde šachy (černá horda)";
             this.SelectBlackHordeChessButton.UseVisualStyleBackColor = true;
             this.SelectBlackHordeChessButton.Click += new System.EventHandler(this.SelectBlackHordeChessButton_Click);
@@ -480,8 +487,7 @@
             this.SelectWhiteHordeChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectWhiteHordeChessButton.Name = "SelectWhiteHordeChessButton";
             this.SelectWhiteHordeChessButton.Size = new System.Drawing.Size(79, 44);
-            this.SelectWhiteHordeChessButton.TabIndex = 42;
-            this.SelectWhiteHordeChessButton.TabStop = false;
+            this.SelectWhiteHordeChessButton.TabIndex = 4;
             this.SelectWhiteHordeChessButton.Text = "Horde šachy (bílá horda)";
             this.SelectWhiteHordeChessButton.UseVisualStyleBackColor = true;
             this.SelectWhiteHordeChessButton.Click += new System.EventHandler(this.SelectWhiteHordeChessButton_Click);
@@ -492,8 +498,7 @@
             this.SelectChess960Button.Margin = new System.Windows.Forms.Padding(2);
             this.SelectChess960Button.Name = "SelectChess960Button";
             this.SelectChess960Button.Size = new System.Drawing.Size(76, 44);
-            this.SelectChess960Button.TabIndex = 41;
-            this.SelectChess960Button.TabStop = false;
+            this.SelectChess960Button.TabIndex = 6;
             this.SelectChess960Button.Text = "Chess960";
             this.SelectChess960Button.UseVisualStyleBackColor = true;
             this.SelectChess960Button.Click += new System.EventHandler(this.SelectChess960Button_Click);
@@ -504,8 +509,7 @@
             this.SelectAlmostChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectAlmostChessButton.Name = "SelectAlmostChessButton";
             this.SelectAlmostChessButton.Size = new System.Drawing.Size(79, 44);
-            this.SelectAlmostChessButton.TabIndex = 46;
-            this.SelectAlmostChessButton.TabStop = false;
+            this.SelectAlmostChessButton.TabIndex = 8;
             this.SelectAlmostChessButton.Text = "Skorošachy";
             this.SelectAlmostChessButton.UseVisualStyleBackColor = true;
             this.SelectAlmostChessButton.Click += new System.EventHandler(this.SelectAlmostChessButton_Click);
@@ -517,8 +521,7 @@
             this.SelectCrazyhouseButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCrazyhouseButton.Name = "SelectCrazyhouseButton";
             this.SelectCrazyhouseButton.Size = new System.Drawing.Size(79, 44);
-            this.SelectCrazyhouseButton.TabIndex = 45;
-            this.SelectCrazyhouseButton.TabStop = false;
+            this.SelectCrazyhouseButton.TabIndex = 7;
             this.SelectCrazyhouseButton.Text = "Crazyhouse";
             this.SelectCrazyhouseButton.UseVisualStyleBackColor = true;
             this.SelectCrazyhouseButton.Click += new System.EventHandler(this.SelectCrazyhouseButton_Click);
@@ -529,8 +532,7 @@
             this.SelectReallyBadChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectReallyBadChessButton.Name = "SelectReallyBadChessButton";
             this.SelectReallyBadChessButton.Size = new System.Drawing.Size(76, 44);
-            this.SelectReallyBadChessButton.TabIndex = 44;
-            this.SelectReallyBadChessButton.TabStop = false;
+            this.SelectReallyBadChessButton.TabIndex = 10;
             this.SelectReallyBadChessButton.Text = "Fakt špatné šachy";
             this.SelectReallyBadChessButton.UseVisualStyleBackColor = true;
             this.SelectReallyBadChessButton.Click += new System.EventHandler(this.SelectReallyBadChessButton_Click);
@@ -541,8 +543,7 @@
             this.SelectMinishogiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectMinishogiButton.Name = "SelectMinishogiButton";
             this.SelectMinishogiButton.Size = new System.Drawing.Size(79, 44);
-            this.SelectMinishogiButton.TabIndex = 47;
-            this.SelectMinishogiButton.TabStop = false;
+            this.SelectMinishogiButton.TabIndex = 12;
             this.SelectMinishogiButton.Text = "Minišogi";
             this.SelectMinishogiButton.UseVisualStyleBackColor = true;
             this.SelectMinishogiButton.Click += new System.EventHandler(this.SelectMinishogiButton_Click);
@@ -714,11 +715,163 @@
             this.AboutGamesButton.Margin = new System.Windows.Forms.Padding(2);
             this.AboutGamesButton.Name = "AboutGamesButton";
             this.AboutGamesButton.Size = new System.Drawing.Size(79, 43);
-            this.AboutGamesButton.TabIndex = 50;
-            this.AboutGamesButton.TabStop = false;
+            this.AboutGamesButton.TabIndex = 14;
             this.AboutGamesButton.Text = "O hrách";
             this.AboutGamesButton.UseVisualStyleBackColor = true;
             this.AboutGamesButton.Click += new System.EventHandler(this.AboutGamesButton_Click);
+            // 
+            // SetGamePropertiesPanel
+            // 
+            this.SetGamePropertiesPanel.Controls.Add(this.GameParametersButton);
+            this.SetGamePropertiesPanel.Controls.Add(this.BottomSpecialActionsLabel);
+            this.SetGamePropertiesPanel.Controls.Add(this.BottomEndGameLabel);
+            this.SetGamePropertiesPanel.Controls.Add(this.UpperSpecialActionsLabel);
+            this.SetGamePropertiesPanel.Controls.Add(this.UpperEndGameLabel);
+            this.SetGamePropertiesPanel.Controls.Add(this.WhiteBottomLabel);
+            this.SetGamePropertiesPanel.Controls.Add(this.BaclUpperLabel);
+            this.SetGamePropertiesPanel.Controls.Add(this.SelectRulesLabel);
+            this.SetGamePropertiesPanel.Controls.Add(this.BottomSpecialActionsComboBox);
+            this.SetGamePropertiesPanel.Controls.Add(this.BottomEndgameComboBox);
+            this.SetGamePropertiesPanel.Controls.Add(this.UpperSpecialActionsComboBox);
+            this.SetGamePropertiesPanel.Controls.Add(this.UpperEndgameComboBox);
+            this.SetGamePropertiesPanel.Location = new System.Drawing.Point(3, 1);
+            this.SetGamePropertiesPanel.Name = "SetGamePropertiesPanel";
+            this.SetGamePropertiesPanel.Size = new System.Drawing.Size(182, 323);
+            this.SetGamePropertiesPanel.TabIndex = 51;
+            this.SetGamePropertiesPanel.Visible = false;
+            // 
+            // GameParametersButton
+            // 
+            this.GameParametersButton.Location = new System.Drawing.Point(47, 279);
+            this.GameParametersButton.Name = "GameParametersButton";
+            this.GameParametersButton.Size = new System.Drawing.Size(75, 23);
+            this.GameParametersButton.TabIndex = 52;
+            this.GameParametersButton.TabStop = false;
+            this.GameParametersButton.Text = "OK";
+            this.GameParametersButton.UseVisualStyleBackColor = true;
+            this.GameParametersButton.Click += new System.EventHandler(this.GameParametersButton_Click);
+            // 
+            // BottomSpecialActionsLabel
+            // 
+            this.BottomSpecialActionsLabel.AutoSize = true;
+            this.BottomSpecialActionsLabel.Location = new System.Drawing.Point(12, 222);
+            this.BottomSpecialActionsLabel.Name = "BottomSpecialActionsLabel";
+            this.BottomSpecialActionsLabel.Size = new System.Drawing.Size(82, 13);
+            this.BottomSpecialActionsLabel.TabIndex = 60;
+            this.BottomSpecialActionsLabel.Text = "Speciální akce:";
+            // 
+            // BottomEndGameLabel
+            // 
+            this.BottomEndGameLabel.AutoSize = true;
+            this.BottomEndGameLabel.Location = new System.Drawing.Point(12, 177);
+            this.BottomEndGameLabel.Name = "BottomEndGameLabel";
+            this.BottomEndGameLabel.Size = new System.Drawing.Size(58, 13);
+            this.BottomEndGameLabel.TabIndex = 59;
+            this.BottomEndGameLabel.Text = "Konec hry:";
+            // 
+            // UpperSpecialActionsLabel
+            // 
+            this.UpperSpecialActionsLabel.AutoSize = true;
+            this.UpperSpecialActionsLabel.Location = new System.Drawing.Point(12, 102);
+            this.UpperSpecialActionsLabel.Name = "UpperSpecialActionsLabel";
+            this.UpperSpecialActionsLabel.Size = new System.Drawing.Size(82, 13);
+            this.UpperSpecialActionsLabel.TabIndex = 58;
+            this.UpperSpecialActionsLabel.Text = "Speciální akce:";
+            // 
+            // UpperEndGameLabel
+            // 
+            this.UpperEndGameLabel.AutoSize = true;
+            this.UpperEndGameLabel.Location = new System.Drawing.Point(11, 55);
+            this.UpperEndGameLabel.Name = "UpperEndGameLabel";
+            this.UpperEndGameLabel.Size = new System.Drawing.Size(58, 13);
+            this.UpperEndGameLabel.TabIndex = 57;
+            this.UpperEndGameLabel.Text = "Konec hry:";
+            // 
+            // WhiteBottomLabel
+            // 
+            this.WhiteBottomLabel.AutoSize = true;
+            this.WhiteBottomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WhiteBottomLabel.Location = new System.Drawing.Point(12, 158);
+            this.WhiteBottomLabel.Name = "WhiteBottomLabel";
+            this.WhiteBottomLabel.Size = new System.Drawing.Size(122, 13);
+            this.WhiteBottomLabel.TabIndex = 56;
+            this.WhiteBottomLabel.Text = "Bílá/spodní strana::";
+            // 
+            // BaclUpperLabel
+            // 
+            this.BaclUpperLabel.AutoSize = true;
+            this.BaclUpperLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BaclUpperLabel.Location = new System.Drawing.Point(12, 42);
+            this.BaclUpperLabel.Name = "BaclUpperLabel";
+            this.BaclUpperLabel.Size = new System.Drawing.Size(126, 13);
+            this.BaclUpperLabel.TabIndex = 52;
+            this.BaclUpperLabel.Text = "Černá/vrchní strana:";
+            // 
+            // SelectRulesLabel
+            // 
+            this.SelectRulesLabel.AutoSize = true;
+            this.SelectRulesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SelectRulesLabel.Location = new System.Drawing.Point(30, 12);
+            this.SelectRulesLabel.Name = "SelectRulesLabel";
+            this.SelectRulesLabel.Size = new System.Drawing.Size(117, 13);
+            this.SelectRulesLabel.TabIndex = 52;
+            this.SelectRulesLabel.Text = "Zvolte pravidla hry:";
+            // 
+            // BottomSpecialActionsComboBox
+            // 
+            this.BottomSpecialActionsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BottomSpecialActionsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BottomSpecialActionsComboBox.FormattingEnabled = true;
+            this.BottomSpecialActionsComboBox.Items.AddRange(new object[] {
+            "Žádná",
+            "Přidávání vyhozených figur zpět do hry",
+            "Nutnost sebrat figurku, je-li to možné"});
+            this.BottomSpecialActionsComboBox.Location = new System.Drawing.Point(14, 238);
+            this.BottomSpecialActionsComboBox.Name = "BottomSpecialActionsComboBox";
+            this.BottomSpecialActionsComboBox.Size = new System.Drawing.Size(153, 21);
+            this.BottomSpecialActionsComboBox.TabIndex = 55;
+            // 
+            // BottomEndgameComboBox
+            // 
+            this.BottomEndgameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BottomEndgameComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BottomEndgameComboBox.FormattingEnabled = true;
+            this.BottomEndgameComboBox.Items.AddRange(new object[] {
+            "Šach mat krále (šachy)",
+            "Sebrání krále (shogi)",
+            "Nemožnost tahu"});
+            this.BottomEndgameComboBox.Location = new System.Drawing.Point(14, 193);
+            this.BottomEndgameComboBox.Name = "BottomEndgameComboBox";
+            this.BottomEndgameComboBox.Size = new System.Drawing.Size(153, 21);
+            this.BottomEndgameComboBox.TabIndex = 54;
+            // 
+            // UpperSpecialActionsComboBox
+            // 
+            this.UpperSpecialActionsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.UpperSpecialActionsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UpperSpecialActionsComboBox.FormattingEnabled = true;
+            this.UpperSpecialActionsComboBox.Items.AddRange(new object[] {
+            "Žádná",
+            "Přidávání vyhozených figur zpět do hry",
+            "Nutnost sebrat figurku, je-li to možné"});
+            this.UpperSpecialActionsComboBox.Location = new System.Drawing.Point(14, 118);
+            this.UpperSpecialActionsComboBox.Name = "UpperSpecialActionsComboBox";
+            this.UpperSpecialActionsComboBox.Size = new System.Drawing.Size(153, 21);
+            this.UpperSpecialActionsComboBox.TabIndex = 53;
+            // 
+            // UpperEndgameComboBox
+            // 
+            this.UpperEndgameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.UpperEndgameComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UpperEndgameComboBox.FormattingEnabled = true;
+            this.UpperEndgameComboBox.Items.AddRange(new object[] {
+            "Šach mat krále (šachy)",
+            "Sebrání krále (shogi)",
+            "Nemožnost tahu"});
+            this.UpperEndgameComboBox.Location = new System.Drawing.Point(14, 73);
+            this.UpperEndgameComboBox.Name = "UpperEndgameComboBox";
+            this.UpperEndgameComboBox.Size = new System.Drawing.Size(153, 21);
+            this.UpperEndgameComboBox.TabIndex = 52;
             // 
             // MainGameWindow
             // 
@@ -728,6 +881,7 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(700, 600);
+            this.Controls.Add(this.SetGamePropertiesPanel);
             this.Controls.Add(this.AboutGamesButton);
             this.Controls.Add(this.SelectMinishogiButton);
             this.Controls.Add(this.SelectAlmostChessButton);
@@ -775,6 +929,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DepthUpDown)).EndInit();
             this.PlayerTypePanel.ResumeLayout(false);
             this.PlayerTypePanel.PerformLayout();
+            this.SetGamePropertiesPanel.ResumeLayout(false);
+            this.SetGamePropertiesPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -831,6 +987,19 @@
         private System.Windows.Forms.Label MCTSTimeLabel;
         private System.Windows.Forms.NumericUpDown MCTSTimeUpDown;
         private System.Windows.Forms.Button AboutGamesButton;
+        private System.Windows.Forms.Panel SetGamePropertiesPanel;
+        private System.Windows.Forms.ComboBox UpperEndgameComboBox;
+        private System.Windows.Forms.Label BottomSpecialActionsLabel;
+        private System.Windows.Forms.Label BottomEndGameLabel;
+        private System.Windows.Forms.Label UpperSpecialActionsLabel;
+        private System.Windows.Forms.Label UpperEndGameLabel;
+        private System.Windows.Forms.Label WhiteBottomLabel;
+        private System.Windows.Forms.Label BaclUpperLabel;
+        private System.Windows.Forms.Label SelectRulesLabel;
+        private System.Windows.Forms.ComboBox BottomSpecialActionsComboBox;
+        private System.Windows.Forms.ComboBox BottomEndgameComboBox;
+        private System.Windows.Forms.ComboBox UpperSpecialActionsComboBox;
+        private System.Windows.Forms.Button GameParametersButton;
     }
 }
 
