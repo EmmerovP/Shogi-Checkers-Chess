@@ -15,7 +15,7 @@
 		"name":"kancléř", 
 		"upperPieceFile":"C:\\Users\\42072\\Documents\\Bakalarka 2\\Shogi-Checkers-Chess\\PiecesImages\\blackchancellor.gif", 
 		"bottomPieceFile":"C:\\Users\\42072\\Documents\\Bakalarka 2\\Shogi-Checkers-Chess\\PiecesImages\\whitechancellor.gif", 
-		"moves":[9,10,11,12,13,14,15,16,17,18,19],
+		"moves":[9,11,13,15,17,18,19],
 		"value":100
         }]
 }

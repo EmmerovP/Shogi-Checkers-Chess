@@ -61,7 +61,7 @@ namespace ShogiCheckersChess
             /// </summary>
             /// <param name="Board">board we are playing on</param>
             /// <returns></returns>
-            public static bool MustTakeCheckersPiece(Pieces[,] Board)
+            public static bool MustTake(Pieces[,] Board)
             {
                 Moves.CoordinatesCopy cp = Moves.MakeCopyEmptyCoordinates();
 
@@ -83,7 +83,7 @@ namespace ShogiCheckersChess
                                 Moves.EmptyCoordinates();
                                 Moves.CoordinatesReturn(cp);
                                 return true;
-                            }                         
+                            }
                         }
 
                         else if ((Board[i, j] != null) && (Generating.WhitePlays == Board[i, j].isWhite) && PiecesNumbers.IsCheckersQueen(Board[i, j]))

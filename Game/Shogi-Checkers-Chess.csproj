@@ -68,12 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\MoveController.cs" />
-    <Compile Include="View\AboutGame.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\AboutGame.Designer.cs">
-      <DependentUpon>AboutGame.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\Board.cs" />
     <Compile Include="Controller\Generating.cs" />
     <Compile Include="Model\LoadGame.cs" />
@@ -118,12 +112,6 @@
     <Compile Include="View\ShogiPawnProblem.Designer.cs">
       <DependentUpon>ShogiPawnProblem.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\AboutGame.aa.resx">
-      <DependentUpon>AboutGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\AboutGame.resx">
-      <DependentUpon>AboutGame.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\MainGameWindow.resx">
       <DependentUpon>MainGameWindow.cs</DependentUpon>
     </EmbeddedResource>

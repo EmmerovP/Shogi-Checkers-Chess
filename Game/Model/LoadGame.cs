@@ -181,7 +181,7 @@ namespace ShogiCheckersChess
                         }
                         catch
                         {
-                            throw new Exception("Figurka se jménem " + customGame.Board[i, j].ToString() + " neexistuje.");
+                            throw new Exception("Figurka se jménem \"" + customGame.Board[i, j].ToString() + "\" neexistuje.");
                         }
                     }
                     else

@@ -64,7 +64,7 @@
             this.SelectChess960Button = new System.Windows.Forms.Button();
             this.SelectAlmostChessButton = new System.Windows.Forms.Button();
             this.SelectCrazyhouseButton = new System.Windows.Forms.Button();
-            this.SelectInternationalCheckersButton = new System.Windows.Forms.Button();
+            this.SelectReallyBadChessButton = new System.Windows.Forms.Button();
             this.SelectMinishogiButton = new System.Windows.Forms.Button();
             this.AlgorithmTypePanel = new System.Windows.Forms.Panel();
             this.MCTSTimeLabel = new System.Windows.Forms.Label();
@@ -78,6 +78,7 @@
             this.OKbutton = new System.Windows.Forms.Button();
             this.SingleplayerRadioButton = new System.Windows.Forms.RadioButton();
             this.MultiplayerRadioButton = new System.Windows.Forms.RadioButton();
+            this.AboutGamesButton = new System.Windows.Forms.Button();
             this.AlgorithmTypePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MCTSTimeUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DepthUpDown)).BeginInit();
@@ -86,7 +87,7 @@
             // 
             // SelectChessButton
             // 
-            this.SelectChessButton.Location = new System.Drawing.Point(197, 118);
+            this.SelectChessButton.Location = new System.Drawing.Point(181, 106);
             this.SelectChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectChessButton.Name = "SelectChessButton";
             this.SelectChessButton.Size = new System.Drawing.Size(76, 44);
@@ -99,7 +100,7 @@
             // SelectCheckersButton
             // 
             this.SelectCheckersButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SelectCheckersButton.Location = new System.Drawing.Point(254, 266);
+            this.SelectCheckersButton.Location = new System.Drawing.Point(238, 254);
             this.SelectCheckersButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCheckersButton.Name = "SelectCheckersButton";
             this.SelectCheckersButton.Size = new System.Drawing.Size(79, 44);
@@ -111,7 +112,7 @@
             // 
             // SelectShogiButton
             // 
-            this.SelectShogiButton.Location = new System.Drawing.Point(258, 344);
+            this.SelectShogiButton.Location = new System.Drawing.Point(242, 332);
             this.SelectShogiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectShogiButton.Name = "SelectShogiButton";
             this.SelectShogiButton.Size = new System.Drawing.Size(79, 44);
@@ -123,7 +124,7 @@
             // 
             // SelectCustomGameButton
             // 
-            this.SelectCustomGameButton.Location = new System.Drawing.Point(259, 40);
+            this.SelectCustomGameButton.Location = new System.Drawing.Point(243, 28);
             this.SelectCustomGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCustomGameButton.Name = "SelectCustomGameButton";
             this.SelectCustomGameButton.Size = new System.Drawing.Size(79, 49);
@@ -135,7 +136,7 @@
             // 
             // AboutGameButton
             // 
-            this.AboutGameButton.Location = new System.Drawing.Point(307, 523);
+            this.AboutGameButton.Location = new System.Drawing.Point(295, 415);
             this.AboutGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.AboutGameButton.Name = "AboutGameButton";
             this.AboutGameButton.Size = new System.Drawing.Size(79, 43);
@@ -263,7 +264,7 @@
             // 
             // PutShogiPieceLabelUpper
             // 
-            this.PutShogiPieceLabelUpper.Location = new System.Drawing.Point(607, 159);
+            this.PutShogiPieceLabelUpper.Location = new System.Drawing.Point(569, 159);
             this.PutShogiPieceLabelUpper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.PutShogiPieceLabelUpper.Name = "PutShogiPieceLabelUpper";
             this.PutShogiPieceLabelUpper.Size = new System.Drawing.Size(118, 48);
@@ -309,7 +310,7 @@
             // CustomGameSizeLabel
             // 
             this.CustomGameSizeLabel.AutoSize = true;
-            this.CustomGameSizeLabel.Location = new System.Drawing.Point(30, 29);
+            this.CustomGameSizeLabel.Location = new System.Drawing.Point(14, 17);
             this.CustomGameSizeLabel.Name = "CustomGameSizeLabel";
             this.CustomGameSizeLabel.Size = new System.Drawing.Size(316, 13);
             this.CustomGameSizeLabel.TabIndex = 21;
@@ -318,7 +319,7 @@
             // 
             // CustomGameSizeXTextbox
             // 
-            this.CustomGameSizeXTextbox.Location = new System.Drawing.Point(75, 55);
+            this.CustomGameSizeXTextbox.Location = new System.Drawing.Point(59, 43);
             this.CustomGameSizeXTextbox.Name = "CustomGameSizeXTextbox";
             this.CustomGameSizeXTextbox.Size = new System.Drawing.Size(100, 20);
             this.CustomGameSizeXTextbox.TabIndex = 22;
@@ -326,7 +327,7 @@
             // 
             // CustomGameSizeYTextbox
             // 
-            this.CustomGameSizeYTextbox.Location = new System.Drawing.Point(75, 95);
+            this.CustomGameSizeYTextbox.Location = new System.Drawing.Point(59, 83);
             this.CustomGameSizeYTextbox.Name = "CustomGameSizeYTextbox";
             this.CustomGameSizeYTextbox.Size = new System.Drawing.Size(100, 20);
             this.CustomGameSizeYTextbox.TabIndex = 23;
@@ -335,7 +336,7 @@
             // CustomGameSizeXLabel
             // 
             this.CustomGameSizeXLabel.AutoSize = true;
-            this.CustomGameSizeXLabel.Location = new System.Drawing.Point(30, 58);
+            this.CustomGameSizeXLabel.Location = new System.Drawing.Point(14, 46);
             this.CustomGameSizeXLabel.Name = "CustomGameSizeXLabel";
             this.CustomGameSizeXLabel.Size = new System.Drawing.Size(39, 13);
             this.CustomGameSizeXLabel.TabIndex = 24;
@@ -345,7 +346,7 @@
             // CustomGameSizeYLabel
             // 
             this.CustomGameSizeYLabel.AutoSize = true;
-            this.CustomGameSizeYLabel.Location = new System.Drawing.Point(30, 95);
+            this.CustomGameSizeYLabel.Location = new System.Drawing.Point(14, 83);
             this.CustomGameSizeYLabel.Name = "CustomGameSizeYLabel";
             this.CustomGameSizeYLabel.Size = new System.Drawing.Size(37, 13);
             this.CustomGameSizeYLabel.TabIndex = 25;
@@ -354,7 +355,7 @@
             // 
             // CustomGameSizeButton
             // 
-            this.CustomGameSizeButton.Location = new System.Drawing.Point(86, 137);
+            this.CustomGameSizeButton.Location = new System.Drawing.Point(70, 125);
             this.CustomGameSizeButton.Name = "CustomGameSizeButton";
             this.CustomGameSizeButton.Size = new System.Drawing.Size(75, 23);
             this.CustomGameSizeButton.TabIndex = 26;
@@ -438,7 +439,7 @@
             // 
             // LoadGameButton
             // 
-            this.LoadGameButton.Location = new System.Drawing.Point(365, 40);
+            this.LoadGameButton.Location = new System.Drawing.Point(349, 28);
             this.LoadGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.LoadGameButton.Name = "LoadGameButton";
             this.LoadGameButton.Size = new System.Drawing.Size(79, 49);
@@ -450,7 +451,7 @@
             // 
             // NewGameInstanceButton
             // 
-            this.NewGameInstanceButton.Location = new System.Drawing.Point(627, 9);
+            this.NewGameInstanceButton.Location = new System.Drawing.Point(581, 12);
             this.NewGameInstanceButton.Name = "NewGameInstanceButton";
             this.NewGameInstanceButton.Size = new System.Drawing.Size(106, 32);
             this.NewGameInstanceButton.TabIndex = 40;
@@ -462,7 +463,7 @@
             // 
             // SelectBlackHordeChessButton
             // 
-            this.SelectBlackHordeChessButton.Location = new System.Drawing.Point(429, 118);
+            this.SelectBlackHordeChessButton.Location = new System.Drawing.Point(413, 106);
             this.SelectBlackHordeChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectBlackHordeChessButton.Name = "SelectBlackHordeChessButton";
             this.SelectBlackHordeChessButton.Size = new System.Drawing.Size(79, 44);
@@ -475,7 +476,7 @@
             // SelectWhiteHordeChessButton
             // 
             this.SelectWhiteHordeChessButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SelectWhiteHordeChessButton.Location = new System.Drawing.Point(311, 118);
+            this.SelectWhiteHordeChessButton.Location = new System.Drawing.Point(295, 106);
             this.SelectWhiteHordeChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectWhiteHordeChessButton.Name = "SelectWhiteHordeChessButton";
             this.SelectWhiteHordeChessButton.Size = new System.Drawing.Size(79, 44);
@@ -487,7 +488,7 @@
             // 
             // SelectChess960Button
             // 
-            this.SelectChess960Button.Location = new System.Drawing.Point(197, 195);
+            this.SelectChess960Button.Location = new System.Drawing.Point(181, 183);
             this.SelectChess960Button.Margin = new System.Windows.Forms.Padding(2);
             this.SelectChess960Button.Name = "SelectChess960Button";
             this.SelectChess960Button.Size = new System.Drawing.Size(76, 44);
@@ -499,7 +500,7 @@
             // 
             // SelectAlmostChessButton
             // 
-            this.SelectAlmostChessButton.Location = new System.Drawing.Point(429, 195);
+            this.SelectAlmostChessButton.Location = new System.Drawing.Point(413, 183);
             this.SelectAlmostChessButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectAlmostChessButton.Name = "SelectAlmostChessButton";
             this.SelectAlmostChessButton.Size = new System.Drawing.Size(79, 44);
@@ -512,7 +513,7 @@
             // SelectCrazyhouseButton
             // 
             this.SelectCrazyhouseButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SelectCrazyhouseButton.Location = new System.Drawing.Point(311, 195);
+            this.SelectCrazyhouseButton.Location = new System.Drawing.Point(295, 183);
             this.SelectCrazyhouseButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectCrazyhouseButton.Name = "SelectCrazyhouseButton";
             this.SelectCrazyhouseButton.Size = new System.Drawing.Size(79, 44);
@@ -522,20 +523,21 @@
             this.SelectCrazyhouseButton.UseVisualStyleBackColor = true;
             this.SelectCrazyhouseButton.Click += new System.EventHandler(this.SelectCrazyhouseButton_Click);
             // 
-            // SelectInternationalCheckersButton
+            // SelectReallyBadChessButton
             // 
-            this.SelectInternationalCheckersButton.Location = new System.Drawing.Point(372, 266);
-            this.SelectInternationalCheckersButton.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectInternationalCheckersButton.Name = "SelectInternationalCheckersButton";
-            this.SelectInternationalCheckersButton.Size = new System.Drawing.Size(76, 44);
-            this.SelectInternationalCheckersButton.TabIndex = 44;
-            this.SelectInternationalCheckersButton.TabStop = false;
-            this.SelectInternationalCheckersButton.Text = "Mezinárodní Dáma";
-            this.SelectInternationalCheckersButton.UseVisualStyleBackColor = true;
+            this.SelectReallyBadChessButton.Location = new System.Drawing.Point(356, 254);
+            this.SelectReallyBadChessButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectReallyBadChessButton.Name = "SelectReallyBadChessButton";
+            this.SelectReallyBadChessButton.Size = new System.Drawing.Size(76, 44);
+            this.SelectReallyBadChessButton.TabIndex = 44;
+            this.SelectReallyBadChessButton.TabStop = false;
+            this.SelectReallyBadChessButton.Text = "Fakt špatné šachy";
+            this.SelectReallyBadChessButton.UseVisualStyleBackColor = true;
+            this.SelectReallyBadChessButton.Click += new System.EventHandler(this.SelectReallyBadChessButton_Click);
             // 
             // SelectMinishogiButton
             // 
-            this.SelectMinishogiButton.Location = new System.Drawing.Point(372, 344);
+            this.SelectMinishogiButton.Location = new System.Drawing.Point(356, 332);
             this.SelectMinishogiButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectMinishogiButton.Name = "SelectMinishogiButton";
             this.SelectMinishogiButton.Size = new System.Drawing.Size(79, 44);
@@ -554,28 +556,38 @@
             this.AlgorithmTypePanel.Controls.Add(this.DepthUpDown);
             this.AlgorithmTypePanel.Controls.Add(this.MCTSRadioButton);
             this.AlgorithmTypePanel.Controls.Add(this.MinimaxRadioButton);
-            this.AlgorithmTypePanel.Location = new System.Drawing.Point(337, 49);
+            this.AlgorithmTypePanel.Location = new System.Drawing.Point(5, 53);
             this.AlgorithmTypePanel.Name = "AlgorithmTypePanel";
-            this.AlgorithmTypePanel.Size = new System.Drawing.Size(216, 121);
+            this.AlgorithmTypePanel.Size = new System.Drawing.Size(295, 121);
             this.AlgorithmTypePanel.TabIndex = 48;
             this.AlgorithmTypePanel.Visible = false;
             // 
             // MCTSTimeLabel
             // 
             this.MCTSTimeLabel.AutoSize = true;
-            this.MCTSTimeLabel.Location = new System.Drawing.Point(10, 91);
+            this.MCTSTimeLabel.Location = new System.Drawing.Point(9, 91);
             this.MCTSTimeLabel.Name = "MCTSTimeLabel";
-            this.MCTSTimeLabel.Size = new System.Drawing.Size(128, 13);
+            this.MCTSTimeLabel.Size = new System.Drawing.Size(193, 13);
             this.MCTSTimeLabel.TabIndex = 52;
-            this.MCTSTimeLabel.Text = "Čas prohledávání stromu:";
+            this.MCTSTimeLabel.Text = "Čas prohledávání stromu v sekundách:";
             this.MCTSTimeLabel.Visible = false;
             // 
             // MCTSTimeUpDown
             // 
-            this.MCTSTimeUpDown.Location = new System.Drawing.Point(141, 89);
+            this.MCTSTimeUpDown.Location = new System.Drawing.Point(208, 89);
+            this.MCTSTimeUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.MCTSTimeUpDown.Name = "MCTSTimeUpDown";
             this.MCTSTimeUpDown.Size = new System.Drawing.Size(32, 20);
             this.MCTSTimeUpDown.TabIndex = 50;
+            this.MCTSTimeUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.MCTSTimeUpDown.Visible = false;
             // 
             // AlphabetaCheckBox
@@ -599,9 +611,9 @@
             // 
             // DepthUpDown
             // 
-            this.DepthUpDown.Location = new System.Drawing.Point(179, 21);
+            this.DepthUpDown.Location = new System.Drawing.Point(173, 21);
             this.DepthUpDown.Maximum = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
@@ -651,15 +663,15 @@
             this.PlayerTypePanel.Controls.Add(this.AlgorithmTypePanel);
             this.PlayerTypePanel.Controls.Add(this.SingleplayerRadioButton);
             this.PlayerTypePanel.Controls.Add(this.MultiplayerRadioButton);
-            this.PlayerTypePanel.Location = new System.Drawing.Point(49, 111);
+            this.PlayerTypePanel.Location = new System.Drawing.Point(219, 117);
             this.PlayerTypePanel.Name = "PlayerTypePanel";
-            this.PlayerTypePanel.Size = new System.Drawing.Size(616, 228);
+            this.PlayerTypePanel.Size = new System.Drawing.Size(305, 228);
             this.PlayerTypePanel.TabIndex = 49;
             this.PlayerTypePanel.Visible = false;
             // 
             // OKbutton
             // 
-            this.OKbutton.Location = new System.Drawing.Point(262, 175);
+            this.OKbutton.Location = new System.Drawing.Point(76, 179);
             this.OKbutton.Margin = new System.Windows.Forms.Padding(2);
             this.OKbutton.Name = "OKbutton";
             this.OKbutton.Size = new System.Drawing.Size(79, 44);
@@ -674,7 +686,7 @@
             // 
             this.SingleplayerRadioButton.AutoSize = true;
             this.SingleplayerRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SingleplayerRadioButton.Location = new System.Drawing.Point(337, 26);
+            this.SingleplayerRadioButton.Location = new System.Drawing.Point(5, 30);
             this.SingleplayerRadioButton.Name = "SingleplayerRadioButton";
             this.SingleplayerRadioButton.Size = new System.Drawing.Size(95, 17);
             this.SingleplayerRadioButton.TabIndex = 1;
@@ -687,7 +699,7 @@
             this.MultiplayerRadioButton.AutoSize = true;
             this.MultiplayerRadioButton.Checked = true;
             this.MultiplayerRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MultiplayerRadioButton.Location = new System.Drawing.Point(26, 21);
+            this.MultiplayerRadioButton.Location = new System.Drawing.Point(5, 9);
             this.MultiplayerRadioButton.Name = "MultiplayerRadioButton";
             this.MultiplayerRadioButton.Size = new System.Drawing.Size(86, 17);
             this.MultiplayerRadioButton.TabIndex = 0;
@@ -696,6 +708,18 @@
             this.MultiplayerRadioButton.UseVisualStyleBackColor = true;
             this.MultiplayerRadioButton.CheckedChanged += new System.EventHandler(this.MultiplayerRadioButton_CheckedChanged);
             // 
+            // AboutGamesButton
+            // 
+            this.AboutGamesButton.Location = new System.Drawing.Point(295, 489);
+            this.AboutGamesButton.Margin = new System.Windows.Forms.Padding(2);
+            this.AboutGamesButton.Name = "AboutGamesButton";
+            this.AboutGamesButton.Size = new System.Drawing.Size(79, 43);
+            this.AboutGamesButton.TabIndex = 50;
+            this.AboutGamesButton.TabStop = false;
+            this.AboutGamesButton.Text = "O hrách";
+            this.AboutGamesButton.UseVisualStyleBackColor = true;
+            this.AboutGamesButton.Click += new System.EventHandler(this.AboutGamesButton_Click);
+            // 
             // MainGameWindow
             // 
             this.AllowDrop = true;
@@ -703,11 +727,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(745, 596);
+            this.ClientSize = new System.Drawing.Size(700, 600);
+            this.Controls.Add(this.AboutGamesButton);
             this.Controls.Add(this.SelectMinishogiButton);
             this.Controls.Add(this.SelectAlmostChessButton);
             this.Controls.Add(this.SelectCrazyhouseButton);
-            this.Controls.Add(this.SelectInternationalCheckersButton);
+            this.Controls.Add(this.SelectReallyBadChessButton);
             this.Controls.Add(this.SelectBlackHordeChessButton);
             this.Controls.Add(this.SelectWhiteHordeChessButton);
             this.Controls.Add(this.SelectChess960Button);
@@ -791,7 +816,7 @@
         private System.Windows.Forms.Button SelectChess960Button;
         private System.Windows.Forms.Button SelectAlmostChessButton;
         private System.Windows.Forms.Button SelectCrazyhouseButton;
-        private System.Windows.Forms.Button SelectInternationalCheckersButton;
+        private System.Windows.Forms.Button SelectReallyBadChessButton;
         private System.Windows.Forms.Button SelectMinishogiButton;
         private System.Windows.Forms.Panel AlgorithmTypePanel;
         private System.Windows.Forms.RadioButton MCTSRadioButton;
@@ -805,6 +830,7 @@
         private System.Windows.Forms.CheckBox AlphabetaCheckBox;
         private System.Windows.Forms.Label MCTSTimeLabel;
         private System.Windows.Forms.NumericUpDown MCTSTimeUpDown;
+        private System.Windows.Forms.Button AboutGamesButton;
     }
 }
 
