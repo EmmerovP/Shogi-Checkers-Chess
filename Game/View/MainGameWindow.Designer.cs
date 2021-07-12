@@ -58,7 +58,6 @@
             this.CustomLabel = new System.Windows.Forms.Label();
             this.LoadGameButton = new System.Windows.Forms.Button();
             this.LoadCustomGameDialog = new System.Windows.Forms.OpenFileDialog();
-            this.ChooseAlgorithmLabel = new System.Windows.Forms.Label();
             this.NewGameInstanceButton = new System.Windows.Forms.Button();
             this.SelectBlackHordeChessButton = new System.Windows.Forms.Button();
             this.SelectWhiteHordeChessButton = new System.Windows.Forms.Button();
@@ -92,6 +91,7 @@
             this.SelectChessButton.Name = "SelectChessButton";
             this.SelectChessButton.Size = new System.Drawing.Size(76, 44);
             this.SelectChessButton.TabIndex = 0;
+            this.SelectChessButton.TabStop = false;
             this.SelectChessButton.Text = "Šachy";
             this.SelectChessButton.UseVisualStyleBackColor = true;
             this.SelectChessButton.Click += new System.EventHandler(this.SelectChessButton_Click);
@@ -104,6 +104,7 @@
             this.SelectCheckersButton.Name = "SelectCheckersButton";
             this.SelectCheckersButton.Size = new System.Drawing.Size(79, 44);
             this.SelectCheckersButton.TabIndex = 1;
+            this.SelectCheckersButton.TabStop = false;
             this.SelectCheckersButton.Text = "Česká dáma";
             this.SelectCheckersButton.UseVisualStyleBackColor = true;
             this.SelectCheckersButton.Click += new System.EventHandler(this.SelectCheckersButton_Click);
@@ -115,6 +116,7 @@
             this.SelectShogiButton.Name = "SelectShogiButton";
             this.SelectShogiButton.Size = new System.Drawing.Size(79, 44);
             this.SelectShogiButton.TabIndex = 3;
+            this.SelectShogiButton.TabStop = false;
             this.SelectShogiButton.Text = "Šogi";
             this.SelectShogiButton.UseVisualStyleBackColor = true;
             this.SelectShogiButton.Click += new System.EventHandler(this.SelectShogiButton_Click);
@@ -126,6 +128,7 @@
             this.SelectCustomGameButton.Name = "SelectCustomGameButton";
             this.SelectCustomGameButton.Size = new System.Drawing.Size(79, 49);
             this.SelectCustomGameButton.TabIndex = 4;
+            this.SelectCustomGameButton.TabStop = false;
             this.SelectCustomGameButton.Text = "Vlastní hra";
             this.SelectCustomGameButton.UseVisualStyleBackColor = true;
             this.SelectCustomGameButton.Click += new System.EventHandler(this.SelectCustomGameButton_Click);
@@ -137,6 +140,7 @@
             this.AboutGameButton.Name = "AboutGameButton";
             this.AboutGameButton.Size = new System.Drawing.Size(79, 43);
             this.AboutGameButton.TabIndex = 5;
+            this.AboutGameButton.TabStop = false;
             this.AboutGameButton.Text = "O programu";
             this.AboutGameButton.UseVisualStyleBackColor = true;
             this.AboutGameButton.Click += new System.EventHandler(this.AboutGameButton_Click);
@@ -207,6 +211,7 @@
             this.NewGameButton.Name = "NewGameButton";
             this.NewGameButton.Size = new System.Drawing.Size(99, 48);
             this.NewGameButton.TabIndex = 12;
+            this.NewGameButton.TabStop = false;
             this.NewGameButton.Text = "Hrát";
             this.NewGameButton.UseVisualStyleBackColor = true;
             this.NewGameButton.Visible = false;
@@ -239,6 +244,7 @@
             this.ChooseShogiButtonBottom.Name = "ChooseShogiButtonBottom";
             this.ChooseShogiButtonBottom.Size = new System.Drawing.Size(75, 23);
             this.ChooseShogiButtonBottom.TabIndex = 15;
+            this.ChooseShogiButtonBottom.TabStop = false;
             this.ChooseShogiButtonBottom.Text = "Přidat";
             this.ChooseShogiButtonBottom.UseVisualStyleBackColor = true;
             this.ChooseShogiButtonBottom.Visible = false;
@@ -272,6 +278,7 @@
             this.ChooseShogiButtonUpper.Name = "ChooseShogiButtonUpper";
             this.ChooseShogiButtonUpper.Size = new System.Drawing.Size(75, 23);
             this.ChooseShogiButtonUpper.TabIndex = 19;
+            this.ChooseShogiButtonUpper.TabStop = false;
             this.ChooseShogiButtonUpper.Text = "Přidat";
             this.ChooseShogiButtonUpper.UseVisualStyleBackColor = true;
             this.ChooseShogiButtonUpper.Visible = false;
@@ -351,6 +358,7 @@
             this.CustomGameSizeButton.Name = "CustomGameSizeButton";
             this.CustomGameSizeButton.Size = new System.Drawing.Size(75, 23);
             this.CustomGameSizeButton.TabIndex = 26;
+            this.CustomGameSizeButton.TabStop = false;
             this.CustomGameSizeButton.Text = "OK";
             this.CustomGameSizeButton.UseVisualStyleBackColor = true;
             this.CustomGameSizeButton.Visible = false;
@@ -435,19 +443,10 @@
             this.LoadGameButton.Name = "LoadGameButton";
             this.LoadGameButton.Size = new System.Drawing.Size(79, 49);
             this.LoadGameButton.TabIndex = 36;
+            this.LoadGameButton.TabStop = false;
             this.LoadGameButton.Text = "Načíst hru";
             this.LoadGameButton.UseVisualStyleBackColor = true;
             this.LoadGameButton.Click += new System.EventHandler(this.LoadGameButton_Click);
-            // 
-            // ChooseAlgorithmLabel
-            // 
-            this.ChooseAlgorithmLabel.AutoSize = true;
-            this.ChooseAlgorithmLabel.Location = new System.Drawing.Point(72, 396);
-            this.ChooseAlgorithmLabel.Name = "ChooseAlgorithmLabel";
-            this.ChooseAlgorithmLabel.Size = new System.Drawing.Size(96, 13);
-            this.ChooseAlgorithmLabel.TabIndex = 39;
-            this.ChooseAlgorithmLabel.Text = "Vyberte algoritmus.";
-            this.ChooseAlgorithmLabel.Visible = false;
             // 
             // NewGameInstanceButton
             // 
@@ -455,6 +454,7 @@
             this.NewGameInstanceButton.Name = "NewGameInstanceButton";
             this.NewGameInstanceButton.Size = new System.Drawing.Size(106, 32);
             this.NewGameInstanceButton.TabIndex = 40;
+            this.NewGameInstanceButton.TabStop = false;
             this.NewGameInstanceButton.Text = "Nová hra";
             this.NewGameInstanceButton.UseVisualStyleBackColor = true;
             this.NewGameInstanceButton.Visible = false;
@@ -467,6 +467,7 @@
             this.SelectBlackHordeChessButton.Name = "SelectBlackHordeChessButton";
             this.SelectBlackHordeChessButton.Size = new System.Drawing.Size(79, 44);
             this.SelectBlackHordeChessButton.TabIndex = 43;
+            this.SelectBlackHordeChessButton.TabStop = false;
             this.SelectBlackHordeChessButton.Text = "Horde šachy (černá horda)";
             this.SelectBlackHordeChessButton.UseVisualStyleBackColor = true;
             this.SelectBlackHordeChessButton.Click += new System.EventHandler(this.SelectBlackHordeChessButton_Click);
@@ -479,6 +480,7 @@
             this.SelectWhiteHordeChessButton.Name = "SelectWhiteHordeChessButton";
             this.SelectWhiteHordeChessButton.Size = new System.Drawing.Size(79, 44);
             this.SelectWhiteHordeChessButton.TabIndex = 42;
+            this.SelectWhiteHordeChessButton.TabStop = false;
             this.SelectWhiteHordeChessButton.Text = "Horde šachy (bílá horda)";
             this.SelectWhiteHordeChessButton.UseVisualStyleBackColor = true;
             this.SelectWhiteHordeChessButton.Click += new System.EventHandler(this.SelectWhiteHordeChessButton_Click);
@@ -490,6 +492,7 @@
             this.SelectChess960Button.Name = "SelectChess960Button";
             this.SelectChess960Button.Size = new System.Drawing.Size(76, 44);
             this.SelectChess960Button.TabIndex = 41;
+            this.SelectChess960Button.TabStop = false;
             this.SelectChess960Button.Text = "Chess960";
             this.SelectChess960Button.UseVisualStyleBackColor = true;
             this.SelectChess960Button.Click += new System.EventHandler(this.SelectChess960Button_Click);
@@ -501,6 +504,7 @@
             this.SelectAlmostChessButton.Name = "SelectAlmostChessButton";
             this.SelectAlmostChessButton.Size = new System.Drawing.Size(79, 44);
             this.SelectAlmostChessButton.TabIndex = 46;
+            this.SelectAlmostChessButton.TabStop = false;
             this.SelectAlmostChessButton.Text = "Skorošachy";
             this.SelectAlmostChessButton.UseVisualStyleBackColor = true;
             this.SelectAlmostChessButton.Click += new System.EventHandler(this.SelectAlmostChessButton_Click);
@@ -513,6 +517,7 @@
             this.SelectCrazyhouseButton.Name = "SelectCrazyhouseButton";
             this.SelectCrazyhouseButton.Size = new System.Drawing.Size(79, 44);
             this.SelectCrazyhouseButton.TabIndex = 45;
+            this.SelectCrazyhouseButton.TabStop = false;
             this.SelectCrazyhouseButton.Text = "Crazyhouse";
             this.SelectCrazyhouseButton.UseVisualStyleBackColor = true;
             this.SelectCrazyhouseButton.Click += new System.EventHandler(this.SelectCrazyhouseButton_Click);
@@ -524,6 +529,7 @@
             this.SelectInternationalCheckersButton.Name = "SelectInternationalCheckersButton";
             this.SelectInternationalCheckersButton.Size = new System.Drawing.Size(76, 44);
             this.SelectInternationalCheckersButton.TabIndex = 44;
+            this.SelectInternationalCheckersButton.TabStop = false;
             this.SelectInternationalCheckersButton.Text = "Mezinárodní Dáma";
             this.SelectInternationalCheckersButton.UseVisualStyleBackColor = true;
             // 
@@ -534,6 +540,7 @@
             this.SelectMinishogiButton.Name = "SelectMinishogiButton";
             this.SelectMinishogiButton.Size = new System.Drawing.Size(79, 44);
             this.SelectMinishogiButton.TabIndex = 47;
+            this.SelectMinishogiButton.TabStop = false;
             this.SelectMinishogiButton.Text = "Minišogi";
             this.SelectMinishogiButton.UseVisualStyleBackColor = true;
             this.SelectMinishogiButton.Click += new System.EventHandler(this.SelectMinishogiButton_Click);
@@ -657,6 +664,7 @@
             this.OKbutton.Name = "OKbutton";
             this.OKbutton.Size = new System.Drawing.Size(79, 44);
             this.OKbutton.TabIndex = 50;
+            this.OKbutton.TabStop = false;
             this.OKbutton.Text = "OK";
             this.OKbutton.UseVisualStyleBackColor = true;
             this.OKbutton.Visible = false;
@@ -704,7 +712,6 @@
             this.Controls.Add(this.SelectWhiteHordeChessButton);
             this.Controls.Add(this.SelectChess960Button);
             this.Controls.Add(this.NewGameInstanceButton);
-            this.Controls.Add(this.ChooseAlgorithmLabel);
             this.Controls.Add(this.LoadGameButton);
             this.Controls.Add(this.CustomLabel);
             this.Controls.Add(this.CustomGameChooseErrorLabel);
@@ -778,7 +785,6 @@
         private System.Windows.Forms.Label CustomLabel;
         private System.Windows.Forms.Button LoadGameButton;
         private System.Windows.Forms.OpenFileDialog LoadCustomGameDialog;
-        private System.Windows.Forms.Label ChooseAlgorithmLabel;
         private System.Windows.Forms.Button NewGameInstanceButton;
         private System.Windows.Forms.Button SelectBlackHordeChessButton;
         private System.Windows.Forms.Button SelectWhiteHordeChessButton;

@@ -61,7 +61,7 @@ namespace ShogiCheckersChess
     {
         public override int Value { get; set; } = 500;
 
-        public override string Name { get; protected set; } = "Dáma";
+        public override string Name { get; protected set; } = "Královna";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
             Moves.ForwardInfinity(x, y, chessboard);

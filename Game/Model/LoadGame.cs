@@ -18,7 +18,7 @@ namespace ShogiCheckersChess
         public string bottomPieceFile;
 
         public int[] moves;
-        public int value;
+        public int weight;
     }
 
 
@@ -29,6 +29,8 @@ namespace ShogiCheckersChess
     {
         public object[,] Board;
         public List<NewPiece> Pieces;
+
+        public int promotionZone = -1;
 
         public string gameType;
 
@@ -48,8 +50,6 @@ namespace ShogiCheckersChess
             string fileWithGame = File.ReadAllText(file);
 
             customGame = JsonConvert.DeserializeObject<CustomGame>(fileWithGame);
-
-
 
             Pieces.DefinedPieces = new List<DefinedPiece>();
 
@@ -113,16 +113,16 @@ namespace ShogiCheckersChess
                         };
 
 
-                        if (customGame.Pieces[i].value != 0)
+                        if (customGame.Pieces[i].weight != 0)
                         {
-                            upperPiece.Value = customGame.Pieces[i].value;
-                            bottomPiece.Value = customGame.Pieces[i].value;
+                            upperPiece.Value = customGame.Pieces[i].weight;
+                            bottomPiece.Value = customGame.Pieces[i].weight;
 
                         }
                         else
                         {
-                            upperPiece.Value = GetPieceValue(upperPiece);
-                            bottomPiece.Value = GetPieceValue(bottomPiece);
+                            upperPiece.Value = GetPieceWeight(upperPiece);
+                            bottomPiece.Value = GetPieceWeight(bottomPiece);
                         }
 
                         PiecesNumbers.UpdatePiece(customGame.Pieces[i].name, "Vrchní " + customGame.Pieces[i].name, "Spodní " + customGame.Pieces[i].name);
@@ -143,13 +143,13 @@ namespace ShogiCheckersChess
                         };
 
 
-                        if (customGame.Pieces[i].value != 0)
+                        if (customGame.Pieces[i].weight != 0)
                         {
-                            newPiece.Value = customGame.Pieces[i].value;
+                            newPiece.Value = customGame.Pieces[i].weight;
                         }
                         else
                         {
-                            newPiece.Value = GetPieceValue(newPiece);
+                            newPiece.Value = GetPieceWeight(newPiece);
                         }
 
                         if (customGame.Pieces[i].side == "white")
@@ -196,6 +196,11 @@ namespace ShogiCheckersChess
 
             CheckGameRules();
 
+            if (customGame.promotionZone != -1)
+            {
+                PiecesNumbers.PromotionZone = customGame.promotionZone;
+            }
+
 
             return customGame;
         }
@@ -206,7 +211,7 @@ namespace ShogiCheckersChess
         /// </summary>
         /// <param name="piece"></param>
         /// <returns></returns>
-        public int GetPieceValue(DefinedPiece piece)
+        public int GetPieceWeight(DefinedPiece piece)
         {
             return piece.moves.Length * 3;
         }

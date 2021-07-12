@@ -9,6 +9,11 @@ namespace ShogiCheckersChess
     public class PiecesNumbers
     {
         /// <summary>
+        /// Specifies the number of rows at the end of the board in which a piece can be promoted. Default is 3 for normal shogi, but custom game can change this number.
+        /// </summary>
+        public static int PromotionZone = 3;
+
+        /// <summary>
         /// When given number, returns full name of a piece.
         /// </summary>
         public static Dictionary<int, string> getName = new Dictionary<int, string>()
@@ -208,8 +213,9 @@ namespace ShogiCheckersChess
         public static Dictionary<string, int> getMoveName = new Dictionary<string, int>()
         {
             { "Dopředu", 1 },
+            { "Front", 1 },
             { "Dopředu vpravo", 2 },
-            {  "Vpravo", 3 },
+            { "Vpravo", 3 },
             { "Dozadu vpravo", 4 },
             { "Dozadu", 5 } /*,
             { 6, Moves.BackLeft },

@@ -154,7 +154,7 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static bool UpperShogiPromotion(int row, Pieces[,] Board)
         {
-            if ((row == Board.GetLength(1) - 3) || (row == Board.GetLength(1) - 1) || (row == Board.GetLength(1) - 2))
+            if (row >= Board.GetLength(1) - PiecesNumbers.PromotionZone)
                 return true;
             return false;
         }
@@ -166,7 +166,7 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static bool BottomShogiPromotion(int row)
         {
-            if ((row == 0) || (row == 1) || (row == 2))
+            if (row < PiecesNumbers.PromotionZone)
                 return true;
             return false;
         }
