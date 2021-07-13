@@ -210,9 +210,9 @@ namespace ShogiCheckersChess
             CustomGameSizeButton.Visible = true;
             CustomGameSizeLabel.Visible = true;
             CustomGameSizeXLabel.Visible = true;
-            CustomGameSizeXTextbox.Visible = true;
+            HeightTextBox.Visible = true;
             CustomGameSizeYLabel.Visible = true;
-            CustomGameSizeYTextbox.Visible = true;
+            WidthTextBox.Visible = true;
 
             NewGameInstanceButton.Visible = true;
 
@@ -309,6 +309,13 @@ namespace ShogiCheckersChess
                 if (MinimaxRadioButton.Checked)
                 {
                     Minimax.treeSearchDepth = Convert.ToInt32(DepthUpDown.Value);
+
+                    if (Minimax.treeSearchDepth > 5)
+                    {
+                        MessageBox.Show("Hloubka prohledávacího stromu minimaxu je příliš velká, hodnoty větší než 5 nejsou vhodné pro hraní.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     if (AlphabetaCheckBox.Checked)
                     {
                         Minimax.useAlphaBetaPruning = true;
@@ -319,6 +326,13 @@ namespace ShogiCheckersChess
                 else
                 {
                     MonteCarlo.maxTime = (float)MCTSTimeUpDown.Value;
+
+
+                    if (MonteCarlo.maxTime > 60)
+                    {
+                        MessageBox.Show("Čas u MCTS nesmí být váce než 60 sekund.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     Gameclass.CurrentGame.algorithmType = Gameclass.AlgorithmType.montecarlo;
                 }
@@ -340,9 +354,9 @@ namespace ShogiCheckersChess
         /// </summary>
         private void ShowBottomShogiAddon()
         {
-            ChooseShogiBoxBottom.Visible = true;
-            ChooseShogiButtonBottom.Visible = true;
-            ChooseShogiLabelBottom.Visible = true;
+            ChooseShogiBottomBox.Visible = true;
+            ChooseShogiBottomButton.Visible = true;
+            ChooseShogiBottomLabel.Visible = true;
         }
 
         /// <summary>
@@ -351,8 +365,8 @@ namespace ShogiCheckersChess
         private void ShowUpperShogiAddon()
         {
             ChooseShogiBoxUpper.Visible = true;
-            ChooseShogiButtonUpper.Visible = true;
-            ChooseShogiLabelUpper.Visible = true;
+            ChooseShogiUpperButton.Visible = true;
+            ChooseShogiUpperLabel.Visible = true;
         }
 
         /// <summary>
@@ -437,6 +451,45 @@ namespace ShogiCheckersChess
 
             BackgroundImage = chessboard;
             BackgroundImageLayout = ImageLayout.None;
+
+            if (isCustom)
+            {
+                this.Width = (dimension_y * boxsize) + 2 * boxsize + boxsize / 2 + 120;
+                this.Height = (dimension_x * boxsize) + 2 * boxsize;
+
+                CustomGameChooseLabel.Location = new Point(this.Width - 160, CustomGameChooseLabel.Location.Y);
+                CustomGameChooseCombobox.Location = new Point(this.Width - 160, CustomGameChooseCombobox.Location.Y);
+                CustomGameChooseErrorLabel.Location = new Point(this.Width - 160, CustomGameChooseErrorLabel.Location.Y);
+
+                NewGameButton.Location = new Point(this.Width - 160, NewGameButton.Location.Y);
+            }
+
+            if (Gameclass.CurrentGame.blackPlayType == Gameclass.GameType.shogi || Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi)
+            {
+                this.Width = (dimension_y * boxsize) + 2 * boxsize + boxsize / 2 + 120;
+                this.Height = (dimension_x * boxsize) + 2 * boxsize;
+
+                ChooseShogiUpperLabel.Location = new Point(this.Width - 160, ChooseShogiUpperLabel.Location.Y);
+                ChooseShogiBoxUpper.Location = new Point(this.Width - 160, ChooseShogiBoxUpper.Location.Y);
+                ChooseShogiUpperButton.Location = new Point(this.Width - 160, ChooseShogiUpperButton.Location.Y);
+                PutShogiPieceUpperLabel.Location = new Point(this.Width - 160, PutShogiPieceUpperLabel.Location.Y);
+
+                ChooseShogiBottomLabel.Location = new Point(this.Width - 160, ChooseShogiBottomLabel.Location.Y);
+                ChooseShogiBottomBox.Location = new Point(this.Width - 160, ChooseShogiBottomBox.Location.Y);
+                ChooseShogiBottomButton.Location = new Point(this.Width - 160, ChooseShogiBottomButton.Location.Y);
+                PutShogiPieceBottomLabel.Location = new Point(this.Width - 160, PutShogiPieceBottomLabel.Location.Y);
+
+            }           
+            else
+            {
+                this.Width = (dimension_y * boxsize) + 2 * boxsize + boxsize / 2;
+                this.Height = (dimension_x * boxsize) + 2 * boxsize + boxsize;
+            }
+
+            NewGameInstanceButton.Location = new Point(10, 10);
+            GameStateLabel.Location = new Point(NewGameInstanceButton.Location.X + NewGameButton.Size.Width + 20, 20);
+
+
         }
 
         /// <summary>
@@ -522,6 +575,5 @@ namespace ShogiCheckersChess
             }
         }
 
-        
     }
 }

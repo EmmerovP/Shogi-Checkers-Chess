@@ -38,24 +38,23 @@
             this.GamePieces = new System.Windows.Forms.ImageList(this.components);
             this.GameStateLabel = new System.Windows.Forms.Label();
             this.NewGameButton = new System.Windows.Forms.Button();
-            this.ChooseShogiBoxBottom = new System.Windows.Forms.ComboBox();
-            this.ChooseShogiLabelBottom = new System.Windows.Forms.Label();
-            this.ChooseShogiButtonBottom = new System.Windows.Forms.Button();
-            this.PutShogiPieceLabelBottom = new System.Windows.Forms.Label();
-            this.PutShogiPieceLabelUpper = new System.Windows.Forms.Label();
-            this.ChooseShogiButtonUpper = new System.Windows.Forms.Button();
-            this.ChooseShogiLabelUpper = new System.Windows.Forms.Label();
+            this.ChooseShogiBottomBox = new System.Windows.Forms.ComboBox();
+            this.ChooseShogiBottomLabel = new System.Windows.Forms.Label();
+            this.ChooseShogiBottomButton = new System.Windows.Forms.Button();
+            this.PutShogiPieceBottomLabel = new System.Windows.Forms.Label();
+            this.PutShogiPieceUpperLabel = new System.Windows.Forms.Label();
+            this.ChooseShogiUpperButton = new System.Windows.Forms.Button();
+            this.ChooseShogiUpperLabel = new System.Windows.Forms.Label();
             this.ChooseShogiBoxUpper = new System.Windows.Forms.ComboBox();
             this.CustomGameSizeLabel = new System.Windows.Forms.Label();
-            this.CustomGameSizeXTextbox = new System.Windows.Forms.TextBox();
-            this.CustomGameSizeYTextbox = new System.Windows.Forms.TextBox();
+            this.HeightTextBox = new System.Windows.Forms.TextBox();
+            this.WidthTextBox = new System.Windows.Forms.TextBox();
             this.CustomGameSizeXLabel = new System.Windows.Forms.Label();
             this.CustomGameSizeYLabel = new System.Windows.Forms.Label();
             this.CustomGameSizeButton = new System.Windows.Forms.Button();
             this.CustomGameChooseCombobox = new System.Windows.Forms.ComboBox();
             this.CustomGameChooseLabel = new System.Windows.Forms.Label();
             this.CustomGameChooseErrorLabel = new System.Windows.Forms.Label();
-            this.CustomLabel = new System.Windows.Forms.Label();
             this.LoadGameButton = new System.Windows.Forms.Button();
             this.LoadCustomGameDialog = new System.Windows.Forms.OpenFileDialog();
             this.NewGameInstanceButton = new System.Windows.Forms.Button();
@@ -217,7 +216,7 @@
             // NewGameButton
             // 
             this.NewGameButton.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.NewGameButton.Location = new System.Drawing.Point(566, 505);
+            this.NewGameButton.Location = new System.Drawing.Point(579, 127);
             this.NewGameButton.Name = "NewGameButton";
             this.NewGameButton.Size = new System.Drawing.Size(99, 48);
             this.NewGameButton.TabIndex = 12;
@@ -227,82 +226,82 @@
             this.NewGameButton.Visible = false;
             this.NewGameButton.Click += new System.EventHandler(this.NewGameButton_Click);
             // 
-            // ChooseShogiBoxBottom
+            // ChooseShogiBottomBox
             // 
-            this.ChooseShogiBoxBottom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ChooseShogiBoxBottom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChooseShogiBoxBottom.FormattingEnabled = true;
-            this.ChooseShogiBoxBottom.Location = new System.Drawing.Point(566, 361);
-            this.ChooseShogiBoxBottom.Name = "ChooseShogiBoxBottom";
-            this.ChooseShogiBoxBottom.Size = new System.Drawing.Size(121, 21);
-            this.ChooseShogiBoxBottom.TabIndex = 13;
-            this.ChooseShogiBoxBottom.Visible = false;
+            this.ChooseShogiBottomBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ChooseShogiBottomBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChooseShogiBottomBox.FormattingEnabled = true;
+            this.ChooseShogiBottomBox.Location = new System.Drawing.Point(566, 361);
+            this.ChooseShogiBottomBox.Name = "ChooseShogiBottomBox";
+            this.ChooseShogiBottomBox.Size = new System.Drawing.Size(120, 21);
+            this.ChooseShogiBottomBox.TabIndex = 13;
+            this.ChooseShogiBottomBox.Visible = false;
             // 
-            // ChooseShogiLabelBottom
+            // ChooseShogiBottomLabel
             // 
-            this.ChooseShogiLabelBottom.AutoSize = true;
-            this.ChooseShogiLabelBottom.Location = new System.Drawing.Point(563, 332);
-            this.ChooseShogiLabelBottom.Name = "ChooseShogiLabelBottom";
-            this.ChooseShogiLabelBottom.Size = new System.Drawing.Size(109, 13);
-            this.ChooseShogiLabelBottom.TabIndex = 14;
-            this.ChooseShogiLabelBottom.Text = "Nebo vyberte figurku:";
-            this.ChooseShogiLabelBottom.Visible = false;
+            this.ChooseShogiBottomLabel.AutoSize = true;
+            this.ChooseShogiBottomLabel.Location = new System.Drawing.Point(563, 332);
+            this.ChooseShogiBottomLabel.Name = "ChooseShogiBottomLabel";
+            this.ChooseShogiBottomLabel.Size = new System.Drawing.Size(109, 13);
+            this.ChooseShogiBottomLabel.TabIndex = 14;
+            this.ChooseShogiBottomLabel.Text = "Nebo vyberte figurku:";
+            this.ChooseShogiBottomLabel.Visible = false;
             // 
-            // ChooseShogiButtonBottom
+            // ChooseShogiBottomButton
             // 
-            this.ChooseShogiButtonBottom.Location = new System.Drawing.Point(566, 401);
-            this.ChooseShogiButtonBottom.Name = "ChooseShogiButtonBottom";
-            this.ChooseShogiButtonBottom.Size = new System.Drawing.Size(75, 23);
-            this.ChooseShogiButtonBottom.TabIndex = 15;
-            this.ChooseShogiButtonBottom.TabStop = false;
-            this.ChooseShogiButtonBottom.Text = "Přidat";
-            this.ChooseShogiButtonBottom.UseVisualStyleBackColor = true;
-            this.ChooseShogiButtonBottom.Visible = false;
-            this.ChooseShogiButtonBottom.Click += new System.EventHandler(this.ChooseShogiButtonBottom_Click);
+            this.ChooseShogiBottomButton.Location = new System.Drawing.Point(566, 401);
+            this.ChooseShogiBottomButton.Name = "ChooseShogiBottomButton";
+            this.ChooseShogiBottomButton.Size = new System.Drawing.Size(75, 23);
+            this.ChooseShogiBottomButton.TabIndex = 15;
+            this.ChooseShogiBottomButton.TabStop = false;
+            this.ChooseShogiBottomButton.Text = "Přidat";
+            this.ChooseShogiBottomButton.UseVisualStyleBackColor = true;
+            this.ChooseShogiBottomButton.Visible = false;
+            this.ChooseShogiBottomButton.Click += new System.EventHandler(this.ChooseShogiButtonBottom_Click);
             // 
-            // PutShogiPieceLabelBottom
+            // PutShogiPieceBottomLabel
             // 
-            this.PutShogiPieceLabelBottom.Location = new System.Drawing.Point(563, 441);
-            this.PutShogiPieceLabelBottom.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.PutShogiPieceLabelBottom.Name = "PutShogiPieceLabelBottom";
-            this.PutShogiPieceLabelBottom.Size = new System.Drawing.Size(118, 48);
-            this.PutShogiPieceLabelBottom.TabIndex = 16;
-            this.PutShogiPieceLabelBottom.Text = "Klikněte na pole, na které chcete figurku umístit.";
-            this.PutShogiPieceLabelBottom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.PutShogiPieceLabelBottom.Visible = false;
+            this.PutShogiPieceBottomLabel.Location = new System.Drawing.Point(563, 441);
+            this.PutShogiPieceBottomLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.PutShogiPieceBottomLabel.Name = "PutShogiPieceBottomLabel";
+            this.PutShogiPieceBottomLabel.Size = new System.Drawing.Size(118, 48);
+            this.PutShogiPieceBottomLabel.TabIndex = 16;
+            this.PutShogiPieceBottomLabel.Text = "Klikněte na pole, na které chcete figurku umístit.";
+            this.PutShogiPieceBottomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PutShogiPieceBottomLabel.Visible = false;
             // 
-            // PutShogiPieceLabelUpper
+            // PutShogiPieceUpperLabel
             // 
-            this.PutShogiPieceLabelUpper.Location = new System.Drawing.Point(569, 159);
-            this.PutShogiPieceLabelUpper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.PutShogiPieceLabelUpper.Name = "PutShogiPieceLabelUpper";
-            this.PutShogiPieceLabelUpper.Size = new System.Drawing.Size(118, 48);
-            this.PutShogiPieceLabelUpper.TabIndex = 20;
-            this.PutShogiPieceLabelUpper.Text = "Klikněte na pole, na které chcete figurku umístit.";
-            this.PutShogiPieceLabelUpper.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.PutShogiPieceLabelUpper.Visible = false;
+            this.PutShogiPieceUpperLabel.Location = new System.Drawing.Point(574, 157);
+            this.PutShogiPieceUpperLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.PutShogiPieceUpperLabel.Name = "PutShogiPieceUpperLabel";
+            this.PutShogiPieceUpperLabel.Size = new System.Drawing.Size(118, 48);
+            this.PutShogiPieceUpperLabel.TabIndex = 20;
+            this.PutShogiPieceUpperLabel.Text = "Klikněte na pole, na které chcete figurku umístit.";
+            this.PutShogiPieceUpperLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PutShogiPieceUpperLabel.Visible = false;
             // 
-            // ChooseShogiButtonUpper
+            // ChooseShogiUpperButton
             // 
-            this.ChooseShogiButtonUpper.Location = new System.Drawing.Point(576, 127);
-            this.ChooseShogiButtonUpper.Name = "ChooseShogiButtonUpper";
-            this.ChooseShogiButtonUpper.Size = new System.Drawing.Size(75, 23);
-            this.ChooseShogiButtonUpper.TabIndex = 19;
-            this.ChooseShogiButtonUpper.TabStop = false;
-            this.ChooseShogiButtonUpper.Text = "Přidat";
-            this.ChooseShogiButtonUpper.UseVisualStyleBackColor = true;
-            this.ChooseShogiButtonUpper.Visible = false;
-            this.ChooseShogiButtonUpper.Click += new System.EventHandler(this.ChooseShogiButtonUpper_Click);
+            this.ChooseShogiUpperButton.Location = new System.Drawing.Point(576, 125);
+            this.ChooseShogiUpperButton.Name = "ChooseShogiUpperButton";
+            this.ChooseShogiUpperButton.Size = new System.Drawing.Size(75, 23);
+            this.ChooseShogiUpperButton.TabIndex = 19;
+            this.ChooseShogiUpperButton.TabStop = false;
+            this.ChooseShogiUpperButton.Text = "Přidat";
+            this.ChooseShogiUpperButton.UseVisualStyleBackColor = true;
+            this.ChooseShogiUpperButton.Visible = false;
+            this.ChooseShogiUpperButton.Click += new System.EventHandler(this.ChooseShogiButtonUpper_Click);
             // 
-            // ChooseShogiLabelUpper
+            // ChooseShogiUpperLabel
             // 
-            this.ChooseShogiLabelUpper.AutoSize = true;
-            this.ChooseShogiLabelUpper.Location = new System.Drawing.Point(574, 58);
-            this.ChooseShogiLabelUpper.Name = "ChooseShogiLabelUpper";
-            this.ChooseShogiLabelUpper.Size = new System.Drawing.Size(109, 13);
-            this.ChooseShogiLabelUpper.TabIndex = 18;
-            this.ChooseShogiLabelUpper.Text = "Nebo vyberte figurku:";
-            this.ChooseShogiLabelUpper.Visible = false;
+            this.ChooseShogiUpperLabel.AutoSize = true;
+            this.ChooseShogiUpperLabel.Location = new System.Drawing.Point(573, 50);
+            this.ChooseShogiUpperLabel.Name = "ChooseShogiUpperLabel";
+            this.ChooseShogiUpperLabel.Size = new System.Drawing.Size(109, 13);
+            this.ChooseShogiUpperLabel.TabIndex = 18;
+            this.ChooseShogiUpperLabel.Text = "Nebo vyberte figurku:";
+            this.ChooseShogiUpperLabel.Visible = false;
             // 
             // ChooseShogiBoxUpper
             // 
@@ -312,7 +311,7 @@
             this.ChooseShogiBoxUpper.FormattingEnabled = true;
             this.ChooseShogiBoxUpper.Location = new System.Drawing.Point(577, 87);
             this.ChooseShogiBoxUpper.Name = "ChooseShogiBoxUpper";
-            this.ChooseShogiBoxUpper.Size = new System.Drawing.Size(121, 21);
+            this.ChooseShogiBoxUpper.Size = new System.Drawing.Size(120, 21);
             this.ChooseShogiBoxUpper.TabIndex = 17;
             this.ChooseShogiBoxUpper.Visible = false;
             // 
@@ -326,21 +325,21 @@
             this.CustomGameSizeLabel.Text = "Nastavte si velikost šachovnice. Hodnotu zadejte jako celé číslo.";
             this.CustomGameSizeLabel.Visible = false;
             // 
-            // CustomGameSizeXTextbox
+            // HeightTextBox
             // 
-            this.CustomGameSizeXTextbox.Location = new System.Drawing.Point(59, 43);
-            this.CustomGameSizeXTextbox.Name = "CustomGameSizeXTextbox";
-            this.CustomGameSizeXTextbox.Size = new System.Drawing.Size(100, 20);
-            this.CustomGameSizeXTextbox.TabIndex = 22;
-            this.CustomGameSizeXTextbox.Visible = false;
+            this.HeightTextBox.Location = new System.Drawing.Point(59, 43);
+            this.HeightTextBox.Name = "HeightTextBox";
+            this.HeightTextBox.Size = new System.Drawing.Size(100, 20);
+            this.HeightTextBox.TabIndex = 22;
+            this.HeightTextBox.Visible = false;
             // 
-            // CustomGameSizeYTextbox
+            // WidthTextBox
             // 
-            this.CustomGameSizeYTextbox.Location = new System.Drawing.Point(59, 83);
-            this.CustomGameSizeYTextbox.Name = "CustomGameSizeYTextbox";
-            this.CustomGameSizeYTextbox.Size = new System.Drawing.Size(100, 20);
-            this.CustomGameSizeYTextbox.TabIndex = 23;
-            this.CustomGameSizeYTextbox.Visible = false;
+            this.WidthTextBox.Location = new System.Drawing.Point(59, 83);
+            this.WidthTextBox.Name = "WidthTextBox";
+            this.WidthTextBox.Size = new System.Drawing.Size(100, 20);
+            this.WidthTextBox.TabIndex = 23;
+            this.WidthTextBox.Visible = false;
             // 
             // CustomGameSizeXLabel
             // 
@@ -377,6 +376,7 @@
             // CustomGameChooseCombobox
             // 
             this.CustomGameChooseCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CustomGameChooseCombobox.DropDownWidth = 120;
             this.CustomGameChooseCombobox.FormattingEnabled = true;
             this.CustomGameChooseCombobox.Items.AddRange(new object[] {
             "Bílý král",
@@ -409,7 +409,7 @@
             "Vrchní shogi kůň",
             "Vrchní kopiník",
             "Vrchní shogi pěšák"});
-            this.CustomGameChooseCombobox.Location = new System.Drawing.Point(565, 230);
+            this.CustomGameChooseCombobox.Location = new System.Drawing.Point(579, 29);
             this.CustomGameChooseCombobox.Name = "CustomGameChooseCombobox";
             this.CustomGameChooseCombobox.Size = new System.Drawing.Size(121, 21);
             this.CustomGameChooseCombobox.TabIndex = 31;
@@ -418,7 +418,7 @@
             // CustomGameChooseLabel
             // 
             this.CustomGameChooseLabel.AutoSize = true;
-            this.CustomGameChooseLabel.Location = new System.Drawing.Point(563, 207);
+            this.CustomGameChooseLabel.Location = new System.Drawing.Point(577, 6);
             this.CustomGameChooseLabel.Name = "CustomGameChooseLabel";
             this.CustomGameChooseLabel.Size = new System.Drawing.Size(81, 13);
             this.CustomGameChooseLabel.TabIndex = 32;
@@ -427,7 +427,7 @@
             // 
             // CustomGameChooseErrorLabel
             // 
-            this.CustomGameChooseErrorLabel.Location = new System.Drawing.Point(563, 266);
+            this.CustomGameChooseErrorLabel.Location = new System.Drawing.Point(577, 65);
             this.CustomGameChooseErrorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CustomGameChooseErrorLabel.Name = "CustomGameChooseErrorLabel";
             this.CustomGameChooseErrorLabel.Size = new System.Drawing.Size(118, 48);
@@ -435,16 +435,6 @@
             this.CustomGameChooseErrorLabel.Text = "Klikněte na pole, na které chcete figurku umístit.";
             this.CustomGameChooseErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CustomGameChooseErrorLabel.Visible = false;
-            // 
-            // CustomLabel
-            // 
-            this.CustomLabel.AutoSize = true;
-            this.CustomLabel.Location = new System.Drawing.Point(562, 565);
-            this.CustomLabel.Name = "CustomLabel";
-            this.CustomLabel.Size = new System.Drawing.Size(105, 13);
-            this.CustomLabel.TabIndex = 35;
-            this.CustomLabel.Text = "Popis se bude měnit.";
-            this.CustomLabel.Visible = false;
             // 
             // LoadGameButton
             // 
@@ -459,10 +449,10 @@
             // 
             // NewGameInstanceButton
             // 
-            this.NewGameInstanceButton.Location = new System.Drawing.Point(581, 12);
+            this.NewGameInstanceButton.Location = new System.Drawing.Point(580, 7);
             this.NewGameInstanceButton.Name = "NewGameInstanceButton";
             this.NewGameInstanceButton.Size = new System.Drawing.Size(106, 32);
-            this.NewGameInstanceButton.TabIndex = 40;
+            this.NewGameInstanceButton.TabIndex = 50;
             this.NewGameInstanceButton.TabStop = false;
             this.NewGameInstanceButton.Text = "Nová hra";
             this.NewGameInstanceButton.UseVisualStyleBackColor = true;
@@ -576,6 +566,11 @@
             // MCTSTimeUpDown
             // 
             this.MCTSTimeUpDown.Location = new System.Drawing.Point(208, 89);
+            this.MCTSTimeUpDown.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
             this.MCTSTimeUpDown.Minimum = new decimal(new int[] {
             1,
             0,
@@ -691,6 +686,7 @@
             this.SingleplayerRadioButton.Name = "SingleplayerRadioButton";
             this.SingleplayerRadioButton.Size = new System.Drawing.Size(95, 17);
             this.SingleplayerRadioButton.TabIndex = 1;
+            this.SingleplayerRadioButton.TabStop = true;
             this.SingleplayerRadioButton.Text = "SinglePlayer";
             this.SingleplayerRadioButton.UseVisualStyleBackColor = true;
             this.SingleplayerRadioButton.CheckedChanged += new System.EventHandler(this.SingleplayerRadioButton_CheckedChanged);
@@ -734,9 +730,9 @@
             this.SetGamePropertiesPanel.Controls.Add(this.BottomEndgameComboBox);
             this.SetGamePropertiesPanel.Controls.Add(this.UpperSpecialActionsComboBox);
             this.SetGamePropertiesPanel.Controls.Add(this.UpperEndgameComboBox);
-            this.SetGamePropertiesPanel.Location = new System.Drawing.Point(3, 1);
+            this.SetGamePropertiesPanel.Location = new System.Drawing.Point(12, 7);
             this.SetGamePropertiesPanel.Name = "SetGamePropertiesPanel";
-            this.SetGamePropertiesPanel.Size = new System.Drawing.Size(182, 323);
+            this.SetGamePropertiesPanel.Size = new System.Drawing.Size(218, 323);
             this.SetGamePropertiesPanel.TabIndex = 51;
             this.SetGamePropertiesPanel.Visible = false;
             // 
@@ -828,7 +824,7 @@
             "Nutnost sebrat figurku, je-li to možné"});
             this.BottomSpecialActionsComboBox.Location = new System.Drawing.Point(14, 238);
             this.BottomSpecialActionsComboBox.Name = "BottomSpecialActionsComboBox";
-            this.BottomSpecialActionsComboBox.Size = new System.Drawing.Size(153, 21);
+            this.BottomSpecialActionsComboBox.Size = new System.Drawing.Size(191, 21);
             this.BottomSpecialActionsComboBox.TabIndex = 55;
             // 
             // BottomEndgameComboBox
@@ -842,7 +838,7 @@
             "Nemožnost tahu"});
             this.BottomEndgameComboBox.Location = new System.Drawing.Point(14, 193);
             this.BottomEndgameComboBox.Name = "BottomEndgameComboBox";
-            this.BottomEndgameComboBox.Size = new System.Drawing.Size(153, 21);
+            this.BottomEndgameComboBox.Size = new System.Drawing.Size(191, 21);
             this.BottomEndgameComboBox.TabIndex = 54;
             // 
             // UpperSpecialActionsComboBox
@@ -856,7 +852,7 @@
             "Nutnost sebrat figurku, je-li to možné"});
             this.UpperSpecialActionsComboBox.Location = new System.Drawing.Point(14, 118);
             this.UpperSpecialActionsComboBox.Name = "UpperSpecialActionsComboBox";
-            this.UpperSpecialActionsComboBox.Size = new System.Drawing.Size(153, 21);
+            this.UpperSpecialActionsComboBox.Size = new System.Drawing.Size(191, 21);
             this.UpperSpecialActionsComboBox.TabIndex = 53;
             // 
             // UpperEndgameComboBox
@@ -870,7 +866,7 @@
             "Nemožnost tahu"});
             this.UpperEndgameComboBox.Location = new System.Drawing.Point(14, 73);
             this.UpperEndgameComboBox.Name = "UpperEndgameComboBox";
-            this.UpperEndgameComboBox.Size = new System.Drawing.Size(153, 21);
+            this.UpperEndgameComboBox.Size = new System.Drawing.Size(191, 21);
             this.UpperEndgameComboBox.TabIndex = 52;
             // 
             // MainGameWindow
@@ -892,24 +888,23 @@
             this.Controls.Add(this.SelectChess960Button);
             this.Controls.Add(this.NewGameInstanceButton);
             this.Controls.Add(this.LoadGameButton);
-            this.Controls.Add(this.CustomLabel);
             this.Controls.Add(this.CustomGameChooseErrorLabel);
             this.Controls.Add(this.CustomGameChooseLabel);
             this.Controls.Add(this.CustomGameChooseCombobox);
             this.Controls.Add(this.CustomGameSizeButton);
             this.Controls.Add(this.CustomGameSizeYLabel);
             this.Controls.Add(this.CustomGameSizeXLabel);
-            this.Controls.Add(this.CustomGameSizeYTextbox);
-            this.Controls.Add(this.CustomGameSizeXTextbox);
+            this.Controls.Add(this.WidthTextBox);
+            this.Controls.Add(this.HeightTextBox);
             this.Controls.Add(this.CustomGameSizeLabel);
-            this.Controls.Add(this.PutShogiPieceLabelUpper);
-            this.Controls.Add(this.ChooseShogiButtonUpper);
-            this.Controls.Add(this.ChooseShogiLabelUpper);
+            this.Controls.Add(this.PutShogiPieceUpperLabel);
+            this.Controls.Add(this.ChooseShogiUpperButton);
+            this.Controls.Add(this.ChooseShogiUpperLabel);
             this.Controls.Add(this.ChooseShogiBoxUpper);
-            this.Controls.Add(this.PutShogiPieceLabelBottom);
-            this.Controls.Add(this.ChooseShogiButtonBottom);
-            this.Controls.Add(this.ChooseShogiLabelBottom);
-            this.Controls.Add(this.ChooseShogiBoxBottom);
+            this.Controls.Add(this.PutShogiPieceBottomLabel);
+            this.Controls.Add(this.ChooseShogiBottomButton);
+            this.Controls.Add(this.ChooseShogiBottomLabel);
+            this.Controls.Add(this.ChooseShogiBottomBox);
             this.Controls.Add(this.NewGameButton);
             this.Controls.Add(this.GameStateLabel);
             this.Controls.Add(this.AboutGameButton);
@@ -920,7 +915,6 @@
             this.Controls.Add(this.PlayerTypePanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MaximizeBox = false;
             this.Name = "MainGameWindow";
             this.Text = "Obecné hry na šachovnici";
             this.AlgorithmTypePanel.ResumeLayout(false);
@@ -946,24 +940,23 @@
         private System.Windows.Forms.ImageList GamePieces;
         private System.Windows.Forms.Label GameStateLabel;
         private System.Windows.Forms.Button NewGameButton;
-        private System.Windows.Forms.ComboBox ChooseShogiBoxBottom;
-        private System.Windows.Forms.Label ChooseShogiLabelBottom;
-        private System.Windows.Forms.Button ChooseShogiButtonBottom;
-        private System.Windows.Forms.Label PutShogiPieceLabelBottom;
-        private System.Windows.Forms.Label PutShogiPieceLabelUpper;
-        private System.Windows.Forms.Button ChooseShogiButtonUpper;
-        private System.Windows.Forms.Label ChooseShogiLabelUpper;
+        private System.Windows.Forms.ComboBox ChooseShogiBottomBox;
+        private System.Windows.Forms.Label ChooseShogiBottomLabel;
+        private System.Windows.Forms.Button ChooseShogiBottomButton;
+        private System.Windows.Forms.Label PutShogiPieceBottomLabel;
+        private System.Windows.Forms.Label PutShogiPieceUpperLabel;
+        private System.Windows.Forms.Button ChooseShogiUpperButton;
+        private System.Windows.Forms.Label ChooseShogiUpperLabel;
         private System.Windows.Forms.ComboBox ChooseShogiBoxUpper;
         private System.Windows.Forms.Label CustomGameSizeLabel;
-        private System.Windows.Forms.TextBox CustomGameSizeXTextbox;
-        private System.Windows.Forms.TextBox CustomGameSizeYTextbox;
+        private System.Windows.Forms.TextBox HeightTextBox;
+        private System.Windows.Forms.TextBox WidthTextBox;
         private System.Windows.Forms.Label CustomGameSizeXLabel;
         private System.Windows.Forms.Label CustomGameSizeYLabel;
         private System.Windows.Forms.Button CustomGameSizeButton;
         private System.Windows.Forms.ComboBox CustomGameChooseCombobox;
         private System.Windows.Forms.Label CustomGameChooseLabel;
         private System.Windows.Forms.Label CustomGameChooseErrorLabel;
-        private System.Windows.Forms.Label CustomLabel;
         private System.Windows.Forms.Button LoadGameButton;
         private System.Windows.Forms.OpenFileDialog LoadCustomGameDialog;
         private System.Windows.Forms.Button NewGameInstanceButton;

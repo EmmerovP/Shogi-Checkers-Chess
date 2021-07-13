@@ -26,12 +26,12 @@ namespace ShogiCheckersChess
             }
 
             //gets piece we are getting from ComboBox
-            string Piece = ChooseShogiBoxBottom.Text;
-            PutShogiPieceLabelBottom.Visible = true;
+            string Piece = ChooseShogiBottomBox.Text;
+            PutShogiPieceBottomLabel.Visible = true;
             pieceBeingAddedToBoard = PiecesNumbers.getBottomNumber[Piece];
             AddBottomShogiPiece = true;
 
-            ChooseShogiBoxBottom.Items.Remove(Piece);
+            ChooseShogiBottomBox.Items.Remove(Piece);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ShogiCheckersChess
 
             //gets piece we are getting from ComboBox
             string Piece = ChooseShogiBoxUpper.Text;
-            PutShogiPieceLabelUpper.Visible = true;
+            PutShogiPieceUpperLabel.Visible = true;
             pieceBeingAddedToBoard = PiecesNumbers.getUpperNumber[Piece];
             AddUpperShogiPiece = true;
 
@@ -85,9 +85,9 @@ namespace ShogiCheckersChess
                     {
                         MessageBox.Show("Shogi pěšec nesmí být vložen do sloupce, v němž již shogi pěšec je.", "Figurka nelze vložit", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                        PutShogiPieceLabelBottom.Visible = false;
+                        PutShogiPieceBottomLabel.Visible = false;
                         AddBottomShogiPiece = false;
-                        ChooseShogiBoxBottom.Items.Add("Shogi pěšák");
+                        ChooseShogiBottomBox.Items.Add("Shogi pěšák");
 
                         return;
                     }
@@ -95,7 +95,7 @@ namespace ShogiCheckersChess
             }
 
             //hide label telling user to put piece on board
-            PutShogiPieceLabelBottom.Visible = false;
+            PutShogiPieceBottomLabel.Visible = false;
 
             //signal that we have added a piece to board
             AddBottomShogiPiece = false;
@@ -103,7 +103,7 @@ namespace ShogiCheckersChess
             AddPieceToBoard(selected_x, selected_y, pieceBeingAddedToBoard);
 
             //removes piece from list of available pieces
-            ChooseShogiBoxBottom.Items.Remove(ChooseShogiBoxBottom.SelectedItem);
+            ChooseShogiBottomBox.Items.Remove(ChooseShogiBottomBox.SelectedItem);
             Generating.WhitePlays = !Generating.WhitePlays;
 
             //in case there are different types of play on the board, switch them 
@@ -162,7 +162,7 @@ namespace ShogiCheckersChess
                     {
                         MessageBox.Show("Shogi pěšec nesmí být vložen do sloupce, v němž již shogi pěšec je.", "Figurka nelze vložit", MessageBoxButtons.OK, MessageBoxIcon.Error);
    
-                        PutShogiPieceLabelUpper.Visible = false;
+                        PutShogiPieceUpperLabel.Visible = false;
                         AddUpperShogiPiece = false;
                         ChooseShogiBoxUpper.Items.Add("Shogi pěšák");
 
@@ -174,7 +174,7 @@ namespace ShogiCheckersChess
             }
 
             //hide label telling user to put piece on board
-            PutShogiPieceLabelUpper.Visible = false;
+            PutShogiPieceUpperLabel.Visible = false;
 
             //signal that we have added a piece to board
             AddUpperShogiPiece = false;

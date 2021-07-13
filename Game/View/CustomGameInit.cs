@@ -8,7 +8,12 @@ namespace ShogiCheckersChess
         /// <summary>
         /// Maximum size of chessboard.
         /// </summary>
-        const int MAX_SIZE = 15;
+        const int MAX_HEIGHT = 15;
+
+        /// <summary>
+        /// Maximum size of chessboard.
+        /// </summary>
+        const int MAX_WIDTH = 30;
 
         /// <summary>
         /// Minimum size of chessboard.
@@ -27,8 +32,8 @@ namespace ShogiCheckersChess
         /// <param name="e"></param>
         private void CustomGameSizeButton_Click(object sender, EventArgs e)
         {
-            string widthText = CustomGameSizeXTextbox.Text;
-            string heigthText = CustomGameSizeYTextbox.Text;
+            string heightText = HeightTextBox.Text;
+            string widthText = WidthTextBox.Text;
 
             //try to read width
 
@@ -43,19 +48,19 @@ namespace ShogiCheckersChess
 
             if (width < MIN_SIZE)
             {
-                MessageBox.Show("Souřadnice x je moc malá, musí být alespoň 3.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Šířka je moc malá, musí být alespoň 3.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (width > MAX_SIZE)
+            if (width > MAX_WIDTH)
             {
-                MessageBox.Show("Souřadnice x je moc velká, musí být maximálně 15.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Šířka je moc velká, musí být maximálně 25.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             //try to read height
 
-            success = Int32.TryParse(heigthText, out int height);
+            success = Int32.TryParse(heightText, out int height);
 
             //check constraints
             if (!success)
@@ -66,24 +71,24 @@ namespace ShogiCheckersChess
 
             if (height < MIN_SIZE)
             {
-                MessageBox.Show("Souřadnice y je moc malá, musí být alespoň 3.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Výška je moc malá, musí být alespoň 3.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (height > MAX_SIZE)
+            if (height > MAX_HEIGHT)
             {
-                MessageBox.Show("Souřadnice y je moc velká, musí být maximálně 15.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Výška je moc velká, musí být maximálně 15.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            baseBoard = new int[width, height];
+            baseBoard = new int[height, width];
 
             //set all fields as empty
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
                 {
-                    SetFieldEmpty(i, j, baseBoard);
+                    SetFieldEmpty(j, i, baseBoard);
                 }
             }
 
@@ -91,9 +96,9 @@ namespace ShogiCheckersChess
             CustomGameSizeButton.Visible = false;
             CustomGameSizeLabel.Visible = false;
             CustomGameSizeXLabel.Visible = false;
-            CustomGameSizeXTextbox.Visible = false;
+            HeightTextBox.Visible = false;
             CustomGameSizeYLabel.Visible = false;
-            CustomGameSizeYTextbox.Visible = false;           
+            WidthTextBox.Visible = false;           
 
             SetGamePropertiesPanel.Visible = true;
         }

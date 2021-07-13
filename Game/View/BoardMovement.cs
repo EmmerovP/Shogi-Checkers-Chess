@@ -20,7 +20,7 @@ namespace ShogiCheckersChess
         /// <summary>
         /// Signalizes that next click on the board adds shogi piece for bottom player.
         /// </summary>
-        public static bool AddBottomShogiPiece = false;
+        public static bool AddBottomShogiPiece = false; 
 
         /// <summary>
         /// Signalizes that next click on the board adds shogi piece for upper player.
@@ -377,7 +377,7 @@ namespace ShogiCheckersChess
                 else if (isPlayer && Generating.WhitePlays)
                 {
                     ShowBottomShogiAddon();
-                    ChooseShogiBoxBottom.Items.Add(Board.board[final_x, final_y].Name);
+                    ChooseShogiBottomBox.Items.Add(Board.board[final_x, final_y].Name);
                 }
                 else if (isPlayer && !Generating.WhitePlays)
                 {
@@ -393,7 +393,7 @@ namespace ShogiCheckersChess
             IsPieceSelected = false;
 
             //Move piece visually
-            MovePicture(movingPicture, final_x, final_y, start_x, start_y, piece);
+            MovePicture(movingPicture, final_x, final_y, start_x, start_y);
 
 
             //when move is castling, we need to move the rook too
@@ -438,7 +438,7 @@ namespace ShogiCheckersChess
         /// <param name="start_x"></param>
         /// <param name="start_y"></param>
         /// <param name="piece"></param>
-        public void MovePicture(PictureBox movingPicture, int final_x, int final_y, int start_x, int start_y, Pieces piece)
+        public void MovePicture(PictureBox movingPicture, int final_x, int final_y, int start_x, int start_y)
         {
             piecesPictures[start_x, start_y] = null;
 
@@ -503,17 +503,6 @@ namespace ShogiCheckersChess
             else
             {
                 gameType = Gameclass.CurrentGame.blackGameType;
-            }
-
-            Gameclass.GameType opponentGameType;
-
-            if (WhitePlays)
-            {
-                opponentGameType = Gameclass.CurrentGame.blackGameType;
-            }
-            else
-            {
-                opponentGameType = Gameclass.CurrentGame.whiteGameType;
             }
 
             //set isPlayer as true, remember current state

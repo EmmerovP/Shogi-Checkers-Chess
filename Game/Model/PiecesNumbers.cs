@@ -70,55 +70,99 @@ namespace ShogiCheckersChess
         public static Dictionary<string, int> getNumber = new Dictionary<string, int>()
         {
             { "Bílý král", 0},
+            { "CWK", 0 },
             { "Bílá královna", 1 },
+            { "CWQ", 1 },
             { "Bílá věž", 2 },
-            {  "Bílý kůň", 3 },
+            { "CWR", 2 },
+            { "Bílý kůň", 3 },
+            { "CWN", 3 },
             { "Bílý střelec", 4 },
-            {  "Bílý pěšec", 5 },
-            {  "Bílý kámen", 6 },
-            {  "Bílá dáma", 7 },
+            { "CWB", 4 },
+            { "Bílý pěšec", 5 },
+            { "CWP", 5 },
+            { "Bílý kámen", 6 },
+            { "DWP", 6 },
+            { "Bílá dáma", 7 },
+            { "DWQ", 7 },
             { "Spodní shogi král", 8 },
+            { "SWK", 8 },
             { "Spodní shogi věž", 9 },
+            { "SWR", 9 },
             { "Povýšená spodní shogi věž", 10 },
+            { "SWR+", 10 },
             { "Spodní shogi střelec", 11 },
+            { "SWB", 11 },
             { "Povýšený spodní shogi střelec", 12 },
+            { "SWB+", 12 },
             { "Spodní zlatý generál", 13 },
+            { "SWG", 13 },
             { "Spodní stříbrný generál", 14 },
+            { "SWS", 14 },
             { "Povýšený spodní stříbrný generál", 15 },
+            { "SWS+", 15 },
             { "Spodní shogi kůň", 16 },
+            { "SWN", 16 },
             { "Povýšený spodní shogi kůň", 17 },
+            { "SWN+", 17 },
             { "Spodní kopiník", 18 },
+            { "SWL", 18 },
             { "Povýšený spodní kopiník", 19 },
+            { "SWL+", 19 },
             { "Spodní shogi pěšák", 20 },
+            { "SWP", 20 },
             { "Povýšený spodní shogi pěšák", 21 },
+            { "SWP+", 21 },
             { "Černý král", 22 },
+            { "CBK", 22 },
             { "Černá královna", 23 },
+            { "CBQ", 23 },
             { "Černá věž", 24 },
+            { "CBR", 24 },
             { "Černý kůň", 25 },
+            { "CBN", 25 },
             { "Černý střelec", 26 },
+            { "CBB", 26 },
             { "Černý pěšec", 27 },
+            { "CBP", 27 },
             { "Černý kámen", 28 },
+            { "DBP", 28 },
             { "Černá dáma", 29 },
+            { "DBQ", 29 },
             { "Vrchní shogi král", 30 },
+            { "SBK", 30 },
             { "Vrchní shogi věž", 31 },
+            { "SBR", 31 },
             { "Povýšená vrchní shogi věž", 32 },
+            { "SBR+", 32 },
             { "Vrchní shogi střelec", 33 },
+            { "SBB", 33 },
             { "Povýšený vrchní shogi střelec", 34 },
+            { "SBB+", 34 },
             { "Vrchní zlatý generál", 35 },
+            { "SBG", 35 },
             { "Vrchní stříbrný generál", 36 },
+            { "SBS", 36 },
             { "Povýšený vrchní stříbrný generál", 37 },
+            { "SBS+", 37 },
             { "Vrchní shogi kůň", 38 },
+            { "SBN", 38 },
             { "Povýšený vrchní shogi kůň", 39 },
+            { "SBN+", 39 },
             { "Vrchní kopiník", 40 },
+            { "SBL", 40 },
             { "Povýšený vrchní kopiník", 41 },
+            { "SBL+", 41 },
             { "Vrchní shogi pěšák", 42 },
-            { "Povýšený vrchní shogi pěšák", 43 }
+            { "SBP", 42 },
+            { "Povýšený vrchní shogi pěšák", 43 },
+            { "SBP+", 43 }
         };
 
         /// <summary>
         /// List of all shogi pieces we can propagate. To propagate, it is enough to increment its number by one.
         /// </summary>
-        public static int[] canPropagate = {9, 11, 14, 16, 18, 20, 31, 33, 36, 38, 40, 42};
+        public static int[] canPropagate = { 9, 11, 14, 16, 18, 20, 31, 33, 36, 38, 40, 42 };
 
         /// <summary>
         /// Given a name of a piece, returns number of piece corresponding to bottom/white side.
@@ -244,13 +288,15 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static int UpdatePiece(string name)
         {
-            int value = getNumber.Count();
+            int value = getName.Count();
+
 
             getName.Add(value, name);
             getNumber.Add(name, value);
 
             getBottomNumber.Add(name, value);
             getUpperNumber.Add(name, value);
+
 
             return value;
         }
@@ -262,7 +308,8 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static void UpdatePiece(string name, string uppername, string bottomname)
         {
-            int bottomValue = getNumber.Count(); 
+
+            int bottomValue = getNumber.Count();
             int upperValue = bottomValue + 1;
 
             getName.Add(upperValue, uppername);
