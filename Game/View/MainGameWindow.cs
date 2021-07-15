@@ -466,7 +466,7 @@ namespace ShogiCheckersChess
                 NewGameButton.Location = new Point(this.Width - 160, NewGameButton.Location.Y);
             }
 
-            if (Gameclass.CurrentGame.blackPlayType == Gameclass.GameType.shogi || Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi)
+            else if (Gameclass.CurrentGame.blackPlayType == Gameclass.GameType.shogi || Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi)
             {
                 this.Width = (dimension_y * boxsize) + 2 * boxsize + boxsize / 2 + 120;
                 this.Height = (dimension_x * boxsize) + 2 * boxsize;

@@ -914,6 +914,7 @@
             this.Controls.Add(this.SelectChessButton);
             this.Controls.Add(this.PlayerTypePanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainGameWindow";
             this.Text = "Obecné hry na šachovnici";

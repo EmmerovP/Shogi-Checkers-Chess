@@ -271,11 +271,6 @@ namespace ConsoleApplication2
 
         }
 
-        public static void ChooseAlgorithm()
-        {
-
-        }
-
         public static void GetCustomGame()
         {
             Console.WriteLine("Specify the filepath to the file with game:");
