@@ -309,7 +309,7 @@ namespace ShogiCheckersChess
         public static void UpdatePiece(string name, string uppername, string bottomname)
         {
 
-            int bottomValue = getNumber.Count();
+            int bottomValue = getName.Count();
             int upperValue = bottomValue + 1;
 
             getName.Add(upperValue, uppername);

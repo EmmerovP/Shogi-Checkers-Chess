@@ -127,6 +127,8 @@ namespace ShogiCheckersChess
 
             //Fisher-Yates shuffle
             Random rng = new Random();
+
+
             int n = pieces.Length;
             while (n > 1)
             {
@@ -154,8 +156,8 @@ namespace ShogiCheckersChess
                 baseBoard[baseBoard.GetLength(0) - 2, i] = rnd.Next(PiecesNumbers.getNumber["Bílá královna"], PiecesNumbers.getNumber["Bílý kámen"]);
                 baseBoard[baseBoard.GetLength(0) - 1, i] = rnd.Next(PiecesNumbers.getNumber["Bílá královna"], PiecesNumbers.getNumber["Bílý kámen"]);
 
-                baseBoard[0, i] = baseBoard[baseBoard.GetLength(0) - 1, i] + PiecesNumbers.getUpperNumber.Count;
-                baseBoard[1, i] = baseBoard[baseBoard.GetLength(0) - 2, i] + PiecesNumbers.getUpperNumber.Count;
+                baseBoard[0, i] = rnd.Next(PiecesNumbers.getNumber["Černá královna"], PiecesNumbers.getNumber["Černý kámen"]);
+                baseBoard[1, i] = rnd.Next(PiecesNumbers.getNumber["Černá královna"], PiecesNumbers.getNumber["Černý kámen"]);
             }
 
             baseBoard[7, 4] = PiecesNumbers.getNumber["Bílý král"];

@@ -57,11 +57,13 @@ namespace ConsoleApplication2
                 {
                     case "minimax":
                         game.whiteMinimax = true;
+
                         break;
                     case "montecarlo":
                         game.whiteMinimax = false;
                         break;
-                    default: Main(args);
+                    default:
+                        Main(args);
                         break;
                 }
 
@@ -82,6 +84,91 @@ namespace ConsoleApplication2
                         break;
                 }
 
+                if (game.blackMinimax || game.whiteMinimax)
+                {
+                    Console.WriteLine("Choose a depth of minimax tree:");
+                    bool isCorrectDepth = false;
+
+                    while (!isCorrectDepth)
+                    {
+                        string depth = Console.ReadLine();
+                        bool isNumber = Int32.TryParse(depth, out Minimax.treeSearchDepth);
+
+                        if (isNumber)
+                        {
+
+                            if (Minimax.treeSearchDepth < 1 || Minimax.treeSearchDepth > 10)
+                            {
+                                Console.WriteLine("Number has to be between 1 and 10.");
+                            }
+                            else
+                            {
+                                isCorrectDepth = true;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Given input wasn't an integer number.");
+                        }
+                    }
+
+                    Console.WriteLine("Use alpha-beta pruning (yes/no):");
+
+
+
+                    bool isCorrectAnswer = false;
+
+                    while (!isCorrectAnswer)
+                    {
+                        string useAlphaBeta = Console.ReadLine();
+
+
+                        if (useAlphaBeta == "yes")
+                        {
+                            Minimax.useAlphaBetaPruning = true;
+                            isCorrectAnswer = true;
+                        }
+                        else if (useAlphaBeta == "no")
+                        {
+                            Minimax.useAlphaBetaPruning = false;
+                            isCorrectAnswer = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please indicate by typing yes or no.");
+                        }
+                    }
+                }
+
+                if (!game.blackMinimax || !game.whiteMinimax)
+                {
+                    Console.WriteLine("Time for Monte Carlo Tree Search in seconds:");
+                    bool isCorrectTime = false;
+
+                    while (!isCorrectTime)
+                    {
+                        string depth = Console.ReadLine();
+                        bool isNumber = Int32.TryParse(depth, out int time);
+
+                        if (isNumber)
+                        {
+                            if (time < 1 || time > 100)
+                            {
+                                Console.WriteLine("Number od seconds has to be between 1 and 100.");
+                            }
+                            else
+                            {
+                                isCorrectTime = true;
+                                MonteCarlo.maxTime = (float)time;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Given input wasn't an integer number.");
+                        }
+                    }
+                }
+
                 Console.WriteLine("Should the progress of a game be visualized? (yes/no):");
 
                 var answer = Console.ReadLine();
@@ -90,12 +177,42 @@ namespace ConsoleApplication2
 
                 switch (answer)
                 {
-                    case "yes": visualize = true;
+                    case "yes":
+                        visualize = true;
                         break;
-                    case "no": visualize = false;
+                    case "no":
+                        visualize = false;
                         break;
-                    default: Main(args);
+                    default:
+                        Main(args);
                         break;
+                }
+
+                Console.WriteLine("Number of games:");
+
+                bool isCorrentNumber = false;
+                int numberOfGames = 0;
+
+                while (!isCorrentNumber)
+                {
+                    string depth = Console.ReadLine();
+                    bool isNumber = Int32.TryParse(depth, out numberOfGames);
+
+                    if (isNumber)
+                    {
+                        if (numberOfGames < 1 || numberOfGames > 100)
+                        {
+                            Console.WriteLine("Number has to be between 1 and 100.");
+                        }
+                        else
+                        {
+                            isCorrentNumber = true;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Given input wasn't an integer number.");
+                    }
                 }
 
                 MainGameWindow.whiteShogiAIPieces = new List<Pieces>();
@@ -105,40 +222,57 @@ namespace ConsoleApplication2
 
                 game.CreateChessBoard(chessboard);
 
-                int steps = 0;
-                Stopwatch sw = new Stopwatch();
 
-                sw.Start();
 
                 Generating.WhitePlays = true;
                 Minimax.WhiteSide = true;
 
-                while (!Gameclass.CurrentGame.GameEnded)
+                List<string> information = new List<string>();
+
+                game.DrawBoard();
+
+                for (int i = 0; i < numberOfGames; i++)
                 {
-                    game.MakeMove();
-                    steps++;
+                    int steps = 0;
+                    Stopwatch sw = new Stopwatch();
 
-                    if (visualize)
-                    {
-                        game.DrawBoard();
-                    }
-                
+                    sw.Start();
 
-                    if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+                    while (!Gameclass.CurrentGame.GameEnded)
                     {
-                        if (Gameclass.CurrentGame.KingOut(Board.board))
+                        game.MakeMove();
+                        steps++;
+
+                        if (visualize)
                         {
-                            Gameclass.CurrentGame.GameEnded = true;
+                            game.DrawBoard();
                         }
+
+
+                        if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
+                        {
+                            if (Gameclass.CurrentGame.KingOut(Board.board))
+                            {
+                                Gameclass.CurrentGame.GameEnded = true;
+                            }
+                        }
+
                     }
 
+                    sw.Stop();
+                    Console.WriteLine();
+                    Console.WriteLine("Elapsed={0}", sw.Elapsed);
+                    Console.WriteLine("Number of steps: " + steps);
                 }
-                sw.Stop();
-                Console.WriteLine();
-                Console.WriteLine("Elapsed={0}", sw.Elapsed);
-                Console.WriteLine("Number of steps: " + steps);
+
+
 
             }
+
+        }
+
+        public static void ChooseAlgorithm()
+        {
 
         }
 
@@ -148,7 +282,9 @@ namespace ConsoleApplication2
 
             string file = Console.ReadLine();
 
-            LoadGame.GetGame(file);
+            LoadGame loadGame = new LoadGame();
+
+            loadGame.GetGame(file);
 
 
         }
@@ -232,7 +368,7 @@ namespace ConsoleApplication2
             }
 
 
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && (Minimax.isAddingPiece|| MonteCarlo.isAddingPiece))
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && (Minimax.isAddingPiece || MonteCarlo.isAddingPiece))
             {
                 Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move], Board.board);
             }
@@ -258,85 +394,66 @@ namespace ConsoleApplication2
                 {
                     if (Board.board[i, j] == null)
                     {
-                        if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
-                        {
-                            Console.Write("|  |");
-                        }
-                        else
-                        {
-                            Console.Write("| |");
-                        }
-
+                        Console.Write("|   |");
                     }
                     else
                     {
                         int number = Board.board[i, j].GetNumber();
-                        switch (number)
-                        {
-                            case 0:
-                                Console.Write("|♔|");
-                                break;
-                            case 1:
-                                Console.Write("|♕|");
-                                break;
-                            case 2:
-                                Console.Write("|♖|");
-                                break;
-                            case 3:
-                                Console.Write("|♘|");
-                                break;
-                            case 4:
-                                Console.Write("|♗|");
-                                break;
-                            case 5:
-                                Console.Write("|♙|");
-                                break;
-                            case 6:
-                                Console.Write("|♙|");
-                                break;
-                            case 21:
-                                Console.Write("|♚|");
-                                break;
-                            case 22:
-                                Console.Write("|♛|");
-                                break;
-                            case 23:
-                                Console.Write("|♜|");
-                                break;
-                            case 24:
-                                Console.Write("|♞|");
-                                break;
-                            case 25:
-                                Console.Write("|♝|");
-                                break;
-                            case 26:
-                                Console.Write("|\x265F|");
-                                break;
-                            case 27:
-                                Console.Write("|\x265F|");
-                                break;
-                            case 7:
-                                Console.Write("|07|");
-                                break;
-                            case 8:
-                                Console.Write("|08|");
-                                break;
-                            case 9:
-                                Console.Write("|09|");
-                                break;
-                            default:
-                                Console.Write("|" + number + "|");
-                                break;
-                        }
-
-
-
+                        Console.Write("|" + getSymbol[number] + "|");
                     }
                 }
                 Console.WriteLine();
             }
             Console.WriteLine();
-            //System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(1000);
         }
+
+        public Dictionary<int, string> getSymbol = new Dictionary<int, string>()
+        {
+            { 0, " ♔ " },
+            { 1, " ♕ " },
+            { 2, " ♖ " },
+            { 3, " ♘ " },
+            { 4, " ♗ " },
+            { 5, " ♙ " },
+            { 6, " ♙ " },
+            { 7, " ♕ " },
+            { 8, "☖K " },
+            { 9, "☖R " },
+            { 10, "☖R+" },
+            { 11, "☖B " },
+            { 12, "☖B+" },
+            { 13, "☖G " },
+            { 14, "☖S " },
+            { 15, "☖S+" },
+            { 16, "☖N " },
+            { 17, "☖N+" },
+            { 18, "☖L " },
+            { 19, "☖L+" },
+            { 20, "☖P " },
+            { 21, "☖P+" },
+            { 22, " ♚ " },
+            { 23, " ♛ " },
+            { 24, " ♜ " },
+            { 25, " ♞ " },
+            { 26, " ♝ " },
+            { 27, " ♟ " },
+            { 28, " ♟ " },
+            { 29, " ♛ " },
+            { 30, "☗K " },
+            { 31, "☗R " },
+            { 32, "☗R+" },
+            { 33, "☗B " },
+            { 34, "☗B+" },
+            { 35, "☗G " },
+            { 36, "☗S " },
+            { 37, "☗S+" },
+            { 38, "☗N " },
+            { 39, "☗N+" },
+            { 40, "☗L " },
+            { 41, "☗L+" },
+            { 42, "☗P " },
+            { 43, "☗P+" }
+        };
     }
 }
