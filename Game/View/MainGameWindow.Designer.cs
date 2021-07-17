@@ -231,7 +231,7 @@
             this.ChooseShogiBottomBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ChooseShogiBottomBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ChooseShogiBottomBox.FormattingEnabled = true;
-            this.ChooseShogiBottomBox.Location = new System.Drawing.Point(566, 361);
+            this.ChooseShogiBottomBox.Location = new System.Drawing.Point(579, 248);
             this.ChooseShogiBottomBox.Name = "ChooseShogiBottomBox";
             this.ChooseShogiBottomBox.Size = new System.Drawing.Size(120, 21);
             this.ChooseShogiBottomBox.TabIndex = 13;
@@ -240,7 +240,7 @@
             // ChooseShogiBottomLabel
             // 
             this.ChooseShogiBottomLabel.AutoSize = true;
-            this.ChooseShogiBottomLabel.Location = new System.Drawing.Point(563, 332);
+            this.ChooseShogiBottomLabel.Location = new System.Drawing.Point(576, 219);
             this.ChooseShogiBottomLabel.Name = "ChooseShogiBottomLabel";
             this.ChooseShogiBottomLabel.Size = new System.Drawing.Size(109, 13);
             this.ChooseShogiBottomLabel.TabIndex = 14;
@@ -249,7 +249,7 @@
             // 
             // ChooseShogiBottomButton
             // 
-            this.ChooseShogiBottomButton.Location = new System.Drawing.Point(566, 401);
+            this.ChooseShogiBottomButton.Location = new System.Drawing.Point(579, 288);
             this.ChooseShogiBottomButton.Name = "ChooseShogiBottomButton";
             this.ChooseShogiBottomButton.Size = new System.Drawing.Size(75, 23);
             this.ChooseShogiBottomButton.TabIndex = 15;
@@ -261,7 +261,7 @@
             // 
             // PutShogiPieceBottomLabel
             // 
-            this.PutShogiPieceBottomLabel.Location = new System.Drawing.Point(563, 441);
+            this.PutShogiPieceBottomLabel.Location = new System.Drawing.Point(576, 328);
             this.PutShogiPieceBottomLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.PutShogiPieceBottomLabel.Name = "PutShogiPieceBottomLabel";
             this.PutShogiPieceBottomLabel.Size = new System.Drawing.Size(118, 48);

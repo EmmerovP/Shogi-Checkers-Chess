@@ -122,7 +122,7 @@ namespace ShogiCheckersChess
 
             for (int i = 0; i < pieces.Length; i++)
             {
-                pieces[i] = baseBoard[0,i];
+                pieces[i] = baseBoard[0, i];
             }
 
             //Fisher-Yates shuffle
@@ -327,12 +327,12 @@ namespace ShogiCheckersChess
                 }
                 else
                 {
-                    MonteCarlo.maxTime = (float)MCTSTimeUpDown.Value;
+                    MonteCarlo.maxTime = (float)MCTSTimeUpDown.Value * 1000;
 
 
-                    if (MonteCarlo.maxTime > 60)
+                    if (MonteCarlo.maxTime > 60000)
                     {
-                        MessageBox.Show("Čas u MCTS nesmí být váce než 60 sekund.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Čas u MCTS nesmí být více než 60 sekund.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -425,7 +425,7 @@ namespace ShogiCheckersChess
                         }
 
                         //create blank fields
-                        var backpicture = new PictureBox                
+                        var backpicture = new PictureBox
                         {
                             Name = "Blank" + a + b,
                             Size = new Size(boxsize, boxsize),
@@ -451,6 +451,17 @@ namespace ShogiCheckersChess
                     }
                 }
 
+            LoadGame ld = new LoadGame();
+            try
+            {
+                ld.CheckGameRules();
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show("Hra není validní: "+ exception.Message + " Zřejmě nepůjde hrát korektně, zvažte nahrání nové hry!", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+
             BackgroundImage = chessboard;
             BackgroundImageLayout = ImageLayout.None;
 
@@ -464,12 +475,39 @@ namespace ShogiCheckersChess
                 CustomGameChooseErrorLabel.Location = new Point(this.Width - 160, CustomGameChooseErrorLabel.Location.Y);
 
                 NewGameButton.Location = new Point(this.Width - 160, NewGameButton.Location.Y);
+
+                if (Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi)
+                {
+                    if (this.Height < 370)
+                    {
+                        this.Height = 370;
+                    }
+                }
+
+                if (Gameclass.CurrentGame.blackPlayType == Gameclass.GameType.shogi || Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi)
+                {
+                    ChooseShogiUpperLabel.Location = new Point(this.Width - 160, ChooseShogiUpperLabel.Location.Y);
+                    ChooseShogiBoxUpper.Location = new Point(this.Width - 160, ChooseShogiBoxUpper.Location.Y);
+                    ChooseShogiUpperButton.Location = new Point(this.Width - 160, ChooseShogiUpperButton.Location.Y);
+                    PutShogiPieceUpperLabel.Location = new Point(this.Width - 160, PutShogiPieceUpperLabel.Location.Y);
+
+                    ChooseShogiBottomLabel.Location = new Point(this.Width - 160, ChooseShogiBottomLabel.Location.Y);
+                    ChooseShogiBottomBox.Location = new Point(this.Width - 160, ChooseShogiBottomBox.Location.Y);
+                    ChooseShogiBottomButton.Location = new Point(this.Width - 160, ChooseShogiBottomButton.Location.Y);
+                    PutShogiPieceBottomLabel.Location = new Point(this.Width - 160, PutShogiPieceBottomLabel.Location.Y);
+
+                }
             }
 
             else if (Gameclass.CurrentGame.blackPlayType == Gameclass.GameType.shogi || Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi)
             {
                 this.Width = (dimension_y * boxsize) + 2 * boxsize + boxsize / 2 + 120;
                 this.Height = (dimension_x * boxsize) + 2 * boxsize;
+
+                if (this.Height < 370 && Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi)
+                {
+                    this.Height = 370;
+                }
 
                 ChooseShogiUpperLabel.Location = new Point(this.Width - 160, ChooseShogiUpperLabel.Location.Y);
                 ChooseShogiBoxUpper.Location = new Point(this.Width - 160, ChooseShogiBoxUpper.Location.Y);
@@ -481,7 +519,7 @@ namespace ShogiCheckersChess
                 ChooseShogiBottomButton.Location = new Point(this.Width - 160, ChooseShogiBottomButton.Location.Y);
                 PutShogiPieceBottomLabel.Location = new Point(this.Width - 160, PutShogiPieceBottomLabel.Location.Y);
 
-            }           
+            }
             else
             {
                 this.Width = (dimension_y * boxsize) + 2 * boxsize + boxsize / 2;

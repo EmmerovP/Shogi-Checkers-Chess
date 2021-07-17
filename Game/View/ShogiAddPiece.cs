@@ -20,7 +20,7 @@ namespace ShogiCheckersChess
             }
 
             //when an opponent plays, we also return
-            if (!Generating.WhitePlays)
+            if (!Generating.WhitePlays || ChooseShogiBottomBox.Text == "")
             {
                 return;
             }
@@ -48,7 +48,7 @@ namespace ShogiCheckersChess
             }
 
             //when an opponent plays, we also return
-            if (Generating.WhitePlays)
+            if (Generating.WhitePlays || ChooseShogiBoxUpper.Text == "")
             {
                 return;
             }
@@ -102,9 +102,24 @@ namespace ShogiCheckersChess
 
             AddPieceToBoard(selected_x, selected_y, pieceBeingAddedToBoard);
 
-            //removes piece from list of available pieces
-            ChooseShogiBottomBox.Items.Remove(ChooseShogiBottomBox.SelectedItem);
             Generating.WhitePlays = !Generating.WhitePlays;
+
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess && Gameclass.CurrentGame.KingCheck(Board.board))
+            {
+                MessageBox.Show("Figurka nelze přidat kvůli šachu na krále!", "Figurka nelze vložit", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ChooseShogiBottomBox.Items.Add(Board.board[selected_x, selected_y].Name);
+                Board.board[selected_x, selected_y] = null;
+                piecesPictures[selected_x, selected_y].Dispose();
+                piecesPictures[selected_x, selected_y].Refresh();
+                Generating.WhitePlays = !Generating.WhitePlays;
+                
+                return;
+            }
+            else
+            {
+                //removes piece from list of available pieces
+                ChooseShogiBottomBox.Items.Remove(ChooseShogiBottomBox.SelectedItem);
+            }
 
             //in case there are different types of play on the board, switch them 
             if (Gameclass.CurrentGame.whiteGameType != Gameclass.CurrentGame.blackGameType)
@@ -161,7 +176,7 @@ namespace ShogiCheckersChess
                     if ((Board.board[i, selected_y] != null) && (Board.board[i, selected_y].GetNumber() == PiecesNumbers.getNumber["Vrchní shogi pěšák"]))
                     {
                         MessageBox.Show("Shogi pěšec nesmí být vložen do sloupce, v němž již shogi pěšec je.", "Figurka nelze vložit", MessageBoxButtons.OK, MessageBoxIcon.Error);
-   
+
                         PutShogiPieceUpperLabel.Visible = false;
                         AddUpperShogiPiece = false;
                         ChooseShogiBoxUpper.Items.Add("Shogi pěšák");
@@ -182,6 +197,24 @@ namespace ShogiCheckersChess
             AddPieceToBoard(selected_x, selected_y, pieceBeingAddedToBoard);
 
             Generating.WhitePlays = !Generating.WhitePlays;
+
+
+            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess && Gameclass.CurrentGame.KingCheck(Board.board))
+            {
+                MessageBox.Show("Figurka nelze přidat kvůli šachu na krále!", "Figurka nelze vložit", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ChooseShogiBoxUpper.Items.Add(Board.board[selected_x, selected_y].Name);
+                Board.board[selected_x, selected_y] = null;
+                piecesPictures[selected_x, selected_y].Dispose();
+                piecesPictures[selected_x, selected_y].Refresh();
+                Generating.WhitePlays = !Generating.WhitePlays;
+                return;
+
+            }
+            else
+            {
+                //removes piece from list of available pieces
+                ChooseShogiBoxUpper.Items.Remove(ChooseShogiBoxUpper.SelectedItem);
+            }
 
             //in case there are different types of play on the board, switch them 
             if (Gameclass.CurrentGame.whiteGameType != Gameclass.CurrentGame.blackGameType)
@@ -213,8 +246,7 @@ namespace ShogiCheckersChess
                 return;
             }
 
-            //removes piece from list of available pieces
-            ChooseShogiBoxUpper.Items.Remove(ChooseShogiBoxUpper.SelectedItem);
+
 
 
 

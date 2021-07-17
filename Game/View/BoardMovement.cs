@@ -153,7 +153,7 @@ namespace ShogiCheckersChess
                 if (backgroundColor == Color.DarkBlue)
                 {
                     Generating.Generate(GetPiece(picture), true, GetX(picture), GetY(picture), true, Board.board);
-                    Highlight();
+                    HighlightMoves();
                 }
             }
         }
@@ -215,7 +215,7 @@ namespace ShogiCheckersChess
         /// <summary>
         /// Highlitghts all fields where we can move with a piece with yellow color.
         /// </summary>
-        public void Highlight()
+        public void HighlightMoves()
         {
             for (int i = 0; i < Moves.final_x.Count; i++)
             {
@@ -289,6 +289,7 @@ namespace ShogiCheckersChess
 
             //remember who plays in case the algorithm changes it in its proccess
             bool whoPlays = Generating.WhitePlays;
+
             Gameclass.GameType currentType = Gameclass.CurrentGame.gameType;
 
             if (Gameclass.CurrentGame.algorithmType == Gameclass.AlgorithmType.minimax)
@@ -301,6 +302,7 @@ namespace ShogiCheckersChess
             }
 
             Gameclass.CurrentGame.gameType = currentType;
+
             Generating.WhitePlays = whoPlays;
 
             //instead of move, we are adding a piece on the board
@@ -308,7 +310,22 @@ namespace ShogiCheckersChess
             {
                 AddPieceToBoard(Moves.final_x[move], Moves.final_y[move], Moves.start_x[move]);
                 Board.board[Moves.final_x[move], Moves.final_y[move]].isWhite = false;
+
                 Generating.WhitePlays = !Generating.WhitePlays;
+
+                if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+                {
+                    if (Gameclass.CurrentGame.KingCheck(Board.board))
+                    {
+                        GameStateLabel.Visible = true;
+                        GameStateLabel.Text = "Šach!";
+                        if (Gameclass.CurrentGame.CheckMate(Board.board))
+                        {
+                            GameStateLabel.Text = "Šach mat! Konec!";
+                            Gameclass.CurrentGame.GameEnded = true;
+                        }
+                    }
+                }
 
                 //in case there are different types of play on the board, switch them 
                 if (Gameclass.CurrentGame.whiteGameType != Gameclass.CurrentGame.blackGameType)

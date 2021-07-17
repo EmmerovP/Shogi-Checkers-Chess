@@ -199,8 +199,6 @@ namespace ShogiCheckersChess
                 }
             }
 
-            CheckGameRules();
-
             if (customGame.promotionZone != -1)
             {
                 PiecesNumbers.PromotionZone = customGame.promotionZone;

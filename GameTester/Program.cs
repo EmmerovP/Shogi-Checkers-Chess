@@ -136,7 +136,7 @@ namespace ConsoleApplication2
                             else
                             {
                                 isCorrectTime = true;
-                                MonteCarlo.maxTime = (float)time;
+                                MonteCarlo.maxTime = (float)time * 1000;
                             }
                         }
                         else
@@ -252,8 +252,8 @@ namespace ConsoleApplication2
                     }
 
                     sw.Stop();
-                    information.Add(i + ": " + isEndGame + ", " + steps + " steps were made, " + sw.Elapsed + " seconds were elapsed.");
-                    Console.WriteLine("Game number " + i + " has been finished.");
+                    information.Add(i+1 + ": " + isEndGame + ", " + steps + " steps were made, " + sw.Elapsed + " elapsed time.");
+                    Console.WriteLine("Game number " + i+1 + " has been finished.");
                 }
 
                 Console.WriteLine();
@@ -322,6 +322,8 @@ namespace ConsoleApplication2
         public string MakeMove()
         {
             bool whitePlays = Generating.WhitePlays;
+            Gameclass.GameType playType = Gameclass.CurrentGame.playType;
+            Gameclass.GameType gameType = Gameclass.CurrentGame.gameType;
 
             Moves.EmptyCoordinates();
 
@@ -337,6 +339,8 @@ namespace ConsoleApplication2
                 move = MonteCarlo.GetNextMove(whitePlays);
             }
 
+            Gameclass.CurrentGame.playType = playType;
+            Gameclass.CurrentGame.gameType = gameType;
 
             if (move == -1)
             {
@@ -368,7 +372,7 @@ namespace ConsoleApplication2
             
             if ((Gameclass.CurrentGame.blackGameType == Gameclass.GameType.chess && whitePlays == false ||
                Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.chess && whitePlays == true ||
-               Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) &&
+               Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (!Minimax.isAddingPiece) && (!MonteCarlo.isAddingPiece) &&
                (Board.board[Moves.final_x[move], Moves.final_y[move]] == null && (Board.board[Moves.start_x[move], Moves.start_y[move]] != null && (!PiecesNumbers.IsPawn(Board.board[Moves.start_x[move], Moves.start_y[move]])))))
             {
                 shouldGameEnd++;

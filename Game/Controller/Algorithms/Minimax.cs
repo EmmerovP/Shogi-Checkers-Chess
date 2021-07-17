@@ -250,26 +250,43 @@ namespace ShogiCheckersChess
                                 MainGameWindow.shogiAIPieces.Remove(piece);
                             }
 
+                            bool isCheck = false;
 
+                            Generating.WhitePlays = !Generating.WhitePlays;
 
-                            choice.Add(Minimax.OneStep(2, Int32.MinValue, Int32.MaxValue, false));
+                            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
+                            {
+                                isCheck = Gameclass.CurrentGame.KingCheck(Board.board);
+                            }
 
-                            moves.final_x.Add(i);
-                            moves.final_y.Add(j);
+                            Generating.WhitePlays = !Generating.WhitePlays;
 
+                            if (!isCheck)
+                            {
+                                choice.Add(Minimax.OneStep(treeSearchDepth, Int32.MinValue, Int32.MaxValue, false));
+
+                                moves.final_x.Add(i);
+                                moves.final_y.Add(j);
+
+                                if (WhiteSide)
+                                {
+                                    moves.start_x.Add(PiecesNumbers.getBottomNumber[piece.Name]);
+                                    removePieces.Add(piece);
+                                }
+                                else
+                                {
+                                    moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
+                                    removePieces.Add(piece);
+                                }
+
+                            }
 
                             if (WhiteSide)
                             {
-                                moves.start_x.Add(PiecesNumbers.getBottomNumber[piece.Name]);
-                                removePieces.Add(piece);
-
                                 MainGameWindow.whiteShogiAIPieces.Add(piece);
                             }
                             else
                             {
-                                moves.start_x.Add(PiecesNumbers.getUpperNumber[piece.Name]);
-                                removePieces.Add(piece);
-
                                 MainGameWindow.shogiAIPieces.Add(piece);
                             }
 

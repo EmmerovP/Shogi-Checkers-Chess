@@ -134,6 +134,7 @@ namespace ShogiCheckersChess
             Stopwatch time = new Stopwatch();
             time.Start();
 
+           
             //do until there is time set left
             while (time.ElapsedMilliseconds < maxTime)
             {
@@ -218,7 +219,6 @@ namespace ShogiCheckersChess
         /// <returns></returns>
         public static Node Expansion(Node node)
         {
-
             Create_children(node);
 
             if (node.children.Count == 0)
@@ -240,6 +240,15 @@ namespace ShogiCheckersChess
         public static void Create_children(Node node)
         {
             Generating.WhitePlays = node.WhitePlays;
+
+            if (Generating.WhitePlays)
+            {
+                Gameclass.CurrentGame.playType = Gameclass.CurrentGame.whitePlayType;
+            }
+            else
+            {
+                Gameclass.CurrentGame.playType = Gameclass.CurrentGame.blackPlayType;
+            }
 
             Generating.GenerateAllMoves(node.board, true);
 
@@ -346,6 +355,11 @@ namespace ShogiCheckersChess
                                 newnode.piecesTakenFromWhite.Remove(piece);
                             }
 
+                            if (node.parent == null)
+                            {
+                                
+                            }
+
                             node.children.Add(newnode);
                         }
                     }
@@ -448,6 +462,15 @@ namespace ShogiCheckersChess
             for (int i = 0; i < LOOPS; i++)
             {
                 Moves.EmptyCoordinates();
+
+                if (Generating.WhitePlays)
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.whiteGameType;
+                }
+                else
+                {
+                    Gameclass.CurrentGame.gameType = Gameclass.CurrentGame.blackGameType;
+                }
 
                 //finds random move
                 int move = FindRandomMove(board);

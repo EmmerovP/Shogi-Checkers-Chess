@@ -288,6 +288,7 @@ namespace ShogiCheckersChess
             {
                 int pieceNumber = PiecesNumbers.getNumber[piece];
                 AddPieceToGame(x, y, pieceNumber);
+                baseBoard[x, y] = pieceNumber;
             }
             catch
             {
