@@ -216,101 +216,18 @@ namespace ShogiCheckersChess
         /// <param name="e"></param>
         private void NewGameButton_Click(object sender, EventArgs e)
         {
-            
-
-            bool isWhite = false;
-            bool isBlack = false;
-
-            bool isWhiteKing = false;
-            bool isBlackKing = false;
-
-            bool upperShogiKing = false;
-            bool bottomShogiKing = false;
-
-            //checks what pieces are on board
-            for (int i = 0; i < Board.board.GetLength(0); i++)
+            try
             {
-                for (int j = 0; j < Board.board.GetLength(1); j++)
-                {                    
-                    if (Board.board[i, j] != null)
-                    {
-                        if (Board.board[i, j].isWhite)
-                        {
-                            isWhite = true;
-                        }
-                        if (!Board.board[i, j].isWhite)
-                        {
-                            isBlack = true;
-                        }
-                        if (PiecesNumbers.IsWhiteKing(Board.board[i, j]))
-                        {
-                            isWhiteKing = true;
-                        }
-                        if (PiecesNumbers.IsBlackKing(Board.board[i, j]))
-                        {
-                            isBlackKing = true;
-                        }
-                        if (PiecesNumbers.IsBottomShogiKing(Board.board[i, j]))
-                        {
-                            bottomShogiKing = true;
-                        }
-                        if (PiecesNumbers.IsUpperShogiKing(Board.board[i, j]))
-                        {
-                            upperShogiKing = true;
-                        }
-                    }
-
-                }
+                LoadGame loadGame = new LoadGame();
+                loadGame.CheckGameRules();
             }
-
-            if (!(isWhite && isBlack))
+            catch(Exception exception)
             {
-                CustomGameChooseErrorLabel.Text = "Na šachovnici musí být figurky obou stran pro zahájení hry.";
-                CustomGameChooseErrorLabel.Visible = true;
+                MessageBox.Show("Hra není validní: " + exception.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
             }
-
-            if (Gameclass.CurrentGame.blackGameType == Gameclass.GameType.chess)
-            {
-                if (!isBlackKing)
-                {
-                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být černý šachový král.";
-                    CustomGameChooseErrorLabel.Visible = true;
-                    return;
-                }
-            }
-
-            if (Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.chess)
-            {
-                if (!isWhiteKing)
-                {
-                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být bílý šachový král.";
-                    CustomGameChooseErrorLabel.Visible = true;
-                    return;
-                }
-            }
-
-            if (Gameclass.CurrentGame.blackGameType == Gameclass.GameType.shogi)
-            {
-                if (!upperShogiKing)
-                {
-                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být vrchní shogi král.";
-                    CustomGameChooseErrorLabel.Visible = true;
-                    return;
-                }
-            }
-
-            if (Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.shogi)
-            {
-                if (!bottomShogiKing)
-                {
-                    CustomGameChooseErrorLabel.Text = "Na šachovnici musí být spodní shogi král.";
-                    CustomGameChooseErrorLabel.Visible = true;
-                    return;
-                }
-            }
-
+            
+           
             AddPiece = false;
 
             //start the game
@@ -337,7 +254,7 @@ namespace ShogiCheckersChess
 
             AddPieceToBoard(x, y, pieceNumber);
 
-            /* //TODO
+
             //game doesn't allow to have multiple kings in it - we can have multiple shogi kings in chess game and multiple chess kings in shogi game though
             if (PiecesNumbers.getNumber["Bílý král"] == pieceNumber)
             {
@@ -355,7 +272,6 @@ namespace ShogiCheckersChess
             {
                 CustomGameChooseCombobox.Items.Remove("Vrchní shogi král");
             }
-            */ //pro double chess-potřebuju ozkoušet jestli funguje, jinak to tady nechám 
         }
 
         /// <summary>

@@ -375,6 +375,16 @@ namespace ShogiCheckersChess
             return false;
         }
 
+        public static bool IsPawn(Pieces piece)
+        {
+            if (piece.GetNumber() == 5 || piece.GetNumber() == 27)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public static bool IsBottomPawn(Pieces piece)
         {
             if (piece.GetNumber() == 5)

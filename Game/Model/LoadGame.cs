@@ -100,6 +100,11 @@ namespace ShogiCheckersChess
                 {
                     if (customGame.Pieces[i].side == null)
                     {
+                        if (PiecesNumbers.getNumber.ContainsKey(customGame.Pieces[i].name))
+                        {
+                            break;
+                        }
+
                         DefinedPiece upperPiece = new DefinedPiece
                         {
                             moves = customGame.Pieces[i].moves,
@@ -218,6 +223,87 @@ namespace ShogiCheckersChess
 
         public void CheckGameRules()
         {
+            bool isWhite = false;
+            bool isBlack = false;
+
+            bool isWhiteKing = false;
+            bool isBlackKing = false;
+
+            bool upperShogiKing = false;
+            bool bottomShogiKing = false;
+
+            //checks what pieces are on board
+            for (int i = 0; i < Board.board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.board.GetLength(1); j++)
+                {
+                    if (Board.board[i, j] != null)
+                    {
+                        if (Board.board[i, j].isWhite)
+                        {
+                            isWhite = true;
+                        }
+                        if (!Board.board[i, j].isWhite)
+                        {
+                            isBlack = true;
+                        }
+                        if (PiecesNumbers.IsWhiteKing(Board.board[i, j]))
+                        {
+                            isWhiteKing = true;
+                        }
+                        if (PiecesNumbers.IsBlackKing(Board.board[i, j]))
+                        {
+                            isBlackKing = true;
+                        }
+                        if (PiecesNumbers.IsBottomShogiKing(Board.board[i, j]))
+                        {
+                            bottomShogiKing = true;
+                        }
+                        if (PiecesNumbers.IsUpperShogiKing(Board.board[i, j]))
+                        {
+                            upperShogiKing = true;
+                        }
+                    }
+
+                }
+            }
+
+            if (!(isWhite && isBlack))
+            {
+                throw new Exception("Na šachovnici musí být figurky obou stran pro zahájení hry.");
+            }
+
+            if (Gameclass.CurrentGame.blackGameType == Gameclass.GameType.chess)
+            {
+                if (!isBlackKing)
+                {
+                    throw new Exception("Na šachovnici musí být černý šachový král.");
+                }
+            }
+
+            if (Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.chess)
+            {
+                if (!isWhiteKing)
+                {
+                    throw new Exception("Na šachovnici musí být bílý šachový král.");
+                }
+            }
+
+            if (Gameclass.CurrentGame.blackGameType == Gameclass.GameType.shogi)
+            {
+                if (!upperShogiKing)
+                {
+                    throw new Exception("Na šachovnici musí být vrchní shogi král.");
+                }
+            }
+
+            if (Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.shogi)
+            {
+                if (!bottomShogiKing)
+                {
+                    throw new Exception("Na šachovnici musí být spodní shogi král.");
+                }
+            }
 
         }
 

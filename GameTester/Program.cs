@@ -11,7 +11,7 @@ namespace ConsoleApplication2
 {
     class Program
     {
-
+        
         static void Main(string[] args)
         {
 
@@ -19,35 +19,12 @@ namespace ConsoleApplication2
 
             while (true)
             {
-                Game game = new Game();
-
-                Console.WriteLine("Choose a type of game (chess, shogi, checkers, other): ");
-
-                int[,] chessboard = new int[8, 8];
-
-                string TypeOfGame = Console.ReadLine();
-
-                switch (TypeOfGame)
+                Game game = new Game
                 {
-                    case "chess":
-                        chessboard = GameStart.chess;
-                        Gameclass.CurrentGame.gameType = Gameclass.GameType.chess;
-                        break;
-                    case "checkers":
-                        chessboard = GameStart.checkers;
-                        Gameclass.CurrentGame.gameType = Gameclass.GameType.checkers;
-                        break;
-                    case "shogi":
-                        chessboard = GameStart.shogi;
-                        Gameclass.CurrentGame.gameType = Gameclass.GameType.shogi;
-                        break;
-                    case "other":
-                        GetCustomGame();
-                        break;
-                    default:
-                        Main(args);
-                        break;
-                }
+                    shouldGameEnd = 0
+                };
+
+                GetCustomGame();
 
                 Console.WriteLine("Choose playing algorithm for white side (minimax, montecarlo):");
 
@@ -215,24 +192,31 @@ namespace ConsoleApplication2
                     }
                 }
 
-                MainGameWindow.whiteShogiAIPieces = new List<Pieces>();
-                MainGameWindow.shogiAIPieces = new List<Pieces>();
-
-                Gameclass.CurrentGame.GameEnded = false;
-
-                game.CreateChessBoard(chessboard);
-
-
-
-                Generating.WhitePlays = true;
-                Minimax.WhiteSide = true;
+                Console.WriteLine("Playing has started...");
 
                 List<string> information = new List<string>();
 
-                game.DrawBoard();
+                string isEndGame = "";
 
                 for (int i = 0; i < numberOfGames; i++)
                 {
+                    MainGameWindow.whiteShogiAIPieces = new List<Pieces>();
+                    MainGameWindow.shogiAIPieces = new List<Pieces>();
+
+                    Gameclass.CurrentGame.GameEnded = false;
+
+                    game.CreateChessBoard(MainGameWindow.baseBoard);
+
+
+                    if (visualize)
+                    {
+                        game.DrawBoard();
+                    }
+
+                    Generating.WhitePlays = true;
+                    Minimax.WhiteSide = true;
+
+
                     int steps = 0;
                     Stopwatch sw = new Stopwatch();
 
@@ -240,7 +224,7 @@ namespace ConsoleApplication2
 
                     while (!Gameclass.CurrentGame.GameEnded)
                     {
-                        game.MakeMove();
+                        isEndGame = game.MakeMove();
                         steps++;
 
                         if (visualize)
@@ -254,63 +238,71 @@ namespace ConsoleApplication2
                             if (Gameclass.CurrentGame.KingOut(Board.board))
                             {
                                 Gameclass.CurrentGame.GameEnded = true;
+                                if (Generating.WhitePlays)
+                                {
+                                    isEndGame = "Black side won";
+                                }
+                                else
+                                {
+                                    isEndGame = "White side won";
+                                }
                             }
                         }
 
                     }
 
                     sw.Stop();
-                    Console.WriteLine();
-                    Console.WriteLine("Elapsed={0}", sw.Elapsed);
-                    Console.WriteLine("Number of steps: " + steps);
+                    information.Add(i + ": " + isEndGame + ", " + steps + " steps were made, " + sw.Elapsed + " seconds were elapsed.");
+                    Console.WriteLine("Game number " + i + " has been finished.");
                 }
 
+                Console.WriteLine();
+                Console.WriteLine("Results:");
 
-
+                for (int i = 0; i < information.Count; i++)
+                {
+                    Console.WriteLine(information[i]);
+                }
             }
 
         }
 
         public static void GetCustomGame()
         {
-            Console.WriteLine("Specify the filepath to the file with game:");
+            bool succes = false;
 
-            string file = Console.ReadLine();
+            while (!succes)
+            {
 
-            LoadGame loadGame = new LoadGame();
+                Console.WriteLine("Specify the filepath to the file with game:");
 
-            loadGame.GetGame(file);
+                string file = Console.ReadLine();
+
+                LoadGame loadGame = new LoadGame();
 
 
+                try
+                {
+                    loadGame.GetGame(file);
+                    succes = true;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine("File couldn't be loaded: " + exception);
+                }
+            }
         }
     }
 
     class Game
     {
-        const bool CUSTOMCHESSBOARD = false;
-
         public bool whiteMinimax;
         public bool blackMinimax;
 
+        public int shouldGameEnd;
 
         public void CreateChessBoard(int[,] chessboard)
         {
-            if (CUSTOMCHESSBOARD)
-            {
-                chessboard = new int[,] {
-        {-1,-1,-1,-1,-1,1,1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,1},
-        {-1,-1,-1,-1,-1,-1,-1,1},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {22,-1,-1,-1,-1,-1,-1,-1},
-        {22,-1,-1,-1,-1,-1,-1,-1},
-        {-1,22,22,-1,-1,-1,-1,-1}
-        };
-            }
-
-
-
             int dimension = chessboard.GetLength(0);
             Board.board = new Pieces[dimension, dimension];
 
@@ -319,40 +311,51 @@ namespace ConsoleApplication2
                 for (int j = 0; j < dimension; j++)
                 {
                     if (chessboard[i, j] != -1)
+                    {
                         Board.AddPiece(chessboard[i, j], i, j, Board.board);
+                    }                       
                 }
             }
 
         }
 
-        public void MakeMove()
+        public string MakeMove()
         {
-            bool player = Generating.WhitePlays;
+            bool whitePlays = Generating.WhitePlays;
 
             Moves.EmptyCoordinates();
 
             int move;
 
-            if ((player && whiteMinimax) || (!player && blackMinimax))
+            if ((whitePlays && whiteMinimax) || (!whitePlays && blackMinimax))
             {
                 move = Minimax.GetNextMove();
 
             }
             else
             {
-                move = MonteCarlo.GetNextMove(player);
+                move = MonteCarlo.GetNextMove(whitePlays);
             }
 
 
             if (move == -1)
             {
                 Gameclass.CurrentGame.GameEnded = true;
-                return;
+                if (whitePlays == true)
+                {
+                    return "Black side won";
+                }
+                else
+                {
+                    return "White side won";
+                }
             }
 
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && Board.board[Moves.final_x[move], Moves.final_y[move]] != null)
+            if ((Gameclass.CurrentGame.blackPlayType == Gameclass.GameType.shogi && whitePlays == false ||
+               Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi && whitePlays == true) &&
+               Board.board[Moves.final_x[move], Moves.final_y[move]] != null)
             {
-                if (player)
+                if (whitePlays)
                 {
                     MainGameWindow.whiteShogiAIPieces.Add(Board.board[Moves.final_x[move], Moves.final_y[move]]);
                 }
@@ -362,8 +365,21 @@ namespace ConsoleApplication2
                 }
             }
 
+            
+            if ((Gameclass.CurrentGame.blackGameType == Gameclass.GameType.chess && whitePlays == false ||
+               Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.chess && whitePlays == true ||
+               Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) &&
+               (Board.board[Moves.final_x[move], Moves.final_y[move]] == null && (Board.board[Moves.start_x[move], Moves.start_y[move]] != null && (!PiecesNumbers.IsPawn(Board.board[Moves.start_x[move], Moves.start_y[move]])))))
+            {
+                shouldGameEnd++;
+            }
+            else
+            {
+                shouldGameEnd = 0;
+            }
+            
 
-            if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi && (Minimax.isAddingPiece || MonteCarlo.isAddingPiece))
+            if (Minimax.isAddingPiece || MonteCarlo.isAddingPiece)
             {
                 Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move], Board.board);
             }
@@ -372,13 +388,21 @@ namespace ConsoleApplication2
                 MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], Board.board);
             }
 
-            Generating.WhitePlays = player;
+            Generating.WhitePlays = whitePlays;
 
             Minimax.WhiteSide = !Minimax.WhiteSide;
 
             Generating.WhitePlays = !Generating.WhitePlays;
 
             Minimax.isAddingPiece = false;
+
+            if (shouldGameEnd > 49)
+            {
+                Gameclass.CurrentGame.GameEnded = true;
+                return "Draw";
+            }
+
+            return "";
         }
 
         public void DrawBoard()
@@ -394,13 +418,31 @@ namespace ConsoleApplication2
                     else
                     {
                         int number = Board.board[i, j].GetNumber();
-                        Console.Write("|" + getSymbol[number] + "|");
+                        try
+                        {
+                            Console.Write("|" + getSymbol[number] + "|");
+                        }
+                        catch
+                        {
+                            if (number<10)
+                            {
+                                Console.Write("| " + number + " |");
+                            }
+                            else if (number>9 && number < 100)
+                            {
+                                Console.Write("|" + number + " |");
+                            }
+                            else
+                            {
+                                Console.Write("|" + number + "|");
+                            }
+                        }
+                        
                     }
                 }
                 Console.WriteLine();
             }
             Console.WriteLine();
-            System.Threading.Thread.Sleep(1000);
         }
 
         public Dictionary<int, string> getSymbol = new Dictionary<int, string>()
