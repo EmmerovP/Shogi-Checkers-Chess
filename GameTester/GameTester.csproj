@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game\Shogi-Checkers-Chess.csproj">
+    <ProjectReference Include="..\Game\GeneralBoardGame.csproj">
       <Project>{9cd0e195-adfb-4960-9b3d-619f63034afe}</Project>
-      <Name>Shogi-Checkers-Chess</Name>
+      <Name>GeneralBoardGame</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
