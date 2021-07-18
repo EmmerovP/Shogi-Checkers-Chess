@@ -17,7 +17,7 @@ namespace GeneralBoardGames
         public string upperPieceFile;
         public string bottomPieceFile;
 
-        public int[] moves;
+        public object[] moves;
         public int weight;
     }
 
@@ -98,6 +98,36 @@ namespace GeneralBoardGames
             {
                 for (int i = 0; i < customGame.Pieces.Count; i++)
                 {
+                    int[] moves = new int[customGame.Pieces[i].moves.Length];
+
+                    for (int j = 0; j < customGame.Pieces[i].moves.Length; j++)
+                    {
+                        bool succes = Int32.TryParse(customGame.Pieces[i].moves[j].ToString(), out int move);
+
+                        if (!succes)
+                        {
+                            try
+                            {
+                                move = PiecesNumbers.getMoveName[customGame.Pieces[i].moves[j].ToString()];
+                            }
+                            catch
+                            {
+                                throw new Exception("Tah se jménem \"" + customGame.Board[i, j].ToString() + "\" neexistuje.");
+                            }
+                        }
+                        else
+                        {
+                            if (move < -1 || move >= PiecesNumbers.getMovefromNumber.Count)
+                            {
+                                throw new Exception("Tah s číslem" + move.ToString() + " neexistuje.");
+                            }
+                        }
+
+                        moves[j] = move;
+                    }
+
+
+
                     if (customGame.Pieces[i].side == null)
                     {
                         if (PiecesNumbers.getNumber.ContainsKey(customGame.Pieces[i].name))
@@ -105,15 +135,17 @@ namespace GeneralBoardGames
                             break;
                         }
 
+
+                        
                         DefinedPiece upperPiece = new DefinedPiece
                         {
-                            moves = customGame.Pieces[i].moves,
+                            moves = moves,
                             Name = customGame.Pieces[i].name
                         };
 
                         DefinedPiece bottomPiece = new DefinedPiece
                         {
-                            moves = customGame.Pieces[i].moves,
+                            moves = moves,
                             Name = customGame.Pieces[i].name
                         };
 
@@ -143,7 +175,7 @@ namespace GeneralBoardGames
                     {
                         DefinedPiece newPiece = new DefinedPiece
                         {
-                            moves = customGame.Pieces[i].moves,
+                            moves = moves,
                             Name = customGame.Pieces[i].name
                         };
 

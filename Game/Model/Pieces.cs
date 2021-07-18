@@ -202,7 +202,7 @@ namespace GeneralBoardGames
 
     class BottomGoldGeneral : Pieces
     {
-        public override int Value { get; set; } = 70;
+        public override int Value { get; set; } = 30;
         public override string Name { get; protected set; } = "Zlatý generál";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
@@ -217,7 +217,7 @@ namespace GeneralBoardGames
 
     class UpperGoldGeneral : Pieces
     {
-        public override int Value { get; set; } = 70;
+        public override int Value { get; set; } = 30;
         public override string Name { get; protected set; } = "Zlatý generál";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
@@ -232,7 +232,7 @@ namespace GeneralBoardGames
 
     class BottomSilverGeneral : Pieces
     {
-        public override int Value { get; set; } = 60;
+        public override int Value { get; set; } = 30;
         public override string Name { get; protected set; } = "Stříbrný generál";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
@@ -246,7 +246,7 @@ namespace GeneralBoardGames
 
     class UpperSilverGeneral : Pieces
     {
-        public override int Value { get; set; } = 60;
+        public override int Value { get; set; } = 30;
         public override string Name { get; protected set; } = "Stříbrný generál";
         public override void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
