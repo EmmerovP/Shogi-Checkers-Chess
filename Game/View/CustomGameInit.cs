@@ -226,8 +226,7 @@ namespace ShogiCheckersChess
                 MessageBox.Show("Hra není validní: " + exception.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
-           
+                      
             AddPiece = false;
 
             //start the game
@@ -260,18 +259,19 @@ namespace ShogiCheckersChess
             {
                 CustomGameChooseCombobox.Items.Remove("Bílý král");
             }
-            if (PiecesNumbers.getNumber["Černý král"] == pieceNumber)
+            if (PiecesNumbers.getNumber["Spodní shogi král"] == pieceNumber)
             {
                 CustomGameChooseCombobox.Items.Remove("Spodní shogi král");
             }
-            if (pieceNumber == 21)
+            if (PiecesNumbers.getNumber["Černý král"] == pieceNumber)
             {
                 CustomGameChooseCombobox.Items.Remove("Černý král");
             }
-            if (pieceNumber == 28)
+            if (PiecesNumbers.getNumber["Vrchní shogi král"] == pieceNumber)
             {
                 CustomGameChooseCombobox.Items.Remove("Vrchní shogi král");
             }
+
         }
 
         /// <summary>

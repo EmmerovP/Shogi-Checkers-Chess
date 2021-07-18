@@ -125,19 +125,73 @@ namespace ShogiCheckersChess
                 pieces[i] = baseBoard[0, i];
             }
 
-            //Fisher-Yates shuffle
-            Random rng = new Random();
+            bool isCorrect = false;
 
-
-            int n = pieces.Length;
-            while (n > 1)
+            while (!isCorrect)
             {
-                n--;
-                int k = rng.Next(n + 1);
-                int value = pieces[k];
-                pieces[k] = pieces[n];
-                pieces[n] = value;
+                int n = pieces.Length;
+                Random rng = new Random();
+
+                while (n > 1)
+                {
+                    n--;
+                    int k = rng.Next(n + 1);
+                    int value = pieces[k];
+                    pieces[k] = pieces[n];
+                    pieces[n] = value;
+                }
+
+                bool whiteBishop = false;
+                bool blackBishop = false;
+
+                bool firstRook = false;
+                bool isKing = false;
+                bool secondRook = false;
+
+                for (int i = 0; i < pieces.Length; i++)
+                {
+                    if (pieces[i] == PiecesNumbers.getNumber["Černý střelec"])
+                    {
+                        if (i % 2 == 0)
+                        {
+                            blackBishop = true;
+                        }
+                        else
+                        {
+                            whiteBishop = true;
+                        }
+                    }
+
+                    if (pieces[i] == PiecesNumbers.getNumber["Černá věž"])
+                    {
+                        if ((!firstRook) && (!isKing) && (!secondRook))
+                        {
+                            firstRook = true;
+                        }
+
+                        if ((firstRook) && (isKing) && (!secondRook))
+                        {
+                            secondRook = true;
+                        }
+
+                    }
+
+                    if (pieces[i] == PiecesNumbers.getNumber["Černý král"])
+                    {
+                        if ((firstRook) && (!isKing) && (!secondRook))
+                        {
+                            isKing = true;
+                        }
+                    }
+                }
+
+                if (whiteBishop && blackBishop && firstRook && secondRook && isKing)
+                {
+                    isCorrect = true;
+                }
             }
+
+
 
             for (int i = 0; i < pieces.Length; i++)
             {
@@ -145,6 +199,7 @@ namespace ShogiCheckersChess
 
                 baseBoard[baseBoard.GetLength(0) - 1, i] = pieces[i] - PiecesNumbers.getUpperNumber.Count;
             }
+
         }
 
         private void RandomizeChess()
@@ -454,13 +509,16 @@ namespace ShogiCheckersChess
             LoadGame ld = new LoadGame();
             try
             {
-                ld.CheckGameRules();
+                if (!isCustom)
+                {
+                    ld.CheckGameRules();
+                }
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
-                MessageBox.Show("Hra není validní: "+ exception.Message + " Zřejmě nepůjde hrát korektně, zvažte nahrání nové hry!", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Hra není validní: " + exception.Message + " Zřejmě nepůjde hrát korektně, zvažte nahrání nové hry!", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
 
             BackgroundImage = chessboard;
             BackgroundImageLayout = ImageLayout.None;

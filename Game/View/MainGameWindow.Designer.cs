@@ -216,7 +216,7 @@
             // NewGameButton
             // 
             this.NewGameButton.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.NewGameButton.Location = new System.Drawing.Point(579, 127);
+            this.NewGameButton.Location = new System.Drawing.Point(580, 62);
             this.NewGameButton.Name = "NewGameButton";
             this.NewGameButton.Size = new System.Drawing.Size(99, 48);
             this.NewGameButton.TabIndex = 12;
