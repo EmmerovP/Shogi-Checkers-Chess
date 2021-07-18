@@ -1,4 +1,4 @@
-﻿namespace ShogiCheckersChess
+﻿namespace GeneralBoardGames
 {
     /// <summary>
     /// Contains starting boards for basic three games.

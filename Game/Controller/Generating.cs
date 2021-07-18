@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace ShogiCheckersChess
+namespace GeneralBoardGames
 {
     /// <summary>
     /// Class taking care of generating moves.

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShogiCheckersChess.Properties {
+namespace GeneralBoardGames.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

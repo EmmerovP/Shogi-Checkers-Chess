@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ShogiCheckersChess
+namespace GeneralBoardGames
 {
     public partial class Propagation : Form
     {

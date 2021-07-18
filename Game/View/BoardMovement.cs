@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
-namespace ShogiCheckersChess
+namespace GeneralBoardGames
 {
     public partial class MainGameWindow : Form
     {

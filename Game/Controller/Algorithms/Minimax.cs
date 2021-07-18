@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ShogiCheckersChess
+namespace GeneralBoardGames
 {
     /// <summary>
     /// Class taking care of a minimax algorithm, which traverses through a game tree and evaluates leaves by pieces on board

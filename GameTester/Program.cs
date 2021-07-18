@@ -1,31 +1,36 @@
-﻿using System;
+﻿using GeneralBoardGames;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShogiCheckersChess;
 using System.Diagnostics;
 
 
-namespace ConsoleApplication2
+namespace GameTester
 {
     class Program
     {
-        
+        /// <summary>
+        /// Main function, reads user's input and then calls functions to run games.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
-
+            //set encoding to unicode, so we can shows symbols of chess figures
             Console.OutputEncoding = System.Text.Encoding.Unicode;
 
+
+            //loop the program
             while (true)
             {
                 Game game = new Game
                 {
-                    shouldGameEnd = 0
+                    shouldChessGameEnd = 0,
+                    shouldCheckersGameEnd = 0
                 };
 
+                //get file with game
                 GetCustomGame();
 
+                //choose algoritm for white side
                 Console.WriteLine("Choose playing algorithm for white side (minimax, montecarlo):");
 
                 var algorithm = Console.ReadLine();
@@ -44,6 +49,7 @@ namespace ConsoleApplication2
                         break;
                 }
 
+                //choose algorithm for black side
                 Console.WriteLine("Choose playing algorithm for black side (minimax, montecarlo):");
 
                 algorithm = Console.ReadLine();
@@ -61,6 +67,7 @@ namespace ConsoleApplication2
                         break;
                 }
 
+                //in case minimax algorithm was chosen, we set the parameters - depth of search tree and usage of alpha-beta pruning
                 if (game.blackMinimax || game.whiteMinimax)
                 {
                     Console.WriteLine("Choose a depth of minimax tree:");
@@ -91,8 +98,6 @@ namespace ConsoleApplication2
 
                     Console.WriteLine("Use alpha-beta pruning (yes/no):");
 
-
-
                     bool isCorrectAnswer = false;
 
                     while (!isCorrectAnswer)
@@ -117,6 +122,7 @@ namespace ConsoleApplication2
                     }
                 }
 
+                //in case montecarlo algorithm was chosen, we set the parameters - time used to traverse the tree
                 if (!game.blackMinimax || !game.whiteMinimax)
                 {
                     Console.WriteLine("Time for Monte Carlo Tree Search in seconds:");
@@ -146,6 +152,7 @@ namespace ConsoleApplication2
                     }
                 }
 
+                //set additional parameters
                 Console.WriteLine("Should the progress of a game be visualized? (yes/no):");
 
                 var answer = Console.ReadLine();
@@ -167,10 +174,10 @@ namespace ConsoleApplication2
 
                 Console.WriteLine("Number of games:");
 
-                bool isCorrentNumber = false;
+                bool isCorrectNumber = false;
                 int numberOfGames = 0;
 
-                while (!isCorrentNumber)
+                while (!isCorrectNumber)
                 {
                     string depth = Console.ReadLine();
                     bool isNumber = Int32.TryParse(depth, out numberOfGames);
@@ -183,7 +190,7 @@ namespace ConsoleApplication2
                         }
                         else
                         {
-                            isCorrentNumber = true;
+                            isCorrectNumber = true;
                         }
                     }
                     else
@@ -198,13 +205,16 @@ namespace ConsoleApplication2
 
                 string isEndGame = "";
 
+                //loop playing of games
                 for (int i = 0; i < numberOfGames; i++)
                 {
+                    //first, we initialize values - new lists for taken pieces
                     MainGameWindow.whiteShogiAIPieces = new List<Pieces>();
                     MainGameWindow.shogiAIPieces = new List<Pieces>();
 
                     Gameclass.CurrentGame.GameEnded = false;
 
+                    //create a logical board for playing
                     game.CreateChessBoard(MainGameWindow.baseBoard);
 
 
@@ -213,10 +223,11 @@ namespace ConsoleApplication2
                         game.DrawBoard();
                     }
 
+                    //set initial state of game
                     Generating.WhitePlays = true;
                     Minimax.WhiteSide = true;
 
-
+                    //measure steps and time
                     int steps = 0;
                     Stopwatch sw = new Stopwatch();
 
@@ -232,7 +243,7 @@ namespace ConsoleApplication2
                             game.DrawBoard();
                         }
 
-
+                        //check for end game of shogi game
                         if (Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi)
                         {
                             if (Gameclass.CurrentGame.KingOut(Board.board))
@@ -252,8 +263,10 @@ namespace ConsoleApplication2
                     }
 
                     sw.Stop();
-                    information.Add(i+1 + ": " + isEndGame + ", " + steps + " steps were made, " + sw.Elapsed + " elapsed time.");
-                    Console.WriteLine("Game number " + i+1 + " has been finished.");
+                    int gameNumber = i + 1;
+
+                    information.Add(gameNumber + ": " + isEndGame + ", " + steps + " steps were made, " + sw.Elapsed + " elapsed time.");
+                    Console.WriteLine("Game number " + gameNumber + " has been finished.");
                 }
 
                 Console.WriteLine();
@@ -267,6 +280,9 @@ namespace ConsoleApplication2
 
         }
 
+        /// <summary>
+        /// Loads custom game and checks validity of the file
+        /// </summary>
         public static void GetCustomGame()
         {
             bool succes = false;
@@ -294,13 +310,33 @@ namespace ConsoleApplication2
         }
     }
 
+
     class Game
     {
+        /// <summary>
+        /// Is true when white side plays with minimax algorithm, false when it plays with MCTS.
+        /// </summary>
         public bool whiteMinimax;
+
+        /// <summary>
+        /// Is true when black side plays with minimax algorithm, false when it plays with MCTS.
+        /// </summary>
         public bool blackMinimax;
 
-        public int shouldGameEnd;
+        /// <summary>
+        /// Counts number of repeating moves, ends game with draw when it takes too long.
+        /// </summary>
+        public int shouldChessGameEnd;
 
+        /// <summary>
+        /// Counts number of repeating moves, ends game with draw when it takes too long.
+        /// </summary>
+        public int shouldCheckersGameEnd;
+
+        /// <summary>
+        /// From numeric representation of board, creates logical one with Pieces
+        /// </summary>
+        /// <param name="chessboard"></param>
         public void CreateChessBoard(int[,] chessboard)
         {
             int dimension = chessboard.GetLength(0);
@@ -313,14 +349,20 @@ namespace ConsoleApplication2
                     if (chessboard[i, j] != -1)
                     {
                         Board.AddPiece(chessboard[i, j], i, j, Board.board);
-                    }                       
+                    }
                 }
             }
 
         }
 
+        /// <summary>
+        /// Plays one move
+        /// </summary>
+        /// <returns></returns>
         public string MakeMove()
         {
+
+            //remember current parameters in case algorithms change them
             bool whitePlays = Generating.WhitePlays;
             Gameclass.GameType playType = Gameclass.CurrentGame.playType;
             Gameclass.GameType gameType = Gameclass.CurrentGame.gameType;
@@ -329,6 +371,7 @@ namespace ConsoleApplication2
 
             int move;
 
+            //get chosen algorithm and generate a move
             if ((whitePlays && whiteMinimax) || (!whitePlays && blackMinimax))
             {
                 move = Minimax.GetNextMove();
@@ -342,6 +385,7 @@ namespace ConsoleApplication2
             Gameclass.CurrentGame.playType = playType;
             Gameclass.CurrentGame.gameType = gameType;
 
+            //we can't make a move - one side must have won
             if (move == -1)
             {
                 Gameclass.CurrentGame.GameEnded = true;
@@ -355,6 +399,7 @@ namespace ConsoleApplication2
                 }
             }
 
+            //we are taking a piece in a game of shogi type - we add it to a list
             if ((Gameclass.CurrentGame.blackPlayType == Gameclass.GameType.shogi && whitePlays == false ||
                Gameclass.CurrentGame.whitePlayType == Gameclass.GameType.shogi && whitePlays == true) &&
                Board.board[Moves.final_x[move], Moves.final_y[move]] != null)
@@ -369,20 +414,34 @@ namespace ConsoleApplication2
                 }
             }
 
-            
+            //for chess, end game after 50 moves without taking a figure or moving a pawn
             if ((Gameclass.CurrentGame.blackGameType == Gameclass.GameType.chess && whitePlays == false ||
                Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.chess && whitePlays == true ||
                Gameclass.CurrentGame.gameType == Gameclass.GameType.chess) && (!Minimax.isAddingPiece) && (!MonteCarlo.isAddingPiece) &&
                (Board.board[Moves.final_x[move], Moves.final_y[move]] == null && (Board.board[Moves.start_x[move], Moves.start_y[move]] != null && (!PiecesNumbers.IsPawn(Board.board[Moves.start_x[move], Moves.start_y[move]])))))
             {
-                shouldGameEnd++;
+                shouldChessGameEnd++;
             }
             else
             {
-                shouldGameEnd = 0;
+                shouldChessGameEnd = 0;
             }
-            
 
+
+            //for checkers, end game after 50 moves only with queen
+            if ((Gameclass.CurrentGame.blackGameType == Gameclass.GameType.checkers && whitePlays == false ||
+                Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.checkers && whitePlays == true ||
+                Gameclass.CurrentGame.gameType == Gameclass.GameType.checkers) && (!Minimax.isAddingPiece) && (!MonteCarlo.isAddingPiece) &&
+                (Board.board[Moves.start_x[move], Moves.start_y[move]].GetNumber() == PiecesNumbers.getNumber["Bílá dáma"] || Board.board[Moves.start_x[move], Moves.start_y[move]].GetNumber() == PiecesNumbers.getNumber["Černá dáma"]))
+            {
+                shouldCheckersGameEnd++;
+            }
+            else
+            {
+                shouldCheckersGameEnd = 0;
+            }
+
+            //whether we should add a piece to board, or move a piece
             if (Minimax.isAddingPiece || MonteCarlo.isAddingPiece)
             {
                 Board.AddPiece(Moves.start_x[move], Moves.final_x[move], Moves.final_y[move], Board.board);
@@ -392,6 +451,8 @@ namespace ConsoleApplication2
                 MoveController.ApplyMove(Moves.start_x[move], Moves.start_y[move], Moves.final_x[move], Moves.final_y[move], Board.board);
             }
 
+
+            //get ready for opponent
             Generating.WhitePlays = whitePlays;
 
             Minimax.WhiteSide = !Minimax.WhiteSide;
@@ -400,7 +461,15 @@ namespace ConsoleApplication2
 
             Minimax.isAddingPiece = false;
 
-            if (shouldGameEnd > 49)
+
+            //check if the game should end in draw
+            if (shouldChessGameEnd > 49)
+            {
+                Gameclass.CurrentGame.GameEnded = true;
+                return "Draw";
+            }
+
+            if (shouldCheckersGameEnd > 49)
             {
                 Gameclass.CurrentGame.GameEnded = true;
                 return "Draw";
@@ -409,6 +478,9 @@ namespace ConsoleApplication2
             return "";
         }
 
+        /// <summary>
+        /// draws 2D board on console, each field consists of 3 spaces
+        /// </summary>
         public void DrawBoard()
         {
             for (int i = 0; i < Board.board.GetLength(0); i++)
@@ -421,6 +493,7 @@ namespace ConsoleApplication2
                     }
                     else
                     {
+                        //checks whether the symbol is in dictionary, else just write its number
                         int number = Board.board[i, j].GetNumber();
                         try
                         {
@@ -428,11 +501,11 @@ namespace ConsoleApplication2
                         }
                         catch
                         {
-                            if (number<10)
+                            if (number < 10)
                             {
                                 Console.Write("| " + number + " |");
                             }
-                            else if (number>9 && number < 100)
+                            else if (number > 9 && number < 100)
                             {
                                 Console.Write("|" + number + " |");
                             }
@@ -441,7 +514,7 @@ namespace ConsoleApplication2
                                 Console.Write("|" + number + "|");
                             }
                         }
-                        
+
                     }
                 }
                 Console.WriteLine();
@@ -449,6 +522,9 @@ namespace ConsoleApplication2
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Dictionary with symbol which we draw on the board
+        /// </summary>
         public Dictionary<int, string> getSymbol = new Dictionary<int, string>()
         {
             { 0, " ♔ " },

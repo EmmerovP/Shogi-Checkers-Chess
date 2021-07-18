@@ -1,4 +1,4 @@
-﻿namespace ShogiCheckersChess
+﻿namespace GeneralBoardGames
 {
     /// <summary>
     /// Class for applying and reapplying moves on a board.

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ShogiCheckersChess
+namespace GeneralBoardGames
 {
     public class Gameclass
     {

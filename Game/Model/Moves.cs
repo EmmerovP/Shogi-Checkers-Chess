@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShogiCheckersChess
+namespace GeneralBoardGames
 {
     /// <summary>
     /// Class taking care of all possible piece movement, and storing generated moves.

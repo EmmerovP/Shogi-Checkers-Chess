@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace ShogiCheckersChess
+namespace GeneralBoardGames
 {
     /// <summary>
     /// Class taking care of implementation of Monte Carlo Tree Search Algorithm

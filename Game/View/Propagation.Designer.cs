@@ -1,4 +1,4 @@
-﻿namespace ShogiCheckersChess
+﻿namespace GeneralBoardGames
 {
     partial class Propagation
     {
