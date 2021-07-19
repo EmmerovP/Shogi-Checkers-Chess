@@ -1,58 +1,7 @@
 ﻿namespace GeneralBoardGames
 {
-    /// <summary>
-    /// Contains starting boards for basic three games.
-    /// </summary>
-    public static class GameStart
-    {
-        /// <summary>
-        /// Starting board for playing chess.
-        /// </summary>
-        public static int[,] chess = new int[,] {
-        {24,25,26,23,22,26,25,24},
-        {27,27,27,27,27,27,27,27},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {5,5,5,5,5,5,5,5},
-        {2,3,4,1,0,4,3,2}
-        };
-
-        /// <summary>
-        /// Starting board for playing shogi.
-        /// </summary>
-        public static int[,] shogi = new int[,] {
-        {40,38,36,35,30,35,36,38,40},
-        {-1,31,-1,-1,-1,-1,-1,33,-1},
-        {42,42,42,42,42,42,42,42,42},
-        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1,-1},
-        {20,20,20,20,20,20,20,20,20},
-        {-1,11,-1,-1,-1,-1,-1,9,-1},
-        {18,16,14,13,8,13,14,16,18}
-        };
-
-        /// <summary>
-        /// Starting board for playing checkers.
-        /// </summary>
-        public static int[,] checkers = new int[,] {
-        {-1,28,-1,28,-1,28,-1,28},
-        {28,-1,28,-1,28,-1,28,-1},
-        {-1,28,-1,28,-1,28,-1,28},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {-1,-1,-1,-1,-1,-1,-1,-1},
-        {6,-1,6,-1,6,-1,6,-1},
-        {-1,6,-1,6,-1,6,-1,6},
-        {6,-1,6,-1,6,-1,6,-1},
-        };
-
-    }
-
     public static class Board
-    {
-       
+    {       
         /// <summary>
         /// Base number of pieces written in code.
         /// </summary>
@@ -351,7 +300,6 @@
             gameboard[x, y] = piece;
             piece.SetNumber(number);
         }
-
 
         /// <summary>
         /// Adds custom piece on the board. This piece needs to already be in DefinedPieces list.

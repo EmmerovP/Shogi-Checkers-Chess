@@ -1,21 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeneralBoardGames
 {
-    
-
     /// <summary>
     /// Holds parameters needed for creation of a piece defined by user.
     /// </summary>
     public class DefinedPiece
     {
+        /// <summary>
+        /// List of moves of a piece, represented by integer array
+        /// </summary>
         public int[] moves;
+
+        /// <summary>
+        /// Evaluation for minimax algorithm
+        /// </summary>
         public int Value;
+
+        /// <summary>
+        /// True when the piece is on white/bottom side
+        /// </summary>
         public bool isWhite;
+
+        /// <summary>
+        /// Piece's name
+        /// </summary>
         public string Name;
     }
 
@@ -31,25 +41,55 @@ namespace GeneralBoardGames
         /// </summary>
         public static List<DefinedPiece> DefinedPieces;
 
+        /// <summary>
+        /// From a field given by coordinates, generate new moves for its piece
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="chessboard"></param>
         public virtual void GenerateMoves(int x, int y, Pieces[,] chessboard)
         {
 
         }
 
+        /// <summary>
+        /// For a king in castling, true when king was moves
+        /// </summary>
         public virtual bool Moved { get; set; } = false;
 
+        /// <summary>
+        /// True when a piece is white/belongs to the bottom side
+        /// </summary>
         public bool isWhite;
 
+        /// <summary>
+        /// Evaluation for minimax algorithm
+        /// </summary>
         public virtual int Value { get; set; } = 0;
 
+        /// <summary>
+        /// Name of piece
+        /// </summary>
         public virtual string Name { get; protected set; }
 
+        /// <summary>
+        /// Number representation of piece
+        /// </summary>
         private int number;
+
+        /// <summary>
+        /// Get number of representation of piece
+        /// </summary>
+        /// <returns></returns>
         public int GetNumber()
         {
             return number;
         }
 
+        /// <summary>
+        /// Set number of piece
+        /// </summary>
+        /// <param name="value"></param>
         public void SetNumber(int value)
         {
             number = value;

@@ -103,7 +103,11 @@ namespace GeneralBoardGames
             SetGamePropertiesPanel.Visible = true;
         }
 
-
+        /// <summary>
+        /// Method is called after GameParametersButton is clicked, sets type of game and handles possible errors.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GameParametersButton_Click(object sender, EventArgs e)
         {
             switch (UpperEndgameComboBox.Text)

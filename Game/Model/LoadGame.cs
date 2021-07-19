@@ -3,21 +3,48 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace GeneralBoardGames
 {
+    /// <summary>
+    /// Object of new piece in loaded game.
+    /// </summary>
     public class NewPiece
     {
+        /// <summary>
+        /// Name of the new piece
+        /// </summary>
         public string name;
+
+        /// <summary>
+        /// Which side the piece is assigned to
+        /// </summary>
         public string side;
+
+        /// <summary>
+        /// Filepath to the image of piece.
+        /// </summary>
         public string file;
 
+        /// <summary>
+        /// Filepath to the image of piece on upper side
+        /// </summary>
         public string upperPieceFile;
+
+        /// <summary>
+        /// Filepath to the image of piece on the bottom side
+        /// </summary>
         public string bottomPieceFile;
 
+        /// <summary>
+        /// Array with moves, represented by numbers
+        /// </summary>
         public object[] moves;
+
+        /// <summary>
+        /// Evaluation of a figure for minimax algorithm
+        /// </summary>
         public int weight;
     }
 
@@ -27,22 +54,57 @@ namespace GeneralBoardGames
     /// </summary>
     public class CustomGame
     {
+        /// <summary>
+        /// Board with pieces for custom game
+        /// </summary>
         public object[,] Board;
+
+        /// <summary>
+        /// List of newly defined pieces
+        /// </summary>
         public List<NewPiece> Pieces;
 
+        /// <summary>
+        /// On how many rows from the end of the board should a figure be promoted
+        /// </summary>
         public int promotionZone = -1;
 
+        /// <summary>
+        /// Global gametype, affecting end of game and special actions you can make during the game
+        /// </summary>
         public string gameType;
 
+        /// <summary>
+        /// Special actions for white side
+        /// </summary>
         public string whitePlayType;
+
+        /// <summary>
+        /// Special actions for black side
+        /// </summary>
         public string blackPlayType;
 
+        /// <summary>
+        /// End of game for white side
+        /// </summary>
         public string whiteEndGameType;
+
+        /// <summary>
+        /// End of game for black side
+        /// </summary>
         public string blackEndGameType;
     }
 
+    /// <summary>
+    /// Class for loading games from JSON file. 
+    /// </summary>
     public class LoadGame
     {
+        /// <summary>
+        /// Gets path to file, creates a new game which has a description in a file. In case of faulty file, throws an exception with message.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public CustomGame GetGame(string file)
         {
             CustomGame customGame;
@@ -251,6 +313,9 @@ namespace GeneralBoardGames
             return piece.moves.Length * 3;
         }
 
+        /// <summary>
+        /// Checks whether there are enough pieces on board to play the game.
+        /// </summary>
         public void CheckGameRules()
         {
             bool isWhite = false;
@@ -337,6 +402,10 @@ namespace GeneralBoardGames
 
         }
 
+        /// <summary>
+        /// Correctly reads game type from loaded game.
+        /// </summary>
+        /// <param name="customGame"></param>
         public void GetGameType(CustomGame customGame)
         {
             switch (customGame.whiteEndGameType)
@@ -405,13 +474,10 @@ namespace GeneralBoardGames
                     throw new Exception("Typ hry (chess, shogi, checkers) u černé strany není validní.");
             }
         }
-
-
     }
 
     public partial class MainGameWindow : Form
     {
-
         /// <summary>
         /// Loading custom game from JSON file.
         /// </summary>
@@ -432,6 +498,11 @@ namespace GeneralBoardGames
 
         }
 
+        /// <summary>
+        /// Loads game from file. Adds all images to newl defined piece. In case of an exception, shows a message box with an error.
+        /// </summary>
+        /// <param name="FileName"></param>
+        /// <returns></returns>
         public bool LoadGame(string FileName)
         {
             LoadGame loadGame = new LoadGame();
@@ -482,9 +553,6 @@ namespace GeneralBoardGames
 
             return true;
         }
-
-
-
     }
 
 }

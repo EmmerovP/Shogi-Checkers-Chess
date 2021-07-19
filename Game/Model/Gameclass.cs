@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GeneralBoardGames
+﻿namespace GeneralBoardGames
 {
     public class Gameclass
     {

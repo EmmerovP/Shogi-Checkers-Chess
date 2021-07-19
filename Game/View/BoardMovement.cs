@@ -363,7 +363,7 @@ namespace GeneralBoardGames
         }
 
         /// <summary>
-        /// 
+        /// Returns true when checker piece is supposed to take.
         /// </summary>
         public static bool isCheckersPieceSupposedToTake;
 

@@ -15,15 +15,24 @@
         /// </summary>
         public static int delete_y;
 
-
         /// <summary>
         /// Signalizes whether the ongoing move is castling.
         /// </summary>
         public static bool isCastling;
 
-        //coordinates needed for castling
+        /// <summary>
+        /// coordinate needed for castling
+        /// </summary>
         public static int castling_x;
+
+        /// <summary>
+        /// coordinate needed for castling
+        /// </summary>
         public static int castling_y;
+
+        /// <summary>
+        /// coordinate needed for castling
+        /// </summary>
         public static int castling_z;
 
         /// <summary>

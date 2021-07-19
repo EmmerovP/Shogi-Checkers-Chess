@@ -252,6 +252,9 @@ namespace GeneralBoardGames
             { 21, Moves.PawnTwoBackward },
         };
 
+        /// <summary>
+        /// Names of all possible moves.
+        /// </summary>
         public static Dictionary<string, int> getMoveName = new Dictionary<string, int>()
         {
             { "Dopředu", 1 },
@@ -295,7 +298,7 @@ namespace GeneralBoardGames
             { "Pěšec dva kroky dopředu", 20 },
             { "PawnTwoForward", 20 },
             { "Pěšec dva kroky dozadu", 21 },
-            { "PawnTwoBackward", 21 },
+            { "PawnTwoBackward", 21 }
         };
 
         /// <summary>
@@ -374,6 +377,11 @@ namespace GeneralBoardGames
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is white checkers piece.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static bool IsWhiteCheckersPiece(Pieces piece)
         {
             switch (piece.GetNumber())
@@ -383,6 +391,11 @@ namespace GeneralBoardGames
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is black checkers piece.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static bool IsBlackCheckersPiece(Pieces piece)
         {
             switch (piece.GetNumber())
@@ -392,6 +405,11 @@ namespace GeneralBoardGames
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is pawn.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static bool IsPawn(Pieces piece)
         {
             if (piece.GetNumber() == 5 || piece.GetNumber() == 27)
@@ -402,6 +420,11 @@ namespace GeneralBoardGames
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is bottom pawn.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static bool IsBottomPawn(Pieces piece)
         {
             if (piece.GetNumber() == 5)
@@ -412,6 +435,11 @@ namespace GeneralBoardGames
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is upper pawn.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static bool IsUpperPawn(Pieces piece)
         {
             if (piece.GetNumber() == 27)
@@ -511,6 +539,11 @@ namespace GeneralBoardGames
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is checkers queen.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static bool IsCheckersQueen(Pieces piece)
         {
             if (piece.GetNumber() == 7 || piece.GetNumber() == 29)
@@ -521,6 +554,11 @@ namespace GeneralBoardGames
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is white rook.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static bool IsWhiteRook(Pieces piece)
         {
             if (piece.GetNumber() == 2)
@@ -531,6 +569,11 @@ namespace GeneralBoardGames
             return false;
         }
 
+        /// <summary>
+        /// Returns true when given piece is black rook.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static bool IsBlackRook(Pieces piece)
         {
             if (piece.GetNumber() == 24)

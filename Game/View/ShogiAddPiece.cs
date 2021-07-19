@@ -154,7 +154,6 @@ namespace GeneralBoardGames
 
         }
 
-
         /// <summary>
         /// After clicking on a board, adds specified piece as upper piece we already have in our program in variable ShogiPiece.
         /// </summary>

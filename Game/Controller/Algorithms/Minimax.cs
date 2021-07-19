@@ -8,9 +8,14 @@ namespace GeneralBoardGames
     /// </summary>
     public class Minimax
     {
-
+        /// <summary>
+        /// Number of depth of minimax search tree.
+        /// </summary>
         public static int treeSearchDepth;
 
+        /// <summary>
+        /// True when minimax should speed up its proccess with alpha-beta pruning.
+        /// </summary>
         public static bool useAlphaBetaPruning;
 
         /// <summary>
@@ -254,6 +259,7 @@ namespace GeneralBoardGames
 
                             Generating.WhitePlays = !Generating.WhitePlays;
 
+                            //check if there is king in check
                             if (Gameclass.CurrentGame.gameType == Gameclass.GameType.chess)
                             {
                                 isCheck = Gameclass.CurrentGame.KingCheck(Board.board);

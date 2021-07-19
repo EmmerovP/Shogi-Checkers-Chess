@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeneralBoardGames
 {
@@ -12,20 +9,46 @@ namespace GeneralBoardGames
     public static class Moves
     {
 
-        //main lists used for storing generated moves coordinates for current game
+        /// <summary>
+        /// List for storing x coordinate of final field in a move
+        /// </summary>
         public static List<int> final_x = new List<int>();
+        /// <summary>
+        /// List for storing y coordinate of final field in a move
+        /// </summary>
         public static List<int> final_y = new List<int>();
 
+        /// <summary>
+        /// List for storing x coordinate of starting field in a move
+        /// </summary>
         public static List<int> start_x = new List<int>();
+
+        /// <summary>
+        /// List for storing y coordinate of starting field in a move
+        /// </summary>
         public static List<int> start_y = new List<int>();
 
-        //class for storing a copy of main moves coordinates
+        /// <summary>
+        /// Stores a copy of list of coordinates
+        /// </summary>
         public class CoordinatesCopy
         {
+            /// <summary>
+            /// Copy of list for storing x coordinate of final field in a move
+            /// </summary>
             public List<int> final_x = new List<int>();
+            /// <summary>
+            /// Copy of list for storing y coordinate of final field in a move
+            /// </summary>
             public List<int> final_y = new List<int>();
 
+            /// <summary>
+            /// Copy of list for storing x coordinate of starting field in a move
+            /// </summary>
             public List<int> start_x = new List<int>();
+            /// <summary>
+            /// Copy of list for storing y coordinate of starting field in a move
+            /// </summary>
             public List<int> start_y = new List<int>();
 
             /// <summary>

@@ -24,7 +24,8 @@ namespace GameTester
                 Game game = new Game
                 {
                     shouldChessGameEnd = 0,
-                    shouldCheckersGameEnd = 0
+                    shouldCheckersGameEnd = 0,
+                    shouldShogiGameEnd = 0
                 };
 
                 //get file with game
@@ -212,6 +213,10 @@ namespace GameTester
                     MainGameWindow.whiteShogiAIPieces = new List<Pieces>();
                     MainGameWindow.shogiAIPieces = new List<Pieces>();
 
+                    game.shouldShogiGameEnd = 0;
+                    game.shouldChessGameEnd = 0;
+                    game.shouldCheckersGameEnd = 0;
+
                     Gameclass.CurrentGame.GameEnded = false;
 
                     //create a logical board for playing
@@ -334,6 +339,11 @@ namespace GameTester
         public int shouldCheckersGameEnd;
 
         /// <summary>
+        /// Counts number of repeating moves, ends game with draw when it takes too long.
+        /// </summary>
+        public int shouldShogiGameEnd;
+
+        /// <summary>
         /// From numeric representation of board, creates logical one with Pieces
         /// </summary>
         /// <param name="chessboard"></param>
@@ -441,6 +451,19 @@ namespace GameTester
                 shouldCheckersGameEnd = 0;
             }
 
+            //for checkers, end game after 50 moves only without taken piece
+            if ((Gameclass.CurrentGame.blackGameType == Gameclass.GameType.shogi && whitePlays == false ||
+                Gameclass.CurrentGame.whiteGameType == Gameclass.GameType.shogi && whitePlays == true ||
+                Gameclass.CurrentGame.gameType == Gameclass.GameType.shogi) && (!Minimax.isAddingPiece) && (!MonteCarlo.isAddingPiece) &&
+                (Board.board[Moves.final_x[move], Moves.final_y[move]] == null))
+            {
+                shouldShogiGameEnd++;
+            }
+            else
+            {
+                shouldShogiGameEnd = 0;
+            }
+
             //whether we should add a piece to board, or move a piece
             if (Minimax.isAddingPiece || MonteCarlo.isAddingPiece)
             {
@@ -463,13 +486,7 @@ namespace GameTester
 
 
             //check if the game should end in draw
-            if (shouldChessGameEnd > 49)
-            {
-                Gameclass.CurrentGame.GameEnded = true;
-                return "Draw";
-            }
-
-            if (shouldCheckersGameEnd > 49)
+            if (shouldChessGameEnd > 49 || shouldCheckersGameEnd > 49 || shouldShogiGameEnd > 99)
             {
                 Gameclass.CurrentGame.GameEnded = true;
                 return "Draw";
