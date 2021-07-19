@@ -8,22 +8,44 @@ namespace GeneralBoardGames
 {
     public partial class MainGameWindow : Form
     {
+        /// <summary>
+        /// Path to file describing starting file for playing chess.
+        /// </summary>
         const string CHESS = "Boards\\chess.json";
 
+        /// <summary>
+        /// Path to file describing starting file for playing shogi.
+        /// </summary>
         const string SHOGI = "Boards\\shogi.json";
 
+        /// <summary>
+        /// Path to file describing starting file for playing checkers.
+        /// </summary>
         const string CHECKERS = "Boards\\checkers.json";
 
+        /// <summary>
+        /// Path to file describing starting file for playing horde chess - horde on white side.
+        /// </summary>
         const string WHITEHORDE = "Boards\\whitehorde.json";
 
+        /// <summary>
+        /// Path to file describing starting file for playing horde chess - horde on black side.
+        /// </summary>
         const string BLACKHORDE = "Boards\\blackhorde.json";
 
+        /// <summary>
+        /// Path to file describing starting file for playing crazyhouse.
+        /// </summary>
         const string CRAZYHOUSE = "Boards\\crazyhouse.json";
 
+        /// <summary>
+        /// Path to file describing starting file for playing almost chess.
+        /// </summary>
         const string ALMOSTCHESS = "Boards\\almostchess.json";
 
-        const string INTERNATIONALCHECKERS = "Boards\\internationalcheckers.json";
-
+        /// <summary>
+        /// Path to file describing starting file for playing minishogi.
+        /// </summary>
         const string MINISHOGI = "Boards\\minishogi.json";
 
         /// <summary>
@@ -82,25 +104,44 @@ namespace GeneralBoardGames
             ChooseTypeOfGame();
         }
 
+        /// <summary>
+        /// Method for selecting horde chess with white horde as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectWhiteHordeChessButton_Click(object sender, EventArgs e)
         {
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, WHITEHORDE));
             ChooseTypeOfGame();
         }
 
-
+        /// <summary>
+        /// Method for selecting horde chess with black horde as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectBlackHordeChessButton_Click(object sender, EventArgs e)
         {
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, BLACKHORDE));
             ChooseTypeOfGame();
         }
 
+        /// <summary>
+        /// Method for selecting crazyhouse as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectCrazyhouseButton_Click(object sender, EventArgs e)
         {
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, CRAZYHOUSE));
             ChooseTypeOfGame();
         }
 
+        /// <summary>
+        /// Method for selecting 960chess as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectChess960Button_Click(object sender, EventArgs e)
         {
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, CHESS));
@@ -108,6 +149,11 @@ namespace GeneralBoardGames
             ChooseTypeOfGame();
         }
 
+        /// <summary>
+        /// Method for selecting really bad chess as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectReallyBadChessButton_Click(object sender, EventArgs e)
         {
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, CHESS));
@@ -115,8 +161,12 @@ namespace GeneralBoardGames
             ChooseTypeOfGame();
         }
 
+        /// <summary>
+        /// Randomizes board for 960chess.
+        /// </summary>
         private void Randomize960Chess()
         {
+            //copy pieces into a new array
             int[] pieces = new int[baseBoard.GetLength(0)];
 
             for (int i = 0; i < pieces.Length; i++)
@@ -124,6 +174,7 @@ namespace GeneralBoardGames
                 pieces[i] = baseBoard[0, i];
             }
 
+            //while we haven't found a correct set of 960 chess
             bool isCorrect = false;
 
             while (!isCorrect)
@@ -140,6 +191,7 @@ namespace GeneralBoardGames
                     pieces[n] = value;
                 }
 
+                //check if bishops, king and rooks are in good positions
                 bool whiteBishop = false;
                 bool blackBishop = false;
 
@@ -191,7 +243,7 @@ namespace GeneralBoardGames
             }
 
 
-
+            //copy pieces to other side
             for (int i = 0; i < pieces.Length; i++)
             {
                 baseBoard[0, i] = pieces[i];
@@ -201,10 +253,14 @@ namespace GeneralBoardGames
 
         }
 
+        /// <summary>
+        /// Randomize board for really bad chess.
+        /// </summary>
         private void RandomizeChess()
         {
             Random rnd = new Random();
 
+            //put random pieces on first two rows on both sides
             for (int i = 0; i < baseBoard.GetLength(1); i++)
             {
                 baseBoard[baseBoard.GetLength(0) - 2, i] = rnd.Next(PiecesNumbers.getNumber["Bílá královna"], PiecesNumbers.getNumber["Bílý kámen"]);
@@ -214,10 +270,16 @@ namespace GeneralBoardGames
                 baseBoard[1, i] = rnd.Next(PiecesNumbers.getNumber["Černá královna"], PiecesNumbers.getNumber["Černý kámen"]);
             }
 
+            //set fixed places for king
             baseBoard[7, 4] = PiecesNumbers.getNumber["Bílý král"];
             baseBoard[0, 4] = PiecesNumbers.getNumber["Černý král"];
         }
 
+        /// <summary>
+        /// Method for selecting almost chess as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectAlmostChessButton_Click(object sender, EventArgs e)
         {
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, ALMOSTCHESS));
@@ -246,13 +308,16 @@ namespace GeneralBoardGames
             ChooseTypeOfGame();
         }
 
-
+        /// <summary>
+        /// Method for selecting minishogi as a type of game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectMinishogiButton_Click(object sender, EventArgs e)
         {
             LoadGame(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, MINISHOGI));
             ChooseTypeOfGame();
         }
-
 
         /// <summary>
         /// Method for selecting custom game, in which user selects parameters themselves.
@@ -275,6 +340,9 @@ namespace GeneralBoardGames
             HideGameButtons();
         }
 
+        /// <summary>
+        /// Hides buttons for choosing games.
+        /// </summary>
         public void HideGameButtons()
         {
             SelectChessButton.Visible = false;
@@ -316,6 +384,11 @@ namespace GeneralBoardGames
             MessageBox.Show("Tento program vznikl v rámci bakalářské práce. Cílem bylo vytvořit software, díky kterému by bylo možné hrát různé hry na šachovnici proti umělé inteligenci be nutnosti kompilace programu.", "O programu", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Shows a popup window with informations about games.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AboutGamesButton_Click(object sender, EventArgs e)
         {
             MessageBox.Show("V programu jsou již připravené následující hry:\r\n" +
@@ -351,21 +424,31 @@ namespace GeneralBoardGames
             PlayerTypePanel.Visible = false;
         }
 
+        /// <summary>
+        /// Sets type of game (singleplayer/multiplayer), in case of single player algorithms and its parameters.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OKbutton_Click(object sender, EventArgs e)
         {
+            //hide panels with multiplayer/singleplayer choice
             HidePlayerTypeButtons();
+
+            //multiplayer was selected
             if (MultiplayerRadioButton.Checked)
             {
                 Gameclass.CurrentGame.playerType = Gameclass.PlayerType.localmulti;
             }
             else
             {
+                //singleplayer was selected
                 Gameclass.CurrentGame.playerType = Gameclass.PlayerType.single;
 
                 if (MinimaxRadioButton.Checked)
                 {
                     Minimax.treeSearchDepth = Convert.ToInt32(DepthUpDown.Value);
 
+                    //check constraints
                     if (Minimax.treeSearchDepth > 5)
                     {
                         MessageBox.Show("Hloubka prohledávacího stromu minimaxu je příliš velká, hodnoty větší než 5 nejsou vhodné pro hraní.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -395,6 +478,7 @@ namespace GeneralBoardGames
 
             }
 
+            //draw board
             if (isCustom)
             {
                 DrawCustomChessboard();
@@ -629,6 +713,11 @@ namespace GeneralBoardGames
             Environment.Exit(0);
         }
 
+        /// <summary>
+        /// In case minimax is checked, hide MCTS parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MinimaxRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (MinimaxRadioButton.Checked)
@@ -642,7 +731,11 @@ namespace GeneralBoardGames
             }
         }
 
-
+        /// <summary>
+        /// In case MCTS is checked, hide minimax parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MCTSRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (MCTSRadioButton.Checked)
@@ -656,6 +749,11 @@ namespace GeneralBoardGames
             }
         }
 
+        /// <summary>
+        /// In case singleplayer is checked, hide multiplayer parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SingleplayerRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (SingleplayerRadioButton.Checked)
@@ -664,6 +762,11 @@ namespace GeneralBoardGames
             }
         }
 
+        /// <summary>
+        /// In case multiplayer is checked, hide singleplayer parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MultiplayerRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (MultiplayerRadioButton.Checked)
